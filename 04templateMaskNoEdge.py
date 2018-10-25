@@ -1,21 +1,31 @@
 import cv2
 import numpy as np
 from cvaux import cvaux
+from matplotlib import pyplot as plt
 
 
 # Bild vom Zug laden
-gray_img = cv2.imread("data/canny3.png",  cv2.IMREAD_GRAYSCALE)
+gray_img = cv2.imread("data/test3b.png",  cv2.IMREAD_GRAYSCALE)
 img = cv2.cvtColor(gray_img, cv2.COLOR_GRAY2BGR)
 
 # Objekt für Template matching laden
-template = cv2.imread("data/sktemplate2.png", cv2.IMREAD_GRAYSCALE)
+template = cv2.imread("data/template3.png", cv2.IMREAD_GRAYSCALE)
 w, h = template.shape[::-1]   # w,h und r,c sind vertauscht
 
-# Nur den besten Match behalten
-result = cv2.matchTemplate(gray_img, template, cv2.TM_CCOEFF)
+# Template Maske laden
+tmask = cv2.imread("data/template3mask.png", cv2.IMREAD_GRAYSCALE)
 
+
+# mit maske funktionert nur: method == CV_TM_SQDIFF and method == CV_TM_CCORR_NORMED
+result = cv2.matchTemplate(gray_img, template, cv2.TM_CCORR_NORMED, mask=tmask)
+
+# Nur den besten Match behalten (je nach TM ist das min oder max)
 print(result.shape)
 loc = np.where(result >= result.max())
+
+plt.subplot(121), plt.imshow(result, cmap='gray')
+plt.title('Matching Result'), plt.xticks([]), plt.yticks([])
+plt.show()
 
 
 # bounding Box mit Diagonalen zeichnen
