@@ -1,4 +1,16 @@
+# Verschiedene Hilfsfunktionen
+import scipy.io.matlab
 import numpy as np
+
+
+# Lädt ein .mat File und liefert das angegebene Struct zurück.
+# Es kann auf dem Returnobjekt direkt mit den Strukturnamen gearbeitet werden:
+# obj.CameraData1.ImageSize  etc...
+# siehe https://docs.scipy.org/doc/scipy/reference/tutorial/io.html
+def ___loadconfigmat(filename, structname='paramStruct'):
+    cfg = scipy.io.loadmat(filename, struct_as_record=False, squeeze_me=True)
+    return cfg[structname]
+
 
 
 def mixtochannel(im1, im2=None, im3=None):
