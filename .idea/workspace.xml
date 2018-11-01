@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="543fc68e-51ac-46c2-a3d3-d45e8a552486" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/05-gittermittelpunkt.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05templateGitterTest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/calibMatrix.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05templateGitterMethoden.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05templateGitterMethodenBlur.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05templateGitterMethodenMedian.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/05templateGitterSmall.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmp_reorder_Images.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cvaux/cvaux.py" beforeDir="false" afterPath="$PROJECT_DIR$/cvaux/cvaux.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,24 +61,26 @@
     <session id="-559879863">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
+          <entry key="project.closed" value="5" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.open.time.9" value="2" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="Python Console" value="14" />
-          <entry key="py" value="1667" />
+          <entry key="Python Console" value="29" />
+          <entry key="dummy" value="1" />
+          <entry key="py" value="3722" />
           <entry key="pyi" value="324" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="1681" />
+          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="Python" value="3751" />
           <entry key="PythonStub" value="324" />
         </counts>
       </usages-collector>
@@ -85,14 +88,14 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Image" value="1" />
-          <entry key="Python" value="9" />
+          <entry key="Python" value="23" />
           <entry key="PythonStub" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="png" value="1" />
-          <entry key="py" value="9" />
+          <entry key="py" value="23" />
           <entry key="pyi" value="1" />
         </counts>
       </usages-collector>
@@ -101,10 +104,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/05templateGitterTest.py">
+        <entry file="file://$PROJECT_DIR$/05templateGitterSmall.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+            <state relative-caret-position="132">
+              <caret line="9" column="61" lean-forward="true" selection-start-line="9" selection-start-column="61" selection-end-line="9" selection-end-column="61" />
             </state>
           </provider>
         </entry>
@@ -114,8 +117,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Python Stub" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -136,6 +139,11 @@
         <option value="$PROJECT_DIR$/05-gittermittelpunkt.py" />
         <option value="$PROJECT_DIR$/calibMatrix.py" />
         <option value="$PROJECT_DIR$/05templateGitterTest.py" />
+        <option value="$PROJECT_DIR$/05templateGitterMethoden.py" />
+        <option value="$PROJECT_DIR$/05templateGitterMethodenMedian.py" />
+        <option value="$PROJECT_DIR$/05templateGitterMethodenBlur.py" />
+        <option value="$PROJECT_DIR$/tmp_reorder_Images.py" />
+        <option value="$PROJECT_DIR$/05templateGitterSmall.py" />
       </list>
     </option>
   </component>
@@ -150,7 +158,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -161,17 +168,13 @@
             <path>
               <item name="p6" type="b2602c69:ProjectViewProjectNode" />
               <item name="p6" type="462c0819:PsiDirectoryNode" />
-              <item name="cvaux" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="p6" type="b2602c69:ProjectViewProjectNode" />
-              <item name="p6" type="462c0819:PsiDirectoryNode" />
               <item name="SBB" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -179,11 +182,11 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\gitstuff\p6" />
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\gitstuff\bt19" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\gitstuff\p6" />
       <recent name="C:\gitstuff\bt19" />
     </key>
   </component>
@@ -199,8 +202,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.05templateGitterTest">
-    <configuration name="01pmatchGitter" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.05templateGitterSmall">
+    <configuration name="05templateGitterMethoden" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -212,7 +215,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/01pmatchGitter.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/05templateGitterMethoden.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -221,7 +224,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="02templateSkeleton" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="05templateGitterMethodenBlur" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -233,7 +236,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/02templateSkeleton.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/05templateGitterMethodenBlur.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -242,7 +245,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="04templateMaskNoEdge" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="05templateGitterMethodenMedian" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -254,7 +257,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/04templateMaskNoEdge.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/05templateGitterMethodenMedian.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -263,7 +266,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="05-gittermittelpunkt" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="05templateGitterSmall" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -275,7 +278,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/05-gittermittelpunkt.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/05templateGitterSmall.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -284,7 +287,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="05templateGitterTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="tmp_reorder_Images" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -296,7 +299,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/05templateGitterTest.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tmp_reorder_Images.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -306,19 +309,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.01pmatchGitter" />
-      <item itemvalue="Python.02templateSkeleton" />
-      <item itemvalue="Python.04templateMaskNoEdge" />
-      <item itemvalue="Python.05-gittermittelpunkt" />
-      <item itemvalue="Python.05templateGitterTest" />
+      <item itemvalue="Python.05templateGitterMethoden" />
+      <item itemvalue="Python.05templateGitterMethodenBlur" />
+      <item itemvalue="Python.05templateGitterMethodenMedian" />
+      <item itemvalue="Python.05templateGitterSmall" />
+      <item itemvalue="Python.tmp_reorder_Images" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.05templateGitterTest" />
-        <item itemvalue="Python.04templateMaskNoEdge" />
-        <item itemvalue="Python.02templateSkeleton" />
-        <item itemvalue="Python.05-gittermittelpunkt" />
-        <item itemvalue="Python.01pmatchGitter" />
+        <item itemvalue="Python.05templateGitterSmall" />
+        <item itemvalue="Python.tmp_reorder_Images" />
+        <item itemvalue="Python.05templateGitterMethodenBlur" />
+        <item itemvalue="Python.05templateGitterMethodenMedian" />
+        <item itemvalue="Python.05templateGitterMethoden" />
       </list>
     </recent_temporary>
   </component>
@@ -339,11 +342,11 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="835" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13879709" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2333113" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32905984" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.21794872" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3974359" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -450,16 +453,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/02templateSkeleton.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/calibMatrix.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
@@ -481,16 +474,75 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="8" column="42" lean-forward="true" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/05templateGitterTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-555">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/05templateGitterMethoden.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/02templateSkeleton.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="44" selection-start-line="44" selection-end-line="50" selection-end-column="23" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/05templateGitterTest.py">
+    <entry file="file://C:/python364/Lib/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        <state relative-caret-position="132">
+          <caret line="308" selection-start-line="308" selection-end-line="308" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/05templateGitterMethodenMedian.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="15" column="23" lean-forward="true" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/05templateGitterMethodenBlur.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="61" lean-forward="true" selection-start-line="61" selection-end-line="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="13" column="12" lean-forward="true" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tmp_reorder_Images.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="10" column="50" selection-start-line="10" selection-start-column="50" selection-end-line="10" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/05templateGitterSmall.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="9" column="61" lean-forward="true" selection-start-line="9" selection-start-column="61" selection-end-line="9" selection-end-column="61" />
         </state>
       </provider>
     </entry>
