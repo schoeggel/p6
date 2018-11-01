@@ -5,12 +5,14 @@ from matplotlib import pyplot as plt
 
 # Problem: matching result bildet statt ein Punkt-Maximum ein Ring an Maxima
 # Test: Lässt sich vielleicht lösen, wenn die Bilder geglättet werden ?
-
+# Ja, Problem lässt sich so lösen.
+# nächstes Problem: 3-OK1L wird nicht richtig erkannt. ==> lassen wir mal sein.
 
 # Bild vom Zug laden
-gray_img = cv2.imread("SBB/14L.png",  cv2.IMREAD_GRAYSCALE)
+gray_img = cv2.imread("SBB/3-OK1L.png",  cv2.IMREAD_GRAYSCALE)
 img = cv2.cvtColor(gray_img, cv2.COLOR_GRAY2BGR)
 img = cv2.Canny(img, threshold1=60, threshold2=110,)
+
 
 # Objekt für Template matching laden
 template = cv2.imread("data/05GitterLCanny1.png", cv2.IMREAD_GRAYSCALE)
@@ -71,5 +73,10 @@ roi = veri[top_left[1]-s:bottom_right[1]+s,top_left[0]-s:bottom_right[0]+s]
 cv2.namedWindow('verification', cv2.WINDOW_NORMAL)
 cv2.imshow('verification', roi)
 # cv2.resizeWindow('image', int(w/1.5), int(h/1.5))
+
+cv2.namedWindow('src', cv2.WINDOW_NORMAL)
+cv2.imshow('src', img)
+cv2.resizeWindow('src', int(w/1.5), int(h/1.5))
+
 cv2.waitKey(0)
 cv2.destroyAllWindows()
