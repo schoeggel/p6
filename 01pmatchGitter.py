@@ -3,7 +3,7 @@ import numpy as np
 
 
 
-gray_img = cv2.imread("data/13L.png",  cv2.IMREAD_GRAYSCALE)
+gray_img = cv2.imread("sbb/13L.png",  cv2.IMREAD_GRAYSCALE)
 img = cv2.cvtColor(gray_img, cv2.COLOR_GRAY2BGR)
 
 template = cv2.imread("data/pattern-g1.png", cv2.IMREAD_GRAYSCALE)
