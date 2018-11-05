@@ -16,17 +16,17 @@ from tqdm import tqdm
 
 # Bild vom Zug laden
 gray_img = cv2.imread("data/NurGitterL.png",  cv2.IMREAD_GRAYSCALE)
-gray_img = cv2.imread("sbb/15L.png",  cv2.IMREAD_GRAYSCALE)
+gray_img = cv2.imread("sbb/4-OK1L.png",  cv2.IMREAD_GRAYSCALE)
 # gray_img = cv2.imread("data/testDoG1.png",  cv2.IMREAD_GRAYSCALE)
 img = cv2.cvtColor(gray_img, cv2.COLOR_GRAY2BGR)
 
 
 # Perspektivische Korrektur
 rows, cols, ch = img.shape
-pts1 = np.float32([[377,353], [2177,0], [1697,3000], [3829, 2453]])
-pts2 = np.float32([[0, 0], [2958, 0], [0, 2017], [2958, 2017]])
+pts1 = np.float32([[377, 353], [2177,0], [1697, 3000], [3829, 2453]])
+pts2 = np.float32([[0, 0], [2017, 0], [0, 2958], [2017,2958]])
 M = cv2.getPerspectiveTransform(pts1, pts2)
-img = cv2.warpPerspective(img, M, (2958, 2017))
+img = cv2.warpPerspective(img, M, (2017, 2958))
 plt.subplot(121), plt.imshow(gray_img), plt.title('Input')
 plt.subplot(122), plt.imshow(img), plt.title('Output')
 
@@ -61,13 +61,17 @@ plt.figure(2)
 plt.plot(test)
 
 # glätten
-k = cv2.getGaussianKernel(999, 70)
+k = cv2.getGaussianKernel(1331, 333)
 test2 = cv2.filter2D(test, -1, k)
+gitterposy = test2.argmax()
+print(gitterposy)
+
 
 plt.plot(test2)
 plt.show()
 
-
+img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
+img = cv2.circle(img, (1010, gitterposy), 15, (255, 0, 255), -1)
 cv2.namedWindow('DoG', cv2.WINDOW_NORMAL)
 cv2.imshow("DoG", img)
 cv2.waitKey(0)
