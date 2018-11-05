@@ -2,9 +2,13 @@
   <dictionary name="Joël">
     <words>
       <w>akaze</w>
+      <w>culumline</w>
       <w>flann</w>
       <w>homography</w>
       <w>tmask</w>
+      <w>xtdist</w>
+      <w>ydelta</w>
+      <w>zcount</w>
     </words>
   </dictionary>
 </component>

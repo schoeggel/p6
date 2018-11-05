@@ -2,27 +2,55 @@ import cv2
 import numpy as np
 from cvaux import cvaux
 from matplotlib import pyplot as plt
+from tqdm import tqdm
 
 # Als template wir eine binäre Ellipse verwendet
 # das sbb-Bild wird so verarbeitet:
-#     1. möglichst nur die kanten des runden Gitters angezeigt werden.
-#     2. versucht wird, die kontur zu schliessen
-#     3. Kontur füllen
-#     4. template matchen
+#     1. möglichst nur die kanten des runden Gitters angezeigt werden: DoG Filter
+#     2. Maskieren: nur der Diagonale Streifen, auf dem des Gitter erwartet wird verwenden
+#     3. In der Diagonalen summieren
+#     4. Glätten mit der richtigen Grösse, damit das Gitter zu EINEM Peak wird
+#
+#   Funktioniert grundsätzlich aber langsam. Sauberer wäre eine eprspektivische korrektur
 
-# Abgebrochen !!!
+
+cv2.namedWindow('debug', cv2.WINDOW_NORMAL)
+
+
+def culumline(image, m=0, xtdist=-1):
+    zcount = image[image > 128].sum()
+    hh, ww = img.shape
+    f'ww: {ww}'
+    f'hh: {hh}'
+    i = image.copy()
+    if xtdist < 0:
+        xtdist = hh // 4
+    hits = np.zeros(hh + xtdist)
+    ydelta = int(m * ww)
+
+    for y1 in tqdm(range(0, hh + xtdist, 30)):
+        y2 = y1 + ydelta
+        i = cv2.line(i, (0, y1), (ww, y2), 0, 32)
+        count = i[i > 128].sum()
+        hits[y1] = zcount - count
+        zcount = count
+        #cv2.imshow("debug", i)
+        #cv2.waitKey(1)
+
+    return hits
+
 
 
 # Bild vom Zug laden
 gray_img = cv2.imread("data/NurGitterL.png",  cv2.IMREAD_GRAYSCALE)
-gray_img = cv2.imread("sbb/4-OK1L.png",  cv2.IMREAD_GRAYSCALE)
+gray_img = cv2.imread("sbb/3-OK1L.png",  cv2.IMREAD_GRAYSCALE)
 # gray_img = cv2.imread("data/testDoG1.png",  cv2.IMREAD_GRAYSCALE)
 img = cv2.cvtColor(gray_img, cv2.COLOR_GRAY2BGR)
 
 # Vorverarbeitung, nur interessante Frequenzen behalten (8 pixel breite gitter)
 # DoG: Difference of Gauss
-filterband = 13
-filterpoint = 36
+filterband = 12
+filterpoint = 34
 g1 = cv2.getGaussianKernel(49, filterpoint + 0.5*filterband)
 g2 = cv2.getGaussianKernel(49, filterpoint - 0.5*filterband)
 g3 = (g1-g2)*10
@@ -32,15 +60,31 @@ img = cv2.equalizeHist(img)
 
 #threshold
 old = img
-th, img = cv2.threshold(img, 180, 255, cv2.THRESH_BINARY)
-
-# dilate
-kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (5, 5))
-img = cv2.erode(img, kernel, iterations=2)
-img = cv2.dilate(img, kernel, iterations=5)
+th, img = cv2.threshold(img, 220, 255, cv2.THRESH_BINARY)
 
 
-#Grösstes partikel
+# nur diagonale verwenden
+tri1 = np.array([[[0, 0], [0, 3000], [1600, 3000], [280, 0]]], dtype=np.int32)
+tri2 = np.array([[[2200, 0], [4096, 2850], [4096, 0]]], dtype=np.int32)
+img = cv2.fillPoly(img, tri1, 0)
+img = cv2.fillPoly(img, tri2, 0)
+
+
+test = culumline(img, m=-0.23)
+plt.plot(test)
+
+
+#cumuline glätten
+k = cv2.getGaussianKernel(999, 100)
+test2 = cv2.filter2D(test, -1, k)
+
+plt.plot(test2*32)
+
+
+plt.show()
+
+
+
 
 
 
@@ -121,45 +165,3 @@ cv2.waitKey(0)
 cv2.destroyAllWindows()
 
 
-# Quelle für select_largest_obj:
-# https://github.com/lishen/dream2016_dm/blob/master/dm_preprocess.py
-def select_largest_obj(self, img_bin, lab_val=255, fill_holes=False,
-                       smooth_boundary=False, kernel_size=15):
-    '''Select the largest object from a binary image and optionally
-    fill holes inside it and smooth its boundary.
-    Args:
-        img_bin (2D array): 2D numpy array of binary image.
-        lab_val ([int]): integer value used for the label of the largest
-                object. Default is 255.
-        fill_holes ([boolean]): whether fill the holes inside the largest
-                object or not. Default is false.
-        smooth_boundary ([boolean]): whether smooth the boundary of the
-                largest object using morphological opening or not. Default
-                is false.
-        kernel_size ([int]): the size of the kernel used for morphological
-                operation. Default is 15.
-    Returns:
-        a binary image as a mask for the largest object.
-    '''
-    n_labels, img_labeled, lab_stats, _ = \
-        cv2.connectedComponentsWithStats(img_bin, connectivity=8,
-                                         ltype=cv2.CV_32S)
-    largest_obj_lab = np.argmax(lab_stats[1:, 4]) + 1
-    largest_mask = np.zeros(img_bin.shape, dtype=np.uint8)
-    largest_mask[img_labeled == largest_obj_lab] = lab_val
-    # import pdb; pdb.set_trace()
-    if fill_holes:
-        bkg_locs = np.where(img_labeled == 0)
-        bkg_seed = (bkg_locs[0][0], bkg_locs[1][0])
-        img_floodfill = largest_mask.copy()
-        h_, w_ = largest_mask.shape
-        mask_ = np.zeros((h_ + 2, w_ + 2), dtype=np.uint8)
-        cv2.floodFill(img_floodfill, mask_, seedPoint=bkg_seed,
-                      newVal=lab_val)
-        holes_mask = cv2.bitwise_not(img_floodfill)  # mask of the holes.
-        largest_mask = largest_mask + holes_mask
-    if smooth_boundary:
-        kernel_ = np.ones((kernel_size, kernel_size), dtype=np.uint8)
-        largest_mask = cv2.morphologyEx(largest_mask, cv2.MORPH_OPEN,
-                                        kernel_)
-    return largest_mask
