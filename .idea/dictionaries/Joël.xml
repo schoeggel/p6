@@ -2,9 +2,13 @@
   <dictionary name="Joël">
     <words>
       <w>akaze</w>
+      <w>calib</w>
       <w>culumline</w>
       <w>flann</w>
+      <w>gitterposy</w>
       <w>homography</w>
+      <w>loadconfig</w>
+      <w>newcameramtx</w>
       <w>tmask</w>
       <w>xtdist</w>
       <w>ydelta</w>

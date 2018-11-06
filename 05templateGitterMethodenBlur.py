@@ -1,6 +1,4 @@
 import cv2
-import numpy as np
-from cvaux import cvaux
 from matplotlib import pyplot as plt
 
 # Problem: matching result bildet statt ein Punkt-Maximum ein Ring an Maxima

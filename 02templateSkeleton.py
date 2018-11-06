@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
-from cvaux import cvaux
-
+import cvaux
 
 # Bild vom Zug laden
 gray_img = cv2.imread("data/canny3.png",  cv2.IMREAD_GRAYSCALE)
