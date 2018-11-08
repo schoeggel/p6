@@ -4,12 +4,20 @@
       <w>akaze</w>
       <w>calib</w>
       <w>culumline</w>
+      <w>dogband</w>
       <w>flann</w>
+      <w>fpoint</w>
       <w>gitterposy</w>
+      <w>grösse</w>
       <w>homography</w>
+      <w>imshow</w>
+      <w>imwrite</w>
+      <w>kalibrier</w>
       <w>loadconfig</w>
       <w>newcameramtx</w>
+      <w>ptdist</w>
       <w>tmask</w>
+      <w>undistort</w>
       <w>xtdist</w>
       <w>ydelta</w>
       <w>zcount</w>
