@@ -21,7 +21,7 @@ img = cv2.cvtColor(gray_img, cv2.COLOR_GRAY2BGR)
 # w, h = template.shape[::-1]   # w,h und r,c sind vertauscht
 
 #
-# result = cv2.matchTemplate(gray_img, template, cv2.TM_CCOEFF_NORMED)
+# result = cv2.matchTemplate(sbb_gray, template, cv2.TM_CCOEFF_NORMED)
 # loc = np.where(result >= result.max())
 #
 #

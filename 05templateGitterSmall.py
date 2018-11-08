@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 # Funktioniert dann aber nicht bei allen Bildern, bspw den neuen von Jan nicht.
 
 # Bild vom Zug laden
-# gray_img = cv2.imread("SBB/13L.png",  cv2.IMREAD_GRAYSCALE)
+# sbb_gray = cv2.imread("SBB/13L.png",  cv2.IMREAD_GRAYSCALE)
 gray_img = cv2.imread("SBB/4-OK1L.png",  cv2.IMREAD_GRAYSCALE)
 img = cv2.cvtColor(gray_img, cv2.COLOR_GRAY2BGR)
 img = cv2.Canny(img, threshold1=60, threshold2=110,)

@@ -43,7 +43,7 @@ def culumline(image, m=0, xtdist=-1):
 # Bild vom Zug laden
 gray_img = cv2.imread("data/NurGitterL.png",  cv2.IMREAD_GRAYSCALE)
 gray_img = cv2.imread("sbb/3-OK1L.png",  cv2.IMREAD_GRAYSCALE)
-# gray_img = cv2.imread("data/testDoG1.png",  cv2.IMREAD_GRAYSCALE)
+# sbb_gray = cv2.imread("data/testDoG1.png",  cv2.IMREAD_GRAYSCALE)
 img = cv2.cvtColor(gray_img, cv2.COLOR_GRAY2BGR)
 
 # Vorverarbeitung, nur interessante Frequenzen behalten (8 pixel breite gitter)

@@ -5,9 +5,12 @@
       <w>calib</w>
       <w>culumline</w>
       <w>dogband</w>
+      <w>eckpunkten</w>
       <w>flann</w>
       <w>fpoint</w>
+      <w>gittermittelpunkt</w>
       <w>gitterposy</w>
+      <w>gitterstrukturen</w>
       <w>grösse</w>
       <w>homography</w>
       <w>imshow</w>
@@ -15,12 +18,18 @@
       <w>kalibrier</w>
       <w>loadconfig</w>
       <w>newcameramtx</w>
+      <w>ofsx</w>
+      <w>ofsy</w>
+      <w>opencv</w>
+      <w>originalbild</w>
       <w>ptdist</w>
       <w>tmask</w>
       <w>undistort</w>
+      <w>vogelperspektive</w>
       <w>xtdist</w>
       <w>ydelta</w>
       <w>zcount</w>
+      <w>zielbild</w>
     </words>
   </dictionary>
 </component>
