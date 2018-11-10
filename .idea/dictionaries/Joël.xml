@@ -3,12 +3,15 @@
     <words>
       <w>akaze</w>
       <w>calib</w>
+      <w>calibmtx</w>
       <w>culumline</w>
       <w>dogband</w>
+      <w>dpoints</w>
       <w>eckpunkten</w>
       <w>flann</w>
       <w>fpoint</w>
       <w>gittermittelpunkt</w>
+      <w>gitterpos</w>
       <w>gitterposy</w>
       <w>gitterstrukturen</w>
       <w>grösse</w>
