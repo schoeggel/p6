@@ -2,11 +2,14 @@
   <dictionary name="Joël">
     <words>
       <w>akaze</w>
+      <w>bildkoordinate</w>
       <w>calib</w>
       <w>calibmtx</w>
+      <w>centerx</w>
       <w>culumline</w>
       <w>dogband</w>
       <w>dpoints</w>
+      <w>eckpunkte</w>
       <w>eckpunkten</w>
       <w>flann</w>
       <w>fpoint</w>
@@ -25,6 +28,7 @@
       <w>ofsy</w>
       <w>opencv</w>
       <w>originalbild</w>
+      <w>pointsl</w>
       <w>ptdist</w>
       <w>tmask</w>
       <w>undistort</w>
