@@ -47,7 +47,7 @@ if __name__ == '__main__':
         img = cv2.drawMarker(img, center, (255, 0, 255), cv2.MARKER_CROSS, 100, 5)
         img = cv2.drawMarker(img, (pt[i][0], pt[i][1]), (0, 255, 255), cv2.MARKER_CROSS, 100, 5)
 
-    cv2.namedWindow('test', cv2.WINDOW_NORMAL)
-    cv2.imshow("test", img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.namedWindow('test', cv2.WINDOW_NORMAL)
+    # cv2.imshow("test", img)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
