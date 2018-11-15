@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/11Exaktgitter1.py" line="20" mnemonic="1" />
-    <bookmark url="file://$PROJECT_DIR$/11Exaktgitter1.py" line="163" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py" line="156" mnemonic="1" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="543fc68e-51ac-46c2-a3d3-d45e8a552486" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/11Exaktgitter1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Joël.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Joël.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GitterEckpunkte.py" beforeDir="false" afterPath="$PROJECT_DIR$/GitterEckpunkte.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,27 +60,27 @@
     <session id="-559879863">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="14" />
+          <entry key="project.closed" value="16" />
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.12" value="4" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.8" value="4" />
-          <entry key="project.open.time.9" value="4" />
-          <entry key="project.opened" value="15" />
+          <entry key="project.open.time.9" value="5" />
+          <entry key="project.opened" value="16" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Python Console" value="1408" />
-          <entry key="dummy" value="11" />
-          <entry key="py" value="18042" />
+          <entry key="dummy" value="53" />
+          <entry key="py" value="18583" />
           <entry key="pyi" value="324" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="11" />
-          <entry key="Python" value="19450" />
+          <entry key="PLAIN_TEXT" value="53" />
+          <entry key="Python" value="19991" />
           <entry key="PythonStub" value="324" />
         </counts>
       </usages-collector>
@@ -92,7 +89,7 @@
         <counts>
           <entry key="Image" value="5" />
           <entry key="PLAIN_TEXT" value="4" />
-          <entry key="Python" value="85" />
+          <entry key="Python" value="89" />
           <entry key="PythonStub" value="1" />
         </counts>
       </usages-collector>
@@ -100,7 +97,7 @@
         <counts>
           <entry key="asc" value="4" />
           <entry key="png" value="5" />
-          <entry key="py" value="85" />
+          <entry key="py" value="89" />
           <entry key="pyi" value="1" />
         </counts>
       </usages-collector>
@@ -109,13 +106,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/11Exaktgitter1.py">
+        <entry file="file://$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="212" lean-forward="true" selection-start-line="212" selection-end-line="212" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="147">
+              <caret line="160" column="26" lean-forward="true" selection-start-line="160" selection-start-column="26" selection-end-line="160" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -174,7 +168,9 @@
         <option value="$PROJECT_DIR$/10triangulation1.py" />
         <option value="$PROJECT_DIR$/10triangulation2.py" />
         <option value="$PROJECT_DIR$/GitterEckpunkte.py" />
+        <option value="$PROJECT_DIR$/12Exaktgitter-schraubenRef.py" />
         <option value="$PROJECT_DIR$/11Exaktgitter1.py" />
+        <option value="$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py" />
       </list>
     </option>
   </component>
@@ -209,11 +205,11 @@
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\gitstuff\p6" />
       <recent name="C:\gitstuff\bt19" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\gitstuff\p6" />
       <recent name="C:\gitstuff\bt19" />
     </key>
@@ -230,49 +226,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.11Exaktgitter1">
-    <configuration name="09GitterLR1" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="bt19" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/09GitterLR1.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="10triangulation1" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="bt19" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/10triangulation1.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.13-Referenz-ExportWarpedTemplate">
     <configuration name="10triangulation2" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -315,6 +269,48 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="12Exaktgitter-schraubenRef" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="bt19" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\gitstuff\p6\13-Referenz-ExportWarpedTemplate.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="13-Referenz-ExportWarpedTemplate" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="bt19" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="GitterEckpunkte" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -337,19 +333,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.09GitterLR1" />
-      <item itemvalue="Python.10triangulation1" />
       <item itemvalue="Python.10triangulation2" />
       <item itemvalue="Python.GitterEckpunkte" />
       <item itemvalue="Python.11Exaktgitter1" />
+      <item itemvalue="Python.12Exaktgitter-schraubenRef" />
+      <item itemvalue="Python.13-Referenz-ExportWarpedTemplate" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.13-Referenz-ExportWarpedTemplate" />
+        <item itemvalue="Python.12Exaktgitter-schraubenRef" />
         <item itemvalue="Python.11Exaktgitter1" />
         <item itemvalue="Python.GitterEckpunkte" />
         <item itemvalue="Python.10triangulation2" />
-        <item itemvalue="Python.10triangulation1" />
-        <item itemvalue="Python.09GitterLR1" />
       </list>
     </recent_temporary>
   </component>
@@ -378,14 +374,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="835" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24719101" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32621083" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4990086" visible="true" weight="0.23504274" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4990086" weight="0.23504274" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49966952" weight="0.25498575" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -676,11 +671,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
           <caret line="28" selection-start-line="28" selection-end-line="28" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-            <marker date="1542285684203" expanded="true" signature="72:73" ph="..." />
-            <marker date="1542285684203" expanded="true" signature="72:77" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -703,11 +693,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/11Exaktgitter1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="212" lean-forward="true" selection-start-line="212" selection-end-line="212" />
+        <state relative-caret-position="163">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="160" column="26" lean-forward="true" selection-start-line="160" selection-start-column="26" selection-end-line="160" selection-end-column="26" />
         </state>
       </provider>
     </entry>
