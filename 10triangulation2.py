@@ -17,11 +17,11 @@ SWITCH_VERBOSE = False
 
 
 # Bild vom Zug laden
-sbbL_gray = cv2.imread("sbb/16L.png", cv2.IMREAD_GRAYSCALE)
+sbbL_gray = cv2.imread("sbb/13L.png", cv2.IMREAD_GRAYSCALE)
 sbbL_rgb = cv2.cvtColor(sbbL_gray, cv2.COLOR_GRAY2BGR)
 imgL = sbbL_gray.copy()
 
-sbbR_gray = cv2.imread("sbb/16R.png", cv2.IMREAD_GRAYSCALE)
+sbbR_gray = cv2.imread("sbb/13R.png", cv2.IMREAD_GRAYSCALE)
 sbbR_rgb = cv2.cvtColor(sbbR_gray, cv2.COLOR_GRAY2BGR)
 imgR = sbbR_gray.copy()
 
@@ -140,6 +140,7 @@ cv2.imshow("DoG Right", imgR)
 gitterL = np.array([[[canvas[0] / 2, gitterposL]]], dtype=np.float32)
 gitterL = cv2.perspectiveTransform(gitterL, ML_inv)
 print(gitterL)
+print(gitterL.shape)
 
 gitterR = np.array([[[canvas[0] / 2, gitterposR]]], dtype=np.float32)
 gitterR = cv2.perspectiveTransform(gitterR, MR_inv)

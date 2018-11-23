@@ -8,12 +8,14 @@ from GitterEckpunkte import eckpunkte
 # bspw. nur kanten vom dachausschnitt sichtbar lassen
 # für template matching.
 
+# Problem : 3d koordinaten stimmen noch nicht ganz ??
+
 SWITCH_UNDISTORT = True  # kamera korrektur nicht ausführen --> schneller
 SWITCH_VERBOSE = False
 
 # Bild vom Zug laden
-sbbL_gray = cv2.imread("sbb/4-OK1L.png", cv2.IMREAD_GRAYSCALE)
-sbbR_gray = cv2.imread("sbb/16R.png", cv2.IMREAD_GRAYSCALE)
+sbbL_gray = cv2.imread("sbb/13L.png", cv2.IMREAD_GRAYSCALE)
+sbbR_gray = cv2.imread("sbb/13R.png", cv2.IMREAD_GRAYSCALE)
 
 # Die Gitter Templates für die Groblokalisierung werden immer vom Bild 13 geladen
 templateL_gray = cv2.imread("sbb/13L.png", cv2.IMREAD_GRAYSCALE)
@@ -49,6 +51,22 @@ templateR = cv2.cvtColor(templateR_gray, cv2.COLOR_GRAY2BGR)
 # bessere Messung mit Hilfe der 4 Schrauben des Gitters
 pts1L = np.float32([[1110, 1111], [2376, 814], [1529, 1881], [2850, 1557]])
 pts1R = np.float32([[1715, 820], [3010, 1004], [1357, 1591], [2712, 1795]])
+
+
+
+#Kontrolle der Punkte
+colorcube = [(217, 39, 240), (240, 230, 39), (62, 240, 39), (240, 39, 62)]
+for i in range(0, 4):
+    checkL = cv2.drawMarker(sbbL_rgb, (pts1L[i][0], pts1L[i][1]), colorcube[i], cv2.MARKER_CROSS, 100, 10)
+    checkR = cv2.drawMarker(sbbR_rgb, (pts1R[i][0], pts1R[i][1]), colorcube[i], cv2.MARKER_CROSS, 100, 10)
+
+
+cv2.namedWindow("checkL", cv2.WINDOW_NORMAL)
+cv2.namedWindow("checkR", cv2.WINDOW_NORMAL)
+cv2.imshow("checkL", checkL)
+cv2.imshow("checkR", checkR)
+cv2.waitKey(0)
+
 
 # Die Leinwand für das transformierte Bild wird so gross
 canvas = (1500, 4000)
@@ -201,6 +219,26 @@ ML = cv2.getPerspectiveTransform(pts1L, pts2L)
 ML_inv = np.linalg.inv(ML)
 matchL = cv2.warpPerspective(sbbL_rgb, ML, canvas, borderMode=cv2.BORDER_TRANSPARENT)
 
+
+# TRIANGULATION DER ECKPUNKTE UND DES GITTERMITTELPUNKT 3-D
+# Punkte müssen im 2xN Format sein und float: l = np.array([[ 304],[ 277]], dtype=np.float)
+# https://stackoverflow.com/questions/46163831/output-3d-points-change-everytime-in-triangulatepoints-using-in-python-2-7-with
+# in "10triangulation2.py" funktioniert es hingegen mit shape (1, 1, 2) :
+# pts = [[[1460.8145   475.48917]]]
+pts1L = np.array([pts1L])
+pts1R = np.array([pts1R])
+
+pt3d = cv2.triangulatePoints(cal.pl, cal.pr, pts1L, pts1R)
+print("Triangulation 3d pt:", pt3d)
+fn = "tmp/3dpoints-Ecken"
+pt3d = pt3d[:-1] / pt3d[-1]  # https://pythonpath.wordpress.com/import-cv2/
+# pt3d = pt3d / np.max(pt3d)
+np.save(fn + ".npy", pt3d.T)
+np.savetxt(fn + ".asc", pt3d.T, "%10.8f")
+
+
+
+
 # Template matching
 # templateL = cv2.Canny(templateL, threshold1=50, threshold2=90)
 # matchL = cv2.Canny(matchL, threshold1=50, threshold2=90)
@@ -238,3 +276,9 @@ cv2.imshow("sbb R", sbbR)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
+# Mittelpunkt
+print("Gittermittpunkt L)")
+print(gitterL)
+print("\nGittermittpunkt R)")
+print(gitterR)

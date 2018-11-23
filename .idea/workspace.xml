@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py" line="156" mnemonic="1" />
+    <bookmark url="file://$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py" line="56" mnemonic="1" />
+    <bookmark url="file://$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py" line="227" mnemonic="2" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="543fc68e-51ac-46c2-a3d3-d45e8a552486" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Joël.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Joël.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/10triangulation2.py" beforeDir="false" afterPath="$PROJECT_DIR$/10triangulation2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py" beforeDir="false" afterPath="$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/3dpoints002.asc" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/3dpoints002.asc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/3dpoints002.npy" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/3dpoints002.npy" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,27 +65,27 @@
     <session id="-559879863">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="16" />
-          <entry key="project.open.time.10" value="2" />
+          <entry key="project.closed" value="19" />
+          <entry key="project.open.time.10" value="3" />
           <entry key="project.open.time.12" value="4" />
           <entry key="project.open.time.5" value="1" />
-          <entry key="project.open.time.8" value="4" />
+          <entry key="project.open.time.8" value="6" />
           <entry key="project.open.time.9" value="5" />
-          <entry key="project.opened" value="16" />
+          <entry key="project.opened" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="Python Console" value="1408" />
+          <entry key="Python Console" value="1585" />
           <entry key="dummy" value="53" />
-          <entry key="py" value="18583" />
+          <entry key="py" value="19233" />
           <entry key="pyi" value="324" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="53" />
-          <entry key="Python" value="19991" />
+          <entry key="Python" value="20818" />
           <entry key="PythonStub" value="324" />
         </counts>
       </usages-collector>
@@ -88,16 +93,16 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Image" value="5" />
-          <entry key="PLAIN_TEXT" value="4" />
-          <entry key="Python" value="89" />
+          <entry key="PLAIN_TEXT" value="7" />
+          <entry key="Python" value="98" />
           <entry key="PythonStub" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="asc" value="4" />
+          <entry key="asc" value="7" />
           <entry key="png" value="5" />
-          <entry key="py" value="89" />
+          <entry key="py" value="98" />
           <entry key="pyi" value="1" />
         </counts>
       </usages-collector>
@@ -108,8 +113,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="160" column="26" lean-forward="true" selection-start-line="160" selection-start-column="26" selection-end-line="160" selection-end-column="26" />
+            <state relative-caret-position="21">
+              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
             </state>
           </provider>
         </entry>
@@ -131,6 +136,9 @@
       <find>show</find>
       <find>L</find>
       <find>GitterEckpunkte</find>
+      <find>tria</find>
+      <find>-1</find>
+      <find>marker</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -166,26 +174,23 @@
         <option value="$PROJECT_DIR$/08templateMatchPeakFreqPersp.py" />
         <option value="$PROJECT_DIR$/09GitterLR1.py" />
         <option value="$PROJECT_DIR$/10triangulation1.py" />
-        <option value="$PROJECT_DIR$/10triangulation2.py" />
         <option value="$PROJECT_DIR$/GitterEckpunkte.py" />
         <option value="$PROJECT_DIR$/12Exaktgitter-schraubenRef.py" />
         <option value="$PROJECT_DIR$/11Exaktgitter1.py" />
+        <option value="$PROJECT_DIR$/10triangulation2.py" />
         <option value="$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="105" />
-    <option name="y" value="50" />
-    <option name="width" value="1235" />
-    <option name="height" value="925" />
+    <option name="width" value="960" />
+    <option name="height" value="1027" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -193,10 +198,16 @@
               <item name="p6" type="b2602c69:ProjectViewProjectNode" />
               <item name="p6" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="p6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="p6" type="462c0819:PsiDirectoryNode" />
+              <item name="tmp" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -226,7 +237,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.13-Referenz-ExportWarpedTemplate">
+  <component name="RunManager" selected="Python.10triangulation2">
     <configuration name="10triangulation2" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -341,11 +352,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.13-Referenz-ExportWarpedTemplate" />
-        <item itemvalue="Python.12Exaktgitter-schraubenRef" />
-        <item itemvalue="Python.11Exaktgitter1" />
-        <item itemvalue="Python.GitterEckpunkte" />
         <item itemvalue="Python.10triangulation2" />
+        <item itemvalue="Python.13-Referenz-ExportWarpedTemplate" />
+        <item itemvalue="Python.11Exaktgitter1" />
+        <item itemvalue="Python.12Exaktgitter-schraubenRef" />
+        <item itemvalue="Python.GitterEckpunkte" />
       </list>
     </recent_temporary>
   </component>
@@ -375,20 +386,20 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="835" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24719101" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20356907" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32621083" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4990086" weight="0.23504274" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49966952" weight="0.25498575" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4990086" weight="0.4017094" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49966952" weight="0.48433048" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32905984" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32905984" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50033045" side_tool="true" weight="0.34472933" />
-      <window_info anchor="bottom" id="Python Console" order="10" weight="0.13390313" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.1994302" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -443,6 +454,16 @@
           <url>file://$PROJECT_DIR$/10triangulation1.py</url>
           <line>84</line>
           <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py</url>
+          <line>230</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py</url>
+          <line>59</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -653,27 +674,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tmp/3dpoints002.asc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/10triangulation2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-938">
-          <caret line="103" lean-forward="true" selection-start-line="103" selection-end-line="103" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GitterEckpunkte.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/05templateGitterTest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
@@ -693,18 +693,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/11Exaktgitter1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="321">
+          <caret line="236" lean-forward="true" selection-start-line="236" selection-end-line="236" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GitterEckpunkte.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="44" selection-start-line="44" selection-end-line="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tmp/3dpoints-Ecken.asc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tmp/3dpoints002.asc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="23" selection-start-column="23" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/10triangulation2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="147" lean-forward="true" selection-start-line="147" selection-end-line="147" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="160" column="26" lean-forward="true" selection-start-line="160" selection-start-column="26" selection-end-line="160" selection-end-column="26" />
+        <state relative-caret-position="21">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
