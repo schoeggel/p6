@@ -13,9 +13,28 @@ class CalibData:
         self.tr = self.__cal.TranslationOfCamera2
         self.kl = self.__cal.CameraParameters1.IntrinsicMatrix.transpose()
         self.kr = self.__cal.CameraParameters2.IntrinsicMatrix.transpose()
-        self.pl = numpy.dot(self.kl, numpy.column_stack((self.rl, self.tr)))
-        self.pr = numpy.dot(self.kr, numpy.column_stack((self.rr, self.tr)))
         self.drl = self.__cal.CameraParameters1.RadialDistortion   # distortion radial left
         self.drr = self.__cal.CameraParameters2.RadialDistortion   # distortion radial left
-        self.drl = numpy.append(self.drl, [0, 0])
-        self.drr = numpy.append(self.drr, [0, 0])
+        self.drl = numpy.append(self.drl, [0, 0, 0])
+        self.drr = numpy.append(self.drr, [0, 0, 0])
+        self.pl = numpy.matmul(self.kl, numpy.column_stack((self.rl, self.tl.T)))
+        self.pr = numpy.matmul(self.kr, numpy.column_stack((self.rr, self.tr.T)))
+
+
+if __name__ == '__main__':
+    c = CalibData()
+    print(c.rl)
+    print(c.tl)
+    print(c.rr)
+    print(c.tr)
+    print(c.kl)
+    print(c.kr)
+    print(c.pl)
+    print(c.pr)
+    print(c.drl)
+    print(c.drr)
+    print(c.drl)
+    print(c.drr)
+    print(c.test1)
+    print(c.p1)
+    print(c.p2)
