@@ -5,6 +5,7 @@
       <w>bildkoordinate</w>
       <w>calib</w>
       <w>calibmtx</w>
+      <w>cameracalib</w>
       <w>centerx</w>
       <w>colorcube</w>
       <w>culumline</w>
@@ -14,6 +15,7 @@
       <w>eckpunkte</w>
       <w>eckpunkten</w>
       <w>exaktere</w>
+      <w>ffile</w>
       <w>flann</w>
       <w>fpoint</w>
       <w>gittereckpunkte</w>
