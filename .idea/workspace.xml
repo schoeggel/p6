@@ -6,17 +6,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="543fc68e-51ac-46c2-a3d3-d45e8a552486" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/13-Check3dQuadrat3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/14-triangulationFehlersuche.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/14-triangulationFehlersuche1a.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/14-triangulationFehlersuche2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/14-triangulationFehlersuche4.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Joël.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Joël.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/13-Check3dQuadrat4.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/14-triangulationFehlersuche5.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/14-triangulationFehlersuche6.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/13-Check3dQuadrat3.py" beforeDir="false" afterPath="$PROJECT_DIR$/13-Check3dQuadrat3.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/calibMatrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/calibMatrix.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/3dpoints-Ecken.asc" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/3dpoints-Ecken.asc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/3dpoints-Ecken.npy" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/3dpoints-Ecken.npy" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,19 +23,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/13-Check3dQuadrat3.py">
+        <entry file="file://$PROJECT_DIR$/13-Check3dQuadrat4.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="304" lean-forward="true" selection-start-line="304" selection-end-line="304" />
+            <state relative-caret-position="139">
+              <caret line="358" column="12" lean-forward="true" selection-start-line="358" selection-start-column="12" selection-end-line="358" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/13-Check3dQuadrat2.py">
+        <entry file="file://$PROJECT_DIR$/calibMatrix.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="261" selection-start-line="261" selection-end-line="261" selection-end-column="35" />
+            <state relative-caret-position="273">
+              <caret line="23" column="52" lean-forward="true" selection-start-line="23" selection-start-column="52" selection-end-line="23" selection-end-column="52" />
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -110,13 +109,16 @@
         <option value="$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py" />
         <option value="$PROJECT_DIR$/13-Check3dQuadrat2.py" />
         <option value="$PROJECT_DIR$/13-Check3dQuadrat1.py" />
-        <option value="$PROJECT_DIR$/calibMatrix.py" />
         <option value="$PROJECT_DIR$/13-triangulationProof.py" />
         <option value="$PROJECT_DIR$/14-triangulationFehlersuche.py" />
         <option value="$PROJECT_DIR$/14-triangulationFehlersuche2.py" />
         <option value="$PROJECT_DIR$/14-triangulationFehlersuche4.py" />
         <option value="$PROJECT_DIR$/14-triangulationFehlersuche1a.py" />
         <option value="$PROJECT_DIR$/13-Check3dQuadrat3.py" />
+        <option value="$PROJECT_DIR$/14-triangulationFehlersuche5.py" />
+        <option value="$PROJECT_DIR$/14-triangulationFehlersuche6.py" />
+        <option value="$PROJECT_DIR$/13-Check3dQuadrat4.py" />
+        <option value="$PROJECT_DIR$/calibMatrix.py" />
       </list>
     </option>
   </component>
@@ -170,7 +172,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.13-Check3dQuadrat3">
+  <component name="RunManager" selected="Python.13-Check3dQuadrat4">
     <configuration name="13-Check3dQuadrat3" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -192,7 +194,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="14-triangulationFehlersuche" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="13-Check3dQuadrat4" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -204,7 +206,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/14-triangulationFehlersuche.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/13-Check3dQuadrat4.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -213,7 +215,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="14-triangulationFehlersuche1a" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="14-triangulationFehlersuche5" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -225,7 +227,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/14-triangulationFehlersuche1a.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/14-triangulationFehlersuche5.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -234,7 +236,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="14-triangulationFehlersuche2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="14-triangulationFehlersuche6" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -246,7 +248,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/14-triangulationFehlersuche2.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/14-triangulationFehlersuche6.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -255,7 +257,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="14-triangulationFehlersuche4" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="calibMatrix" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -267,7 +269,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/14-triangulationFehlersuche4.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/calibMatrix.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -277,19 +279,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.14-triangulationFehlersuche2" />
-      <item itemvalue="Python.14-triangulationFehlersuche" />
-      <item itemvalue="Python.14-triangulationFehlersuche4" />
-      <item itemvalue="Python.14-triangulationFehlersuche1a" />
       <item itemvalue="Python.13-Check3dQuadrat3" />
+      <item itemvalue="Python.14-triangulationFehlersuche5" />
+      <item itemvalue="Python.14-triangulationFehlersuche6" />
+      <item itemvalue="Python.calibMatrix" />
+      <item itemvalue="Python.13-Check3dQuadrat4" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.13-Check3dQuadrat4" />
         <item itemvalue="Python.13-Check3dQuadrat3" />
-        <item itemvalue="Python.14-triangulationFehlersuche1a" />
-        <item itemvalue="Python.14-triangulationFehlersuche4" />
-        <item itemvalue="Python.14-triangulationFehlersuche2" />
-        <item itemvalue="Python.14-triangulationFehlersuche" />
+        <item itemvalue="Python.calibMatrix" />
+        <item itemvalue="Python.14-triangulationFehlersuche6" />
+        <item itemvalue="Python.14-triangulationFehlersuche5" />
       </list>
     </recent_temporary>
   </component>
@@ -318,40 +320,41 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="835" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14144084" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14077991" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32621083" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.63053536" weight="0.2347084" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.63053536" visible="true" weight="0.13940255" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49966952" weight="0.48191592" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32905984" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32844576" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.36946464" side_tool="true" weight="0.2346041" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49966952" weight="0.24828935" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14120126" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32621083" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.63053536" visible="true" weight="0.39687195" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49966952" weight="0.48221907" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32905984" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32844576" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.36946464" side_tool="true" visible="true" weight="0.2347084" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.36946464" side_tool="true" weight="0.2346041" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49966952" weight="0.24893314" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout>
-    <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.24719101" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32632542" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49966952" visible="true" weight="0.2939815" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.32905984" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32905984" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32905984" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50033045" side_tool="true" weight="0.30769232" />
-      <window_info anchor="bottom" id="Python Console" order="10" weight="0.13390313" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -390,6 +393,10 @@
           <line>270</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/14-triangulationFehlersuche5.py</url>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
@@ -399,9 +406,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/horiken/README.md" />
-    <entry file="file://$PROJECT_DIR$/horiken/samples/ellipse_detector.py" />
-    <entry file="file://$PROJECT_DIR$/horiken/test/test_ellipse_candidate_making.py" />
     <entry file="file://$PROJECT_DIR$/venv/pyvenv.cfg">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -578,13 +582,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/05templateGitterTest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
@@ -663,20 +660,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/14-triangulationFehlersuche2.py">
+    <entry file="file://$PROJECT_DIR$/14-triangulationFehlersuche.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="42" column="17" lean-forward="true" selection-start-line="42" selection-start-column="17" selection-end-line="42" selection-end-column="17" />
+        <state relative-caret-position="672">
+          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/calibMatrix.py">
+    <entry file="file://$PROJECT_DIR$/13-Check3dQuadrat2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="28" column="15" selection-start-line="28" selection-start-column="15" selection-end-line="28" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="5355">
+          <caret line="261" selection-start-line="261" selection-end-line="261" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -687,31 +681,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/14-triangulationFehlersuche.py">
+    <entry file="file://$PROJECT_DIR$/14-triangulationFehlersuche2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+        <state relative-caret-position="506">
+          <caret line="42" column="17" lean-forward="true" selection-start-line="42" selection-start-column="17" selection-end-line="42" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/14-triangulationFehlersuche1a.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
+        <state relative-caret-position="485">
           <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/13-Check3dQuadrat2.py">
+    <entry file="file://$PROJECT_DIR$/14-triangulationFehlersuche5.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="261" selection-start-line="261" selection-end-line="261" selection-end-column="35" />
+        <state>
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/14-triangulationFehlersuche6.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-416">
+          <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/13-Check3dQuadrat3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="304" lean-forward="true" selection-start-line="304" selection-end-line="304" />
+        <state relative-caret-position="494">
+          <caret line="391" column="14" lean-forward="true" selection-start-line="391" selection-start-column="14" selection-end-line="391" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/calibMatrix.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="23" column="52" lean-forward="true" selection-start-line="23" selection-start-column="52" selection-end-line="23" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/13-Check3dQuadrat4.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="358" column="12" lean-forward="true" selection-start-line="358" selection-start-column="12" selection-end-line="358" selection-end-column="12" />
         </state>
       </provider>
     </entry>

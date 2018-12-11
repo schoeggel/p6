@@ -285,28 +285,6 @@ pts1R = np.float32([[1715, 3010, 2712, 1357, 1715],
 
 
 
-# im format gemäss pythonpath.wordpress.com aber als koeffizient der entsprechenden achse (Mitte = 0,5 0,5)
-pts1L = np.float32([[1110/4096, 2376/4096, 2850/4096, 1529/4096, 1110/4096],
-                    [1111/3000,  814/3000, 1557/3000, 1881/3000, 1111/3000]])
-
-pts1R = np.float32([[1715/4096, 3010/4096, 2712/4096, 1357/4096, 1715/4096],
-                    [820/3000, 1004/3000, 1795/3000, 1591/3000, 820/3000]])
-
-
-# im format gemäss pythonpath.wordpress.com aber als koeffizient der entsprechenden achse (Mitte = 0,5 0,5)
-pts1L = np.float32([[1110/3000, 2376/3000, 2850/3000, 1529/3000, 1110/3000],
-                    [1111/4096,  814/4096, 1557/4096, 1881/4096, 1111/4096]])
-
-pts1R = np.float32([[1715/3000, 3010/3000, 2712/3000, 1357/3000, 1715/3000],
-                    [820/4096, 1004/4096, 1795/4096, 1591/4096, 820/4096]])
-
-
-# alternatives bildmaterial von Jan steger: 123 L + R
-pts1L = np.float32([[1686, 3018, 3572, 2182, 1686],
-                    [2085,  1752, 2581, 2945, 2085]])
-
-pts1R = np.float32([[1260, 2636, 2370, 872, 1260],
-                    [1805, 2010, 2906, 2678, 1805]])
 
 
 pt3d = cv2.triangulatePoints(cal.pl, cal.pr, pts1L, pts1R)
