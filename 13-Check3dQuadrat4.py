@@ -330,7 +330,7 @@ ax.plot(X, Y, Z)
 set_axes_equal(ax)
 plt.show()
 
-exit(0)
+# exit(0)
 
 # Template matching
 # templateL = cv2.Canny(templateL, threshold1=50, threshold2=90)
