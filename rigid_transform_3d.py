@@ -1,6 +1,10 @@
 # Quelle: http://nghiaho.com/uploads/code/rigid_transform_3D.py_
 # Doc: http://nghiaho.com/?page_id=671
 # Author: Nghia Ho
+# Anmerkung: Ja nachdem, ob die Punkte als Matrix oder ndarray
+# übergeben, kommt es zu unterschieden.
+# TODO: genau prüfen
+
 
 from numpy import *
 from math import sqrt
@@ -24,64 +28,79 @@ def rigid_transform_3D(A, B):
     BB = B - tile(centroid_B, (N, 1))
 
     # dot is matrix multiplication for array
-    H = transpose(AA) * BB
+    # Korrektur: veraltet, matmul verwenden
+    # H = transpose(AA) * BB
+    H = transpose(AA) @ BB
 
     U, S, Vt = linalg.svd(H)
 
-    R = Vt.T * U.T
+    # Korrektur: veraltet, matmul verwenden
+    #R = Vt.T * U.T
+    R = Vt.T @ U.T
 
     # special reflection case
     if linalg.det(R) < 0:
-        print
-        "Reflection detected"
-        Vt[2, :] *= -1
-        R = Vt.T * U.T
+        print("Reflection detected")
+        # Vt[2, :] *= -1
+        # R = Vt.T * U.T
+        # Bessere Lösung nach Nick Lambert: multiply 3rd column of R by -1
+        R[2, :] *= -1
 
-    t = -R * centroid_A.T + centroid_B.T
+    t = -R @ centroid_A.T + centroid_B.T
 
+    # Manchmal kommt ein 3x3 Translationsvektor als Ergebnis. Resultat mitteln
+    if t.shape == (3,3):
+        print("t.shape = 3 x 3  --> mean")
+        t = average(t, 0)
+
+
+    t = reshape(t,(3,1))
     print (t)
+
 
     return R, t
 
-
+if __name__ == '__main__':
 # Test with random data
 
 # Random rotation and translation
-R = mat(random.rand(3, 3))
-t = mat(random.rand(3, 1))
+    R = mat(random.rand(3, 3))
+    t = mat(random.rand(3, 1))
 
-# make R a proper rotation matrix, force orthonormal
-U, S, Vt = linalg.svd(R)
-R = U * Vt
+    # make R a proper rotation matrix, force orthonormal
+    U, S, Vt = linalg.svd(R)
+    R = U @ Vt
 
-# remove reflection
-if linalg.det(R) < 0:
-    Vt[2, :] *= -1
-    R = U * Vt
+    # remove reflection
+    if linalg.det(R) < 0:
+        R[2, :] *= -1
 
-# number of points
-n = 10
+    # number of points
+    n = 10
 
-A = mat(random.rand(n, 3));
-B = R * A.T + tile(t, (1, n))
-B = B.T;
+    A = mat(random.rand(n, 3));
+    print("debug tile(t, ((1,n)):\n", tile(t, (1, n)))
+    B = R @ A.T + tile(t, (1, n))
+    B = B.T;
 
-# recover the transformation
-ret_R, ret_t = rigid_transform_3D(A, B)
+    # recover the transformation
+    ret_t = zeros(3)
+    ret_R = diag([0,0,0])
+    ret_R, ret_t = rigid_transform_3D(A, B)
 
-A2 = (ret_R * A.T) + tile(ret_t, (1, n))
-A2 = A2.T
+    A2 = (ret_R @ A.T) + tile(ret_t, (1, n))
+    A2 = A2.T
 
-# Find the error
-err = A2 - B
+    # Find the error
+    err = A2 - B
 
-err = multiply(err, err)
-err = sum(err)
-rmse = sqrt(err / n);
+    err = multiply(err, err)
+    err = sum(err)
+    rmse = sqrt(err / n);
 
-print("Points A\n", A)
-print("Points B\n", B)
-print("Rotation\n", R)
-print("Translation\n", t)
-print("RMSE\n", rmse)
-print("If RMSE is near zero, the function is correct!")
+    print("Points A\n", A)
+    print("Points B\n", B)
+    print("Rotation\n", R)
+    print("Translation\n", t)
+    print("RMSE\n", rmse)
+    print("If RMSE is near zero, the function is correct!")
