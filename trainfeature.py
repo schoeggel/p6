@@ -60,10 +60,9 @@ class Trainfeature:
         ez = np.cross(ex, ey) / np.linalg.norm(np.cross(ex, ey))
 
         # Rotation und Translation berechnen und in Klassenvariablen schreiben
-        # [[x1, y1, z1] , [x2 ... ]]
-        systemcam = np.diag(np.float32([1, 1 , 1]))                             # kanonische Einheitsvektoren
-        #systemcam = np.append([np.zeros(3)], systemcam, axis=0)     # erste Zeile = Ursprung
-        systemzug = np.stack((ex+m,ey+m,ez+m))                   # Usprung und kanonische Einheitsvektoren
+        systemcam = np.diag(np.float32([1, 1 , 1]))                 # kanonische Einheitsvektoren
+        systemcam = np.append([np.zeros(3)], systemcam, axis=0)     # erste Zeile = Ursprung
+        systemzug = np.stack((m, ex+m,ey+m,ez+m))                   # Usprung und kanonische Einheitsvektoren
         print("sysCam\n", systemcam)
         print("sysTrain\n", systemzug)
         print("\n\n")
@@ -87,18 +86,38 @@ class Trainfeature:
 if __name__ == '__main__':
 # Tests
 
-    ref = np.float32([[-3.1058179e+02, -1.5248854e+02, 7.8082729e+03],
+    ref = np.array([[-3.1058179e+02, -1.5248854e+02, 7.8082729e+03],
                       [ 1.3992499e+02, -2.6128412e+02, 7.9217915e+03],
                       [ 2.9599524e+02,  5.3110981e+00, 7.5579175e+03],
                       [-1.5471242e+02,  1.1419590e+02, 7.4451899e+03]])
 
-    Trainfeature.reference(ref)
 
+    # zweiter Test mit geprüften zahlen
+    A = np.array([[0.03941864, 0.92896422, 0.91246716],
+                  [0.6009125, 0.54575696, 0.66750589],
+                  [0.54191983, 0.18688898, 0.03229452],
+                  [0.04242836, 0.28405715, 0.96342886]])
 
+    B = np.array([[1.41898934, 1.23632954, -0.07359824],
+                  [0.77816773, 1.4633746, -0.31839895],
+                  [0.16473616, 1.17523014, -0.04193139],
+                  [1.07926507, 0.87271011, -0.48697413]])
 
-    A2 = (Trainfeature.R @ ref.T) + np.tile(Trainfeature.t, (1, 4))
+    Trainfeature.R, Trainfeature.t = rigid_transform_3D(A,B)
+    print("Rotation = \n", Trainfeature.R)
+    print("Translation = \n", Trainfeature.t)
+    A2 = (Trainfeature.R @ A.T) + np.tile(Trainfeature.t, (1, 4))
     A2 = A2.T
     print("Reconstruct abcd Test\n", A2)
+    #exit(0)
+
+
+    #alter test
+    A = ref
+    Trainfeature.reference(A)
+    A2 = (Trainfeature.R @ A.T) + np.tile(Trainfeature.t, (1, 4))
+    A2 = A2.T
+    print("Reconstruct Test Nr 2\n", A2)
     #obj1 = Trainfeature("test1", 232, 2311)
     #obj2 = Trainfeature("test1", 232, 2311)
 

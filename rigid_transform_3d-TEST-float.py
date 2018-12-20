@@ -3,7 +3,10 @@
 # Author: Nghia Ho
 # Anmerkung: Ja nachdem, ob die Punkte als Matrix oder ndarray
 # übergeben, kommt es zu unterschieden.
-# TODO: genau prüfen
+# Die TEST-Variante beinhaltete fixierte Punkte aus einem Beispiel mit dem Zug
+# wichtig: beim umwandeln in array nicht float 32 verwenden, dann wirds ungenau, falls
+# die einheitsvekoren im unit [mm] sind
+
 
 
 from numpy import *
@@ -45,7 +48,6 @@ def rigid_transform_3D(A, B):
 
     # special reflection case
     if linalg.det(R) < 0:
-        assert 1==0
         print("Reflection detected")
         # Vt[2, :] *= -1
         # R = Vt.T * U.T
@@ -60,7 +62,6 @@ def rigid_transform_3D(A, B):
     print (t)
 
     return R, t
-
 
 if __name__ == '__main__':
 # Test with random data
@@ -78,16 +79,19 @@ if __name__ == '__main__':
         R[2, :] *= -1
 
     # number of points
-    n = 10
+    n = 4
 
     A = mat(random.rand(n, 3));
+    A = array([[-3.1058179e+02, -1.5248854e+02, 7.8082729e+03],
+                      [ 1.3992499e+02, -2.6128412e+02, 7.9217915e+03],
+                      [ 2.9599524e+02,  5.3110981e+00, 7.5579175e+03],
+                      [-1.5471242e+02,  1.1419590e+02, 7.4451899e+03]])
+
     print("debug tile(t, ((1,n)):\n", tile(t, (1, n)))
     B = R @ A.T + tile(t, (1, n))
     B = B.T;
 
     # recover the transformation
-    ret_t = zeros(3)
-    ret_R = diag([0,0,0])
     ret_R, ret_t = rigid_transform_3D(A, B)
 
     A2 = (ret_R @ A.T) + tile(ret_t, (1, n))
