@@ -14,13 +14,25 @@ class Trainfeature:
     def __init__(self, name, realpos, realsize):
         self.name = name                            # Objektname
         self.patchfilename = "data/patches/" + name + ".png"          # zum laden des patchbilds
-        self.patchsize = ()                   # Grösse des geladenen patchs
+        self.patchsize = ()                         # Grösse des geladenen patchs
         self.patchimage = None                      # Das Bild
         self.realpos = realpos                      # Vektor 3d Position Patch Mitelpunkt (im Train system)
         self.realsize = realsize                    # Kantenlänge 3d des Patches.
         self.tilt = None                            # später: TODO : objekt kann auch schräg sein
-        self.corners = None                         # Die Vier Eckpunkte als 3d Koordinaten (im Train system)
+        self.corners = None                         # Die Vier Eckpunkte (TODO: von was?) als 3d Koordinaten (im Train system)
         self.loadpatch()                            # default-Patch laden
+
+    @staticmethod
+    def anglehalf(v1, v2):
+        """
+        Erstellt eine Winkelhalbierende zwischen v1, Ursprung, v2
+        :param v1: erster Vektor ab Ursprung
+        :param v2: zweiter Vektor ab Ursprung
+        :return: Winkelhalbierende (Vektor ab Ursprung)
+        """
+        s = np.linalg.norm(v1) / np.linalg.norm(v2)    # beide Vektoren gleich lang machen
+        return (v1 + s * v2) / 2
+
 
     @staticmethod
     def reference(refpts):
@@ -48,16 +60,34 @@ class Trainfeature:
         vmd = refpts[3] - m
 
         # Die Ausrichtung anhand der Ebene bestimmen
-        # Einheitsvektor ex
-        vme = vmb + vmc - vmd - vma
-        ex = vme / np.linalg.norm(vme)
+        # ungefähr deshalb, weil der winkel zwischen x und y nicht in jedem Fall 90° beträgt
+        # ungefähre x richtung
+        x_wrong = vmb + vmc - vmd - vma
 
-        # Einheitsvektor ey
-        vme = vma + vmb - vmc - vmd
-        ey = vme / np.linalg.norm(vme)
+        # ungefähre y richtung
+        y_wrong = vma + vmb - vmc - vmd
 
-        # Einheitsvektor ez (steht senkrecht auf die anderen zwei)
-        ez = np.cross(ex, ey) / np.linalg.norm(np.cross(ex, ey))
+        #Z achse steht senkrecht darauf:
+        z_ok = np.cross(x_wrong, y_wrong)
+
+
+        #Winkelhalbierende zwischen den ungefähren x und y achsen
+        xym = Trainfeature.anglehalf(x_wrong, y_wrong)
+
+        #Achsen x und y mit den geforderten 90° Winkel erstellen
+        tmp1 = np.cross(xym, z_ok)  # Hilfsvektoren
+        x_ok = Trainfeature.anglehalf(tmp1, xym)
+        y_ok = Trainfeature.anglehalf(-tmp1, xym)
+
+        #Normieren
+        ex = x_ok / np.linalg.norm(x_ok)
+        ey = y_ok / np.linalg.norm(y_ok)
+        ez = z_ok / np.linalg.norm(z_ok)
+
+        #DEBUG ---> geprüft am 29.1.19: sind senkrecht aufeinander!
+        print("Normierte Vektoren Zug (m,x,y,z:")
+        print(m, ex, ey, ez)
+
 
         # Rotation und Translation berechnen und in Klassenvariablen schreiben
         systemcam = np.diag(np.float32([1, 1 , 1]))                 # kanonische Einheitsvektoren
@@ -86,13 +116,14 @@ class Trainfeature:
 if __name__ == '__main__':
 # Tests
 
-    ref = np.array([[-3.1058179e+02, -1.5248854e+02, 7.8082729e+03],
+    # Triangulierte Schraubenmittelpunkte der Gitterschrauben.
+    ref = np.array([[  -3.1058179e+02, -1.5248854e+02, 7.8082729e+03],
                       [ 1.3992499e+02, -2.6128412e+02, 7.9217915e+03],
                       [ 2.9599524e+02,  5.3110981e+00, 7.5579175e+03],
                       [-1.5471242e+02,  1.1419590e+02, 7.4451899e+03]])
 
 
-    # zweiter Test mit geprüften zahlen
+    # Andere Testdaten mit geprüften zahlen. (Stammen die eventuell aus einem rnd unit test von rifidTransform?)
     A = np.array([[0.03941864, 0.92896422, 0.91246716],
                   [0.6009125, 0.54575696, 0.66750589],
                   [0.54191983, 0.18688898, 0.03229452],
