@@ -7,7 +7,7 @@ from rigid_transform_3d import rigid_transform_3D
 class Trainfeature:
     # Die Koordinatentransformation <cam1 --> zug> ist für alle Instanzen gleich
     # Die Werte werden einmalig pro Bildpaar gesetzt mit der Methode "reference"
-    R = np.diag([1,1,1])                            # Init Wert
+    R = np.diag([0,0,0])                            # Init Wert
     t = np.zeros(3)                                 # Init Wert
 
 
@@ -58,6 +58,9 @@ class Trainfeature:
         vmb = refpts[1] - m
         vmc = refpts[2] - m
         vmd = refpts[3] - m
+        print("Debug vma, vmb, vmc, vmd:")
+        print(vma, vmb, vmc, vmb)
+
 
         # Die Ausrichtung anhand der Ebene bestimmen
         # ungefähr deshalb, weil der winkel zwischen x und y nicht in jedem Fall 90° beträgt
@@ -84,13 +87,13 @@ class Trainfeature:
         ey = y_ok / np.linalg.norm(y_ok)
         ez = z_ok / np.linalg.norm(z_ok)
 
-        #DEBUG ---> geprüft am 29.1.19: sind senkrecht aufeinander!
+        #DEBUG ---> geprüft am 29.1.19: sind senkrecht aufeinander und haben Betrag=1
         print("Normierte Vektoren Zug (m,x,y,z:")
         print(m, ex, ey, ez)
 
 
         # Rotation und Translation berechnen und in Klassenvariablen schreiben
-        systemcam = np.diag(np.float32([1, 1 , 1]))                 # kanonische Einheitsvektoren
+        systemcam = np.diag(np.float64([1, 1 , 1]))                 # kanonische Einheitsvektoren
         systemcam = np.append([np.zeros(3)], systemcam, axis=0)     # erste Zeile = Ursprung
         systemzug = np.stack((m, ex+m,ey+m,ez+m))                   # Usprung und kanonische Einheitsvektoren
         print("sysCam\n", systemcam)
@@ -117,22 +120,13 @@ if __name__ == '__main__':
 # Tests
 
     # Triangulierte Schraubenmittelpunkte der Gitterschrauben.
-    ref = np.array([[  -3.1058179e+02, -1.5248854e+02, 7.8082729e+03],
+    ref = np.matrix([[  -3.1058179e+02, -1.5248854e+02, 7.8082729e+03],
                       [ 1.3992499e+02, -2.6128412e+02, 7.9217915e+03],
                       [ 2.9599524e+02,  5.3110981e+00, 7.5579175e+03],
                       [-1.5471242e+02,  1.1419590e+02, 7.4451899e+03]])
 
-
-    # Andere Testdaten mit geprüften zahlen. (Stammen die eventuell aus einem rnd unit test von rifidTransform?)
-    A = np.array([[0.03941864, 0.92896422, 0.91246716],
-                  [0.6009125, 0.54575696, 0.66750589],
-                  [0.54191983, 0.18688898, 0.03229452],
-                  [0.04242836, 0.28405715, 0.96342886]])
-
-    B = np.array([[1.41898934, 1.23632954, -0.07359824],
-                  [0.77816773, 1.4633746, -0.31839895],
-                  [0.16473616, 1.17523014, -0.04193139],
-                  [1.07926507, 0.87271011, -0.48697413]])
+    A = np.matrix([[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]])
+    B = ref
 
     Trainfeature.R, Trainfeature.t = rigid_transform_3D(A,B)
     print("Rotation = \n", Trainfeature.R)
@@ -143,13 +137,19 @@ if __name__ == '__main__':
     #exit(0)
 
 
-    #alter test
-    A = ref
-    Trainfeature.reference(A)
-    A2 = (Trainfeature.R @ A.T) + np.tile(Trainfeature.t, (1, 4))
-    A2 = A2.T
-    print("Reconstruct Test Nr 2\n", A2)
-    #obj1 = Trainfeature("test1", 232, 2311)
-    #obj2 = Trainfeature("test1", 232, 2311)
+
+
+
+# Andere Testdaten mit geprüften zahlen. (Stammen die eventuell aus einem rnd unit test von rifidTransform?)
+    A = np.array([[0.03941864, 0.92896422, 0.91246716],
+                  [0.6009125, 0.54575696, 0.66750589],
+                  [0.54191983, 0.18688898, 0.03229452],
+                  [0.04242836, 0.28405715, 0.96342886]])
+
+    B = np.array([[1.41898934, 1.23632954, -0.07359824],
+                  [0.77816773, 1.4633746, -0.31839895],
+                  [0.16473616, 1.17523014, -0.04193139],
+                  [1.07926507, 0.87271011, -0.48697413]])
+
 
 

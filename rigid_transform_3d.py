@@ -90,7 +90,8 @@ if __name__ == '__main__':
     ret_R = diag([0,0,0])
     ret_R, ret_t = rigid_transform_3D(A, B)
 
-    A2 = (ret_R @ A.T) + tile(ret_t, (1, n))
+
+    A2 = (ret_R @ A.T) + tile(ret_t, (1, n))     # die translation mithilfe von "tile" auf alle punkte erweitern.
     A2 = A2.T
 
     # Find the error
