@@ -34,6 +34,7 @@ def rigid_transform_3D(A, B):
     # dot is matrix multiplication for array
     # Korrektur: veraltet, matmul verwenden
     # H = transpose(AA) * BB
+    # Seit python 3.6 : @ bei np.arrays für MAtrizenmultiplikation
     H = transpose(AA) @ BB
 
 
@@ -45,7 +46,7 @@ def rigid_transform_3D(A, B):
 
     # special reflection case
     if linalg.det(R) < 0:
-        assert 1==0
+        #assert 1==0  # TODO : entfernen nach allen Tests
         print("Reflection detected")
         # Vt[2, :] *= -1
         # R = Vt.T * U.T
@@ -60,6 +61,21 @@ def rigid_transform_3D(A, B):
     print (t)
 
     return R, t
+
+
+def rmserror(A, B):
+    """
+    Berechnet den Abweichungsfehler
+    :param A, B: Eingangs-Array. Müssen gleiche Form haben
+    :return: Fehler
+    """
+
+    assert (A.shape == B.shape)
+    delta = A - B
+    delta = multiply(delta, delta)
+    delta = sum(delta)
+    rmse = sqrt(delta / A.shape[0])
+    return rmse
 
 
 if __name__ == '__main__':
@@ -95,15 +111,12 @@ if __name__ == '__main__':
     A2 = A2.T
 
     # Find the error
-    err = A2 - B
+    err = rmserror(A2, B)
 
-    err = multiply(err, err)
-    err = sum(err)
-    rmse = sqrt(err / n);
 
     print("Points A\n", A)
     print("Points B\n", B)
     print("Rotation\n", R)
     print("Translation\n", t)
-    print("RMSE\n", rmse)
+    print("RMSE\n", err)
     print("If RMSE is near zero, the function is correct!")

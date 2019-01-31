@@ -1,7 +1,7 @@
 # Klasse für ein zu findendes / messendes Objekt oder Feature am Zug
 import numpy as np
 import cv2
-from rigid_transform_3d import rigid_transform_3D
+from rigid_transform_3d import rigid_transform_3D, rmserror
 
 
 class Trainfeature:
@@ -82,20 +82,20 @@ class Trainfeature:
         x_ok = Trainfeature.anglehalf(tmp1, xym)
         y_ok = Trainfeature.anglehalf(-tmp1, xym)
 
-        #Normieren
-        ex = x_ok / np.linalg.norm(x_ok)
-        ey = y_ok / np.linalg.norm(y_ok)
-        ez = z_ok / np.linalg.norm(z_ok)
+        #Normieren und an verschieben
+        ex = x_ok / np.linalg.norm(x_ok) + m
+        ey = y_ok / np.linalg.norm(y_ok) + m
+        ez = z_ok / np.linalg.norm(z_ok) + m
 
         #DEBUG ---> geprüft am 29.1.19: sind senkrecht aufeinander und haben Betrag=1
-        print("Normierte Vektoren Zug (m,x,y,z:")
+        print("Normierte Vektoren Zug (m, x,y,z):")
         print(m, ex, ey, ez)
 
 
         # Rotation und Translation berechnen und in Klassenvariablen schreiben
         systemcam = np.diag(np.float64([1, 1 , 1]))                 # kanonische Einheitsvektoren
         systemcam = np.append([np.zeros(3)], systemcam, axis=0)     # erste Zeile = Ursprung
-        systemzug = np.stack((m, ex+m,ey+m,ez+m))                   # Usprung und kanonische Einheitsvektoren
+        systemzug = np.stack((m, ex,ey,ez))                  # Usprung und kanonische Einheitsvektoren
         print("sysCam\n", systemcam)
         print("sysTrain\n", systemzug)
         print("\n\n")
@@ -120,36 +120,60 @@ if __name__ == '__main__':
 # Tests
 
     # Triangulierte Schraubenmittelpunkte der Gitterschrauben.
-    ref = np.matrix([[  -3.1058179e+02, -1.5248854e+02, 7.8082729e+03],
+    ref = np.array([[  -3.1058179e+02, -1.5248854e+02, 7.8082729e+03],
                       [ 1.3992499e+02, -2.6128412e+02, 7.9217915e+03],
                       [ 2.9599524e+02,  5.3110981e+00, 7.5579175e+03],
                       [-1.5471242e+02,  1.1419590e+02, 7.4451899e+03]])
 
-    A = np.matrix([[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]])
-    B = ref
+    # A und B aus einem Unittest von RigidTransform:
+    A = np.array([[0.19347454, 0.62539694, 0.47472073],
+                  [0.73361547, 0.44604185, 0.440494],
+                  [0.06122058, 0.51811031, 0.68447433],
+                  [0.11634119, 0.91875987, 0.79474321],
+                  [0.41273859, 0.37991864, 0.21993256],
+                  [0.44945468, 0.87862294, 0.28273395],
+                  [0.77345643, 0.52144629, 0.99183976],
+                  [0.47187748, 0.90766783, 0.75452366],
+                  [0.61793414, 0.33182565, 0.56279906],
+                  [0.46996138, 0.84868544, 0.54318338]])
+
+    B = np.array([[0.46791738, 1.71527172, 0.41685238],
+                  [0.98888301, 1.49656549, 0.493366],
+                  [0.30929093, 1.68465264, 0.63341236],
+                  [0.39431055, 2.09509612, 0.62837356],
+                  [0.6819297, 1.39049579, 0.26862063],
+                  [0.76213075, 1.88150193, 0.18812946],
+                  [0.99127965, 1.72937223, 1.00036753],
+                  [0.74913118, 2.04774457, 0.63099096],
+                  [0.85307579, 1.432212, 0.63048298],
+                  [0.75851369, 1.92892881, 0.44675717]])
+
+    if (1==1):
+        # Testfall mit Kamera, Einheitsvektoren Zugsystem vorberechnet
+        # camera system:
+        A = np.array([[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]])
+
+        #zugsystem (Ursprung, ex, ey, ez)
+        B = np.array([[-7.34349500, -73.5664155, 7683.29295],
+                      [-6.39926158, -73.7946860, 7683.53026],
+                      [-7.67017294, -74.1254666, 7684.05502],
+                      [-7.38478380, -74.3635067, 7682.69050]])
 
     Trainfeature.R, Trainfeature.t = rigid_transform_3D(A,B)
     print("Rotation = \n", Trainfeature.R)
     print("Translation = \n", Trainfeature.t)
-    A2 = (Trainfeature.R @ A.T) + np.tile(Trainfeature.t, (1, 4))
-    A2 = A2.T
-    print("Reconstruct abcd Test\n", A2)
-    #exit(0)
 
+    # A --> rT --> B2 funktioniert
+    B2 = (Trainfeature.R @ A.T) + np.tile(Trainfeature.t, (1, 4))
+    B2 = B2.T
 
+    # Test für den umgekehrten Weg B ---> A2
+    A2 = (B - np.tile(Trainfeature.t, (1, 4)).T) @ Trainfeature.R
 
-
-
-# Andere Testdaten mit geprüften zahlen. (Stammen die eventuell aus einem rnd unit test von rifidTransform?)
-    A = np.array([[0.03941864, 0.92896422, 0.91246716],
-                  [0.6009125, 0.54575696, 0.66750589],
-                  [0.54191983, 0.18688898, 0.03229452],
-                  [0.04242836, 0.28405715, 0.96342886]])
-
-    B = np.array([[1.41898934, 1.23632954, -0.07359824],
-                  [0.77816773, 1.4633746, -0.31839895],
-                  [0.16473616, 1.17523014, -0.04193139],
-                  [1.07926507, 0.87271011, -0.48697413]])
-
+    print("\nReconstruct A2\n", A2)
+    print("Reconstruct B2\n", B2)
+    err1 = rmserror(A2, A)
+    err2 = rmserror(B2, B)
+    print("Error for each direction\n", err1,"\n", err2)
 
 
