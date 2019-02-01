@@ -9,6 +9,9 @@ class Trainfeature:
     # Die Werte werden einmalig pro Bildpaar gesetzt mit der Methode "reference"
     R = np.diag([0,0,0])                            # Init Wert
     t = np.zeros(3)                                 # Init Wert
+    status = -1                                     # -1: nichts referenziert.
+                                                    #  0: ungefähre referenz TODO: standarddaten zuweisen
+                                                    #  1: Referenz wurde exakt durchgeführt
 
 
     def __init__(self, name, realpos, realsize):
@@ -61,7 +64,6 @@ class Trainfeature:
         print("Debug vma, vmb, vmc, vmd:")
         print(vma, vmb, vmc, vmb)
 
-
         # Die Ausrichtung anhand der Ebene bestimmen
         # ungefähr deshalb, weil der winkel zwischen x und y nicht in jedem Fall 90° beträgt
         # ungefähre x richtung
@@ -73,7 +75,6 @@ class Trainfeature:
         #Z achse steht senkrecht darauf:
         z_ok = np.cross(x_wrong, y_wrong)
 
-
         #Winkelhalbierende zwischen den ungefähren x und y achsen
         xym = Trainfeature.anglehalf(x_wrong, y_wrong)
 
@@ -82,26 +83,21 @@ class Trainfeature:
         x_ok = Trainfeature.anglehalf(tmp1, xym)
         y_ok = Trainfeature.anglehalf(-tmp1, xym)
 
-        #Normieren und an verschieben
+        #Normieren und verschieben
         ex = x_ok / np.linalg.norm(x_ok) + m
         ey = y_ok / np.linalg.norm(y_ok) + m
         ez = z_ok / np.linalg.norm(z_ok) + m
 
-        #DEBUG ---> geprüft am 29.1.19: sind senkrecht aufeinander und haben Betrag=1
-        print("Normierte Vektoren Zug (m, x,y,z):")
-        print(m, ex, ey, ez)
-
-
         # Rotation und Translation berechnen und in Klassenvariablen schreiben
         systemcam = np.diag(np.float64([1, 1 , 1]))                 # kanonische Einheitsvektoren
         systemcam = np.append([np.zeros(3)], systemcam, axis=0)     # erste Zeile = Ursprung
-        systemzug = np.stack((m, ex,ey,ez))                  # Usprung und kanonische Einheitsvektoren
-        print("sysCam\n", systemcam)
-        print("sysTrain\n", systemzug)
-        print("\n\n")
+        systemzug = np.stack((m, ex,ey,ez))                         # Usprung und kanonische Einheitsvektoren
 
+        # Rotation und Translation zwischen den beiden Bezugssystem berechnen
         Trainfeature.R, Trainfeature.t = rigid_transform_3D(systemcam, systemzug)
 
+        print("sysCam\n", systemcam)
+        print("sysTrain\n", systemzug)
         print("R\n", Trainfeature.R)
         print("t\n", Trainfeature.t)
 

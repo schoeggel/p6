@@ -13,6 +13,7 @@ from GitterEckpunkte import eckpunkte
 # perspektivisch korrigiert werden. Damit wird eine genaue Lokalisierung mittels
 # Template matching möglich.
 
+# was passiert, wenn ein Teil des tmeplates mit rauschen verdeckt wird? ==> Kein Probmlem.
 
 SWITCH_UNDISTORT = True  # kamera korrektur nicht ausführen --> schneller
 SWITCH_VERBOSE = False
@@ -22,7 +23,7 @@ sbbL_gray = cv2.imread("sbb/4-OK1L.png", cv2.IMREAD_GRAYSCALE)
 sbbR_gray = cv2.imread("sbb/16R.png", cv2.IMREAD_GRAYSCALE)
 
 # Die Gitter Templates für die Groblokalisierung werden immer vom Bild 13 geladen
-templateL_gray = cv2.imread("sbb/13L.png", cv2.IMREAD_GRAYSCALE)
+templateL_gray = cv2.imread("sbb/13L-noise.png", cv2.IMREAD_GRAYSCALE)
 templateR_gray = cv2.imread("sbb/13R.png", cv2.IMREAD_GRAYSCALE)
 
 # L und R identische Abmessungen
