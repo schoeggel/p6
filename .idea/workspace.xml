@@ -6,7 +6,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="543fc68e-51ac-46c2-a3d3-d45e8a552486" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/15-trianfeaturetests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/patchCreator.py" beforeDir="false" afterPath="$PROJECT_DIR$/patchCreator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainfeature.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainfeature.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,11 +22,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/patchCreator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
+            <state relative-caret-position="214">
+              <caret line="26" column="33" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trainfeature.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-126">
+              <caret line="134" lean-forward="true" selection-start-line="134" selection-end-line="134" />
+              <folding>
+                <element signature="e#69#87#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/15-trianfeaturetests.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+              <folding>
+                <element signature="e#73#83#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -109,8 +136,9 @@
         <option value="$PROJECT_DIR$/rigid_transform_3d.py" />
         <option value="$PROJECT_DIR$/11Exaktgitter1.py" />
         <option value="$PROJECT_DIR$/11Exaktgitter2-noise.py" />
-        <option value="$PROJECT_DIR$/trainfeature.py" />
         <option value="$PROJECT_DIR$/patchCreator.py" />
+        <option value="$PROJECT_DIR$/15-trianfeaturetests.py" />
+        <option value="$PROJECT_DIR$/trainfeature.py" />
       </list>
     </option>
   </component>
@@ -132,11 +160,6 @@
             <path>
               <item name="p6" type="b2602c69:ProjectViewProjectNode" />
               <item name="p6" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="p6" type="b2602c69:ProjectViewProjectNode" />
-              <item name="p6" type="462c0819:PsiDirectoryNode" />
-              <item name="tmp" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -171,7 +194,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.patchCreator">
+  <component name="RunManager" selected="Python.15-trianfeaturetests">
     <configuration name="11Exaktgitter1" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -214,6 +237,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="15-trianfeaturetests" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="bt19" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/15-trianfeaturetests.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="patchCreator" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -227,27 +271,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/patchCreator.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="rigid_transform_3d" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="bt19" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/rigid_transform_3d.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -278,19 +301,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.rigid_transform_3d" />
       <item itemvalue="Python.trainfeature" />
       <item itemvalue="Python.11Exaktgitter1" />
       <item itemvalue="Python.11Exaktgitter2-noise" />
       <item itemvalue="Python.patchCreator" />
+      <item itemvalue="Python.15-trianfeaturetests" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.15-trianfeaturetests" />
         <item itemvalue="Python.patchCreator" />
         <item itemvalue="Python.11Exaktgitter2-noise" />
         <item itemvalue="Python.11Exaktgitter1" />
         <item itemvalue="Python.trainfeature" />
-        <item itemvalue="Python.rigid_transform_3d" />
       </list>
     </recent_temporary>
   </component>
@@ -318,22 +341,22 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1170" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="835" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49774775" visible="true" weight="0.33508956" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49774775" weight="0.3344349" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.5022523" side_tool="true" weight="0.14077991" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32612407" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.63053536" weight="0.3693346" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49966952" weight="0.39922854" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.63053536" weight="0.25320056" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49966952" weight="0.4224751" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32905984" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32690454" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3257468" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.36946464" side_tool="true" weight="0.2346041" />
-      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49966952" weight="0.31587934" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49966952" weight="0.14509246" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -397,7 +420,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>40</line>
+          <line>71</line>
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -416,19 +439,24 @@
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>91</line>
-          <option name="timeStamp" value="47" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>96</line>
-          <option name="timeStamp" value="49" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/rigid_transform_3d.py</url>
           <line>113</line>
           <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trainfeature.py</url>
+          <line>20</line>
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trainfeature.py</url>
+          <line>36</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trainfeature.py</url>
+          <line>41</line>
+          <option name="timeStamp" value="62" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -439,69 +467,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="1134" selection-start-line="1134" selection-end-line="1134" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/core/arrayprint.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="1497" selection-start-line="1497" selection-end-line="1497" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/13-Check3dQuadrat1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="242" selection-start-line="242" selection-end-line="242" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/core/shape_base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="359" selection-start-line="359" selection-end-line="359" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/calibMatrix.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/python364/Lib/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="308" selection-start-line="308" selection-end-line="308" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rigid_transform_3d-TEST-mat.py" />
-    <entry file="file://$PROJECT_DIR$/rigid_transform_3d-TEST-float.py" />
-    <entry file="file://$PROJECT_DIR$/rigid_transform_3d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="861">
-          <caret line="58" column="28" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/equalAxis3d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-143" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tmp_reorder_Images.py" />
     <entry file="file://$PROJECT_DIR$/GitterEckpunkte.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -528,16 +493,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
           <caret line="88" column="26" lean-forward="true" selection-start-line="88" selection-start-column="26" selection-end-line="88" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trainfeature.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="11" column="78" lean-forward="true" selection-start-line="11" selection-start-column="78" selection-end-line="11" selection-end-column="78" />
-          <folding>
-            <element signature="e#69#87#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -583,18 +538,10 @@
     <entry file="file://$PROJECT_DIR$/data/testCANNY-3-1-2.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/jokotestWarp.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jokowarptest2.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aaa.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jkokowarptest3.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/jokotestWarp.png" />
+    <entry file="file://$PROJECT_DIR$/jokowarptest2.png" />
+    <entry file="file://$PROJECT_DIR$/aaa.png" />
+    <entry file="file://$PROJECT_DIR$/jkokowarptest3.png" />
     <entry file="file://$PROJECT_DIR$/09GitterLR1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
@@ -644,10 +591,68 @@
     <entry file="file://$PROJECT_DIR$/tmp/contrastTest1.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/SBB/3-OK1L.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SBB/10L.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SBB/11L.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SBB/12R.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SBB/13R.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SBB/14L.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SBB/13L.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tmp/gschraube1.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2018.3/system/python_stubs/-3016789/builtins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="811" column="8" selection-start-line="811" selection-start-column="8" selection-end-line="811" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/builtins.pyi">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trainfeature.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-126">
+          <caret line="134" lean-forward="true" selection-start-line="134" selection-end-line="134" />
+          <folding>
+            <element signature="e#69#87#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/patchCreator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
+        <state relative-caret-position="214">
+          <caret line="26" column="33" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/15-trianfeaturetests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#73#83#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

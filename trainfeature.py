@@ -15,15 +15,39 @@ class Trainfeature:
 
 
     def __init__(self, name, realpos, realsize):
+        assert (len(name) > 0) and (realpos.shape == (3,)) and (realsize > 1)
+
+
         self.name = name                            # Objektname
         self.patchfilename = "data/patches/" + name + ".png"          # zum laden des patchbilds
-        self.patchsize = ()                         # Grösse des geladenen patchs
         self.patchimage = None                      # Das Bild
-        self.realpos = realpos                      # Vektor 3d Position Patch Mitelpunkt (im Train system)
+        self.realpos = realpos.astype(float)        # Vektor 3d Position Patch Mitelpunkt (im Train system)
         self.realsize = realsize                    # Kantenlänge 3d des Patches.
-        self.tilt = None                            # später: TODO : objekt kann auch schräg sein
+        self.rotation = None                        # später: TODO : objekt kann auch schräg sein
         self.corners = None                         # Die Vier Eckpunkte (TODO: von was?) als 3d Koordinaten (im Train system)
+        self.measuredposition = None                # Die gemssene Position
         self.loadpatch()                            # default-Patch laden
+        self.calculatecorners()                     # die Eckpunkt Koordinaten im sys_zug berechnen
+
+
+
+
+    def calculatecorners(self):
+        # Ohne Rotation liegt der Patch auf xy Ebene mit dem Zentrum des Quadrats bei realpos
+        if self.rotation is not None:
+            print("Warnung, Rotation des Templates nicht nicht implementiert.")
+
+        # Patchmitte bis Patch Rand
+        d = self.realsize / 2
+        self.corners = np.tile(self.realpos, (4, 1))
+
+        # Patchmitte bis Patch Ecken
+        d = np.array([[-d, +d, 0],
+                      [+d, +d, 0],
+                      [-d, -d, 0],
+                      [+d, -d, 0]])
+        self.corners += d
+
 
     @staticmethod
     def anglehalf(v1, v2):
@@ -37,8 +61,15 @@ class Trainfeature:
         return (v1 + s * v2) / 2
 
 
-    @staticmethod
-    def reference(refpts):
+
+    @classmethod
+    def coarsereference(cls, gitterposL, gitterposR):
+    # TODO: ungefähre Koordinatenbasis auf das Gitter stellen
+        pass
+
+
+    @classmethod
+    def reference(cls, refpts):
         """
         Referenz festlegen für das Koordinatensystem "Zug"
         :param refpts: Die auf einer Ebene quadratisch angeordneten Schrauben (numpy.shape = (4,3))
@@ -94,13 +125,12 @@ class Trainfeature:
         systemzug = np.stack((m, ex,ey,ez))                         # Usprung und kanonische Einheitsvektoren
 
         # Rotation und Translation zwischen den beiden Bezugssystem berechnen
-        Trainfeature.R, Trainfeature.t = rigid_transform_3D(systemcam, systemzug)
+        cls.R, cls.t = rigid_transform_3D(systemcam, systemzug)
 
         print("sysCam\n", systemcam)
         print("sysTrain\n", systemzug)
         print("R\n", Trainfeature.R)
         print("t\n", Trainfeature.t)
-
 
 
     def loadpatch(self, filename=None):
@@ -110,7 +140,12 @@ class Trainfeature:
         self.patchimage = cv2.imread(self.patchfilename, cv2.IMREAD_GRAYSCALE)
         self.patchsize = self.patchimage.shape
 
-
+    def __str__(self):
+        s = f'\nClass Info:\n status: {self.status}\n R:\n{self.R}\n t:\n{self.t}\n'
+        s += f'\nObject info:\n Name: {self.name}\n Patchfilename: {self.patchfilename}\n'
+        s += f' Real position center:\n{self.realpos}\n'
+        s += f' Real position corners:\n{self.corners}\n'
+        return s
 
 if __name__ == '__main__':
 # Tests

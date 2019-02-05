@@ -16,8 +16,9 @@ import cv2
 import numpy as np
 
 #Quellbild
-srcimagename = "data\\test3a.png"
-srcimagename = "data\\test3b.png"
+srcimagename = "tmp\\13Lcrop1.png"
+#srcimagename = "data\\test3a.png"
+#srcimagename = "data\\test3b.png"
 #srcimagename = "data\\test-contrast1.png"
 
 #Für den Export (ohne Fadenkreuz)
