@@ -1,9 +1,7 @@
 # Quelle: http://nghiaho.com/uploads/code/rigid_transform_3D.py_
 # Doc: http://nghiaho.com/?page_id=671
 # Author: Nghia Ho
-# Anmerkung: Ja nachdem, ob die Punkte als Matrix oder ndarray
-# übergeben, kommt es zu unterschieden.
-# TODO: genau prüfen
+# Angepasst und erweitert: J. Koch
 
 
 from numpy import *

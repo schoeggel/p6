@@ -7,6 +7,7 @@ from rigid_transform_3d import rigid_transform_3D, rmserror
 class Trainfeature:
     # Die Koordinatentransformation <cam1 --> zug> ist für alle Instanzen gleich
     # Die Werte werden einmalig pro Bildpaar gesetzt mit der Methode "reference"
+
     R = np.diag([0,0,0])                            # Init Wert
     t = np.zeros(3)                                 # Init Wert
     status = -1                                     # -1: nichts referenziert.
@@ -17,14 +18,14 @@ class Trainfeature:
     def __init__(self, name, realpos, realsize):
         assert (len(name) > 0) and (realpos.shape == (3,)) and (realsize > 1)
 
-
         self.name = name                            # Objektname
         self.patchfilename = "data/patches/" + name + ".png"          # zum laden des patchbilds
         self.patchimage = None                      # Das Bild
-        self.realpos = realpos.astype(float)        # Vektor 3d Position Patch Mitelpunkt (im Train system)
+        self.patchsize = (0,0)                      # Bildgrösse des geladenen Patchs
+        self.realpos = realpos.astype(float)        # Vektor 3d Position Patch Mitelpunkt im sys_zug
         self.realsize = realsize                    # Kantenlänge 3d des Patches.
         self.rotation = None                        # später: TODO : objekt kann auch schräg sein
-        self.corners = None                         # Die Vier Eckpunkte (TODO: von was?) als 3d Koordinaten (im Train system)
+        self.corners = None                         # Die Vier Eckpunkte des Objekts als 3d Koordinaten im sys_zug
         self.measuredposition = None                # Die gemssene Position
         self.loadpatch()                            # default-Patch laden
         self.calculatecorners()                     # die Eckpunkt Koordinaten im sys_zug berechnen
@@ -33,6 +34,8 @@ class Trainfeature:
 
 
     def calculatecorners(self):
+        # Ausgehend von der Grösse des quadratischen Patchs und dessen Zentrumskoordinaten
+        # werden die Koordinaten der vier Eckpunkte berechnet. Bezugssystem: sys_zug
         # Ohne Rotation liegt der Patch auf xy Ebene mit dem Zentrum des Quadrats bei realpos
         if self.rotation is not None:
             print("Warnung, Rotation des Templates nicht nicht implementiert.")
@@ -53,6 +56,7 @@ class Trainfeature:
     def anglehalf(v1, v2):
         """
         Erstellt eine Winkelhalbierende zwischen v1, Ursprung, v2
+
         :param v1: erster Vektor ab Ursprung
         :param v2: zweiter Vektor ab Ursprung
         :return: Winkelhalbierende (Vektor ab Ursprung)
@@ -64,14 +68,22 @@ class Trainfeature:
 
     @classmethod
     def coarsereference(cls, gitterposL, gitterposR):
-    # TODO: ungefähre Koordinatenbasis auf das Gitter stellen
-        pass
+        # ungefähre Koordinatenbasis auf das Gitter stellen
+
+        # die Kanonischen Einheitsvektoren des sys_zug, aber mit dem Ursprung noch bei [0,0,0] von sys_cam
+        systemcam_rel = np.array([[0, 0, 0],
+                                  [0.94423342, -0.2282705, 0.23731],
+                                  [-0.32667794, -0.5590511, 0.76207],
+                                  [-0.0412888, -0.7970912, -0.60245]])
+
+
 
 
     @classmethod
     def reference(cls, refpts):
         """
         Referenz festlegen für das Koordinatensystem "Zug"
+
         :param refpts: Die auf einer Ebene quadratisch angeordneten Schrauben (numpy.shape = (4,3))
         :return: None
         """
@@ -148,7 +160,7 @@ class Trainfeature:
         return s
 
 if __name__ == '__main__':
-# Tests
+# Tests zur Umrechnung zwischen den Bezugssystemen.
 
     # Triangulierte Schraubenmittelpunkte der Gitterschrauben.
     ref = np.array([[  -3.1058179e+02, -1.5248854e+02, 7.8082729e+03],
