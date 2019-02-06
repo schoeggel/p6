@@ -1,5 +1,5 @@
 # Tests mit Trainfeature Objekten
-# Patch laden, Eckpunkte rechenn etc.
+# Patch laden, Eckpunkte rechnen etc.
 
 import cv2
 import numpy as np
