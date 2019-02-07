@@ -6,68 +6,176 @@ import calibMatrix
 
 
 class Trainfeature:
-    # Die Koordinatentransformation <cam1 --> zug> ist für alle Instanzen gleich
+    # Die Koordinatentransformation <cam1 <--> zug> ist für alle Instanzen gleich
     # Die Werte werden einmalig pro Bildpaar gesetzt mit der Methode "reference"
-
+    # oder ungefähr gesetzt mit der Methode "approxreference"
 
     p1 = None                                       # P Matrix für Triangulation
     p2 = None                                       # P Matrix für Triangulation
-    R = np.diag([0,0,0])                            # Init Wert
-    t = np.zeros(3)                                 # Init Wert
-    status = -1                                     # -1: nichts referenziert.
-                                                    #  0: ungefähre referenz TODO: standarddaten zuweisen
-                                                    #  1: Referenz wurde exakt durchgeführt
+    __R_exact = np.diag([0, 0, 0])                  # Init Wert
+    __t_exact = np.zeros(3)                         # Init Wert
+    __R_approx = np.diag([0, 0, 0])                 # Init Wert
+    __t_approx = np.zeros(3)                        # Init Wert
+    __rtstatus = -1                                 # -1: keine, 0: approx, 1:exakte vorhanden
 
 
     def __init__(self, name, realpos, realsize):
         assert (len(name) > 0) and (realpos.shape == (3,)) and (realsize > 1)
 
-        self.name = name                            # Objektname
+        self.name = name  # Objektname
         self.patchfilename = "data/patches/" + name + ".png"          # zum laden des patchbilds
         self.patchimage = None                      # Das Bild
         self.patchsize = (0,0)                      # Bildgrösse des geladenen Patchs
         self.realpos = realpos.astype(float)        # Vektor 3d Position Patch Mitelpunkt im sys_zug
         self.realsize = realsize                    # Kantenlänge 3d des Patches.
         self.rotation = None                        # später: TODO : objekt kann auch schräg sein
-        self.corners = None                         # Die Vier Eckpunkte des Objekts als 3d Koordinaten im sys_zug
-        self.measuredposition = None                # Die gemssene Position
+        self.edges3d = np.empty((4,3))              # Die Vier Eckpunkte des Objekts als 3d Koordinaten im sys_zug
+        self.edges2dleft = np.empty((1,4,2))        # Eckpunkte auf dem Bild.
+        self.edges2dright = np.empty((1,4,2))       # Eckpunkte auf dem Bild.
+        self.warpedpatch = None                     # das gewarpte template
+        self.measuredposition = None                # Die gemessene Position
         self.loadpatch()                            # default-Patch laden
-        self.calculatecorners()                     # die Eckpunkt Koordinaten im sys_zug berechnen
+
+
+
+    def warp(self):
+        # der Patch wird perspektivisch verzerrt, damit er so aussieht wie auf dem Bild erwartet
+
+        # Eckpunkte (x,y) für beide Bilder L,R berechnen
+        self.reprojectedges()
+
+        # Die Leinwand für das transformierte Bild wird so gross
+        minxl, minyl = self.edges2dleft.min(0)[0]
+        maxxl, maxyl = self.edges2dleft.max(0)[0]
+
+        minxr, minyr = self.edges2dright.min(0)[0]
+        maxxr, maxyr = self.edges2dright.max(0)[0]
+
+        canvasL = (int(maxxl-minxl), int(maxyl-minyl))
+        canvasR = (int(maxxr-minxr), int(maxyr-minyr))
+
+        # patch eckpunkte auf neue Leinwand umrechen (x und y minima pro Seite von pixelkoordinate subtrahieren)
+        ofsl = np.float32([minxl, minyl])
+        ofsr = np.float32([minxr, minyr])
+        edgesL = self.edges2dleft - np.tile(ofsl, (4, 1, 1))
+        edgesR = self.edges2dright - np.tile(ofsr, (4, 1, 1))
+        edgesL = edgesL[:,0].astype(np.float32)
+        edgesR = edgesR[:,0].astype(np.float32)
+
+
+        # Eckpunkte des quadratischen Patchs:
+        d = self.patchsize[0]
+        quadrat = np.float32([[0, 0], [d, 0], [0, d], [d, d]])
+
+
+        # Transformation am Bild durchführen. Datentyp muss float32 sein, sonst b(l)ockt open cv
+        ML = cv2.getPerspectiveTransform(quadrat, edgesL)
+        ML_inv = np.linalg.inv(ML)
+        imgL = cv2.warpPerspective(self.patchimage, ML, canvasL, borderMode=cv2.BORDER_TRANSPARENT)
+
+        MR = cv2.getPerspectiveTransform(quadrat, edgesR)
+        MR_inv = np.linalg.inv(MR)
+        imgR = cv2.warpPerspective(self.patchimage, MR, canvasR, borderMode=cv2.BORDER_TRANSPARENT)
+
+        return imgL, imgR
+
+    def rt(self):
+        """
+        Liefert die beste verfügbare Umrechnung der Bezugsysteme zurück.
+        Exakte Umrechnung vor Approximation vor keine Umrechnung.
+
+        :return: R, t (sys_cam --> sys_zug)
+        """
+        if self.__rtstatus == 2:
+            return self.__R_exact, self.__t_exact
+        else:
+            return self.__R_approx, self.__t_approx
+
+
+
+
+    def reprojectedges(self):
+        # rechnet die Patch Ecken in x,y Pixelkoordinaten um
+        # und speicher diese in der Instanz
+
+        # Koordinaten der Patch Ecken rechnen (sys_zug)
+        self.calculatedges3d()
+
+        # ecken umrechnen sys_zug --> sys_cam (direction = 0)
+        edges3d_cam = self.transformsys(self.edges3d, 0)
+
+        # reprojection der Punkte in Bildpixelkoordinaten
+        cal = calibMatrix.CalibData()
+        left, jcb = cv2.projectPoints(edges3d_cam, cal.rl, cal.tl, cal.kl, cal.drl)
+        right, jcb = cv2.projectPoints(edges3d_cam, cal.rr, cal.tr, cal.kr, cal.drr)
+        print(f'projection LEFT:\n{left}\n\nprojection RIGHT:\n{right}')
+
+        # opencv liefert die punkte im shape (n,1,3) zurück. L und R zusammenführen --> (n,2,3)
+        self.edges2dleft = left
+        self.edges2dright = right
+        return left, right
+
+
+
+
+    def transformsys(self, pts, direction):
+        # rechnet punkte von einem Bezugssystem ins andere um
+        # dir == 0: sys_zug --> sys_cam
+        # dir == 1: sys_cam --> sys_zug
+        # pts müssen in shape (n,3) sein, bspw: [[x,y,z]] oder [[x,y,z],[x2,y2,z2]]
+
+        R, t = self.rt()    # beste verfügbare R|t Matrix
+        n = pts.shape[0]    # wieviele punkte ?
+
+        if direction == 0:
+            A = pts
+            B2 = (R @ A.T) + np.tile(t, (1, n))
+            B2 = B2.T
+            return B2
+        elif direction == 1:
+            B = pts
+            A2 = (B - np.tile(t, (1, n)).T) @ R
+            return A2
+
+        else:
+            assert False
+
 
     @classmethod
     # lädt die P-Matrizen für die Triangulationen
-    def loadmatrixp(cls, custompl=None, custompr = None):
-        if custompl is not None and custompr is not None:
-            cls.p1 = custompl
-            cls.p2 = custompr
+    def loadmatrixp(cls, customp1=None, customp2 = None):
+        if customp1 is not None and customp2 is not None:
+            cls.p1 = customp1
+            cls.p2 = customp2
         else:
             cal = calibMatrix.CalibData()
             cls.p1 = cal.pl
             cls.p2 = cal.pr
 
 
-
-    def calculatecorners(self):
+    def calculatedges3d(self):
         # Ausgehend von der Grösse des quadratischen Patchs und dessen Zentrumskoordinaten
         # werden die Koordinaten der vier Eckpunkte berechnet. Bezugssystem: sys_zug
         # Ohne Rotation liegt der Patch auf xy Ebene mit dem Zentrum des Quadrats bei realpos
         if self.rotation is not None:
-            print("Warnung, Rotation des Templates nicht nicht implementiert.")
+            print("Warnung, Rotation des Templates ist nicht nicht implementiert.") # TODO
 
         # Patchmitte bis Patch Rand
         d = self.realsize / 2
-        self.corners = np.tile(self.realpos, (4, 1))
 
-        # Patchmitte bis Patch Ecken
+        # Alle Ecken erhalten vorerst den Mittelpunkt als Koordinaten
+        self.edges3d = np.tile(self.realpos, (4, 1))
+
+        # Patchmitte bis Patch Ecken, die Differenz vom Mittelpunkt zur Ecke
         d = np.array([[-d, +d, 0],
                       [+d, +d, 0],
                       [-d, -d, 0],
                       [+d, -d, 0]])
-        self.corners += d
+        self.edges3d += d
 
 
     @staticmethod
-    def anglehalf(v1, v2):
+    def bisect(v1, v2):
         """
         Erstellt eine Winkelhalbierende zwischen v1, Ursprung, v2
 
@@ -107,15 +215,15 @@ class Trainfeature:
 
         # Einheitsvektoren an die richtige Position verschieben
         gitter = np.tile(gitter.T, (4, 1))                          # zeilen vervielfachen
-        systemzug = systemzug + gitter                              # Usprung und kanonische Einheitsvektoren
+        systemzug = systemzug + gitter                              # Translation
 
         # Rotation und Translation berechnen und in Klassenvariablen schreiben
         systemcam = np.diag(np.float64([1, 1, 1]))                  # kanonische Einheitsvektoren
         systemcam = np.append([np.zeros(3)], systemcam, axis=0)     # erste Zeile = Ursprung
 
         # Rotation und Translation zwischen den beiden Bezugssystem berechnen
-        cls.R, cls.t = rigid_transform_3D(systemcam, systemzug)
-
+        cls.__R_approx, cls.__t_approx = rigid_transform_3D(systemcam, systemzug)
+        cls.__rtstatus = 0
 
     @classmethod
     def reference(cls, refpts):
@@ -129,7 +237,7 @@ class Trainfeature:
         # Refpts sind die 3d Koordinaten der vier Gitter Schrauben punkte (ol, or, ur, ul)
         # Damit wird sowohl der Ursprung (gleich deren Mittelwert) als auch die Orientierung
         # des Zug-Koordinatensystems gegenüber dem Kamera-Welt Koordinatensystems bekannt.
-        # Koordinaten sind nicht homogen, sondern karthesisch.
+        # Koordinaten sind karthesisch.
 
         assert refpts.shape == (4, 3)
 
@@ -157,12 +265,12 @@ class Trainfeature:
         z_ok = np.cross(x_wrong, y_wrong)
 
         #Winkelhalbierende zwischen den ungefähren x und y achsen
-        xym = Trainfeature.anglehalf(x_wrong, y_wrong)
+        xym = cls.bisect(x_wrong, y_wrong)
 
         #Achsen x und y mit den geforderten 90° Winkel erstellen
         tmp1 = np.cross(xym, z_ok)  # Hilfsvektoren
-        x_ok = Trainfeature.anglehalf(tmp1, xym)
-        y_ok = Trainfeature.anglehalf(-tmp1, xym)
+        x_ok = cls.bisect(tmp1, xym)
+        y_ok = cls.bisect(-tmp1, xym)
 
         #Normieren und verschieben
         ex = x_ok / np.linalg.norm(x_ok) + m
@@ -175,12 +283,13 @@ class Trainfeature:
         systemzug = np.stack((m, ex,ey,ez))                         # Usprung und kanonische Einheitsvektoren
 
         # Rotation und Translation zwischen den beiden Bezugssystem berechnen
-        cls.R, cls.t = rigid_transform_3D(systemcam, systemzug)
+        cls.__R_exact, cls.__t_exact = rigid_transform_3D(systemcam, systemzug)
+        cls.__rtstatus = 1
 
         print("sysCam\n", systemcam)
         print("sysTrain\n", systemzug)
-        print("R\n", Trainfeature.R)
-        print("t\n", Trainfeature.t)
+        print("R\n", Trainfeature.__R_exact)
+        print("t\n", Trainfeature.__t_exact)
 
 
     def loadpatch(self, filename=None):
@@ -191,10 +300,12 @@ class Trainfeature:
         self.patchsize = self.patchimage.shape
 
     def __str__(self):
-        s = f'\nClass Info:\n status: {self.status}\n R:\n{self.R}\n t:\n{self.t}\n'
+        s = f'\nClass Info:\n rt status: {self.__rtstatus}'
+        s += f'\n R (exact):\n{self.__R_exact}\n t (exact):\n{self.__t_exact}\n'
+        s += f' R (approx.):\n{self.__R_approx}\n t (approx.):\n{self.__t_approx}\n'
         s += f'\nObject info:\n Name: {self.name}\n Patchfilename: {self.patchfilename}\n'
         s += f' Real position center:\n{self.realpos}\n'
-        s += f' Real position corners:\n{self.corners}\n'
+        s += f' Real position corners:\n{self.edges3d}\n'
         return s
 
 if __name__ == '__main__':
@@ -240,16 +351,16 @@ if __name__ == '__main__':
                       [-7.67017294, -74.1254666, 7684.05502],
                       [-7.38478380, -74.3635067, 7682.69050]])
 
-    Trainfeature.R, Trainfeature.t = rigid_transform_3D(A,B)
-    print("Rotation = \n", Trainfeature.R)
-    print("Translation = \n", Trainfeature.t)
+    Trainfeature.__R_exact, Trainfeature.__t_exact = rigid_transform_3D(A, B)
+    print("Rotation = \n", Trainfeature.__R_exact)
+    print("Translation = \n", Trainfeature.__t_exact)
 
     # A --> rT --> B2 funktioniert
-    B2 = (Trainfeature.R @ A.T) + np.tile(Trainfeature.t, (1, 4))
+    B2 = (Trainfeature.__R_exact @ A.T) + np.tile(Trainfeature.__t_exact, (1, 4))
     B2 = B2.T
 
     # Test für den umgekehrten Weg B ---> A2
-    A2 = (B - np.tile(Trainfeature.t, (1, 4)).T) @ Trainfeature.R
+    A2 = (B - np.tile(Trainfeature.__t_exact, (1, 4)).T) @ Trainfeature.__R_exact
 
     print("\nReconstruct A2\n", A2)
     print("Reconstruct B2\n", B2)
