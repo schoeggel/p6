@@ -2,12 +2,16 @@
 import numpy as np
 import cv2
 from rigid_transform_3d import rigid_transform_3D, rmserror
+import calibMatrix
 
 
 class Trainfeature:
     # Die Koordinatentransformation <cam1 --> zug> ist für alle Instanzen gleich
     # Die Werte werden einmalig pro Bildpaar gesetzt mit der Methode "reference"
 
+
+    p1 = None                                       # P Matrix für Triangulation
+    p2 = None                                       # P Matrix für Triangulation
     R = np.diag([0,0,0])                            # Init Wert
     t = np.zeros(3)                                 # Init Wert
     status = -1                                     # -1: nichts referenziert.
@@ -30,6 +34,16 @@ class Trainfeature:
         self.loadpatch()                            # default-Patch laden
         self.calculatecorners()                     # die Eckpunkt Koordinaten im sys_zug berechnen
 
+    @classmethod
+    # lädt die P-Matrizen für die Triangulationen
+    def loadmatrixp(cls, custompl=None, custompr = None):
+        if custompl is not None and custompr is not None:
+            cls.p1 = custompl
+            cls.p2 = custompr
+        else:
+            cal = calibMatrix.CalibData()
+            cls.p1 = cal.pl
+            cls.p2 = cal.pr
 
 
 
@@ -67,16 +81,40 @@ class Trainfeature:
 
 
     @classmethod
-    def coarsereference(cls, gitterposL, gitterposR):
-        # ungefähre Koordinatenbasis auf das Gitter stellen
+    def approxreference(cls, gitterposL, gitterposR):
+        # ungefähre Koordinatenbasis auf die Mitte des Gitter stellen. Pose ist Standard, stimmt nur ungefähr.
 
         # die Kanonischen Einheitsvektoren des sys_zug, aber mit dem Ursprung noch bei [0,0,0] von sys_cam
-        systemcam_rel = np.array([[0, 0, 0],
-                                  [0.94423342, -0.2282705, 0.23731],
-                                  [-0.32667794, -0.5590511, 0.76207],
-                                  [-0.0412888, -0.7970912, -0.60245]])
+        systemzug = np.array([[0, 0, 0],
+                                   [0.94423342, -0.2282705, 0.23731],
+                                   [-0.32667794, -0.5590511, 0.76207],
+                                   [-0.0412888, -0.7970912, -0.60245]])
 
+        # Raumpunkt Gitter triangulieren
+        # Bildkoordinaten  Gitter
+        a3xN = np.float64([[gitterposL[0][0][0]],
+                           [gitterposL[0][0][1]]])
 
+        b3xN = np.float64([[gitterposR[0][0][0]],
+                           [gitterposR[0][0][1]]])
+
+        gitter = cv2.triangulatePoints(cls.p1[:3], cls.p2[:3], a3xN[:2], b3xN[:2])
+
+        # homogen --> karthesisch
+        gitter /= gitter[3]
+        gitter = gitter[:3]
+        print(f'\nGitter Raumpunkt:\n{gitter}')
+
+        # Einheitsvektoren an die richtige Position verschieben
+        gitter = np.tile(gitter.T, (4, 1))                          # zeilen vervielfachen
+        systemzug = systemzug + gitter                              # Usprung und kanonische Einheitsvektoren
+
+        # Rotation und Translation berechnen und in Klassenvariablen schreiben
+        systemcam = np.diag(np.float64([1, 1, 1]))                  # kanonische Einheitsvektoren
+        systemcam = np.append([np.zeros(3)], systemcam, axis=0)     # erste Zeile = Ursprung
+
+        # Rotation und Translation zwischen den beiden Bezugssystem berechnen
+        cls.R, cls.t = rigid_transform_3D(systemcam, systemzug)
 
 
     @classmethod

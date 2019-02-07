@@ -56,7 +56,7 @@ def rigid_transform_3D(A, B):
     # Manchmal kommt ein 3x3 Translationsvektor als Ergebnis.
     assert (t.shape == (3,))
     t = reshape(t,(3,1))
-    print (t)
+    # print (t)
 
     return R, t
 
