@@ -41,10 +41,14 @@ class Trainfeature:
     def warp(self):
         # der Patch wird perspektivisch verzerrt, damit er so aussieht wie auf dem Bild erwartet
 
-        # Eckpunkte (x,y) für beide Bilder L,R berechnen
+        # Eckpunkte des quadratischen Patchs (wie gespeichert, Vogelperspektive, quadratisch)
+        d = self.patchsize[0]
+        quadrat = np.float32([[0, 0], [d, 0], [0, d], [d, d]])
+
+        # Eckpunkte Pixelkoordinaten (x,y) für beide Bilder L,R berechnen
         self.reprojectedges()
 
-        # Die Leinwand für das transformierte Bild wird so gross
+        # Die Leinwand für das transformierte Bild wird so gross, dass der verzerrte Patch exakt hineinpasst
         minxl, minyl = self.edges2dleft.min(0)[0]
         maxxl, maxyl = self.edges2dleft.max(0)[0]
 
@@ -63,21 +67,41 @@ class Trainfeature:
         edgesR = edgesR[:,0].astype(np.float32)
 
 
-        # Eckpunkte des quadratischen Patchs:
-        d = self.patchsize[0]
-        quadrat = np.float32([[0, 0], [d, 0], [0, d], [d, d]])
+        # Masken erstellen, damit später das Rauschen dort übernommen werden kann, wo kein Template ist.
+        # Die border_transparant Variante funktioniert nicht richtig. Wird vorher das Ziel mit Rauschen
+        # gefüllt verbleibt meist der grösste Teil noch darin nach dem Füllen, aber wenn bspw. der
+        # Debugger läuft geht es wieder nicht
+        maskL = (np.ones((canvasL[1], canvasL[0])) * 255).astype(np.uint8)
+        pt = self.polygonpoints(edgesL)
+        maskL = cv2.fillConvexPoly(maskL,pt,0)
+        maskL = maskL == 255
+
+        # Rauschen
+        noiseL = np.random.random((canvasL[1], canvasL[0])) * 255
+        print(noiseL)
+        noiseL = noiseL.astype(np.uint8)
 
 
-        # Transformation am Bild durchführen. Datentyp muss float32 sein, sonst b(l)ockt open cv
+        # Transformation am Bild durchführen. Datentyp der Punkte muss float32 sein, sonst b(l)ockt open cv
+        # maske erstellen wäre möglich, indem auf weissen hintergrund ein schwarzes polygn gezeichnet wird.
         ML = cv2.getPerspectiveTransform(quadrat, edgesL)
-        ML_inv = np.linalg.inv(ML)
-        imgL = cv2.warpPerspective(self.patchimage, ML, canvasL, borderMode=cv2.BORDER_TRANSPARENT)
+        imgL = cv2.warpPerspective(self.patchimage, ML, canvasL)
 
         MR = cv2.getPerspectiveTransform(quadrat, edgesR)
-        MR_inv = np.linalg.inv(MR)
-        imgR = cv2.warpPerspective(self.patchimage, MR, canvasR, borderMode=cv2.BORDER_TRANSPARENT)
+        imgR = cv2.warpPerspective(self.patchimage, MR, canvasR)
+        print(f'Canvas: {canvasL}, imgR Shape: {imgL.shape}')
 
+        # Rauschen und verzerrtes Template mischen
+        imgL[maskL] = noiseL[maskL]
+
+
+
+        #return imgL, imgR
         return imgL, imgR
+
+
+
+
 
     def rt(self):
         """
@@ -91,8 +115,16 @@ class Trainfeature:
         else:
             return self.__R_approx, self.__t_approx
 
-
-
+    @staticmethod
+    def polygonpoints(edges):
+        # oben links oben rechts unten links unten rechts --> punkte für fillConvexPoly
+        # fillConvexpoly vertausch die Punkt x und y --> hier korrigieren ( [::-1] tauscht)
+        poly = np.zeros((1, 4, 2), dtype=np.int32)
+        poly[0][0] = edges[0]
+        poly[0][1] = edges[1]
+        poly[0][2] = edges[3]
+        poly[0][3] = edges[2]
+        return poly
 
     def reprojectedges(self):
         # rechnet die Patch Ecken in x,y Pixelkoordinaten um
@@ -194,9 +226,9 @@ class Trainfeature:
 
         # die Kanonischen Einheitsvektoren des sys_zug, aber mit dem Ursprung noch bei [0,0,0] von sys_cam
         systemzug = np.array([[0, 0, 0],
-                                   [0.94423342, -0.2282705, 0.23731],
-                                   [-0.32667794, -0.5590511, 0.76207],
-                                   [-0.0412888, -0.7970912, -0.60245]])
+                              [0.94423342, -0.2282705, 0.23731],
+                              [-0.32667794, -0.5590511, 0.76207],
+                              [-0.0412888, -0.7970912, -0.60245]])
 
         # Raumpunkt Gitter triangulieren
         # Bildkoordinaten  Gitter
@@ -307,6 +339,10 @@ class Trainfeature:
         s += f' Real position center:\n{self.realpos}\n'
         s += f' Real position corners:\n{self.edges3d}\n'
         return s
+
+
+
+
 
 if __name__ == '__main__':
 # Tests zur Umrechnung zwischen den Bezugssystemen.
