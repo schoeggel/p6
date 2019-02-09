@@ -10,6 +10,8 @@ class Trainfeature:
     # Die Werte werden einmalig pro Bildpaar gesetzt mit der Methode "reference"
     # oder ungefähr gesetzt mit der Methode "approxreference"
 
+    SKALIERKORREKTUR = 0.58                         # Eine Art Massstab für die Grössenumrechnung
+
     p1 = None                                       # P Matrix für Triangulation
     p2 = None                                       # P Matrix für Triangulation
     __R_exact = np.diag([0, 0, 0])                  # Init Wert
@@ -19,41 +21,126 @@ class Trainfeature:
     __rtstatus = -1                                 # -1: keine, 0: approx, 1:exakte vorhanden
 
 
-    def __init__(self, name, realpos, realsize):
-        assert (len(name) > 0) and (realpos.shape == (3,)) and (realsize > 1)
+    def __init__(self, name, center3d, realsize):
+        assert (len(name) > 0) and (center3d.shape == (3,)) and (realsize > 1)
 
         self.name = name  # Objektname
         self.patchfilename = "data/patches/" + name + ".png"          # zum laden des patchbilds
         self.patchimage = None                      # Das Bild
-        self.patchsize = (0,0)                      # Bildgrösse des geladenen Patchs
-        self.realpos = realpos.astype(float)        # Vektor 3d Position Patch Mitelpunkt im sys_zug
+        self.center3Dtrain = center3d.astype(float) # Vektor 3d zum Patch Mitelpunkt im sys_zug
         self.realsize = realsize                    # Kantenlänge 3d des Patches.
         self.rotation = None                        # später: TODO : objekt kann auch schräg sein
-        self.edges3d = np.empty((4,3))              # Die Vier Eckpunkte des Objekts als 3d Koordinaten im sys_zug
-        self.edges2dleft = np.empty((1,4,2))        # Eckpunkte auf dem Bild.
-        self.edges2dright = np.empty((1,4,2))       # Eckpunkte auf dem Bild.
-        self.warpedpatch = None                     # das gewarpte template
+        self.edges3Dtrain = np.zeros((4, 3))        # Die Vier Eckpunkte des Objekts als 3d Koordinaten im sys_zug
+        self.edges2DimgL = np.zeros((1, 4, 2))      # Eckpunkte auf dem Bild.
+        self.edges2DimgR = np.zeros((1, 4, 2))      # Eckpunkte auf dem Bild.
+        self.edges2DtemplateL = np.zeros((1, 4, 2)) # Eckpunkte auf dem Template
+        self.edges2DtemplateR = np.zeros((1, 4, 2)) # Eckpunkte auf dem Template
+        self.warpedpatchL = None                    # das gewarpte template
+        self.warpedpatchR = None                    # das gewarpte template
         self.measuredposition = None                # Die gemessene Position
         self.loadpatch()                            # default-Patch laden
 
 
+    def find(self, imageL, imageR, verbose=False):
+        # sucht das objekt im angegebenen Bild
+        # Liefert die gemessene Position zurück (2d,3d), speichert gemessene 3d pos in Instanz
+
+        # input int grey konvertieren
+        imgL = cv2.cvtColor(imageL,cv2.COLOR_RGB2GRAY)
+        # imgR = cv2.cvtColor(imageR,cv2.COLOR_RGB2GRAY)
+
+        # TEST: Alles ausser den suchbereich schwarz setzen
+        mask = np.ones(imgL.shape, dtype= np.uint8) * 255
+        mask = cv2.rectangle(mask, (1000,1000), (1200, 1200), (0,0,0), cv2.FILLED)
+        imgL[mask > 0] = 0
+
+        if verbose:
+            cv2.namedWindow('mask2', cv2.WINDOW_NORMAL)
+            cv2.imshow("mask2", imgL)
+            cv2.waitKey(0)
+
+        # match L, match R
+        center, val = self.match(imgL, self.warpedpatchL, self.edges2DtemplateL, verbose=verbose)
+
+
+        # TODO
+        # triangulieren
+        # koordinaten transformieren
+        # speichern
+        return center, val
+
+
+    @staticmethod
+    def match(img2, template, pts, verbose=False):
+        # macht das template matching mit dem gewarpten template
+        # steuerung der Seite erfolgt über die mitgegebenen argumente
+        # Rückgabewerte: beste Position und Konfidenz
+        # Methode: besser eine normierte wählen
+        # bspw. cv2.TM_CCOEFF_NORMED
+        # code kopiert aus opencv tutorial
+        # pts = eckpunkte des templates auf der template canvas
+
+        method = cv2.TM_CCOEFF_NORMED
+        method = cv2.TM_SQDIFF_NORMED
+        method = cv2.TM_CCOEFF_NORMED
+        img = img2.copy()
+
+
+        if verbose:
+            h,w= template.shape
+            img[0:h, 0:w] = template
+            cv2.namedWindow('matchingImage', cv2.WINDOW_NORMAL)
+            cv2.imshow("matchingImage", img)
+            cv2.namedWindow('matchingTemplate', cv2.WINDOW_NORMAL)
+            cv2.imshow("matchingTemplate", template)
+            cv2.imwrite('tmp/templatedebug.png', template)
+            cv2.imwrite('tmp/templateImgdebug.png', img)
+            img = img2.copy()
+
+        # Apply template Matching
+        res = cv2.matchTemplate(img, template, method)
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+
+        # If the method is TM_SQDIFF or TM_SQDIFF_NORMED, take minimum
+        if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
+            top_left = min_loc
+            val = min_val
+        else:
+            top_left = max_loc
+            val = max_val
+
+        #Jetzt muss noch auf die Patch-Mitte umgerechnet werden.
+        offset = np.average(pts, 0)
+        center = top_left + offset
+        center = tuple(center.astype(int))
+
+        if verbose:
+            cv2.namedWindow('scoremap', cv2.WINDOW_NORMAL)
+            cv2.imshow("scoremap", res)
+            print(res.shape)
+            cv2.waitKey(0)
+
+
+        return center, val
 
     def warp(self):
         # der Patch wird perspektivisch verzerrt, damit er so aussieht wie auf dem Bild erwartet
 
         # Eckpunkte des quadratischen Patchs (wie gespeichert, Vogelperspektive, quadratisch)
-        d = self.patchsize[0]
+        d = self.patchimage.shape[0]
+        print(f'>>>>>>>>>>> d: {d}')
         quadrat = np.float32([[0, 0], [d, 0], [0, d], [d, d]])
+
 
         # Eckpunkte Pixelkoordinaten (x,y) für beide Bilder L,R berechnen
         self.reprojectedges()
 
         # Die Leinwand für das transformierte Bild wird so gross, dass der verzerrte Patch exakt hineinpasst
-        minxl, minyl = self.edges2dleft.min(0)[0]
-        maxxl, maxyl = self.edges2dleft.max(0)[0]
+        minxl, minyl = self.edges2DimgL.min(0)[0]
+        maxxl, maxyl = self.edges2DimgL.max(0)[0]
 
-        minxr, minyr = self.edges2dright.min(0)[0]
-        maxxr, maxyr = self.edges2dright.max(0)[0]
+        minxr, minyr = self.edges2DimgR.min(0)[0]
+        maxxr, maxyr = self.edges2DimgR.max(0)[0]
 
         canvasL = (int(maxxl-minxl), int(maxyl-minyl))
         canvasR = (int(maxxr-minxr), int(maxyr-minyr))
@@ -61,42 +148,49 @@ class Trainfeature:
         # patch eckpunkte auf neue Leinwand umrechen (x und y minima pro Seite von pixelkoordinate subtrahieren)
         ofsl = np.float32([minxl, minyl])
         ofsr = np.float32([minxr, minyr])
-        edgesL = self.edges2dleft - np.tile(ofsl, (4, 1, 1))
-        edgesR = self.edges2dright - np.tile(ofsr, (4, 1, 1))
-        edgesL = edgesL[:,0].astype(np.float32)
-        edgesR = edgesR[:,0].astype(np.float32)
-
+        self.edges2DtemplateL = self.edges2DimgL - np.tile(ofsl, (4, 1, 1))
+        self.edges2DtemplateR = self.edges2DimgR - np.tile(ofsr, (4, 1, 1))
+        self.edges2DtemplateL = self.edges2DtemplateL[:, 0].astype(np.float32)
+        self.edges2DtemplateR = self.edges2DtemplateR[:, 0].astype(np.float32)
 
         # Masken erstellen, damit später das Rauschen dort übernommen werden kann, wo kein Template ist.
-        # Die border_transparant Variante funktioniert nicht richtig. Wird vorher das Ziel mit Rauschen
-        # gefüllt verbleibt meist der grösste Teil noch darin nach dem Füllen, aber wenn bspw. der
-        # Debugger läuft geht es wieder nicht
-        maskL = (np.ones((canvasL[1], canvasL[0])) * 255).astype(np.uint8)
-        pt = self.polygonpoints(edgesL)
+        # Die border_transparant Variante (verzerrtes bild auf canvas mit rauschen erstellen) funktioniert nicht.
+        # Daher wird ein schwarzes gefülltes Polygon auf weissen Grund erstellt und in eine Maske umgewandelt.
+
+        # Linke Maske
+        maskL = (np.ones((canvasL[1], canvasL[0])) * 255).astype(np.uint8)              # weil gilt : y, x = a.shape
+        pt = self.polygonpoints(self.edges2DtemplateL)
         maskL = cv2.fillConvexPoly(maskL,pt,0)
         maskL = maskL == 255
 
-        # Rauschen
-        noiseL = np.random.random((canvasL[1], canvasL[0])) * 255
-        print(noiseL)
-        noiseL = noiseL.astype(np.uint8)
-
+        # Rechte Maske
+        maskR = (np.ones((canvasR[1], canvasR[0])) * 255).astype(np.uint8)              # weil gilt : y, x = a.shape
+        pt = self.polygonpoints(self.edges2DtemplateR)
+        maskR = cv2.fillConvexPoly(maskR,pt,0)
+        maskR = maskR == 255
 
         # Transformation am Bild durchführen. Datentyp der Punkte muss float32 sein, sonst b(l)ockt open cv
-        # maske erstellen wäre möglich, indem auf weissen hintergrund ein schwarzes polygn gezeichnet wird.
-        ML = cv2.getPerspectiveTransform(quadrat, edgesL)
+        ML = cv2.getPerspectiveTransform(quadrat, self.edges2DtemplateL)
         imgL = cv2.warpPerspective(self.patchimage, ML, canvasL)
-
-        MR = cv2.getPerspectiveTransform(quadrat, edgesR)
+        MR = cv2.getPerspectiveTransform(quadrat, self.edges2DtemplateR)
         imgR = cv2.warpPerspective(self.patchimage, MR, canvasR)
-        print(f'Canvas: {canvasL}, imgR Shape: {imgL.shape}')
+
+        # Rauschen generieren auf der Canvas
+        noiseL = np.random.random((canvasL[1], canvasL[0])) * 255                       # weil gilt : y, x = a.shape
+        noiseR = np.random.random((canvasR[1], canvasR[0])) * 255                       # weil gilt : y, x = a.shape
+        noiseL = noiseL.astype(np.uint8)
+        noiseR = noiseR.astype(np.uint8)
 
         # Rauschen und verzerrtes Template mischen
         imgL[maskL] = noiseL[maskL]
+        imgR[maskR] = noiseR[maskR]
+
+        self.warpedpatchL = imgL
+        self.warpedpatchR = imgR
+
+        print(f'>>>>>>>>>>>>> patch size: {self.warpedpatchL.shape} <<<<<<<<<<<<<<<<<<<<<<<<')
 
 
-
-        #return imgL, imgR
         return imgL, imgR
 
 
@@ -134,7 +228,7 @@ class Trainfeature:
         self.calculatedges3d()
 
         # ecken umrechnen sys_zug --> sys_cam (direction = 0)
-        edges3d_cam = self.transformsys(self.edges3d, 0)
+        edges3d_cam = self.transformsys(self.edges3Dtrain, 0)
 
         # reprojection der Punkte in Bildpixelkoordinaten
         cal = calibMatrix.CalibData()
@@ -143,8 +237,8 @@ class Trainfeature:
         print(f'projection LEFT:\n{left}\n\nprojection RIGHT:\n{right}')
 
         # opencv liefert die punkte im shape (n,1,3) zurück. L und R zusammenführen --> (n,2,3)
-        self.edges2dleft = left
-        self.edges2dright = right
+        self.edges2DimgL = left
+        self.edges2DimgR = right
         return left, right
 
 
@@ -188,7 +282,7 @@ class Trainfeature:
     def calculatedges3d(self):
         # Ausgehend von der Grösse des quadratischen Patchs und dessen Zentrumskoordinaten
         # werden die Koordinaten der vier Eckpunkte berechnet. Bezugssystem: sys_zug
-        # Ohne Rotation liegt der Patch auf xy Ebene mit dem Zentrum des Quadrats bei realpos
+        # Ohne Rotation liegt der Patch auf xy Ebene mit dem Zentrum des Quadrats bei center3Dtrain
         if self.rotation is not None:
             print("Warnung, Rotation des Templates ist nicht nicht implementiert.") # TODO
 
@@ -196,14 +290,14 @@ class Trainfeature:
         d = self.realsize / 2
 
         # Alle Ecken erhalten vorerst den Mittelpunkt als Koordinaten
-        self.edges3d = np.tile(self.realpos, (4, 1))
+        self.edges3Dtrain = np.tile(self.center3Dtrain, (4, 1))
 
         # Patchmitte bis Patch Ecken, die Differenz vom Mittelpunkt zur Ecke
         d = np.array([[-d, +d, 0],
                       [+d, +d, 0],
                       [-d, -d, 0],
                       [+d, -d, 0]])
-        self.edges3d += d
+        self.edges3Dtrain += d
 
 
     @staticmethod
@@ -329,15 +423,23 @@ class Trainfeature:
             self.patchfilename = filename
         print("Lade: ", self.patchfilename )
         self.patchimage = cv2.imread(self.patchfilename, cv2.IMREAD_GRAYSCALE)
-        self.patchsize = self.patchimage.shape
+
+        # # das bild muss noch auf die richtige Grösse skaliert werden:
+        # wi# dth = int(self.patchimage.shape[1] * self.SKALIERKORREKTUR)
+        # height = int(self.patchimage.shape[0] * self.SKALIERKORREKTUR)
+        # dim = (width, height)
+        # # resize image
+        # self.patchimage = cv2.resize(self.patchimage, dim, interpolation=cv2.INTER_AREA)
+
+
 
     def __str__(self):
         s = f'\nClass Info:\n rt status: {self.__rtstatus}'
         s += f'\n R (exact):\n{self.__R_exact}\n t (exact):\n{self.__t_exact}\n'
         s += f' R (approx.):\n{self.__R_approx}\n t (approx.):\n{self.__t_approx}\n'
         s += f'\nObject info:\n Name: {self.name}\n Patchfilename: {self.patchfilename}\n'
-        s += f' Real position center:\n{self.realpos}\n'
-        s += f' Real position corners:\n{self.edges3d}\n'
+        s += f' Real position center:\n{self.center3Dtrain}\n'
+        s += f' Real position corners:\n{self.edges3Dtrain}\n'
         return s
 
 
