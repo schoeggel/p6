@@ -128,7 +128,6 @@ class Trainfeature:
 
         # Eckpunkte des quadratischen Patchs (wie gespeichert, Vogelperspektive, quadratisch)
         d = self.patchimage.shape[0]
-        print(f'>>>>>>>>>>> d: {d}')
         quadrat = np.float32([[0, 0], [d, 0], [0, d], [d, d]])
 
 
@@ -187,9 +186,6 @@ class Trainfeature:
 
         self.warpedpatchL = imgL
         self.warpedpatchR = imgR
-
-        print(f'>>>>>>>>>>>>> patch size: {self.warpedpatchL.shape} <<<<<<<<<<<<<<<<<<<<<<<<')
-
 
         return imgL, imgR
 
