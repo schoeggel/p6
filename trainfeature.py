@@ -45,22 +45,39 @@ class Trainfeature:
         # sucht das objekt im angegebenen Bild
         # Liefert die gemessene Position zurück (2d,3d), speichert gemessene 3d pos in Instanz
 
-        # input int grey konvertieren
-        imgL = cv2.cvtColor(imageL,cv2.COLOR_RGB2GRAY)
-        # imgR = cv2.cvtColor(imageR,cv2.COLOR_RGB2GRAY)
+        assert (imageL.shape == imageR.shape)
 
-        # TEST: Alles ausser den suchbereich schwarz setzen
-        mask = np.ones(imgL.shape, dtype= np.uint8) * 255
-        mask = cv2.rectangle(mask, (1000,1000), (1200, 1200), (0,0,0), cv2.FILLED)
-        imgL[mask > 0] = 0
+        # Kanal 0 erhält die Bildinfo
+        channel_0L = imageL[:,:,0]
+
+        # Kanal 1 bleibt leer (dieser Kanal wird nur beim Template benutzt)
+        channel_1L = np.zeros(channel_0L.shape, dtype= np.uint8)
+
+        # Kanal 2 erhält die Maske für den zu ignorierenden Bereich (255 = für Suche gesperrt)
+        # TEST: TODO Es sind noch FIXE KOORDINATEN DRIN Alles ausser den suchbereich schwarz setzen
+        ignoreL = np.ones(channel_0L.shape, dtype= np.uint8) * 255
+        ignoreL = cv2.rectangle(ignoreL, (1000,1000), (1200, 1200), (0,0,0), cv2.FILLED)
+        channel_2L = ignoreL.copy()
+        ignoreL = ignoreL > 0  # daraus eine Maske erstellen
+
+        # Kanal 0: Bildpixel auf schwarz setzen, wenn ausserhalb der Suchbereichs
+        channel_0L[ignoreL] = 0
+
+        # Kanäle zu RGB Bild stapeln
+        rgbL = np.dstack((channel_0L, channel_1L, channel_2L))
+        # rgbR = np.dstack((channel_0R, channel_1R, channel_2R))
+
+
+
+
 
         if verbose:
-            cv2.namedWindow('mask2', cv2.WINDOW_NORMAL)
-            cv2.imshow("mask2", imgL)
+            cv2.namedWindow('rgbL', cv2.WINDOW_NORMAL)
+            cv2.imshow("rgbL", rgbL)
             cv2.waitKey(0)
 
         # match L, match R
-        center, val = self.match(imgL, self.warpedpatchL, self.edges2DtemplateL, verbose=verbose)
+        center, val = self.match(rgbL, self.warpedpatchL, self.edges2DtemplateL, verbose=verbose)
 
 
         # TODO
@@ -72,6 +89,7 @@ class Trainfeature:
 
     @staticmethod
     def match(img2, template, pts, verbose=False):
+        # TODO: bereit machen für 3 kanal
         # macht das template matching mit dem gewarpten template
         # steuerung der Seite erfolgt über die mitgegebenen argumente
         # Rückgabewerte: beste Position und Konfidenz
@@ -80,14 +98,16 @@ class Trainfeature:
         # code kopiert aus opencv tutorial
         # pts = eckpunkte des templates auf der template canvas
 
-        method = cv2.TM_CCOEFF_NORMED
-        method = cv2.TM_SQDIFF_NORMED
-        method = cv2.TM_CCOEFF_NORMED
+        # Gemäss Versuchsauswertung die am besten geeignet: CCORR_NORMED
+        method = cv2.TM_CCORR_NORMED
         img = img2.copy()
 
 
+
+
         if verbose:
-            h,w= template.shape
+            print(template.shape)
+            h,w,c= template.shape
             img[0:h, 0:w] = template
             cv2.namedWindow('matchingImage', cv2.WINDOW_NORMAL)
             cv2.imshow("matchingImage", img)
@@ -125,7 +145,7 @@ class Trainfeature:
 
     def warp(self):
         # der Patch wird perspektivisch verzerrt, damit er so aussieht wie auf dem Bild erwartet
-
+#
         # Eckpunkte des quadratischen Patchs (wie gespeichert, Vogelperspektive, quadratisch)
         d = self.patchimage.shape[0]
         quadrat = np.float32([[0, 0], [d, 0], [0, d], [d, d]])
@@ -152,8 +172,8 @@ class Trainfeature:
         self.edges2DtemplateL = self.edges2DtemplateL[:, 0].astype(np.float32)
         self.edges2DtemplateR = self.edges2DtemplateR[:, 0].astype(np.float32)
 
-        # Masken erstellen, damit später das Rauschen dort übernommen werden kann, wo kein Template ist.
-        # Die border_transparant Variante (verzerrtes bild auf canvas mit rauschen erstellen) funktioniert nicht.
+        # Masken erstellen wo kein Template ist.
+        # Die border_transparant Variante (verzerrtes bild auf vorbereitete canvas setzen) funktioniert nicht.
         # Daher wird ein schwarzes gefülltes Polygon auf weissen Grund erstellt und in eine Maske umgewandelt.
 
         # Linke Maske
@@ -170,28 +190,48 @@ class Trainfeature:
 
         # Transformation am Bild durchführen. Datentyp der Punkte muss float32 sein, sonst b(l)ockt open cv
         ML = cv2.getPerspectiveTransform(quadrat, self.edges2DtemplateL)
-        imgL = cv2.warpPerspective(self.patchimage, ML, canvasL)
         MR = cv2.getPerspectiveTransform(quadrat, self.edges2DtemplateR)
+        imgL = cv2.warpPerspective(self.patchimage, ML, canvasL)
         imgR = cv2.warpPerspective(self.patchimage, MR, canvasR)
 
-        # Rauschen generieren auf der Canvas
-        noiseL = np.random.random((canvasL[1], canvasL[0])) * 255                       # weil gilt : y, x = a.shape
-        noiseR = np.random.random((canvasR[1], canvasR[0])) * 255                       # weil gilt : y, x = a.shape
-        noiseL = noiseL.astype(np.uint8)
-        noiseR = noiseR.astype(np.uint8)
+        # template ist noch greyscale. rgb Version erstellen mit untercschiedlichen Informationen pro Kanal. Siehe Doku
+        # grey in den Kanal 0 kopieren.
+        channel_0L = imgL.copy()
+        channel_0R = imgR.copy()
 
-        # Rauschen und verzerrtes Template mischen
-        imgL[maskL] = noiseL[maskL]
-        imgR[maskR] = noiseR[maskR]
+        # Kanal 1: Maske Template (255 wenn es sich um den zu ignorierenden Bereich des Templates handelt)
+        channel_1L = np.zeros((canvasL[1], canvasL[0]), dtype=np.uint8)
+        channel_1R = np.zeros((canvasR[1], canvasR[0]), dtype=np.uint8)
+        channel_1L[maskL] = 255
+        channel_1R[maskR] = 255
 
-        self.warpedpatchL = imgL
-        self.warpedpatchR = imgR
+        # Kanel 2: Bleibt Nuller (wird nur im zu durchsuchenden Bild verwendet, nicht im Template)
+        channel_2L = np.zeros((canvasL[1], canvasL[0]), dtype=np.uint8)
+        channel_2R = np.zeros((canvasR[1], canvasR[0]), dtype=np.uint8)
+
+        # Kanäle stapeln
+        rgbL = np.dstack((channel_0L, channel_1L, channel_2L))
+        rgbR = np.dstack((channel_0R, channel_1R, channel_2R))
+
+        self.warpedpatchL = rgbL
+        self.warpedpatchR = rgbR
 
         return imgL, imgR
 
 
 
-
+    def showpatch(self):
+        # zeigt den geladenen und fall vorhanden die gewarpten patches an
+        cv2.namedWindow(f'patch as loaded ({self.patchfilename})', cv2.WINDOW_NORMAL)
+        cv2.imshow(f'patch as loaded ({self.patchfilename})', self.patchimage)
+        if self.warpedpatchL is not None:
+            cv2.namedWindow('patch warp L', cv2.WINDOW_NORMAL)
+            cv2.imshow("patch warp L", self.warpedpatchL)
+        if self.warpedpatchR is not None:
+            cv2.namedWindow('patch warp R', cv2.WINDOW_NORMAL)
+            cv2.imshow("patch warp R", self.warpedpatchR)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
 
     def rt(self):
         """
@@ -399,12 +439,10 @@ class Trainfeature:
         ey = y_ok / np.linalg.norm(y_ok) + m
         ez = z_ok / np.linalg.norm(z_ok) + m
 
-        # Rotation und Translation berechnen und in Klassenvariablen schreiben
+        # Rotation und Translation zwischen den beiden Bezugssystem berechnen und in Klassenvariablen schreiben
         systemcam = np.diag(np.float64([1, 1 , 1]))                 # kanonische Einheitsvektoren
         systemcam = np.append([np.zeros(3)], systemcam, axis=0)     # erste Zeile = Ursprung
         systemzug = np.stack((m, ex,ey,ez))                         # Usprung und kanonische Einheitsvektoren
-
-        # Rotation und Translation zwischen den beiden Bezugssystem berechnen
         cls.__R_exact, cls.__t_exact = rigid_transform_3D(systemcam, systemzug)
         cls.__rtstatus = 1
 
@@ -419,14 +457,6 @@ class Trainfeature:
             self.patchfilename = filename
         print("Lade: ", self.patchfilename )
         self.patchimage = cv2.imread(self.patchfilename, cv2.IMREAD_GRAYSCALE)
-
-        # # das bild muss noch auf die richtige Grösse skaliert werden:
-        # wi# dth = int(self.patchimage.shape[1] * self.SKALIERKORREKTUR)
-        # height = int(self.patchimage.shape[0] * self.SKALIERKORREKTUR)
-        # dim = (width, height)
-        # # resize image
-        # self.patchimage = cv2.resize(self.patchimage, dim, interpolation=cv2.INTER_AREA)
-
 
 
     def __str__(self):

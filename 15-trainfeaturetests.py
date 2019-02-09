@@ -16,6 +16,17 @@ sbbR_gray = cv2.imread("sbb/13R.png", cv2.IMREAD_GRAYSCALE)
 sbbL_rgb = cv2.cvtColor(sbbL_gray, cv2.COLOR_GRAY2BGR)
 sbbR_rgb = cv2.cvtColor(sbbR_gray, cv2.COLOR_GRAY2BGR)
 
+# Test Kanalmanipulationen
+# print(sbbL_rgb)
+# print(sbbL_rgb.shape)
+# sbbL_rgb[:,:,1]= 1# 80
+# cv2.namedWindow('Unit test L', cv2.WINDOW_NORMAL)
+# cv2.imshow("Unit test L", sbbL_rgb)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+# exit()
+
+
 # Gitter suchen
 gitterL, gitterR = findGrid.find(sbbL_gray, sbbR_gray, verbose=False)
 
@@ -24,6 +35,7 @@ sbbL = cv2.circle(sbbL_rgb, (gitterL[0][0][0], gitterL[0][0][1]), 25, (255, 0, 2
 sbbR = cv2.circle(sbbR_rgb, (gitterR[0][0][0], gitterR[0][0][1]), 25, (255, 0, 255), -1)
 
 # Feature Tests
+
 xyz = np.array([0, 0, 0])
 s1 = Trainfeature("Gitterschraube1", xyz, 47)
 Trainfeature.loadmatrixp()
