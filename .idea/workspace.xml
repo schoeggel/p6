@@ -6,6 +6,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="543fc68e-51ac-46c2-a3d3-d45e8a552486" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/18-CLAHE-test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/18-elsd-1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/15-trainfeaturetests.py" beforeDir="false" afterPath="$PROJECT_DIR$/15-trainfeaturetests.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tmp/templateImgdebug.png" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/templateImgdebug.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tmp/templatedebug.png" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/templatedebug.png" afterDir="false" />
@@ -17,11 +21,51 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/15-trainfeaturetests.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="126">
+                    <caret line="38" column="23" selection-start-line="38" selection-start-column="23" selection-end-line="38" selection-end-column="23" />
+                    <folding>
+                      <element signature="e#73#83#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/trainfeature.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="-1958">
+                    <caret line="276" column="75" lean-forward="true" selection-start-line="276" selection-start-column="75" selection-end-line="276" selection-end-column="75" />
+                    <folding>
+                      <element signature="e#69#87#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="FavoritesManager">
     <favorites_list name="p6" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test2png.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -36,7 +80,6 @@
       <find>img</find>
       <find>ptdist</find>
       <find>show</find>
-      <find>L</find>
       <find>GitterEckpunkte</find>
       <find>tria</find>
       <find>-1</find>
@@ -49,6 +92,13 @@
       <find>cv2.projectPoints</find>
       <find>bisect</find>
       <find>patchsize</find>
+      <find>L</find>
+      <find>self.warpedpatchL</find>
+      <find>§</find>
+      <find>self.warpedpatchClah</find>
+      <find>canny</find>
+      <find>mask</find>
+      <find>warpedpatchLmasks</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -60,10 +110,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/02templateSkeleton.py" />
-        <option value="$PROJECT_DIR$/04templateMaskNoEdge.py" />
-        <option value="$PROJECT_DIR$/03templateMask.py" />
-        <option value="$PROJECT_DIR$/05-gittermittelpunkt.pyi" />
         <option value="$PROJECT_DIR$/05-gittermittelpunkt.py" />
         <option value="$PROJECT_DIR$/05templateGitterTest.py" />
         <option value="$PROJECT_DIR$/05templateGitterMethoden.py" />
@@ -109,17 +155,21 @@
         <option value="$PROJECT_DIR$/13-Check3dQuadrat4.py" />
         <option value="$PROJECT_DIR$/16-warptestBackground.py" />
         <option value="$PROJECT_DIR$/17-templatematchChannelTest.py" />
-        <option value="$PROJECT_DIR$/15-trainfeaturetests.py" />
+        <option value="$PROJECT_DIR$/17-CLAHE-test.py" />
+        <option value="$PROJECT_DIR$/18-CLAHE-test.py" />
+        <option value="$PROJECT_DIR$/18-elsd-1.py" />
+        <option value="$PROJECT_DIR$/pylsd/lsd.py" />
         <option value="$PROJECT_DIR$/trainfeature.py" />
+        <option value="$PROJECT_DIR$/15-trainfeaturetests.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="337" />
-    <option name="y" value="92" />
-    <option name="width" value="960" />
-    <option name="height" value="882" />
+    <option name="x" value="321" />
+    <option name="width" value="1599" />
+    <option name="height" value="1029" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <showMembers ProjectPane="true" />
@@ -133,11 +183,6 @@
               <item name="p6" type="b2602c69:ProjectViewProjectNode" />
               <item name="p6" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="p6" type="b2602c69:ProjectViewProjectNode" />
-              <item name="p6" type="462c0819:PsiDirectoryNode" />
-              <item name="tmp" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -148,7 +193,7 @@
   <component name="PropertiesComponent">
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -194,27 +239,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="16-warptestBackground" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="bt19" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/16-warptestBackground.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="17-templatematchChannelTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -236,7 +260,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="calibMatrix" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="18-CLAHE-test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -248,7 +272,28 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/calibMatrix.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/18-CLAHE-test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="18-elsd-1" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="bt19" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/18-elsd-1.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -280,18 +325,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.trainfeature" />
-      <item itemvalue="Python.calibMatrix" />
       <item itemvalue="Python.15-trainfeaturetests" />
-      <item itemvalue="Python.16-warptestBackground" />
       <item itemvalue="Python.17-templatematchChannelTest" />
+      <item itemvalue="Python.18-CLAHE-test" />
+      <item itemvalue="Python.18-elsd-1" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.15-trainfeaturetests" />
-        <item itemvalue="Python.17-templatematchChannelTest" />
+        <item itemvalue="Python.18-elsd-1" />
         <item itemvalue="Python.trainfeature" />
-        <item itemvalue="Python.16-warptestBackground" />
-        <item itemvalue="Python.calibMatrix" />
+        <item itemvalue="Python.18-CLAHE-test" />
+        <item itemvalue="Python.17-templatematchChannelTest" />
       </list>
     </recent_temporary>
   </component>
@@ -319,25 +364,26 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="270" y="74" width="768" height="705" extended-state="0" />
+    <frame x="257" y="0" width="1279" height="823" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" x="203" y="99" width="264" height="703" id="Project" order="0" sideWeight="0.49774775" type="FLOATING" weight="0.17718121" />
+      <window_info content_ui="combo" x="3" y="2" width="264" height="703" id="Project" order="0" sideWeight="0.49774775" type="FLOATING" visible="true" weight="0.17718121" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24966443" />
       <window_info id="Favorites" order="2" sideWeight="0.5022523" side_tool="true" weight="0.14026846" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.61393327" />
-      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" weight="0.947644" />
+      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" visible="true" weight="0.8408104" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.32905984" />
       <window_info anchor="bottom" id="Version Control" order="6" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.325736" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32416788" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.36946464" side_tool="true" weight="0.2346041" />
-      <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.49966952" weight="0.5092461" />
+      <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.49966952" weight="0.5079595" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" x="7" y="30" width="1156" height="784" id="Run" order="3" sideWeight="0.63053536" type="WINDOWED" weight="0.24307036" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.24979457" />
+      <window_info active="true" anchor="right" x="7" y="30" width="1156" height="784" id="Run" order="3" sideWeight="0.63053536" type="WINDOWED" visible="true" weight="0.24307036" />
       <window_info anchor="right" x="0" y="0" width="337" height="635" id="Documentation" order="4" side_tool="true" weight="0.3295302" />
     </layout>
     <layout-to-restore>
@@ -359,6 +405,12 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout-to-restore>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/pylsd" />
+      <path value="$PROJECT_DIR$/pylsd/src/someproject" />
+    </ignored-roots>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -404,7 +456,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>132</line>
+          <line>239</line>
           <option name="timeStamp" value="95" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -414,8 +466,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>60</line>
-          <option name="timeStamp" value="109" />
+          <line>82</line>
+          <option name="timeStamp" value="110" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pylsd/lsd.py</url>
+          <line>11</line>
+          <option name="timeStamp" value="114" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trainfeature.py</url>
+          <line>227</line>
+          <option name="timeStamp" value="115" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trainfeature.py</url>
+          <line>210</line>
+          <option name="timeStamp" value="116" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trainfeature.py</url>
+          <line>283</line>
+          <option name="timeStamp" value="117" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -426,21 +498,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/data/canny2.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/sktemplate2mask.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/pattern-g1.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/templateskel1.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/testCANNY-3-1-2.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/jokotestWarp.png" />
     <entry file="file://$PROJECT_DIR$/jokowarptest2.png" />
     <entry file="file://$PROJECT_DIR$/aaa.png" />
@@ -604,13 +661,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="751">
-          <caret line="1740" selection-start-line="1740" selection-end-line="1740" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/16-warptestBackground.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
@@ -638,25 +688,84 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/15-trainfeaturetests.py">
+    <entry file="file://$PROJECT_DIR$/13-Check3dQuadrat1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
+        <state relative-caret-position="306">
+          <caret line="242" selection-start-line="242" selection-end-line="242" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/18-CLAHE-test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="18" column="51" lean-forward="true" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
           <folding>
-            <element signature="e#73#83#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pylsd/lsd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="19" column="63" selection-start-line="19" selection-start-column="63" selection-end-line="19" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="1710" column="52" lean-forward="true" selection-start-line="1710" selection-start-column="52" selection-end-line="1710" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/18-elsd-1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="14" column="53" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test2png.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/trainfeature.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="102" column="25" lean-forward="true" selection-start-line="102" selection-start-column="25" selection-end-line="102" selection-end-column="25" />
+        <state relative-caret-position="-1958">
+          <caret line="276" column="75" lean-forward="true" selection-start-line="276" selection-start-column="75" selection-end-line="276" selection-end-column="75" />
           <folding>
             <element signature="e#69#87#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/15-trainfeaturetests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="38" column="23" selection-start-line="38" selection-start-column="23" selection-end-line="38" selection-end-column="23" />
+          <folding>
+            <element signature="e#73#83#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>

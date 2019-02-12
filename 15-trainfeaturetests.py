@@ -36,8 +36,8 @@ sbbR = cv2.circle(sbbR_rgb, (gitterR[0][0][0], gitterR[0][0][1]), 25, (255, 0, 2
 
 # Feature Tests
 
-xyz = np.array([0, 0, 0])
-s1 = Trainfeature("Gitterschraube1", xyz, 47)
+xyz = np.array([-450, 450, 0])
+s1 = Trainfeature("Gitterschraube1", xyz, 32)
 Trainfeature.loadmatrixp()
 
 s1.approxreference(gitterL, gitterR)
@@ -61,7 +61,7 @@ imgL, imgR = s1.warp()
 
 center, val = s1.find(sbbL,sbbR,verbose=True)
 print(f'center: {center}\nvalue: {val}\n')
-sbbL = cv2.drawMarker(sbbL, center, (0,60,255), cv2.MARKER_CROSS, 70, 3)
+sbbL = cv2.drawMarker(sbbL, center, (0,90,255), cv2.MARKER_CROSS, 70, 2)
 
 
 
@@ -69,7 +69,7 @@ cv2.namedWindow('Unit test marker L', cv2.WINDOW_NORMAL)
 cv2.imshow('Unit test marker L', sbbL)
 cv2.namedWindow('Unit test L', cv2.WINDOW_NORMAL)
 cv2.imshow("Unit test L", imgL)
-#cv2.namedWindow('Unit test R', cv2.WINDOW_NORMAL)
+cv2.namedWindow('Unit test R', cv2.WINDOW_NORMAL)
 cv2.imshow("Unit test R", imgR)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
