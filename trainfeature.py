@@ -5,11 +5,13 @@ from rigid_transform_3d import rigid_transform_3D, rmserror
 import calibMatrix
 from enum import Enum
 
+
 class tm(Enum):
     IMAGE = 1
-    CANNY = 2
-    ELSD = 3
-
+    NOISE = 2
+    AVERAGE = 3
+    CANNY = 4
+    ELSD = 5
 
 
 class Trainfeature:
@@ -33,6 +35,7 @@ class Trainfeature:
         assert (len(name) > 0) and (center3d.shape == (3,)) and (realsize > 1)
 
         self.name = name  # Objektname
+        self.tmmode = tm.NOISE                      # In welcher Form werden die Bilder beim Matching verwendet.
         self.patchfilename = "data/patches/" + name + ".png"          # zum laden des patchbilds
         self.patchimageRaw = None                   # Das Bild im Originalzustand
         self.patchimage = None                      # Das Bild (Kontrastverbessert)
@@ -44,23 +47,26 @@ class Trainfeature:
         self.edges2DimgR = np.zeros((1, 4, 2))      # Eckpunkte auf dem Bild.
         self.edges2DtemplateL = np.zeros((1, 4, 2)) # Eckpunkte auf dem Template
         self.edges2DtemplateR = np.zeros((1, 4, 2)) # Eckpunkte auf dem Template
-        self.tmmode = tm.CANNY                      # In welcher Form werden die Bilder beim Matching verwendet.
         self.warpedpatchL = None                    # das gewarpte template
         self.warpedpatchR = None                    # das gewarpte template
-        self.warpedpatchLmasks = None               # die Masken: [0]:Hintergrund, [1]:Hintergrund leicht überlappend
-        self.warpedpatchRmasks = None               # die Masken: [0]:Hintergrund, [1]:Hintergrund leicht überlappend
-        self.measuredposition = None                # Die gemessene Position
+        self.wpShapeL = (-1,-1)                     # Grösse des verzerrten Templates.
+        self.wpShapeR = (-1,-1)                     # Grösse des verzerrten Templates.
+        self.wpMaskNormL = None                     # Maske für verzerrtes Template.
+        self.wpMaskNormR = None                     # Maske für verzerrtes Template.
+        self.wpMaskExtL = None                      # Maske für verzerrtes Template. Hintergrund leicht überlappend
+        self.wpMaskExtR = None                      # Maske für verzerrtes Template. Hintergrund leicht überlappend
+        self.measuredposition3d = None              # Die gemessene Position
         self.loadpatch()                            # default-Patch laden
 
-
-    # TODO: masken erstellen besser lösen
-    def createMasks(self):
+    #TODO: getROIpts
+    def getROIpts(self):
         pass
-
-
+    #liefert die eckpunkte für den suchbereich.
 
     # TODO: ausgabe pixel interpolieren (gauss filter) und besseres max finden
     def filterScore(self):
+        # macht gauss filter über map, um eindeutig maximum zu erhalten, (als float)
+        # mappt die bild info auf einen range 0..255, damit es gut darstellbar ist
         pass
 
 
@@ -68,101 +74,107 @@ class Trainfeature:
         # sucht das objekt im angegebenen Bild
         # Liefert die gemessene Position zurück (2d,3d), speichert gemessene 3d pos in Instanz
 
-        ROIL = [1050,1180,1000,1200]      # [oly, ury, olx, urx]  ===> ACHTUNG
+        ROIL = [900,1200,900,1300]      # [oly, ury, olx, urx]  ===> ACHTUNG
         ROIR = [1050,1180,1000,1200]      # [oly, ury, olx, urx]  ===> ACHTUNG
 
 
         # Kanal 0 erhält die Bildinfo
         # Nur Region of interest ausschneiden
         channel_0L = imageL[ROIL[0]:ROIL[1],ROIL[2]:ROIL[3],0]
+        channel_0R = imageR[ROIR[0]:ROIR[1],ROIR[2]:ROIR[3],0]
 
         # Kanal 1 bleibt leer
         channel_1L = np.zeros(channel_0L.shape, dtype= np.uint8)
+        channel_1R = np.zeros(channel_0R.shape, dtype= np.uint8)
 
         # Kanäle zu RGB Bild stapeln
         rgbL = np.dstack((channel_0L, channel_1L, channel_1L))
-        # rgbR = np.dstack((channel_0R, channel_1R, channel_2R))
-
+        rgbR = np.dstack((channel_0R, channel_1R, channel_1R))
 
         # CLAHE
         rgbL = self.clahe(rgbL, 0)
+        rgbR = self.clahe(rgbR, 0)
+
+
+        ####################  JE NACH METHODE SIND SPEZIFISCHE TEMPLATE/IMAGE VORBEREITUNGEN NÖTIG ##################
 
         if self.tmmode == tm.CANNY:
-            patch = cv2.Canny(self.warpedpatchL, 80, 160)
+            # Kanten finden und template Hintergrund auf 0 setzen, inkl dem Rand zum Template (daher MaskEXT statt NORM)
+            patchL = cv2.Canny(self.warpedpatchL, 80, 160)
+            patchR = cv2.Canny(self.warpedpatchR, 80, 160)
+            patchL[self.wpMaskExtL] = 0
+            patchR[self.wpMaskExtR] = 0
+            imageL = cv2.Canny(rgbL, 80, 160)
+            imageR = cv2.Canny(rgbR, 80, 160)
 
-            # patch ist jetzt 1 kanal, Maske wieder anfügen und zuschneiden
-            patch = np.dstack((patch, self.warpedpatchL[:, :, 1], self.warpedpatchL[:, :, 2]))
+        elif self.tmmode == tm.IMAGE:
+            # Kanal 0 auf alle RGB erweitern
+            patchL = np.dstack((self.warpedpatchL[:,:,0],self.warpedpatchL[:,:,0],self.warpedpatchL[:,:,0]))
+            patchR = np.dstack((self.warpedpatchR[:,:,0],self.warpedpatchR[:,:,0],self.warpedpatchR[:,:,0]))
+            imageL = np.dstack((rgbL[:,:,0],rgbL[:,:,0],rgbL[:,:,0]))
+            imageR = np.dstack((rgbR[:,:,0],rgbR[:,:,0],rgbR[:,:,0]))
 
-            patch[:,:,1] = self.warpedpatchLmasks[:,:,1]
-            patch = self.crop(patch, 0, 1)
+        elif self.tmmode == tm.NOISE:
+            # Kanal 0 auf alle RGB erweitern, template hintergrund mit rauschen füllen
+            imageL = np.dstack((rgbL[:, :, 0], rgbL[:, :, 0], rgbL[:, :, 0]))
+            imageR = np.dstack((rgbR[:, :, 0], rgbR[:, :, 0], rgbR[:, :, 0]))
+            valueL =  2 * rgbL[:, :, 0].mean()
+            valueR =  2 * rgbR[:, :, 0].mean()
+            noiseL = (np.random.random(self.wpShapeL) * valueL).astype(np.uint8)
+            noiseR = (np.random.random(self.wpShapeR) * valueR).astype(np.uint8)
+            soloL = self.warpedpatchL[:, :, 0]
+            soloR = self.warpedpatchR[:, :, 0]
+            soloL[self.wpMaskNormL] = noiseL[self.wpMaskNormL]
+            soloR[self.wpMaskNormR] = noiseR[self.wpMaskNormR]
+            patchL = np.dstack((soloL, soloL, soloL))
+            patchR = np.dstack((soloR, soloR, soloR))
 
-            image = cv2.Canny(rgbL, 80, 160)
         else:
-            patch = self.warpedpatchL
-            image = rgbL
+            patchL = self.warpedpatchL
+            patchR = self.warpedpatchR
+            imageL = rgbL
+            imageR = rgbR
 
 
         if verbose:
             cv2.namedWindow('rgbL', cv2.WINDOW_NORMAL)
-            cv2.imshow("rgbL", rgbL)
+            cv2.imshow("imageL", imageL)
             cv2.waitKey(0)
 
 
-        # match L, match R
-        centerhw, val = self.match(image, patch, self.edges2DtemplateL, verbose=verbose)
-
-
+        # match L
+        (centerx,centery), val = self.match(imageL, patchL, self.edges2DtemplateL, verbose=verbose)
         # center ist messpunkt relativ zum linken oberen Ecke der ROI
         # Umrechnen: center = (y,x), ROI : [oly, ury, olx, urx]
-        centerhw = (centerhw[0] + ROIL[0], centerhw[1] + ROIL[2])
+        centerxyL = (centerx + ROIL[2], centery + ROIL[0])
 
+        # Match R
+        (centerx,centery), val = self.match(imageL, patchL, self.edges2DtemplateL, verbose=verbose)
+        centerxyR = (centerx + ROIR[2], centery + ROIR[0])
+
+
+
+
+
+        # Triangulieren
+        print(f'Trianguliere diese beiden Punkte: {centerxyL} und {centerxyR}')
+        # Bild pixel koordinaten der Objekt Zentren
+        a3xN = np.float64([[centerxyL[0]],
+                           [centerxyL[1]]])
+
+        b3xN = np.float64([[centerxyR[0]],
+                           [centerxyR[1]]])
+
+        pos3dsyszug = cv2.triangulatePoints(self.p1[:3], self.p2[:3], a3xN[:2], b3xN[:2])
 
         # TODO
-        # triangulieren
         # koordinaten transformieren
+
+
+
         # speichern
-        return (centerhw[1], centerhw[0]), val
+        return centerxyL, val
 
-    @staticmethod
-    def crop(image, dstchannel=None, maskchannel=None, clrmask=True):
-        # setzt 0 ein, dort wo die maske >0 ist.
-        img = image.copy()
-
-        # Maske aus Kanal übernehmen
-        h, w = img.shape[:2]
-        mask = img[:, :, maskchannel] > 0
-
-        # Rauschen in Zielkanal schreiben
-        img[:, :, dstchannel][mask] = 0
-
-        # Maskenkanal löschen
-        if clrmask:
-            img[:, :, maskchannel] = 0
-
-        return img
-
-
-    @staticmethod
-    def noise(image, dstchannel=None, maskchannel=None, clrmask=True):
-        # setzt rauschen ein, dort wo die maske >0 ist.
-        img = image.copy()
-
-        # Maske aus Kanal übernehmen
-        h, w = img.shape[:2]
-        mask = img[:,:,maskchannel] > 0
-
-        # Rauschen generieren
-        noise = np.random.random((h,w)) * 255
-        noise = noise.astype(np.uint8)
-
-        # Rauschen in Zielkanal schreiben
-        img[:,:,dstchannel][mask] = noise[mask]
-
-        # Maskenkanal löschen
-        if clrmask:
-            img[:, :, maskchannel] = 0
-
-        return img
 
 
     def clahe(self, img, channel=None):
@@ -194,15 +206,19 @@ class Trainfeature:
 
 
 
-
-    @staticmethod
-    def match(img2, template_in, pts, verbose=False):
+    def match(self, img2, template_in, pts, verbose=False):
         # Rückgabewerte: beste Position und Konfidenz
         # code kopiert aus opencv tutorial
         # pts = eckpunkte des templates auf der template canvas
 
-        # Gemäss Versuchsauswertung die am besten geeignet: CCORR_NORMED
-        method = cv2.TM_CCORR_NORMED
+        # Gemäss Versuchsauswertung die am besten geeignet bei multikanal mit maske: CCORR_NORMED
+        #method = cv2.TM_CCORR_NORMED
+        if self.tmmode in [tm.NOISE, tm.IMAGE, tm.AVERAGE]:
+            method = cv2.TM_CCOEFF_NORMED
+        else:
+            method = cv2.TM_CCORR_NORMED
+
+
 
         template = template_in.copy()
         img = img2.copy()
@@ -214,17 +230,10 @@ class Trainfeature:
             img = np.dstack((img, img, img))
 
 
-        if verbose:
-            print(f'Template.shape: {template.shape}')
-            print(f'image.shape: {img.shape}')
-            cv2.imshow("matchingImage", img)
-            cv2.namedWindow('matchingTemplate', cv2.WINDOW_NORMAL)
-            cv2.imshow("matchingTemplate", template)
-            cv2.imwrite('tmp/templatedebug.png', template)
-            cv2.imwrite('tmp/templateImgdebug.png', img)
 
 
         # Apply template Matching
+        # "location" ist im Format (x,y), wie auch "offset" und "center"
         res = cv2.matchTemplate(img, template, method)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
 
@@ -236,27 +245,55 @@ class Trainfeature:
             top_left = max_loc
             val = max_val
 
-        #Jetzt muss noch auf die Patch-Mitte umgerechnet werden.
+        # Versatz von der Ecke des Templates zur Mitte des Templates berücksichtigen
         offset = np.average(pts, 0)
         center = top_left + offset
         center = tuple(center.astype(int))
 
         if verbose:
+            print(f'Template.shape: {template.shape}')
+            print(f'image.shape: {img.shape}')
+            cv2.imshow("matchingImage", cv2.drawMarker(img, center, (30,30,255), cv2.MARKER_CROSS, 10,1))
+            cv2.namedWindow('matchingTemplate', cv2.WINDOW_NORMAL)
+            cv2.imshow("matchingTemplate", template)
+            cv2.imwrite('tmp/templatedebug.png', template)
+            cv2.imwrite('tmp/templateImgdebug.png', img)
+
+            print(f'Top-Left: {top_left} ; Offset: {offset} ; Template Center: {center}')
+            res = cv2.circle(res, top_left,8, 0, 1)
             cv2.namedWindow('scoremap', cv2.WINDOW_NORMAL)
-            cv2.imshow("scoremap", res*5)
+            cv2.imshow("scoremap", res*3)
             print(res.shape)
             cv2.waitKey(0)
 
-
         return center, val
+
+    def createMasks(self):
+        # Schwarzes gefülltes Polygon auf weissen Grund erstellen
+        # Linke Maske, 255 = Hintergrund, 0 = Bildinformation verzerrtes Template
+
+        # LINKE SEITE
+        pt = self.polygonpoints(self.edges2DtemplateL)
+        mask = (np.ones(self.wpShapeL) * 255).astype(np.uint8)                      # weil gilt : y, x = a.shape
+        mask = cv2.fillConvexPoly(mask, pt, 0)
+        self.wpMaskNormL = mask == 255
+        mask = cv2.polylines(mask, pt, isClosed=True, color=255, thickness=2)       # Maske leicht überlappend machen
+        self.wpMaskExtL = mask == 255
+
+        # RECHTE SEITE
+        pt = self.polygonpoints(self.edges2DtemplateR)
+        mask = (np.ones(self.wpShapeR) * 255).astype(np.uint8)                      # weil gilt : y, x = a.shape
+        mask = cv2.fillConvexPoly(mask, pt, 0)
+        self.wpMaskNormR = mask == 255
+        mask = cv2.polylines(mask, pt, isClosed=True, color=255, thickness=2)       # Maske leicht überlappend machen
+        self.wpMaskExtR = mask == 255
+
 
     def warp(self):
         # der Patch wird perspektivisch verzerrt, damit er so aussieht wie auf dem Bild erwartet
-        #
         # Eckpunkte des quadratischen Patchs (wie gespeichert, Vogelperspektive, quadratisch)
         d = self.patchimage.shape[0]
         quadrat = np.float32([[0, 0], [d, 0], [0, d], [d, d]])
-
 
         # Eckpunkte Pixelkoordinaten (x,y) für beide Bilder L,R berechnen
         self.reprojectedges()
@@ -264,12 +301,10 @@ class Trainfeature:
         # Die Leinwand für das transformierte Bild wird so gross, dass der verzerrte Patch exakt hineinpasst
         minxl, minyl = self.edges2DimgL.min(0)[0]
         maxxl, maxyl = self.edges2DimgL.max(0)[0]
-
         minxr, minyr = self.edges2DimgR.min(0)[0]
         maxxr, maxyr = self.edges2DimgR.max(0)[0]
-
-        canvasL = (int(maxxl-minxl), int(maxyl-minyl))
-        canvasR = (int(maxxr-minxr), int(maxyr-minyr))
+        self.wpShapeL = (int(maxyl-minyl), int(maxxl-minxl))
+        self.wpShapeR = (int(maxyr-minyr), int(maxxr-minxr))
 
         # patch eckpunkte auf neue Leinwand umrechen (x und y minima pro Seite von pixelkoordinate subtrahieren)
         ofsl = np.float32([minxl, minyl])
@@ -279,44 +314,29 @@ class Trainfeature:
         self.edges2DtemplateL = self.edges2DtemplateL[:, 0].astype(np.float32)
         self.edges2DtemplateR = self.edges2DtemplateR[:, 0].astype(np.float32)
 
-        # Schwarzes gefülltes Polygon auf weissen Grund erstellen
-        # Linke Maske, 255 = Hintergrund, 0 = Bildinformation verzerrtes Template
-        self.warpedpatchLmasks = np.zeros((canvasL[1], canvasL[0], 2), dtype=np.uint8)
-        pt = self.polygonpoints(self.edges2DtemplateL)
-        mask = (np.ones((canvasL[1], canvasL[0])) * 255).astype(np.uint8)  # weil gilt : y, x = a.shape
-        mask = cv2.fillConvexPoly(mask, pt, 0)
-        self.warpedpatchLmasks[:, :, 0] = mask == 255
-        # Maske leicht überlappend machen
-        mask = cv2.polylines(mask, pt, isClosed=True, color=0, thickness=10)
-        self.warpedpatchLmasks[:, :, 1] = mask == 255
-
-        # Rechte Maske
-        maskR = (np.ones((canvasR[1], canvasR[0])) * 255).astype(np.uint8)              # weil gilt : y, x = a.shape
-        pt = self.polygonpoints(self.edges2DtemplateR)
-        maskR = cv2.fillConvexPoly(maskR,pt,0)
-        maskR = cv2.polylines(maskR,pt,isClosed=True,color=0, thickness=10)
-        maskR = maskR == 255
+        # Masken erstellen
+        self.createMasks()
 
         # Transformation am Bild durchführen. Datentyp der Punkte muss float32 sein, sonst b(l)ockt open cv
         ML = cv2.getPerspectiveTransform(quadrat, self.edges2DtemplateL)
         MR = cv2.getPerspectiveTransform(quadrat, self.edges2DtemplateR)
-        imgL = cv2.warpPerspective(self.patchimage, ML, canvasL)
-        imgR = cv2.warpPerspective(self.patchimage, MR, canvasR)
+        imgL = cv2.warpPerspective(self.patchimage, ML, (self.wpShapeL[1], self.wpShapeL[0]))   # dSize ist (x,y)
+        imgR = cv2.warpPerspective(self.patchimage, MR, (self.wpShapeR[1], self.wpShapeR[0]))   # dSize ist (x,y)
 
-        # template ist noch greyscale. rgb Version erstellen mit untercschiedlichen Informationen pro Kanal. Siehe Doku
+        # template ist noch greyscale. rgb Version erstellen mit unterschiedlichen Informationen pro Kanal. Siehe Doku
         # grey in den Kanal 0 kopieren.
         channel_0L = imgL.copy()
         channel_0R = imgR.copy()
 
         # Kanal 1: Maske Template (255 wenn es sich um den zu ignorierenden Bereich des Templates handelt)
-        channel_1L = np.zeros((canvasL[1], canvasL[0]), dtype=np.uint8)
-        channel_1R = np.zeros((canvasR[1], canvasR[0]), dtype=np.uint8)
-        channel_1L[self.warpedpatchLmasks[:, :, 0]] = 255
-        channel_1R[maskR] = 255
+        channel_1L = np.zeros(self.wpShapeL, dtype=np.uint8)
+        channel_1R = np.zeros(self.wpShapeR, dtype=np.uint8)
+        channel_1L[self.wpMaskNormL] = 255
+        channel_1R[self.wpMaskNormR] = 255
 
         # Kanel 2: Bleibt Nuller (wird nur im zu durchsuchenden Bild verwendet, nicht im Template)
-        channel_2L = np.zeros((canvasL[1], canvasL[0]), dtype=np.uint8)
-        channel_2R = np.zeros((canvasR[1], canvasR[0]), dtype=np.uint8)
+        channel_2L = np.zeros(self.wpShapeL, dtype=np.uint8)
+        channel_2R = np.zeros(self.wpShapeR, dtype=np.uint8)
 
         # Kanäle stapeln
         rgbL = np.dstack((channel_0L, channel_1L, channel_2L))
@@ -324,9 +344,7 @@ class Trainfeature:
 
         self.warpedpatchL = rgbL
         self.warpedpatchR = rgbR
-
         return imgL, imgR
-
 
 
     def showpatch(self):
@@ -431,17 +449,17 @@ class Trainfeature:
         if self.rotation is not None:
             print("Warnung, Rotation des Templates ist nicht nicht implementiert.") # TODO
 
-        # Patchmitte bis Patch Rand
+        # Patchmitte bis Patch Rand (in x oder y Richtung)
         d = self.realsize / 2
 
         # Alle Ecken erhalten vorerst den Mittelpunkt als Koordinaten
         self.edges3Dtrain = np.tile(self.center3Dtrain, (4, 1))
 
         # Patchmitte bis Patch Ecken, die Differenz vom Mittelpunkt zur Ecke
-        d = np.array([[-d, +d, 0],
-                      [+d, +d, 0],
-                      [-d, -d, 0],
-                      [+d, -d, 0]])
+        d = np.array([[-d, +d, 0],          # oben links
+                      [+d, +d, 0],          # oben rechts
+                      [-d, -d, 0],          # unten links
+                      [+d, -d, 0]])         # unten rechts
         self.edges3Dtrain += d
 
 

@@ -6,11 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="543fc68e-51ac-46c2-a3d3-d45e8a552486" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/18-CLAHE-test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/18-elsd-1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/15-trainfeaturetests.py" beforeDir="false" afterPath="$PROJECT_DIR$/15-trainfeaturetests.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tmp/templateImgdebug.png" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/templateImgdebug.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tmp/templatedebug.png" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/templatedebug.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trainfeature.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainfeature.py" afterDir="false" />
@@ -27,24 +23,33 @@
         <state>
           <leaf>
             <file pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/15-trainfeaturetests.py">
+              <entry file="file://$PROJECT_DIR$/trainfeature.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="126">
-                    <caret line="38" column="23" selection-start-line="38" selection-start-column="23" selection-end-line="38" selection-end-column="23" />
+                  <state relative-caret-position="430">
+                    <caret line="171" column="4" selection-start-line="171" selection-start-column="4" selection-end-line="171" selection-end-column="4" />
                     <folding>
-                      <element signature="e#73#83#0" expanded="true" />
+                      <element signature="e#69#87#0" expanded="true" />
                     </folding>
                   </state>
                 </provider>
               </entry>
             </file>
             <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/trainfeature.py">
+              <entry file="file://$USER_HOME$/.PyCharmCE2018.3/system/python_stubs/-3016789/cv2/cv2/__init__.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="-1958">
-                    <caret line="276" column="75" lean-forward="true" selection-start-line="276" selection-start-column="75" selection-end-line="276" selection-end-column="75" />
+                  <state relative-caret-position="306">
+                    <caret line="10751" column="4" selection-start-line="10751" selection-start-column="4" selection-end-line="10751" selection-end-column="4" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/15-trainfeaturetests.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="616">
+                    <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
                     <folding>
-                      <element signature="e#69#87#0" expanded="true" />
+                      <element signature="e#73#83#0" expanded="true" />
                     </folding>
                   </state>
                 </provider>
@@ -59,13 +64,7 @@
     <favorites_list name="p6" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test2png.png">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -159,15 +158,15 @@
         <option value="$PROJECT_DIR$/18-CLAHE-test.py" />
         <option value="$PROJECT_DIR$/18-elsd-1.py" />
         <option value="$PROJECT_DIR$/pylsd/lsd.py" />
-        <option value="$PROJECT_DIR$/trainfeature.py" />
         <option value="$PROJECT_DIR$/15-trainfeaturetests.py" />
+        <option value="$PROJECT_DIR$/trainfeature.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="321" />
-    <option name="width" value="1599" />
-    <option name="height" value="1029" />
+    <option name="x" value="320" />
+    <option name="width" value="1600" />
+    <option name="height" value="1030" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -182,6 +181,11 @@
             <path>
               <item name="p6" type="b2602c69:ProjectViewProjectNode" />
               <item name="p6" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="p6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="p6" type="462c0819:PsiDirectoryNode" />
+              <item name="trainfeature.py" type="8704e2dd:PyFileNode" />
             </path>
           </expand>
           <select />
@@ -364,7 +368,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="257" y="0" width="1279" height="823" extended-state="0" />
+    <frame x="256" y="0" width="1280" height="824" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" x="3" y="2" width="264" height="703" id="Project" order="0" sideWeight="0.49774775" type="FLOATING" visible="true" weight="0.17718121" />
@@ -372,7 +376,7 @@
       <window_info id="Favorites" order="2" sideWeight="0.5022523" side_tool="true" weight="0.14026846" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.61393327" />
-      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" visible="true" weight="0.8408104" />
+      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" visible="true" weight="0.8395954" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.32905984" />
@@ -455,39 +459,14 @@
           <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>239</line>
-          <option name="timeStamp" value="95" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/17-templatematchChannelTest.py</url>
           <line>23</line>
           <option name="timeStamp" value="102" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>82</line>
-          <option name="timeStamp" value="110" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/pylsd/lsd.py</url>
           <line>11</line>
           <option name="timeStamp" value="114" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>227</line>
-          <option name="timeStamp" value="115" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>210</line>
-          <option name="timeStamp" value="116" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>283</line>
-          <option name="timeStamp" value="117" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -498,8 +477,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/jokotestWarp.png" />
-    <entry file="file://$PROJECT_DIR$/jokowarptest2.png" />
     <entry file="file://$PROJECT_DIR$/aaa.png" />
     <entry file="file://$PROJECT_DIR$/jkokowarptest3.png" />
     <entry file="file://$PROJECT_DIR$/09GitterLR1.py">
@@ -654,13 +631,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.PyCharmCE2018.3/system/python_stubs/-3016789/cv2/cv2/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="8710" column="4" selection-start-line="8710" selection-start-column="4" selection-end-line="8710" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/16-warptestBackground.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
@@ -712,13 +682,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="1710" column="52" lean-forward="true" selection-start-line="1710" selection-start-column="52" selection-end-line="1710" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/18-elsd-1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
@@ -729,25 +692,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/170366ntl.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/test2png.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/trainfeature.py">
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/lib/shape_base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1958">
-          <caret line="276" column="75" lean-forward="true" selection-start-line="276" selection-start-column="75" selection-end-line="276" selection-end-column="75" />
-          <folding>
-            <element signature="e#69#87#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="28">
+          <caret line="645" selection-start-line="645" selection-end-line="645" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/15-trainfeaturetests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="38" column="23" selection-start-line="38" selection-start-column="23" selection-end-line="38" selection-end-column="23" />
+        <state relative-caret-position="616">
+          <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
           <folding>
             <element signature="e#73#83#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="1709" column="45" selection-start-line="1709" selection-start-column="45" selection-end-line="1709" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2018.3/system/python_stubs/-3016789/cv2/cv2/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="10751" column="4" selection-start-line="10751" selection-start-column="4" selection-end-line="10751" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trainfeature.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="171" column="4" selection-start-line="171" selection-start-column="4" selection-end-line="171" selection-end-column="4" />
+          <folding>
+            <element signature="e#69#87#0" expanded="true" />
           </folding>
         </state>
       </provider>
