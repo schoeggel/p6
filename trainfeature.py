@@ -7,11 +7,11 @@ from enum import Enum
 
 
 class tm(Enum):
-    IMAGE = 1
-    NOISE = 2
-    AVERAGE = 3
-    CANNY = 4
-    ELSD = 5
+    IMAGE = 1           # Template in einem bildkanal, masken in anderen kanälen. Versuch TM mit transparen
+    NOISE = 2           # Template auf Rauschen.
+    AVERAGE = 3         # Template auf Hintergrund, der dem mittelwert des Templates entspricht
+    CANNY = 4           # Tmeplate und Suchbereich durch canny edge detector laufen lassen
+    ELSD = 5            # TODO: statt canny die ellipsen und linien erkennen.
 
 
 class Trainfeature:
@@ -20,7 +20,7 @@ class Trainfeature:
     # oder ungefähr gesetzt mit der Methode "approxreference"
 
     SKALIERKORREKTUR = 0.58                         # Eine Art Massstab für die Grössenumrechnung
-    PIXEL_PER_CLAHE_BLOCK = 50                      # Anzahl Blocks abhängig von Bildgrösse
+    PIXEL_PER_CLAHE_BLOCK = 50                      # Anzahl Blocks ist abhängig von der Bildgrösse
 
     p1 = None                                       # P Matrix für Triangulation
     p2 = None                                       # P Matrix für Triangulation
@@ -64,10 +64,22 @@ class Trainfeature:
     #liefert die eckpunkte für den suchbereich.
 
     # TODO: ausgabe pixel interpolieren (gauss filter) und besseres max finden
-    def filterScore(self):
-        # macht gauss filter über map, um eindeutig maximum zu erhalten, (als float)
-        # mappt die bild info auf einen range 0..255, damit es gut darstellbar ist
-        pass
+    @staticmethod
+    def filterScore(score_in):
+        # macht gauss filter über map, um eindeutig maximum zu erhalten.
+        # mappt die bild info auf einen range 0..1
+        # TODO: die Auflösung könnte auch hochskaliert werden vor dem gauss filter, um
+        # den peak sub-pixel-"genau" zu lokalisieren.
+
+        # glätten (Filter Parameter wurden experimentell bestimmt)
+        scoreSmooth = cv2.GaussianBlur(score_in, (9, 9), 2)
+
+         # Kontrast verbessern: Das bild ist nicht uint8, cv2.equalizeHist() funktioniert nicht
+        imin, imax = scoreSmooth.min(),scoreSmooth.max()
+        scoreSmooth = np.interp(scoreSmooth, [imin, imax] , [0, 1])
+
+        return scoreSmooth
+
 
 
     def find(self, imageL, imageR, verbose=False):
@@ -124,8 +136,8 @@ class Trainfeature:
             noiseR = (np.random.random(self.wpShapeR) * valueR).astype(np.uint8)
             soloL = self.warpedpatchL[:, :, 0]
             soloR = self.warpedpatchR[:, :, 0]
-            soloL[self.wpMaskNormL] = noiseL[self.wpMaskNormL]
-            soloR[self.wpMaskNormR] = noiseR[self.wpMaskNormR]
+            soloL[self.wpMaskExtL] = noiseL[self.wpMaskExtL]
+            soloR[self.wpMaskExtR] = noiseR[self.wpMaskExtR]
             patchL = np.dstack((soloL, soloL, soloL))
             patchR = np.dstack((soloR, soloR, soloR))
 
@@ -260,9 +272,12 @@ class Trainfeature:
             cv2.imwrite('tmp/templateImgdebug.png', img)
 
             print(f'Top-Left: {top_left} ; Offset: {offset} ; Template Center: {center}')
+            res = self.filterScore(res)
+
             res = cv2.circle(res, top_left,8, 0, 1)
+            res = cv2.circle(res, top_left, 9, 255, 1)
             cv2.namedWindow('scoremap', cv2.WINDOW_NORMAL)
-            cv2.imshow("scoremap", res*3)
+            cv2.imshow("scoremap", res)
             print(res.shape)
             cv2.waitKey(0)
 
@@ -277,7 +292,7 @@ class Trainfeature:
         mask = (np.ones(self.wpShapeL) * 255).astype(np.uint8)                      # weil gilt : y, x = a.shape
         mask = cv2.fillConvexPoly(mask, pt, 0)
         self.wpMaskNormL = mask == 255
-        mask = cv2.polylines(mask, pt, isClosed=True, color=255, thickness=2)       # Maske leicht überlappend machen
+        mask = cv2.polylines(mask, pt, isClosed=True, color=255, thickness=3)       # Maske leicht überlappend machen
         self.wpMaskExtL = mask == 255
 
         # RECHTE SEITE
@@ -285,7 +300,7 @@ class Trainfeature:
         mask = (np.ones(self.wpShapeR) * 255).astype(np.uint8)                      # weil gilt : y, x = a.shape
         mask = cv2.fillConvexPoly(mask, pt, 0)
         self.wpMaskNormR = mask == 255
-        mask = cv2.polylines(mask, pt, isClosed=True, color=255, thickness=2)       # Maske leicht überlappend machen
+        mask = cv2.polylines(mask, pt, isClosed=True, color=255, thickness=3)       # Maske leicht überlappend machen
         self.wpMaskExtR = mask == 255
 
 
