@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/13-Check3dQuadrat1.py" line="70" mnemonic="1" />
-    <bookmark url="file://$PROJECT_DIR$/13-Check3dQuadrat1.py" line="242" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="71" mnemonic="1" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="354" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="95" mnemonic="4" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="438" mnemonic="5" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="229" mnemonic="6" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="543fc68e-51ac-46c2-a3d3-d45e8a552486" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/15-trainfeaturetests.py" beforeDir="false" afterPath="$PROJECT_DIR$/15-trainfeaturetests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/templateImgdebug.png" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/templateImgdebug.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tmp/templatedebug.png" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/templatedebug.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trainfeature.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainfeature.py" afterDir="false" />
     </list>
@@ -16,40 +20,6 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/15-trainfeaturetests.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="302">
-                    <caret line="48" column="57" selection-start-line="48" selection-start-column="57" selection-end-line="48" selection-end-column="57" />
-                    <folding>
-                      <element signature="e#73#83#0" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/trainfeature.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="2574">
-                    <caret line="117" column="39" lean-forward="true" selection-start-line="117" selection-start-column="39" selection-end-line="117" selection-end-column="39" />
-                    <folding>
-                      <element signature="e#69#87#0" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
   </component>
   <component name="FavoritesManager">
     <favorites_list name="p6" />
@@ -67,7 +37,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>img</find>
       <find>ptdist</find>
       <find>show</find>
       <find>GitterEckpunkte</find>
@@ -93,6 +62,11 @@
       <find>noise</find>
       <find>wpmasknorm</find>
       <find>warp</find>
+      <find>edges2DimgL</find>
+      <find>SKALIERKORREKTUR</find>
+      <find>matchingTempl</find>
+      <find>reprojectedges</find>
+      <find>calc</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -153,15 +127,16 @@
         <option value="$PROJECT_DIR$/18-CLAHE-test.py" />
         <option value="$PROJECT_DIR$/18-elsd-1.py" />
         <option value="$PROJECT_DIR$/pylsd/lsd.py" />
-        <option value="$PROJECT_DIR$/15-trainfeaturetests.py" />
         <option value="$PROJECT_DIR$/trainfeature.py" />
+        <option value="$PROJECT_DIR$/15-trainfeaturetests.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="320" />
-    <option name="width" value="1600" />
-    <option name="height" value="1030" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1044" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -170,7 +145,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -183,10 +157,17 @@
               <item name="p6" type="462c0819:PsiDirectoryNode" />
               <item name="trainfeature.py" type="8704e2dd:PyFileNode" />
             </path>
+            <path>
+              <item name="p6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="p6" type="462c0819:PsiDirectoryNode" />
+              <item name="trainfeature.py" type="8704e2dd:PyFileNode" />
+              <item name="Trainfeature" type="dd8bbb05:PyElementNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -196,11 +177,11 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\gitstuff\p6" />
       <recent name="C:\gitstuff\bt19" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\gitstuff\p6" />
       <recent name="C:\gitstuff\bt19" />
     </key>
@@ -364,26 +345,25 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="256" y="0" width="1280" height="824" extended-state="1" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1550" height="835" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" x="3" y="2" width="264" height="703" id="Project" order="0" sideWeight="0.49774775" type="FLOATING" visible="true" weight="0.17718121" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.24966443" />
-      <window_info id="Favorites" order="2" sideWeight="0.5022523" side_tool="true" weight="0.14026846" />
+      <window_info content_ui="combo" x="1095" y="86" width="350" height="703" id="Project" order="0" sideWeight="0.49774775" type="FLOATING" visible="true" weight="0.17718121" />
+      <window_info id="Structure" order="1" side_tool="true" visible="true" weight="0.20536913" />
+      <window_info id="Favorites" order="2" sideWeight="0.5022523" side_tool="true" weight="0.13963039" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.61393327" />
-      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" visible="true" weight="0.8395954" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.61024183" />
+      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" weight="0.95732576" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="5" weight="0.32905984" />
-      <window_info anchor="bottom" id="Version Control" order="6" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32416788" />
+      <window_info anchor="bottom" id="TODO" order="5" weight="0.3278101" />
+      <window_info anchor="bottom" id="Version Control" order="6" weight="0.79231864" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3236994" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.36946464" side_tool="true" weight="0.2346041" />
-      <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.49966952" weight="0.5079595" />
+      <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.49966952" weight="0.5078236" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.24979457" />
-      <window_info active="true" anchor="right" x="7" y="30" width="1156" height="784" id="Run" order="3" sideWeight="0.63053536" type="WINDOWED" visible="true" weight="0.24307036" />
+      <window_info anchor="right" x="177" y="35" width="850" height="784" id="Run" maximized="true" order="3" sideWeight="0.63053536" type="WINDOWED" weight="0.24307036" />
       <window_info anchor="right" x="0" y="0" width="337" height="635" id="Documentation" order="4" side_tool="true" weight="0.3295302" />
     </layout>
     <layout-to-restore>
@@ -465,14 +445,14 @@
           <option name="timeStamp" value="114" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>78</line>
-          <option name="timeStamp" value="117" />
+          <url>file://$PROJECT_DIR$/15-trainfeaturetests.py</url>
+          <line>87</line>
+          <option name="timeStamp" value="138" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>294</line>
-          <option name="timeStamp" value="118" />
+          <line>579</line>
+          <option name="timeStamp" value="139" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -483,7 +463,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/aaa.png" />
     <entry file="file://$PROJECT_DIR$/jkokowarptest3.png" />
     <entry file="file://$PROJECT_DIR$/09GitterLR1.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -718,16 +697,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/15-trainfeaturetests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="48" column="57" selection-start-line="48" selection-start-column="57" selection-end-line="48" selection-end-column="57" />
-          <folding>
-            <element signature="e#73#83#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2018.3/system/python_stubs/-3016789/cv2/cv2/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="365">
@@ -735,12 +704,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/core/_methods.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/trainfeature.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2574">
-          <caret line="117" column="39" lean-forward="true" selection-start-line="117" selection-start-column="39" selection-end-line="117" selection-end-column="39" />
+        <state relative-caret-position="386">
+          <caret line="583" column="29" lean-forward="true" selection-start-line="583" selection-start-column="29" selection-end-line="583" selection-end-column="29" />
           <folding>
             <element signature="e#69#87#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/15-trainfeaturetests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1562">
+          <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
+          <folding>
+            <element signature="e#73#83#0" expanded="true" />
           </folding>
         </state>
       </provider>

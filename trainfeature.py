@@ -10,7 +10,7 @@ class tm(Enum):
     IMAGE = 1           # Template in einem bildkanal, masken in anderen kanälen. Versuch TM mit transparen
     NOISE = 2           # Template auf Rauschen.
     AVERAGE = 3         # Template auf Hintergrund, der dem mittelwert des Templates entspricht
-    CANNY = 4           # Tmeplate und Suchbereich durch canny edge detector laufen lassen
+    CANNY = 4           # Template und Suchbereich durch canny edge detector laufen lassen
     ELSD = 5            # TODO: statt canny die ellipsen und linien erkennen.
 
 
@@ -19,7 +19,6 @@ class Trainfeature:
     # Die Werte werden einmalig pro Bildpaar gesetzt mit der Methode "reference"
     # oder ungefähr gesetzt mit der Methode "approxreference"
 
-    SKALIERKORREKTUR = 0.58                         # Eine Art Massstab für die Grössenumrechnung
     PIXEL_PER_CLAHE_BLOCK = 50                      # Anzahl Blocks ist abhängig von der Bildgrösse
 
     p1 = None                                       # P Matrix für Triangulation
@@ -39,14 +38,14 @@ class Trainfeature:
         self.patchfilename = "data/patches/" + name + ".png"          # zum laden des patchbilds
         self.patchimageRaw = None                   # Das Bild im Originalzustand
         self.patchimage = None                      # Das Bild (Kontrastverbessert)
-        self.center3Dtrain = center3d.astype(float) # Vektor 3d zum Patch Mitelpunkt im sys_zug
+        self.patchCenter3d = center3d.astype(float) # Vektor 3d zum Patch Mitelpunkt im sys_zug
         self.realsize = realsize                    # Kantenlänge 3d des Patches.
         self.rotation = None                        # später: TODO : objekt kann auch schräg sein
-        self.edges3Dtrain = np.zeros((4, 3))        # Die Vier Eckpunkte des Objekts als 3d Koordinaten im sys_zug
-        self.edges2DimgL = np.zeros((1, 4, 2))      # Eckpunkte auf dem Bild.
-        self.edges2DimgR = np.zeros((1, 4, 2))      # Eckpunkte auf dem Bild.
-        self.edges2DtemplateL = np.zeros((1, 4, 2)) # Eckpunkte auf dem Template
-        self.edges2DtemplateR = np.zeros((1, 4, 2)) # Eckpunkte auf dem Template
+        self.corners3Dtrain = np.zeros((5, 3))        # Vier Eckpunkte plus Mittelpunkt des Objekts als 3d Koord.
+        self.corners2DimgL = np.zeros((1, 5, 2))      # Eckpunkte auf dem Bild. (plus Mitte)
+        self.corners2DimgR = np.zeros((1, 5, 2))      # Eckpunkte auf dem Bild. (plus Mitte)
+        self.corners2DtemplateL = np.zeros((1, 5, 2)) # Eckpunkte auf dem Template (plus Mitte)
+        self.corners2DtemplateR = np.zeros((1, 5, 2)) # Eckpunkte auf dem Template (plus Mitte)
         self.warpedpatchL = None                    # das gewarpte template
         self.warpedpatchR = None                    # das gewarpte template
         self.wpShapeL = (-1,-1)                     # Grösse des verzerrten Templates.
@@ -55,15 +54,28 @@ class Trainfeature:
         self.wpMaskNormR = None                     # Maske für verzerrtes Template.
         self.wpMaskExtL = None                      # Maske für verzerrtes Template. Hintergrund leicht überlappend
         self.wpMaskExtR = None                      # Maske für verzerrtes Template. Hintergrund leicht überlappend
-        self.measuredposition3d = None              # Die gemessene Position
+        self.measuredposition3d_zug = None          # Die gemessene Position im System Zug
+        self.measuredposition3d_cam = None          # Die gemessene Position im System Kamera
         self.loadpatch()                            # default-Patch laden
 
-    #TODO: getROIpts
-    def getROIpts(self):
-        pass
-    #liefert die eckpunkte für den suchbereich.
 
-    # TODO: ausgabe pixel interpolieren (gauss filter) und besseres max finden
+    #liefert die eckpunkte für den suchbereich.
+    # im Format [oly, ury, olx, urx]
+    def getROIptsL(self, extend = 100):
+        return self.getROIsingleSide(self.corners2DimgL, extend)
+
+    def getROIptsR(self, extend = 100):
+        return self.getROIsingleSide(self.corners2DimgR, extend)
+
+    def getROIsingleSide(self, corners, extend):
+        # Liefert den Suchbereich einer Seite
+        minx, miny = corners.min(0)[0]
+        maxx, maxy = corners.max(0)[0]
+        olx, oly = minx - extend, miny - extend
+        urx, ury = maxx + extend, maxy + extend
+        return list(map(int, [oly, ury, olx, urx]))
+
+
     @staticmethod
     def filterScore(score_in):
         # macht gauss filter über map, um eindeutig maximum zu erhalten.
@@ -74,21 +86,57 @@ class Trainfeature:
         # glätten (Filter Parameter wurden experimentell bestimmt)
         scoreSmooth = cv2.GaussianBlur(score_in, (9, 9), 2)
 
-         # Kontrast verbessern: Das bild ist nicht uint8, cv2.equalizeHist() funktioniert nicht
+        # Kontrast verbessern: Das bild ist nicht uint8, cv2.equalizeHist() funktioniert nicht
         imin, imax = scoreSmooth.min(),scoreSmooth.max()
         scoreSmooth = np.interp(scoreSmooth, [imin, imax] , [0, 1])
 
         return scoreSmooth
 
 
+    def drawBasis(self, img_in, sideLR = 0, length=100, thickness=20, show=False):
+        # zeichnet die Basis des Zugssystems auf das Bild ein
+        # RGB == XYZ (opencv draw: BGR)
+        # SideLR = 0 : Links   |  SideLR = 1 : Rechts
+        img = img_in.copy()
 
-    def find(self, imageL, imageR, verbose=False):
+        # Basis aufstellen im system zug
+        basis3d = np.diag(np.float64([length, length, length]))  # kanonische Einheitsvektoren
+        basis3d = np.append([np.zeros(3)], basis3d, axis=0)  # erste Zeile = Ursprung
+
+        # umrechnen ins Kamerasystem
+        pts_cam = self.transformsys(basis3d, direction=0)
+
+        # Projektion der Punkte in Bildpixelkoordinaten
+        cal = calibMatrix.CalibData()
+        if sideLR == 0:
+            pts, jcb = cv2.projectPoints(pts_cam, cal.rl, cal.tl, cal.kl, cal.drl)
+        elif sideLR == 1:
+            pts, jcb = cv2.projectPoints(pts_cam, cal.rr, cal.tr, cal.kr, cal.drr)
+
+        #Basis einzeichnen
+        # pts im shape (4,1,2)
+        pts = pts.astype(int)
+        img = cv2.line(img, (pts[0][0][0], pts[0][0][1]), (pts[1][0][0], pts[1][0][1]), (0,0,255), thickness)
+        img = cv2.line(img, (pts[0][0][0], pts[0][0][1]), (pts[2][0][0], pts[2][0][1]), (0,255,0), thickness)
+        img = cv2.line(img, (pts[0][0][0], pts[0][0][1]), (pts[3][0][0], pts[3][0][1]), (255,0,0), thickness)
+
+        if show:
+            cv2.namedWindow('Basis', cv2.WINDOW_NORMAL)
+            cv2.imshow("Basis", img)
+            cv2.waitKey(0)
+
+        return img
+
+
+
+    def find(self, imageL, imageR, verbose=False, extend=100):
         # sucht das objekt im angegebenen Bild
         # Liefert die gemessene Position zurück (2d,3d), speichert gemessene 3d pos in Instanz
 
-        ROIL = [900,1200,900,1300]      # [oly, ury, olx, urx]  ===> ACHTUNG
-        ROIR = [1050,1180,1000,1200]      # [oly, ury, olx, urx]  ===> ACHTUNG
+        assert (self.corners3Dtrain.sum != 0)
 
+        ROIL = self.getROIptsL(extend)
+        ROIR = self.getROIptsR(extend)
 
         # Kanal 0 erhält die Bildinfo
         # Nur Region of interest ausschneiden
@@ -155,17 +203,14 @@ class Trainfeature:
 
 
         # match L
-        (centerx,centery), val = self.match(imageL, patchL, self.edges2DtemplateL, verbose=verbose)
+        (centerx,centery), val = self.match(imageL, patchL, self.corners2DtemplateL[4], verbose=verbose)
         # center ist messpunkt relativ zum linken oberen Ecke der ROI
         # Umrechnen: center = (y,x), ROI : [oly, ury, olx, urx]
         centerxyL = (centerx + ROIL[2], centery + ROIL[0])
 
         # Match R
-        (centerx,centery), val = self.match(imageL, patchL, self.edges2DtemplateL, verbose=verbose)
+        (centerx,centery), val = self.match(imageL, patchL, self.corners2DtemplateL[4], verbose=verbose)
         centerxyR = (centerx + ROIR[2], centery + ROIR[0])
-
-
-
 
 
         # Triangulieren
@@ -177,14 +222,13 @@ class Trainfeature:
         b3xN = np.float64([[centerxyR[0]],
                            [centerxyR[1]]])
 
-        pos3dsyszug = cv2.triangulatePoints(self.p1[:3], self.p2[:3], a3xN[:2], b3xN[:2])
+        # koordinaten trangulieren und homogen --> kathesisch umformen
+        self.measuredposition3d_cam = cv2.triangulatePoints(self.p1[:3], self.p2[:3], a3xN[:2], b3xN[:2])
+        self.measuredposition3d_cam /= self.measuredposition3d_cam[3]
 
-        # TODO
-        # koordinaten transformieren
+        # System Cam --> System Zug
+        self.measuredposition3d_zug = self.transformsys(self.measuredposition3d_cam[:3].T, direction=1)
 
-
-
-        # speichern
         return centerxyL, val
 
 
@@ -218,10 +262,10 @@ class Trainfeature:
 
 
 
-    def match(self, img2, template_in, pts, verbose=False):
+    def match(self, img2, template_in, patchcenter, verbose=False):
         # Rückgabewerte: beste Position und Konfidenz
         # code kopiert aus opencv tutorial
-        # pts = eckpunkte des templates auf der template canvas
+        # patchcenter = Mitte des Patchs. TM Resultat bezieht sich auf die Ecke
 
         # Gemäss Versuchsauswertung die am besten geeignet bei multikanal mit maske: CCORR_NORMED
         #method = cv2.TM_CCORR_NORMED
@@ -229,8 +273,6 @@ class Trainfeature:
             method = cv2.TM_CCOEFF_NORMED
         else:
             method = cv2.TM_CCORR_NORMED
-
-
 
         template = template_in.copy()
         img = img2.copy()
@@ -240,9 +282,6 @@ class Trainfeature:
             template = np.dstack((template, template, template))
         elif img.ndim == 2 and template.ndim == 3:
             img = np.dstack((img, img, img))
-
-
-
 
         # Apply template Matching
         # "location" ist im Format (x,y), wie auch "offset" und "center"
@@ -258,22 +297,20 @@ class Trainfeature:
             val = max_val
 
         # Versatz von der Ecke des Templates zur Mitte des Templates berücksichtigen
-        offset = np.average(pts, 0)
-        center = top_left + offset
-        center = tuple(center.astype(int))
+        location = top_left + patchcenter
+        location = tuple(location.astype(int))
 
         if verbose:
             print(f'Template.shape: {template.shape}')
             print(f'image.shape: {img.shape}')
-            cv2.imshow("matchingImage", cv2.drawMarker(img, center, (30,30,255), cv2.MARKER_CROSS, 10,1))
+            cv2.imshow("matchingImage", cv2.drawMarker(img, location, (30,30,255), cv2.MARKER_CROSS, 10,1))
+            tmp = cv2.drawMarker(template, tuple(patchcenter.astype(int)), (255, 0, 255), cv2.MARKER_CROSS, 8, 1)
             cv2.namedWindow('matchingTemplate', cv2.WINDOW_NORMAL)
-            cv2.imshow("matchingTemplate", template)
+            cv2.imshow("matchingTemplate",tmp)
             cv2.imwrite('tmp/templatedebug.png', template)
             cv2.imwrite('tmp/templateImgdebug.png', img)
-
-            print(f'Top-Left: {top_left} ; Offset: {offset} ; Template Center: {center}')
+            print(f'Top-Left: {top_left} ; Offset PatchCenter: {patchcenter} ; Template Center: {location}')
             res = self.filterScore(res)
-
             res = cv2.circle(res, top_left,8, 0, 1)
             res = cv2.circle(res, top_left, 9, 255, 1)
             cv2.namedWindow('scoremap', cv2.WINDOW_NORMAL)
@@ -281,14 +318,14 @@ class Trainfeature:
             print(res.shape)
             cv2.waitKey(0)
 
-        return center, val
+        return location, val
 
     def createMasks(self):
         # Schwarzes gefülltes Polygon auf weissen Grund erstellen
         # Linke Maske, 255 = Hintergrund, 0 = Bildinformation verzerrtes Template
 
         # LINKE SEITE
-        pt = self.polygonpoints(self.edges2DtemplateL)
+        pt = self.polygonpoints(self.corners2DtemplateL)
         mask = (np.ones(self.wpShapeL) * 255).astype(np.uint8)                      # weil gilt : y, x = a.shape
         mask = cv2.fillConvexPoly(mask, pt, 0)
         self.wpMaskNormL = mask == 255
@@ -296,7 +333,7 @@ class Trainfeature:
         self.wpMaskExtL = mask == 255
 
         # RECHTE SEITE
-        pt = self.polygonpoints(self.edges2DtemplateR)
+        pt = self.polygonpoints(self.corners2DtemplateR)
         mask = (np.ones(self.wpShapeR) * 255).astype(np.uint8)                      # weil gilt : y, x = a.shape
         mask = cv2.fillConvexPoly(mask, pt, 0)
         self.wpMaskNormR = mask == 255
@@ -314,27 +351,28 @@ class Trainfeature:
         self.reprojectedges()
 
         # Die Leinwand für das transformierte Bild wird so gross, dass der verzerrte Patch exakt hineinpasst
-        minxl, minyl = self.edges2DimgL.min(0)[0]
-        maxxl, maxyl = self.edges2DimgL.max(0)[0]
-        minxr, minyr = self.edges2DimgR.min(0)[0]
-        maxxr, maxyr = self.edges2DimgR.max(0)[0]
+        minxl, minyl = self.corners2DimgL.min(0)[0]
+        maxxl, maxyl = self.corners2DimgL.max(0)[0]
+        minxr, minyr = self.corners2DimgR.min(0)[0]
+        maxxr, maxyr = self.corners2DimgR.max(0)[0]
         self.wpShapeL = (int(maxyl-minyl), int(maxxl-minxl))
         self.wpShapeR = (int(maxyr-minyr), int(maxxr-minxr))
 
         # patch eckpunkte auf neue Leinwand umrechen (x und y minima pro Seite von pixelkoordinate subtrahieren)
-        ofsl = np.float32([minxl, minyl])
-        ofsr = np.float32([minxr, minyr])
-        self.edges2DtemplateL = self.edges2DimgL - np.tile(ofsl, (4, 1, 1))
-        self.edges2DtemplateR = self.edges2DimgR - np.tile(ofsr, (4, 1, 1))
-        self.edges2DtemplateL = self.edges2DtemplateL[:, 0].astype(np.float32)
-        self.edges2DtemplateR = self.edges2DtemplateR[:, 0].astype(np.float32)
+        ofsl = np.float32([minxl, minyl])   # Offset Linkes Bild
+        ofsr = np.float32([minxr, minyr])   # Offset Rechtes Bild
+        self.corners2DtemplateL = self.corners2DimgL - np.tile(ofsl, (5, 1, 1))
+        self.corners2DtemplateR = self.corners2DimgR - np.tile(ofsr, (5, 1, 1))
+        self.corners2DtemplateL = self.corners2DtemplateL[:, 0].astype(np.float32)
+        self.corners2DtemplateR = self.corners2DtemplateR[:, 0].astype(np.float32)
 
         # Masken erstellen
         self.createMasks()
 
         # Transformation am Bild durchführen. Datentyp der Punkte muss float32 sein, sonst b(l)ockt open cv
-        ML = cv2.getPerspectiveTransform(quadrat, self.edges2DtemplateL)
-        MR = cv2.getPerspectiveTransform(quadrat, self.edges2DtemplateR)
+        # für die Ermittlung von M nur die 4 Ecken ohne Zentrum verwenden
+        ML = cv2.getPerspectiveTransform(quadrat, self.corners2DtemplateL[:4])
+        MR = cv2.getPerspectiveTransform(quadrat, self.corners2DtemplateR[:4])
         imgL = cv2.warpPerspective(self.patchimage, ML, (self.wpShapeL[1], self.wpShapeL[0]))   # dSize ist (x,y)
         imgR = cv2.warpPerspective(self.patchimage, MR, (self.wpShapeR[1], self.wpShapeR[0]))   # dSize ist (x,y)
 
@@ -349,7 +387,7 @@ class Trainfeature:
         channel_1L[self.wpMaskNormL] = 255
         channel_1R[self.wpMaskNormR] = 255
 
-        # Kanel 2: Bleibt Nuller (wird nur im zu durchsuchenden Bild verwendet, nicht im Template)
+        # Kanal 2: Bleibt Nuller (wird nur im zu durchsuchenden Bild verwendet, nicht im Template)
         channel_2L = np.zeros(self.wpShapeL, dtype=np.uint8)
         channel_2R = np.zeros(self.wpShapeR, dtype=np.uint8)
 
@@ -403,10 +441,10 @@ class Trainfeature:
         # und speicher diese in der Instanz
 
         # Koordinaten der Patch Ecken rechnen (sys_zug)
-        self.calculatedges3d()
+        self.calculatePatchCorners3d()
 
         # ecken umrechnen sys_zug --> sys_cam (direction = 0)
-        edges3d_cam = self.transformsys(self.edges3Dtrain, 0)
+        edges3d_cam = self.transformsys(self.corners3Dtrain, 0)
 
         # reprojection der Punkte in Bildpixelkoordinaten
         cal = calibMatrix.CalibData()
@@ -414,9 +452,9 @@ class Trainfeature:
         right, jcb = cv2.projectPoints(edges3d_cam, cal.rr, cal.tr, cal.kr, cal.drr)
         print(f'projection LEFT:\n{left}\n\nprojection RIGHT:\n{right}')
 
-        # opencv liefert die punkte im shape (n,1,3) zurück. L und R zusammenführen --> (n,2,3)
-        self.edges2DimgL = left
-        self.edges2DimgR = right
+        # opencv liefert die punkte im shape (n,1,3) zurück.
+        self.corners2DimgL = left
+        self.corners2DimgR = right
         return left, right
 
 
@@ -457,10 +495,10 @@ class Trainfeature:
             cls.p2 = cal.pr
 
 
-    def calculatedges3d(self):
+    def calculatePatchCorners3d(self):
         # Ausgehend von der Grösse des quadratischen Patchs und dessen Zentrumskoordinaten
         # werden die Koordinaten der vier Eckpunkte berechnet. Bezugssystem: sys_zug
-        # Ohne Rotation liegt der Patch auf xy Ebene mit dem Zentrum des Quadrats bei center3Dtrain
+        # Ohne Rotation liegt der Patch auf xy Ebene mit dem Zentrum des Quadrats bei patchCenter3d
         if self.rotation is not None:
             print("Warnung, Rotation des Templates ist nicht nicht implementiert.") # TODO
 
@@ -468,14 +506,15 @@ class Trainfeature:
         d = self.realsize / 2
 
         # Alle Ecken erhalten vorerst den Mittelpunkt als Koordinaten
-        self.edges3Dtrain = np.tile(self.center3Dtrain, (4, 1))
+        self.corners3Dtrain = np.tile(self.patchCenter3d, (5, 1))
 
         # Patchmitte bis Patch Ecken, die Differenz vom Mittelpunkt zur Ecke
         d = np.array([[-d, +d, 0],          # oben links
                       [+d, +d, 0],          # oben rechts
                       [-d, -d, 0],          # unten links
-                      [+d, -d, 0]])         # unten rechts
-        self.edges3Dtrain += d
+                      [+d, -d, 0],          # unten rechts
+                      [ 0,  0, 0]])         # Mitte
+        self.corners3Dtrain += d
 
 
     @staticmethod
@@ -530,6 +569,24 @@ class Trainfeature:
         cls.__rtstatus = 0
 
     @classmethod
+    def referenceObjects(cls, tfol, tfor, tfur, tful):
+        """
+        Referenz festlegen für das Koordinatensystem "Zug"
+
+        :param objects: Die auf einer Ebene quadratisch angeordneten Schrauben (als Trainfeature Objekte)
+        :return: None
+        """
+        refpts = np.zeros((4,3))
+        refpts[0] = tfol.measuredposition3d_cam[:3].flatten()
+        refpts[1] = tfor.measuredposition3d_cam[:3].flatten()
+        refpts[2] = tfur.measuredposition3d_cam[:3].flatten()
+        refpts[3] = tful.measuredposition3d_cam[:3].flatten()
+        cls.reference(refpts)
+
+
+
+
+    @classmethod
     def reference(cls, refpts):
         """
         Referenz festlegen für das Koordinatensystem "Zug"
@@ -555,7 +612,7 @@ class Trainfeature:
         vmc = refpts[2] - m
         vmd = refpts[3] - m
         print("Debug vma, vmb, vmc, vmd:")
-        print(vma, vmb, vmc, vmb)
+        print(vma, vmb, vmc, vmd)
 
         # Die Ausrichtung anhand der Ebene bestimmen
         # ungefähr deshalb, weil der winkel zwischen x und y nicht in jedem Fall 90° beträgt
@@ -609,8 +666,8 @@ class Trainfeature:
         s += f'\n R (exact):\n{self.__R_exact}\n t (exact):\n{self.__t_exact}\n'
         s += f' R (approx.):\n{self.__R_approx}\n t (approx.):\n{self.__t_approx}\n'
         s += f'\nObject info:\n Name: {self.name}\n Patchfilename: {self.patchfilename}\n'
-        s += f' Real position center:\n{self.center3Dtrain}\n'
-        s += f' Real position corners:\n{self.edges3Dtrain}\n'
+        s += f' Real position center:\n{self.patchCenter3d}\n'
+        s += f' Real position corners:\n{self.corners3Dtrain}\n'
         return s
 
 
