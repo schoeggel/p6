@@ -9,8 +9,8 @@ import findGrid
 
 # Gitter
 # Bilder laden
-sbbL_gray = cv2.imread("sbb/13L.png", cv2.IMREAD_GRAYSCALE)
-sbbR_gray = cv2.imread("sbb/13R.png", cv2.IMREAD_GRAYSCALE)
+sbbL_gray = cv2.imread("sbb/10L.png", cv2.IMREAD_GRAYSCALE)
+sbbR_gray = cv2.imread("sbb/10R.png", cv2.IMREAD_GRAYSCALE)
 
 # Bilder kopieren, umwandeln #
 sbbL_rgb = cv2.cvtColor(sbbL_gray, cv2.COLOR_GRAY2BGR)
@@ -57,7 +57,7 @@ print(s1)
 
 # Schraube oben links
 imgL, imgR = s1.warp()
-center, val = s1.find(sbbL, sbbR, verbose=False)
+center, val = s1.find(sbbL, sbbR, verbose=True)
 print(f'center: {center}\nvalue: {val}\n')
 sbbL = cv2.drawMarker(sbbL, center, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 sbbL = s1.drawBasis(sbbL, sideLR=0, show=False, thickness=5)
@@ -85,13 +85,16 @@ center, val = s4.find(sbbL, sbbR, verbose=False, extend=30)
 sbbL = cv2.drawMarker(sbbL, center, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 
 
-Trainfeature.referenceObjects(s1,s2,s3,s4)
+Trainfeature.referenceViaObjects(s1,s2,s3,s4)
 
 sbbL = s1.drawBasis(sbbL, sideLR=0, show=False, length= 66, thickness=20)
 
 
 cv2.namedWindow('Unit test marker L', cv2.WINDOW_NORMAL)
 cv2.imshow('Unit test marker L', sbbL)
+
+imgL = Trainfeature.separateRGB(imgL,0)
+imgR = Trainfeature.separateRGB(imgR,0)
 cv2.namedWindow('Unit test L', cv2.WINDOW_NORMAL)
 cv2.imshow("Unit test L", imgL)
 cv2.namedWindow('Unit test R', cv2.WINDOW_NORMAL)

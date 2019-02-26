@@ -34,7 +34,7 @@ class Trainfeature:
         assert (len(name) > 0) and (center3d.shape == (3,)) and (realsize > 1)
 
         self.name = name  # Objektname
-        self.tmmode = tm.NOISE                      # In welcher Form werden die Bilder beim Matching verwendet.
+        self.tmmode = tm.IMAGE                      # In welcher Form werden die Bilder beim Matching verwendet.
         self.patchfilename = "data/patches/" + name + ".png"          # zum laden des patchbilds
         self.patchimageRaw = None                   # Das Bild im Originalzustand
         self.patchimage = None                      # Das Bild (Kontrastverbessert)
@@ -74,6 +74,17 @@ class Trainfeature:
         olx, oly = minx - extend, miny - extend
         urx, ury = maxx + extend, maxy + extend
         return list(map(int, [oly, ury, olx, urx]))
+
+    @staticmethod
+    def separateRGB(img_in, vertical=False):
+        # separiert die 3 Kanäle und legt sie nebeneinander oder übereinander
+        r, g, b = img_in[:,:,0], img_in[:,:,1], img_in[:,:,2]
+        if vertical:
+            res = np.vstack((r,g,b))
+        else:
+            res = np.hstack((r,g,b))
+
+        return res
 
 
     @staticmethod
@@ -162,8 +173,8 @@ class Trainfeature:
             # Kanten finden und template Hintergrund auf 0 setzen, inkl dem Rand zum Template (daher MaskEXT statt NORM)
             patchL = cv2.Canny(self.warpedpatchL, 80, 160)
             patchR = cv2.Canny(self.warpedpatchR, 80, 160)
-            patchL[self.wpMaskExtL] = 0
-            patchR[self.wpMaskExtR] = 0
+            patchL[self.wpMaskExtL==False] = 0
+            patchR[self.wpMaskExtR==False] = 0
             imageL = cv2.Canny(rgbL, 80, 160)
             imageR = cv2.Canny(rgbR, 80, 160)
 
@@ -178,16 +189,18 @@ class Trainfeature:
             # Kanal 0 auf alle RGB erweitern, template hintergrund mit rauschen füllen
             imageL = np.dstack((rgbL[:, :, 0], rgbL[:, :, 0], rgbL[:, :, 0]))
             imageR = np.dstack((rgbR[:, :, 0], rgbR[:, :, 0], rgbR[:, :, 0]))
-            valueL =  2 * rgbL[:, :, 0].mean()
-            valueR =  2 * rgbR[:, :, 0].mean()
+            valueL =  2 * rgbL[:, :, 0].mean()                                      # Mittlere Helligkeit im suchbereich
+            valueR =  2 * rgbR[:, :, 0].mean()                                      # Mittlere Helligkeit im Suchbereich
             noiseL = (np.random.random(self.wpShapeL) * valueL).astype(np.uint8)
             noiseR = (np.random.random(self.wpShapeR) * valueR).astype(np.uint8)
-            soloL = self.warpedpatchL[:, :, 0]
-            soloR = self.warpedpatchR[:, :, 0]
-            soloL[self.wpMaskExtL] = noiseL[self.wpMaskExtL]
-            soloR[self.wpMaskExtR] = noiseR[self.wpMaskExtR]
-            patchL = np.dstack((soloL, soloL, soloL))
-            patchR = np.dstack((soloR, soloR, soloR))
+
+            patchGreyL = self.warpedpatchL[:, :, 0]
+            noiseL[self.wpMaskExtL] =  patchGreyL[self.wpMaskExtL]
+            patchGreyR = self.warpedpatchR[:, :, 0]
+            noiseR[self.wpMaskExtR] =  patchGreyR[self.wpMaskExtR]
+
+            patchL = np.dstack((noiseL, noiseL, noiseL))
+            patchR = np.dstack((noiseR, noiseR, noiseR))
 
         else:
             patchL = self.warpedpatchL
@@ -201,7 +214,6 @@ class Trainfeature:
             cv2.imshow("imageL", imageL)
             cv2.waitKey(0)
 
-
         # match L
         (centerx,centery), val = self.match(imageL, patchL, self.corners2DtemplateL[4], verbose=verbose)
         # center ist messpunkt relativ zum linken oberen Ecke der ROI
@@ -209,7 +221,7 @@ class Trainfeature:
         centerxyL = (centerx + ROIL[2], centery + ROIL[0])
 
         # Match R
-        (centerx,centery), val = self.match(imageL, patchL, self.corners2DtemplateL[4], verbose=verbose)
+        (centerx,centery), val = self.match(imageR, patchR, self.corners2DtemplateR[4], verbose=verbose)
         centerxyR = (centerx + ROIR[2], centery + ROIR[0])
 
 
@@ -222,7 +234,7 @@ class Trainfeature:
         b3xN = np.float64([[centerxyR[0]],
                            [centerxyR[1]]])
 
-        # koordinaten trangulieren und homogen --> kathesisch umformen
+        # koordinaten trangulieren und umformen homogen --> kathesisch
         self.measuredposition3d_cam = cv2.triangulatePoints(self.p1[:3], self.p2[:3], a3xN[:2], b3xN[:2])
         self.measuredposition3d_cam /= self.measuredposition3d_cam[3]
 
@@ -262,7 +274,7 @@ class Trainfeature:
 
 
 
-    def match(self, img2, template_in, patchcenter, verbose=False):
+    def match(self, img_in, template_in, patchcenter, verbose=False):
         # Rückgabewerte: beste Position und Konfidenz
         # code kopiert aus opencv tutorial
         # patchcenter = Mitte des Patchs. TM Resultat bezieht sich auf die Ecke
@@ -275,7 +287,7 @@ class Trainfeature:
             method = cv2.TM_CCORR_NORMED
 
         template = template_in.copy()
-        img = img2.copy()
+        img = img_in.copy()
 
         # falls rgb und greyscale gemischt kommen
         if img.ndim == 3 and template.ndim == 2:
@@ -321,23 +333,23 @@ class Trainfeature:
         return location, val
 
     def createMasks(self):
-        # Schwarzes gefülltes Polygon auf weissen Grund erstellen
-        # Linke Maske, 255 = Hintergrund, 0 = Bildinformation verzerrtes Template
+        # NEU ANDERS HERUM: WEISSES POLYGON AUF SCHWARZ
+        # 0 = Hintergrund, 255 = Bildinformation verzerrtes Template
 
         # LINKE SEITE
         pt = self.polygonpoints(self.corners2DtemplateL)
-        mask = (np.ones(self.wpShapeL) * 255).astype(np.uint8)                      # weil gilt : y, x = a.shape
-        mask = cv2.fillConvexPoly(mask, pt, 0)
+        mask = (np.zeros(self.wpShapeL)).astype(np.uint8)                      # weil gilt : y, x = a.shape
+        mask = cv2.fillConvexPoly(mask, pt, 255)
         self.wpMaskNormL = mask == 255
-        mask = cv2.polylines(mask, pt, isClosed=True, color=255, thickness=3)       # Maske leicht überlappend machen
+        mask = cv2.polylines(mask, pt, isClosed=True, color=0, thickness=3)       # Maske leicht überlappend machen
         self.wpMaskExtL = mask == 255
 
         # RECHTE SEITE
         pt = self.polygonpoints(self.corners2DtemplateR)
-        mask = (np.ones(self.wpShapeR) * 255).astype(np.uint8)                      # weil gilt : y, x = a.shape
-        mask = cv2.fillConvexPoly(mask, pt, 0)
+        mask = (np.zeros(self.wpShapeR)).astype(np.uint8)                      # weil gilt : y, x = a.shape
+        mask = cv2.fillConvexPoly(mask, pt, 255)
         self.wpMaskNormR = mask == 255
-        mask = cv2.polylines(mask, pt, isClosed=True, color=255, thickness=3)       # Maske leicht überlappend machen
+        mask = cv2.polylines(mask, pt, isClosed=True, color=0, thickness=3)       # Maske leicht überlappend machen
         self.wpMaskExtR = mask == 255
 
 
@@ -381,7 +393,7 @@ class Trainfeature:
         channel_0L = imgL.copy()
         channel_0R = imgR.copy()
 
-        # Kanal 1: Maske Template (255 wenn es sich um den zu ignorierenden Bereich des Templates handelt)
+        # Kanal 1: Maske Template (0 wenn es sich um den zu ignorierenden Bereich des Templates handelt)
         channel_1L = np.zeros(self.wpShapeL, dtype=np.uint8)
         channel_1R = np.zeros(self.wpShapeR, dtype=np.uint8)
         channel_1L[self.wpMaskNormL] = 255
@@ -397,7 +409,7 @@ class Trainfeature:
 
         self.warpedpatchL = rgbL
         self.warpedpatchR = rgbR
-        return imgL, imgR
+        return rgbL, rgbR
 
 
     def showpatch(self):
@@ -569,7 +581,7 @@ class Trainfeature:
         cls.__rtstatus = 0
 
     @classmethod
-    def referenceObjects(cls, tfol, tfor, tfur, tful):
+    def referenceViaObjects(cls, tfol, tfor, tfur, tful):
         """
         Referenz festlegen für das Koordinatensystem "Zug"
 
