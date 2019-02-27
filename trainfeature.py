@@ -7,11 +7,13 @@ from enum import Enum
 
 
 class tm(Enum):
-    IMAGE = 1           # Template in einem bildkanal, masken in anderen kanälen. Versuch TM mit transparen
+    MASK3CH = 1         # Template in einem bildkanal, masken in anderen kanälen. Versuch TM mit transparen
     NOISE = 2           # Template auf Rauschen.
-    AVERAGE = 3         # Template auf Hintergrund, der dem mittelwert des Templates entspricht
+    AVERAGE = 3         # TODO Template auf Hintergrund, der dem mittelwert des Templates entspricht
     CANNY = 4           # Template und Suchbereich durch canny edge detector laufen lassen
-    ELSD = 5            # TODO: statt canny die ellipsen und linien erkennen.
+    TRANSPARENT = 5     # Verwenden der von opencv unterstützeten Transparenz mit Maske
+
+    ELSD = 6            # TODO: statt canny die ellipsen und linien erkennen.
 
 
 class Trainfeature:
@@ -34,7 +36,7 @@ class Trainfeature:
         assert (len(name) > 0) and (center3d.shape == (3,)) and (realsize > 1)
 
         self.name = name  # Objektname
-        self.tmmode = tm.IMAGE                      # In welcher Form werden die Bilder beim Matching verwendet.
+        self.tmmode = tm.NOISE                      # In welcher Form werden die Bilder beim Matching verwendet.
         self.patchfilename = "data/patches/" + name + ".png"          # zum laden des patchbilds
         self.patchimageRaw = None                   # Das Bild im Originalzustand
         self.patchimage = None                      # Das Bild (Kontrastverbessert)
@@ -54,6 +56,10 @@ class Trainfeature:
         self.wpMaskNormR = None                     # Maske für verzerrtes Template.
         self.wpMaskExtL = None                      # Maske für verzerrtes Template. Hintergrund leicht überlappend
         self.wpMaskExtR = None                      # Maske für verzerrtes Template. Hintergrund leicht überlappend
+        self.activeTemplateL = None                 # Das für den Match verwendete Template
+        self.activeTemplateR = None                 # Das für den Match verwendete Template
+        self.activeROIL = None                      # Der für den Match verwendete Bildausschnitt
+        self.activeROIR = None                      # Der für den Match verwendete Bildausschnitt
         self.measuredposition3d_zug = None          # Die gemessene Position im System Zug
         self.measuredposition3d_cam = None          # Die gemessene Position im System Kamera
         self.loadpatch()                            # default-Patch laden
@@ -67,7 +73,8 @@ class Trainfeature:
     def getROIptsR(self, extend = 100):
         return self.getROIsingleSide(self.corners2DimgR, extend)
 
-    def getROIsingleSide(self, corners, extend):
+    @staticmethod
+    def getROIsingleSide(corners, extend):
         # Liefert den Suchbereich einer Seite
         minx, miny = corners.min(0)[0]
         maxx, maxy = corners.max(0)[0]
@@ -83,7 +90,6 @@ class Trainfeature:
             res = np.vstack((r,g,b))
         else:
             res = np.hstack((r,g,b))
-
         return res
 
 
@@ -144,7 +150,7 @@ class Trainfeature:
         # sucht das objekt im angegebenen Bild
         # Liefert die gemessene Position zurück (2d,3d), speichert gemessene 3d pos in Instanz
 
-        assert (self.corners3Dtrain.sum != 0)
+        assert (self.corners3Dtrain.sum != 0)  # Die Ecken müssen zuvor berechnet worden sein.
 
         ROIL = self.getROIptsL(extend)
         ROIR = self.getROIptsR(extend)
@@ -162,7 +168,7 @@ class Trainfeature:
         rgbL = np.dstack((channel_0L, channel_1L, channel_1L))
         rgbR = np.dstack((channel_0R, channel_1R, channel_1R))
 
-        # CLAHE
+        # CLAHE Kontrast optimieren.
         rgbL = self.clahe(rgbL, 0)
         rgbR = self.clahe(rgbR, 0)
 
@@ -171,24 +177,24 @@ class Trainfeature:
 
         if self.tmmode == tm.CANNY:
             # Kanten finden und template Hintergrund auf 0 setzen, inkl dem Rand zum Template (daher MaskEXT statt NORM)
-            patchL = cv2.Canny(self.warpedpatchL, 80, 160)
-            patchR = cv2.Canny(self.warpedpatchR, 80, 160)
-            patchL[self.wpMaskExtL==False] = 0
-            patchR[self.wpMaskExtR==False] = 0
-            imageL = cv2.Canny(rgbL, 80, 160)
-            imageR = cv2.Canny(rgbR, 80, 160)
+            self.activeTemplateL = cv2.Canny(self.warpedpatchL, 80, 160)
+            self.activeTemplateR = cv2.Canny(self.warpedpatchR, 80, 160)
+            self.activeTemplateL[self.wpMaskExtL==False] = 0
+            self.activeTemplateR[self.wpMaskExtR==False] = 0
+            self.activeROIL = cv2.Canny(rgbL, 80, 160)
+            self.activeROIR = cv2.Canny(rgbR, 80, 160)
 
-        elif self.tmmode == tm.IMAGE:
+        elif self.tmmode == tm.MASK3CH:
             # Kanal 0 auf alle RGB erweitern
-            patchL = np.dstack((self.warpedpatchL[:,:,0],self.warpedpatchL[:,:,0],self.warpedpatchL[:,:,0]))
-            patchR = np.dstack((self.warpedpatchR[:,:,0],self.warpedpatchR[:,:,0],self.warpedpatchR[:,:,0]))
-            imageL = np.dstack((rgbL[:,:,0],rgbL[:,:,0],rgbL[:,:,0]))
-            imageR = np.dstack((rgbR[:,:,0],rgbR[:,:,0],rgbR[:,:,0]))
+            self.activeTemplateL = np.dstack((self.warpedpatchL[:,:,0],self.warpedpatchL[:,:,0],self.warpedpatchL[:,:,0]))
+            self.activeTemplateR = np.dstack((self.warpedpatchR[:,:,0],self.warpedpatchR[:,:,0],self.warpedpatchR[:,:,0]))
+            self.activeROIL = np.dstack((rgbL[:,:,0],rgbL[:,:,0],rgbL[:,:,0]))
+            self.activeROIR = np.dstack((rgbR[:,:,0],rgbR[:,:,0],rgbR[:,:,0]))
 
         elif self.tmmode == tm.NOISE:
             # Kanal 0 auf alle RGB erweitern, template hintergrund mit rauschen füllen
-            imageL = np.dstack((rgbL[:, :, 0], rgbL[:, :, 0], rgbL[:, :, 0]))
-            imageR = np.dstack((rgbR[:, :, 0], rgbR[:, :, 0], rgbR[:, :, 0]))
+            self.activeROIL = np.dstack((rgbL[:, :, 0], rgbL[:, :, 0], rgbL[:, :, 0]))
+            self.activeROIR = np.dstack((rgbR[:, :, 0], rgbR[:, :, 0], rgbR[:, :, 0]))
             valueL =  2 * rgbL[:, :, 0].mean()                                      # Mittlere Helligkeit im suchbereich
             valueR =  2 * rgbR[:, :, 0].mean()                                      # Mittlere Helligkeit im Suchbereich
             noiseL = (np.random.random(self.wpShapeL) * valueL).astype(np.uint8)
@@ -199,29 +205,32 @@ class Trainfeature:
             patchGreyR = self.warpedpatchR[:, :, 0]
             noiseR[self.wpMaskExtR] =  patchGreyR[self.wpMaskExtR]
 
-            patchL = np.dstack((noiseL, noiseL, noiseL))
-            patchR = np.dstack((noiseR, noiseR, noiseR))
+            self.activeTemplateL = np.dstack((noiseL, noiseL, noiseL))
+            self.activeTemplateR = np.dstack((noiseR, noiseR, noiseR))
+
+        elif self.tmmode == tm.TRANSPARENT:
+
 
         else:
-            patchL = self.warpedpatchL
-            patchR = self.warpedpatchR
-            imageL = rgbL
-            imageR = rgbR
+            self.activeTemplateL = self.warpedpatchL
+            self.activeTemplateR = self.warpedpatchR
+            self.activeROIL = rgbL
+            self.activeROIR = rgbR
 
 
         if verbose:
             cv2.namedWindow('rgbL', cv2.WINDOW_NORMAL)
-            cv2.imshow("imageL", imageL)
+            cv2.imshow("imageL", self.activeROIL)
             cv2.waitKey(0)
 
         # match L
-        (centerx,centery), val = self.match(imageL, patchL, self.corners2DtemplateL[4], verbose=verbose)
+        (centerx,centery), val = self.match(self.activeROIL, self.activeTemplateL, self.corners2DtemplateL[4], verbose=verbose)
         # center ist messpunkt relativ zum linken oberen Ecke der ROI
         # Umrechnen: center = (y,x), ROI : [oly, ury, olx, urx]
         centerxyL = (centerx + ROIL[2], centery + ROIL[0])
 
         # Match R
-        (centerx,centery), val = self.match(imageR, patchR, self.corners2DtemplateR[4], verbose=verbose)
+        (centerx,centery), val = self.match(self.activeROIR, self.activeTemplateR, self.corners2DtemplateR[4], verbose=verbose)
         centerxyR = (centerx + ROIR[2], centery + ROIR[0])
 
 
@@ -281,7 +290,7 @@ class Trainfeature:
 
         # Gemäss Versuchsauswertung die am besten geeignet bei multikanal mit maske: CCORR_NORMED
         #method = cv2.TM_CCORR_NORMED
-        if self.tmmode in [tm.NOISE, tm.IMAGE, tm.AVERAGE]:
+        if self.tmmode not in [tm.MASK3CH]:
             method = cv2.TM_CCOEFF_NORMED
         else:
             method = cv2.TM_CCORR_NORMED
