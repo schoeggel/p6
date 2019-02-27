@@ -39,7 +39,7 @@ if __name__ == '__main__':
     centerx = random.randint(1200, 2800)
     center = (centerx, int(1.6703 * centerx - 1939))
     print(center)
-    # center = (1445, 458)
+    # centerL = (1445, 458)
 
     pt = eckpunkte(center[0])
 

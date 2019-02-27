@@ -70,3 +70,6 @@ def mixtochannel(im1, im2=None, im3=None):
 
     rgb = np.dstack((ch1, ch2, ch3))
     return rgb
+
+
+

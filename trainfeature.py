@@ -22,7 +22,6 @@ class Trainfeature:
     # oder ungefähr gesetzt mit der Methode "approxreference"
 
     PIXEL_PER_CLAHE_BLOCK = 50                      # Anzahl Blocks ist abhängig von der Bildgrösse
-
     p1 = None                                       # P Matrix für Triangulation
     p2 = None                                       # P Matrix für Triangulation
     __R_exact = np.diag([0, 0, 0])                  # Init Wert
@@ -30,26 +29,27 @@ class Trainfeature:
     __R_approx = np.diag([0, 0, 0])                 # Init Wert
     __t_approx = np.zeros(3)                        # Init Wert
     __rtstatus = -1                                 # -1: keine, 0: approx, 1:exakte vorhanden
+    __tmmode = tm.CANNY                             # Standard TM Mode
 
-
-    def __init__(self, name, center3d, realsize):
+    def __init__(self, name, center3d, realsize, tmmode = None):
         assert (len(name) > 0) and (center3d.shape == (3,)) and (realsize > 1)
 
         self.name = name  # Objektname
-        self.tmmode = tm.NOISE                      # In welcher Form werden die Bilder beim Matching verwendet.
         self.patchfilename = "data/patches/" + name + ".png"          # zum laden des patchbilds
         self.patchimageRaw = None                   # Das Bild im Originalzustand
         self.patchimage = None                      # Das Bild (Kontrastverbessert)
         self.patchCenter3d = center3d.astype(float) # Vektor 3d zum Patch Mitelpunkt im sys_zug
         self.realsize = realsize                    # Kantenlänge 3d des Patches.
         self.rotation = None                        # später: TODO : objekt kann auch schräg sein
-        self.corners3Dtrain = np.zeros((5, 3))        # Vier Eckpunkte plus Mittelpunkt des Objekts als 3d Koord.
-        self.corners2DimgL = np.zeros((1, 5, 2))      # Eckpunkte auf dem Bild. (plus Mitte)
-        self.corners2DimgR = np.zeros((1, 5, 2))      # Eckpunkte auf dem Bild. (plus Mitte)
+        self.corners3Dtrain = np.zeros((5, 3))      # Vier Eckpunkte plus Mittelpunkt des Objekts als 3d Koord.
+        self.measuredposition3d_zug = None          # Die gemessene Position im System Zug
+        self.measuredposition3d_cam = None          # Die gemessene Position im System Kamera
+        self.corners2DimgL = np.zeros((1, 5, 2))    # Eckpunkte auf dem Bild. (plus Mitte)
+        self.corners2DimgR = np.zeros((1, 5, 2))    # Eckpunkte auf dem Bild. (plus Mitte)
         self.corners2DtemplateL = np.zeros((1, 5, 2)) # Eckpunkte auf dem Template (plus Mitte)
         self.corners2DtemplateR = np.zeros((1, 5, 2)) # Eckpunkte auf dem Template (plus Mitte)
-        self.warpedpatchL = None                    # das gewarpte template
-        self.warpedpatchR = None                    # das gewarpte template
+        self.warpedpatchL = None                    # das gewarpte template (als Gray)
+        self.warpedpatchR = None                    # das gewarpte template (als Gray)
         self.wpShapeL = (-1,-1)                     # Grösse des verzerrten Templates.
         self.wpShapeR = (-1,-1)                     # Grösse des verzerrten Templates.
         self.wpMaskNormL = None                     # Maske für verzerrtes Template.
@@ -60,10 +60,108 @@ class Trainfeature:
         self.activeTemplateR = None                 # Das für den Match verwendete Template
         self.activeROIL = None                      # Der für den Match verwendete Bildausschnitt
         self.activeROIR = None                      # Der für den Match verwendete Bildausschnitt
-        self.measuredposition3d_zug = None          # Die gemessene Position im System Zug
-        self.measuredposition3d_cam = None          # Die gemessene Position im System Kamera
+        self.ROIL = None                            # Der ROI (Gray) (wird je nach Methode noch weiterbearbeitet)
+        self.ROIR = None                            # Der ROI (Gray) (wird je nach Methode noch weiterbearbeitet)
+        self.markedROIL = None                      # Der ROIL (RGB) mit einem Marker
+        self.markedROIR = None                      # Der ROIL (RGB) mit einem Marker
+        self.reprojectedPosition2dL = None          # Die gemessene 3d Position projeziert ins 2d Bild
+        self.reprojectedPosition2dR = None          # Die gemessene 3d Position projeziert ins 2d Bild
         self.loadpatch()                            # default-Patch laden
+        if tmmode is not None:                      # In welcher Form werden die Bilder beim Matching verwendet.
+            self.tmmode = tmmode                    # custom Mode für diese Instanz
+        else:
+            self.tmmode = self.__tmmode             # Standard aus der Klasse übernehmen
 
+
+
+    def drawMarker(self, imgL_in=None, imgR_in=None, size=25, color=(0,255,255), thickness= 3, show=False):
+        #zeichnet den gemessenen Punkt ins Bild ein. Werden beide Bilder geliefert, gehen 2 Bilder zurück
+        if imgL_in is  None and imgR_in is None: return None
+        imgL, imgR  = None, None
+
+        if imgL_in is not None:
+            imgL = cv2.drawMarker(imgL_in, self.reprojectedPosition2dL, color, cv2.MARKER_TILTED_CROSS,size, thickness)
+            if show:
+                cv2.namedWindow("drawMarker:L", cv2.WINDOW_NORMAL)
+                cv2.imshow("drawMarker:L", imgL)
+
+        if imgR_in is not None:
+            imgR = cv2.drawMarker(imgR_in, self.reprojectedPosition2dR, color, cv2.MARKER_TILTED_CROSS,size, thickness)
+            if show:
+                cv2.namedWindow("drawMarker:R", cv2.WINDOW_NORMAL)
+                cv2.imshow("drawMarker:R", imgR)
+        if show:
+            cv2.waitKey(0)
+
+        if imgL is not None and imgR is None:
+            return imgL
+        elif imgR is not None and imgL is None:
+            return imgR
+        else:
+            return imgL, imgR
+
+
+    def showAllROIs(self):
+        imgL = self.imgMergerH([self.ROIL, self.activeROIL, self.activeTemplateL, self.markedROIL])
+        imgR = self.imgMergerH([self.ROIR, self.activeROIR, self.activeTemplateR, self.markedROIR])
+        imgL = cv2.putText(imgL, "L", (10,70), cv2.FONT_HERSHEY_DUPLEX, 1, (255,0,255),1,2)
+        imgR = cv2.putText(imgR, "R", (10,70), cv2.FONT_HERSHEY_DUPLEX, 1, (255,00,255),1,2)
+        bigpic = self.imgMergerV([imgL, imgR])
+        bigpic = cv2.putText(bigpic, "ROI | activeROI | active T| markedROI", (10,30), cv2.FONT_HERSHEY_DUPLEX, 1, (255,00,255),1,2)
+        cv2.namedWindow("All ROIs", cv2.WINDOW_NORMAL)
+        cv2.imshow("All ROIs", bigpic)
+        cv2.waitKey(0)
+
+    @staticmethod
+    def imgMergerH(list_of_img_in: list, bgcolor=(128, 128, 128)):
+        # Abmessungen des Bilds mit der grössten vertikalen Abmessung finden)
+        resolutions = [x.shape[0] for x in list_of_img_in]
+        maxv = max(resolutions)
+        list_of_img = []
+
+        for img in list_of_img_in:
+            # alles auf RGB ändern
+            if img.ndim == 2:
+                img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
+
+            # Alle Bilder auf diese Abmessung erweitern und in neue Liste speichern
+            pixel = np.array(bgcolor, dtype=np.uint8)
+            gap = maxv - img.shape[0]
+            filler = np.tile(pixel, (gap, img.shape[1], 1))
+            img = np.vstack((img, filler))
+            list_of_img.append(img)
+
+        return np.hstack(list_of_img)
+
+    @staticmethod
+    def imgMergerV(list_of_img_in: list, bgcolor=(128, 128, 128)):
+        # Abmessungen des Bilds mit der grössten horizontalen Abmessung finden)
+        resolutions = [x.shape[1] for x in list_of_img_in]
+        maxh = max(resolutions)
+        list_of_img = []
+
+        for img in list_of_img_in:
+            # alles auf RGB ändern
+            if img.ndim == 2:
+                img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
+
+            # Alle Bilder auf diese Abmessung erweitern und in neue Liste speichern
+            pixel = np.array(bgcolor, dtype=np.uint8)
+            gap = maxh - img.shape[1]
+            filler = np.tile(pixel, (img.shape[0],gap, 1))
+            img = np.hstack((img, filler))
+            list_of_img.append(img)
+
+        return np.vstack(list_of_img)
+
+
+    def showMarkedROIs(self):
+        # Zeigt den ROI L+R an inkl dem Marker
+        cv2.namedWindow("markedROIL", cv2.WINDOW_NORMAL)
+        cv2.namedWindow("markedROIR", cv2.WINDOW_NORMAL)
+        cv2.imshow("markedROIL", self.markedROIL)
+        cv2.imshow("markedROIR", self.markedROIR)
+        cv2.waitKey(0)
 
     #liefert die eckpunkte für den suchbereich.
     # im Format [oly, ury, olx, urx]
@@ -144,116 +242,6 @@ class Trainfeature:
 
         return img
 
-
-
-    def find(self, imageL, imageR, verbose=False, extend=100):
-        # sucht das objekt im angegebenen Bild
-        # Liefert die gemessene Position zurück (2d,3d), speichert gemessene 3d pos in Instanz
-
-        assert (self.corners3Dtrain.sum != 0)  # Die Ecken müssen zuvor berechnet worden sein.
-
-        ROIL = self.getROIptsL(extend)
-        ROIR = self.getROIptsR(extend)
-
-        # Kanal 0 erhält die Bildinfo
-        # Nur Region of interest ausschneiden
-        channel_0L = imageL[ROIL[0]:ROIL[1],ROIL[2]:ROIL[3],0]
-        channel_0R = imageR[ROIR[0]:ROIR[1],ROIR[2]:ROIR[3],0]
-
-        # Kanal 1 bleibt leer
-        channel_1L = np.zeros(channel_0L.shape, dtype= np.uint8)
-        channel_1R = np.zeros(channel_0R.shape, dtype= np.uint8)
-
-        # Kanäle zu RGB Bild stapeln
-        rgbL = np.dstack((channel_0L, channel_1L, channel_1L))
-        rgbR = np.dstack((channel_0R, channel_1R, channel_1R))
-
-        # CLAHE Kontrast optimieren.
-        rgbL = self.clahe(rgbL, 0)
-        rgbR = self.clahe(rgbR, 0)
-
-
-        ####################  JE NACH METHODE SIND SPEZIFISCHE TEMPLATE/IMAGE VORBEREITUNGEN NÖTIG ##################
-
-        if self.tmmode == tm.CANNY:
-            # Kanten finden und template Hintergrund auf 0 setzen, inkl dem Rand zum Template (daher MaskEXT statt NORM)
-            self.activeTemplateL = cv2.Canny(self.warpedpatchL, 80, 160)
-            self.activeTemplateR = cv2.Canny(self.warpedpatchR, 80, 160)
-            self.activeTemplateL[self.wpMaskExtL==False] = 0
-            self.activeTemplateR[self.wpMaskExtR==False] = 0
-            self.activeROIL = cv2.Canny(rgbL, 80, 160)
-            self.activeROIR = cv2.Canny(rgbR, 80, 160)
-
-        elif self.tmmode == tm.MASK3CH:
-            # Kanal 0 auf alle RGB erweitern
-            self.activeTemplateL = np.dstack((self.warpedpatchL[:,:,0],self.warpedpatchL[:,:,0],self.warpedpatchL[:,:,0]))
-            self.activeTemplateR = np.dstack((self.warpedpatchR[:,:,0],self.warpedpatchR[:,:,0],self.warpedpatchR[:,:,0]))
-            self.activeROIL = np.dstack((rgbL[:,:,0],rgbL[:,:,0],rgbL[:,:,0]))
-            self.activeROIR = np.dstack((rgbR[:,:,0],rgbR[:,:,0],rgbR[:,:,0]))
-
-        elif self.tmmode == tm.NOISE:
-            # Kanal 0 auf alle RGB erweitern, template hintergrund mit rauschen füllen
-            self.activeROIL = np.dstack((rgbL[:, :, 0], rgbL[:, :, 0], rgbL[:, :, 0]))
-            self.activeROIR = np.dstack((rgbR[:, :, 0], rgbR[:, :, 0], rgbR[:, :, 0]))
-            valueL =  2 * rgbL[:, :, 0].mean()                                      # Mittlere Helligkeit im suchbereich
-            valueR =  2 * rgbR[:, :, 0].mean()                                      # Mittlere Helligkeit im Suchbereich
-            noiseL = (np.random.random(self.wpShapeL) * valueL).astype(np.uint8)
-            noiseR = (np.random.random(self.wpShapeR) * valueR).astype(np.uint8)
-
-            patchGreyL = self.warpedpatchL[:, :, 0]
-            noiseL[self.wpMaskExtL] =  patchGreyL[self.wpMaskExtL]
-            patchGreyR = self.warpedpatchR[:, :, 0]
-            noiseR[self.wpMaskExtR] =  patchGreyR[self.wpMaskExtR]
-
-            self.activeTemplateL = np.dstack((noiseL, noiseL, noiseL))
-            self.activeTemplateR = np.dstack((noiseR, noiseR, noiseR))
-
-        elif self.tmmode == tm.TRANSPARENT:
-
-
-        else:
-            self.activeTemplateL = self.warpedpatchL
-            self.activeTemplateR = self.warpedpatchR
-            self.activeROIL = rgbL
-            self.activeROIR = rgbR
-
-
-        if verbose:
-            cv2.namedWindow('rgbL', cv2.WINDOW_NORMAL)
-            cv2.imshow("imageL", self.activeROIL)
-            cv2.waitKey(0)
-
-        # match L
-        (centerx,centery), val = self.match(self.activeROIL, self.activeTemplateL, self.corners2DtemplateL[4], verbose=verbose)
-        # center ist messpunkt relativ zum linken oberen Ecke der ROI
-        # Umrechnen: center = (y,x), ROI : [oly, ury, olx, urx]
-        centerxyL = (centerx + ROIL[2], centery + ROIL[0])
-
-        # Match R
-        (centerx,centery), val = self.match(self.activeROIR, self.activeTemplateR, self.corners2DtemplateR[4], verbose=verbose)
-        centerxyR = (centerx + ROIR[2], centery + ROIR[0])
-
-
-        # Triangulieren
-        print(f'Trianguliere diese beiden Punkte: {centerxyL} und {centerxyR}')
-        # Bild pixel koordinaten der Objekt Zentren
-        a3xN = np.float64([[centerxyL[0]],
-                           [centerxyL[1]]])
-
-        b3xN = np.float64([[centerxyR[0]],
-                           [centerxyR[1]]])
-
-        # koordinaten trangulieren und umformen homogen --> kathesisch
-        self.measuredposition3d_cam = cv2.triangulatePoints(self.p1[:3], self.p2[:3], a3xN[:2], b3xN[:2])
-        self.measuredposition3d_cam /= self.measuredposition3d_cam[3]
-
-        # System Cam --> System Zug
-        self.measuredposition3d_zug = self.transformsys(self.measuredposition3d_cam[:3].T, direction=1)
-
-        return centerxyL, val
-
-
-
     def clahe(self, img, channel=None):
         # verbessert den kontrast im angegebenen Kanal
 
@@ -282,6 +270,124 @@ class Trainfeature:
         return res
 
 
+    def storeROIs(self, img_in_L, img_in_R, extend):
+        # Nur Regions of interest ausschneiden, Kontrast optimieren.
+        ROIL = self.getROIptsL(extend)
+        img = img_in_L[ROIL[0]:ROIL[1], ROIL[2]:ROIL[3], 0]
+        self.ROIL = self.clahe(img)
+
+        ROIR = self.getROIptsR(extend)
+        img = img_in_R[ROIR[0]:ROIR[1], ROIR[2]:ROIR[3], 0]
+        self.ROIR = self.clahe(img)
+
+
+
+    def prepareActiveImages(self):
+        # bereitet das Bild und das Template für den eigentlichen template Matching Vorgang vor,
+        # abhängig von der gewählten Methode (tm.NOISE, tm.MASK3CH etc)
+
+        if self.tmmode == tm.CANNY:
+            # Kanten finden und template Hintergrund auf 0 setzen, inkl dem Rand zum Template (daher MaskEXT statt NORM)
+            self.activeTemplateL = cv2.Canny(self.warpedpatchL, 80, 160)
+            self.activeTemplateR = cv2.Canny(self.warpedpatchR, 80, 160)
+            self.activeTemplateL[self.wpMaskExtL==False] = 0
+            self.activeTemplateR[self.wpMaskExtR==False] = 0
+            self.activeROIL = cv2.Canny(self.ROIL, 80, 160)
+            self.activeROIR = cv2.Canny(self.ROIR, 80, 160)
+
+        elif self.tmmode == tm.MASK3CH:
+            # Kanal 0 auf alle RGB erweitern
+            self.activeTemplateL = np.dstack((self.warpedpatchL[:,:,0],self.warpedpatchL[:,:,0],self.warpedpatchL[:,:,0]))
+            self.activeTemplateR = np.dstack((self.warpedpatchR[:,:,0],self.warpedpatchR[:,:,0],self.warpedpatchR[:,:,0]))
+            self.activeROIL = np.dstack((self.ROIL[:,:,0],self.ROIL[:,:,0],self.ROIL[:,:,0]))
+            self.activeROIR = np.dstack((self.ROIR[:,:,0],self.ROIR[:,:,0],self.ROIR[:,:,0]))
+
+        elif self.tmmode == tm.NOISE:
+            # Kanal 0 auf alle RGB erweitern, template hintergrund mit rauschen füllen
+            self.activeROIL = np.dstack((self.ROIL, self.ROIL, self.ROIL))
+            self.activeROIR = np.dstack((self.ROIR, self.ROIR, self.ROIR))
+            valueL =  2 * self.ROIL.mean()                                # Mittlere Helligkeit im suchbereich
+            valueR =  2 * self.ROIR.mean()                                # Mittlere Helligkeit im Suchbereich
+            noiseL = (np.random.random(self.wpShapeL) * valueL).astype(np.uint8)
+            noiseR = (np.random.random(self.wpShapeR) * valueR).astype(np.uint8)
+
+            patchGreyL = self.warpedpatchL
+            patchGreyR = self.warpedpatchR
+            noiseL[self.wpMaskExtL] =  patchGreyL[self.wpMaskExtL]
+            noiseR[self.wpMaskExtR] =  patchGreyR[self.wpMaskExtR]
+            self.activeTemplateL = np.dstack((noiseL, noiseL, noiseL))
+            self.activeTemplateR = np.dstack((noiseR, noiseR, noiseR))
+
+        elif self.tmmode == tm.TRANSPARENT:
+            pass
+
+        else:
+            self.activeTemplateL = self.warpedpatchL
+            self.activeTemplateR = self.warpedpatchR
+            self.activeROIL = self.ROIL
+            self.activeROIR = self.ROIR
+
+
+    def find(self, imageL, imageR, verbose=False, extend=100):
+        # sucht das objekt im angegebenen Bild
+        # Liefert die gemessene Position zurück (2d,3d)
+        # Speichert gemessene 3d pos in Instanz und zur Kontrolle auch die Rückprojektionskoordinaten (xy) pro Bildseite
+
+        # Die Ecken müssen zuvor berechnet worden sein.
+        assert (self.corners3Dtrain.sum != 0)
+
+        # ROIS als kontrastoptimierte Graustufe speichern in self.ROIR und self.ROIR
+        self.storeROIs(imageL, imageR, extend)
+
+        # Die effektiven Bilder und Templates erstellen
+        self.prepareActiveImages()
+
+        # match L
+        (centerx, centery), valL = self.match(self.activeROIL, self.activeTemplateL, self.corners2DtemplateL[4],verbose=verbose)
+        self.markedROIL = cv2.cvtColor(self.ROIL, cv2.COLOR_GRAY2RGB)
+        self.markedROIL = cv2.drawMarker(self.markedROIL, (centerx, centery), (255, 255, 0), cv2.MARKER_CROSS, 10, 1)
+
+        # centerL ist messpunkt relativ zum linken oberen Ecke der ROI
+        # Umrechnen: centerL = (y,x), ROI : [oly, ury, olx, urx]
+        ROIL = self.getROIptsL(extend)
+        ROIR = self.getROIptsR(extend)
+        centerxyL = (centerx + ROIL[2], centery + ROIL[0])
+
+        # Match R
+        (centerx, centery), valR = self.match(self.activeROIR, self.activeTemplateR, self.corners2DtemplateR[4], verbose=verbose)
+        self.markedROIR = cv2.cvtColor(self.ROIR, cv2.COLOR_GRAY2RGB)
+        self.markedROIR = cv2.drawMarker(self.markedROIR, (centerx, centery), (255, 255, 0), cv2.MARKER_CROSS, 10, 1)
+        centerxyR = (centerx + ROIR[2], centery + ROIR[0])
+
+        # Triangulieren
+        print(f'Trianguliere diese beiden Punkte: {centerxyL} und {centerxyR}')
+        # Bild pixel koordinaten der Objekt Zentren
+        a3xN = np.float64([[centerxyL[0]],
+                           [centerxyL[1]]])
+
+        b3xN = np.float64([[centerxyR[0]],
+                           [centerxyR[1]]])
+
+        # koordinaten trangulieren und umformen homogen --> kathesisch
+        self.measuredposition3d_cam = cv2.triangulatePoints(self.p1[:3], self.p2[:3], a3xN[:2], b3xN[:2])
+        self.measuredposition3d_cam /= self.measuredposition3d_cam[3]
+
+        # System Cam --> System Zug
+        self.measuredposition3d_zug = self.transformsys(self.measuredposition3d_cam[:3].T, direction=1)
+
+        # Reprojection
+        # Projektion der Punkte in Bildpixelkoordinaten.
+        cal = calibMatrix.CalibData()
+        self.reprojectedPosition2dL, _ = cv2.projectPoints(self.measuredposition3d_cam[:3].T, cal.rl, cal.tl, cal.kl, cal.drl)
+        self.reprojectedPosition2dR, _ = cv2.projectPoints(self.measuredposition3d_cam[:3].T, cal.rr, cal.tr, cal.kr, cal.drr)
+        self.reprojectedPosition2dL = tuple(self.reprojectedPosition2dL.flatten().astype(int))
+        self.reprojectedPosition2dR = tuple(self.reprojectedPosition2dR.flatten().astype(int))
+
+
+        if verbose: self.showAllROIs()
+
+        return centerxyL, valL, centerxyR, valR,
+
 
     def match(self, img_in, template_in, patchcenter, verbose=False):
         # Rückgabewerte: beste Position und Konfidenz
@@ -305,7 +411,7 @@ class Trainfeature:
             img = np.dstack((img, img, img))
 
         # Apply template Matching
-        # "location" ist im Format (x,y), wie auch "offset" und "center"
+        # "location" ist im Format (x,y), wie auch "offset" und "centerL"
         res = cv2.matchTemplate(img, template, method)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
 
@@ -324,20 +430,20 @@ class Trainfeature:
         if verbose:
             print(f'Template.shape: {template.shape}')
             print(f'image.shape: {img.shape}')
-            cv2.imshow("matchingImage", cv2.drawMarker(img, location, (30,30,255), cv2.MARKER_CROSS, 10,1))
+            # cv2.imshow("matchingImage", cv2.drawMarker(img, location, (30,30,255), cv2.MARKER_CROSS, 10,1))
             tmp = cv2.drawMarker(template, tuple(patchcenter.astype(int)), (255, 0, 255), cv2.MARKER_CROSS, 8, 1)
-            cv2.namedWindow('matchingTemplate', cv2.WINDOW_NORMAL)
-            cv2.imshow("matchingTemplate",tmp)
-            cv2.imwrite('tmp/templatedebug.png', template)
-            cv2.imwrite('tmp/templateImgdebug.png', img)
+            #cv2.namedWindow('matchingTemplate', cv2.WINDOW_NORMAL)
+            #cv2.imshow("matchingTemplate",tmp)
+            #cv2.imwrite('tmp/templatedebug.png', template)
+            #cv2.imwrite('tmp/templateImgdebug.png', img)
             print(f'Top-Left: {top_left} ; Offset PatchCenter: {patchcenter} ; Template Center: {location}')
             res = self.filterScore(res)
             res = cv2.circle(res, top_left,8, 0, 1)
             res = cv2.circle(res, top_left, 9, 255, 1)
-            cv2.namedWindow('scoremap', cv2.WINDOW_NORMAL)
-            cv2.imshow("scoremap", res)
+            #cv2.namedWindow('scoremap', cv2.WINDOW_NORMAL)
+            #cv2.imshow("scoremap", res)
             print(res.shape)
-            cv2.waitKey(0)
+            #cv2.waitKey(0)
 
         return location, val
 
@@ -369,7 +475,7 @@ class Trainfeature:
         quadrat = np.float32([[0, 0], [d, 0], [0, d], [d, d]])
 
         # Eckpunkte Pixelkoordinaten (x,y) für beide Bilder L,R berechnen
-        self.reprojectedges()
+        self.reprojectCorners()
 
         # Die Leinwand für das transformierte Bild wird so gross, dass der verzerrte Patch exakt hineinpasst
         minxl, minyl = self.corners2DimgL.min(0)[0]
@@ -397,28 +503,28 @@ class Trainfeature:
         imgL = cv2.warpPerspective(self.patchimage, ML, (self.wpShapeL[1], self.wpShapeL[0]))   # dSize ist (x,y)
         imgR = cv2.warpPerspective(self.patchimage, MR, (self.wpShapeR[1], self.wpShapeR[0]))   # dSize ist (x,y)
 
-        # template ist noch greyscale. rgb Version erstellen mit unterschiedlichen Informationen pro Kanal. Siehe Doku
-        # grey in den Kanal 0 kopieren.
-        channel_0L = imgL.copy()
-        channel_0R = imgR.copy()
-
-        # Kanal 1: Maske Template (0 wenn es sich um den zu ignorierenden Bereich des Templates handelt)
-        channel_1L = np.zeros(self.wpShapeL, dtype=np.uint8)
-        channel_1R = np.zeros(self.wpShapeR, dtype=np.uint8)
-        channel_1L[self.wpMaskNormL] = 255
-        channel_1R[self.wpMaskNormR] = 255
-
-        # Kanal 2: Bleibt Nuller (wird nur im zu durchsuchenden Bild verwendet, nicht im Template)
-        channel_2L = np.zeros(self.wpShapeL, dtype=np.uint8)
-        channel_2R = np.zeros(self.wpShapeR, dtype=np.uint8)
-
-        # Kanäle stapeln
-        rgbL = np.dstack((channel_0L, channel_1L, channel_2L))
-        rgbR = np.dstack((channel_0R, channel_1R, channel_2R))
-
-        self.warpedpatchL = rgbL
-        self.warpedpatchR = rgbR
-        return rgbL, rgbR
+        # # template ist noch greyscale. rgb Version erstellen mit unterschiedlichen Informationen pro Kanal. Siehe Doku
+        # # grey in den Kanal 0 kopieren.
+        # channel_0L = imgL.copy()
+        # channel_0R = imgR.copy()
+        #
+        # # Kanal 1: Maske Template (0 wenn es sich um den zu ignorierenden Bereich des Templates handelt)
+        # channel_1L = np.zeros(self.wpShapeL, dtype=np.uint8)
+        # channel_1R = np.zeros(self.wpShapeR, dtype=np.uint8)
+        # channel_1L[self.wpMaskNormL] = 255
+        # channel_1R[self.wpMaskNormR] = 255
+        #
+        # # Kanal 2: Bleibt Nuller (wird nur im zu durchsuchenden Bild verwendet, nicht im Template)
+        # channel_2L = np.zeros(self.wpShapeL, dtype=np.uint8)
+        # channel_2R = np.zeros(self.wpShapeR, dtype=np.uint8)
+        #
+        # # Kanäle stapeln
+        # rgbL = np.dstack((channel_0L, channel_1L, channel_2L))
+        # rgbR = np.dstack((channel_0R, channel_1R, channel_2R))
+        #
+        self.warpedpatchL = imgL
+        self.warpedpatchR = imgR
+        return imgL, imgR
 
 
     def showpatch(self):
@@ -457,7 +563,7 @@ class Trainfeature:
         poly[0][3] = edges[2]
         return poly
 
-    def reprojectedges(self):
+    def reprojectCorners(self):
         # rechnet die Patch Ecken in x,y Pixelkoordinaten um
         # und speicher diese in der Instanz
 
