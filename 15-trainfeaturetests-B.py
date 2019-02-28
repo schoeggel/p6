@@ -30,8 +30,14 @@ Trainfeature.approxreference(gitterL, gitterR)
 
 
 # Schraube oben links
+patchNameSchraube = "Gitterschraube1"
+patchNameSchraube = "test1"
+patchNameSchraube = "test2"
+realsize = 30
+
+
 xyz = np.array([-240, 240, 0])
-s1 = Trainfeature("test1", xyz, 27) #32 für kleiner patch , ca 45 für grosse
+s1 = Trainfeature(patchNameSchraube, xyz, realsize) #32 für kleiner patch , ca 45 für grosse
 print(s1)
 s1.warp()
 centerL, val, centerR, _ = s1.find(sbbL, sbbR, verbose=True)
@@ -40,25 +46,27 @@ sbbL = cv2.drawMarker(sbbL, centerL, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 sbbR = cv2.drawMarker(sbbR, centerR, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 sbbL = s1.drawBasis(sbbL, sideLR=0, show=False, thickness=5)
 
-# weitere Teile
+# # Schraube unten links
 xyz = np.array([-240, -240, 0])
-s2 = Trainfeature("test1", xyz, 27)
+s2 = Trainfeature(patchNameSchraube, xyz, realsize)
 print(s2)
 s2.warp()
 centerL, _, centerR, _ = s2.find(sbbL, sbbR, verbose=True)
 sbbL = cv2.drawMarker(sbbL, centerL, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 sbbR = cv2.drawMarker(sbbR, centerR, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 
+# Schraube oben rechts
 xyz = np.array([+240, +240, 0])
-s3 = Trainfeature("test1", xyz, 27)
+s3 = Trainfeature(patchNameSchraube, xyz, realsize)
 print(s3)
 s3.warp()
 centerL, _ , centerR, _ = s3.find(sbbL, sbbR, verbose=True)
 sbbL = cv2.drawMarker(sbbL, centerL, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 sbbR = cv2.drawMarker(sbbR, centerR, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 
+# Schraube unten rechts
 xyz = np.array([+240, -240, 0])
-s4 = Trainfeature("test1", xyz, 27)
+s4 = Trainfeature(patchNameSchraube, xyz, realsize)
 print(s4)
 s4.warp()
 centerL, _, centerR, _  = s4.find(sbbL, sbbR, verbose=True)
@@ -85,9 +93,10 @@ print(f'Key: {key}')
 # Falls Taste "s" --> Bild speichern
 if key == ord("s") or key == ord("S"):
     now = datetime.datetime.now()
-    print(f'Export: tmp/reprojection-{now.year}-{now.month}-{now.day}--{now.hour}{now.minute}{now.second}-X.jpg ...')
-    cv2.imwrite(f'tmp/reprojection-{now.year}-{now.month}-{now.day}--{now.hour}{now.minute}{now.second}-L.jpg', expL)
-    cv2.imwrite(f'tmp/reprojection-{now.year}-{now.month}-{now.day}--{now.hour}{now.minute}{now.second}-R.jpg', expR)
+    filenameTrunk = f'tmp/reprojection-{now.year}-{now.month}-{now.day}--{now.hour}{now.minute}{now.second}'
+    print(f'Export: {filenameTrunk}-X.jpg ...')
+    cv2.imwrite(f'{filenameTrunk}-L.jpg', expL, [cv2.IMWRITE_JPEG_QUALITY, 50])
+    cv2.imwrite(f'{filenameTrunk}-R.jpg', expR, [cv2.IMWRITE_JPEG_QUALITY, 50])
 
 cv2.destroyAllWindows()
 

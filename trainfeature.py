@@ -30,7 +30,8 @@ class Trainfeature:
     __R_approx = np.diag([0, 0, 0])                 # Init Wert
     __t_approx = np.zeros(3)                        # Init Wert
     __rtstatus = -1                                 # -1: keine, 0: approx, 1:exakte vorhanden
-    __tmmode = tm.CANNYBLUR                         # Standard TM Mode
+    __tmmode = tm.CANNY                         # Standard TM Mode
+    __PRE_TM_K_SIZE = 5
     __SCOREFILTER_K_SIZE = 5                        # Kernelgrösse für die Glättung des TM Resultats (Score)
 
     def __init__(self, name, center3d, realsize, tmmode = None):
@@ -318,6 +319,12 @@ class Trainfeature:
         self.ROIR = self.clahe(img)
 
 
+    def blurActiveImages(self, k):
+        self.activeROIL = cv2.blur(self.activeROIL, (k, k))
+        self.activeROIR = cv2.blur(self.activeROIR, (k, k))
+        self.activeTemplateL = cv2.blur(self.activeTemplateL, (k, k))
+        self.activeTemplateR = cv2.blur(self.activeTemplateR, (k, k))
+
 
     def prepareActiveImages(self):
         # bereitet das Bild und das Template für den eigentlichen template Matching Vorgang vor,
@@ -332,13 +339,7 @@ class Trainfeature:
             self.activeROIL = cv2.Canny(self.ROIL, 80, 160)
             self.activeROIR = cv2.Canny(self.ROIR, 80, 160)
             if self.tmmode == tm.CANNYBLUR:
-                self.activeROIL = cv2.blur(self.activeROIL, (15,15))
-                self.activeROIR = cv2.blur(self.activeROIR, (15,15))
-                self.activeTemplateL = cv2.blur(self.activeTemplateL, (15,15))
-                self.activeTemplateR = cv2.blur(self.activeTemplateR, (15,15))
-
-
-
+                self.blurActiveImages(self.__PRE_TM_K_SIZE)
 
         elif self.tmmode == tm.MASK3CH:
             # Kanal 0 auf alle RGB erweitern
@@ -362,10 +363,7 @@ class Trainfeature:
             self.activeTemplateL = np.dstack((noiseL, noiseL, noiseL))
             self.activeTemplateR = np.dstack((noiseR, noiseR, noiseR))
             if self.tmmode == tm.NOISEBLUR:
-                self.activeROIL = cv2.blur(self.activeROIL, (9, 9))
-                self.activeROIR = cv2.blur(self.activeROIR, (9, 9))
-                self.activeTemplateL = cv2.blur(self.activeTemplateL, (9, 9))
-                self.activeTemplateR = cv2.blur(self.activeTemplateR, (9, 9))
+                self.blurActiveImages(self.__PRE_TM_K_SIZE)
 
 
         elif self.tmmode == tm.TRANSPARENT:
@@ -398,7 +396,7 @@ class Trainfeature:
 
         # Gefundene Zentrum - Position des Templates markieren
         self.markedROIL = cv2.cvtColor(self.ROIL, cv2.COLOR_GRAY2RGB)
-        self.markedROIL = cv2.drawMarker(self.markedROIL, (centerx, centery), (255, 255, 0), cv2.MARKER_CROSS, 10, 1)
+        self.markedROIL = cv2.drawMarker(self.markedROIL, (centerx, centery), (0, 0, 255), cv2.MARKER_CROSS, 10, 1)
 
         # Warp-Ecken, die den Suchbereich vorgeben, als Polygon zeichnen. (Wurde am richtigen Ort gesucht?)
         pt = self.polygonpoints(self.corners2DimgL)              # Erwartete Eckpunkte für den Template Warp Vorgang.
@@ -408,7 +406,7 @@ class Trainfeature:
         self.markedROIL = cv2.polylines(self.markedROIL, pt, True, (0, 255, 255), 2 )
 
 
-        # centerL ist messpunkt relativ zum linken oberen Ecke der ROI
+        # centerL ist Messpunkt relativ zur linken oberen Ecke der ROI
         # Umrechnen: centerL = (y,x), ROI : [oly, ury, olx, urx]
         ROIL = self.getROIptsL(extend)
         ROIR = self.getROIptsR(extend)
@@ -418,7 +416,7 @@ class Trainfeature:
         (centerx, centery), valR, resR = self.match(self.activeROIR, self.activeTemplateR, self.corners2DtemplateR[4], verbose=verbose)
         self.scoreR = resR
         self.markedROIR = cv2.cvtColor(self.ROIR, cv2.COLOR_GRAY2RGB)
-        self.markedROIR = cv2.drawMarker(self.markedROIR, (centerx, centery), (255, 255, 0), cv2.MARKER_CROSS, 10, 1)
+        self.markedROIR = cv2.drawMarker(self.markedROIR, (centerx, centery), (0, 0, 255), cv2.MARKER_CROSS, 10, 1)
         centerxyR = (centerx + ROIR[2], centery + ROIR[0])
 
         # Triangulieren
@@ -438,7 +436,8 @@ class Trainfeature:
         self.measuredposition3d_zug = self.transformsys(self.measuredposition3d_cam[:3].T, direction=1)
 
         # Reprojection
-        # Projektion der Punkte in Bildpixelkoordinaten.
+        # Projektion der Punkte in Bildpixelkoordinaten. Die stimmen nur mit dem template Match Punkt überein, wenn
+        # beide Seiten beim Template Match den gleichen Punkt auf dem Zug gefunden hatten.
         cal = calibMatrix.CalibData()
         self.reprojectedPosition2dL, _ = cv2.projectPoints(self.measuredposition3d_cam[:3].T, cal.rl, cal.tl, cal.kl, cal.drl)
         self.reprojectedPosition2dR, _ = cv2.projectPoints(self.measuredposition3d_cam[:3].T, cal.rr, cal.tr, cal.kr, cal.drr)
@@ -458,18 +457,21 @@ class Trainfeature:
 
         # Gemäss Versuchsauswertung die am besten geeignet bei multikanal mit maske: CCORR_NORMED
         #method = cv2.TM_CCORR_NORMED
-        if self.tmmode not in [tm.MASK3CH]:
-            method = cv2.TM_CCOEFF # für cannyBLur gehts, aber nicht für NOISE und NOISEBLUR
-            method = cv2.TM_CCORR_NORMED # für NOISE und NOISEBLUR komplett unbrauchbar.
-            method = cv2.TM_CCORR # für NOISE  und NOISEBLUR komplett unbrauchbar.
+        if self.tmmode  in [tm.MASK3CH]:
+            method = cv2.TM_CCORR_NORMED
+
+        elif self.tmmode in [tm.TRANSPARENT]:
+            # gem opencv doku wird nur TM_SQDIFF and TM_CCORR_NORMED unterstützt bei Maskenanwendung
+            method = cv2.TM_CCORR_NORMED
             method = cv2.TM_SQDIFF
-            method = cv2.TM_SQDIFF_NORMED # ok für cannyBLUR gute peaks, ab er nicht für NOISE und NOISEBLUR !
-            method = cv2.TM_CCOEFF_NORMED # für cannyBLur gehts, aber nicht für NOISE und NOISEBLUR
-
-
 
         else:
-            method = cv2.TM_CCORR_NORMED
+            method = cv2.TM_CCOEFF  # für cannyBLur gehts, aber nicht für NOISE und NOISEBLUR
+            method = cv2.TM_CCORR  # für NOISE  und NOISEBLUR komplett unbrauchbar.
+            method = cv2.TM_CCORR_NORMED  # für NOISE und NOISEBLUR komplett unbrauchbar.
+            method = cv2.TM_SQDIFF  # canny blurred nur halbwegs
+            method = cv2.TM_SQDIFF_NORMED  # ok für cannyBLUR gute peaks, ab er nicht für NOISE und NOISEBLUR !
+            method = cv2.TM_CCOEFF_NORMED  # für cannyBLur gehts, aber nicht für NOISE und NOISEBLUR
 
         template = template_in.copy()
         img = img_in.copy()
