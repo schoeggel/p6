@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="205" mnemonic="1" />
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="519" mnemonic="2" />
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="242" mnemonic="4" />
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="603" mnemonic="5" />
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="417" mnemonic="6" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="550" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="247" mnemonic="4" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="615" mnemonic="5" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="437" mnemonic="6" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="837" mnemonic="8" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="453" mnemonic="1" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="400" mnemonic="9" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="543fc68e-51ac-46c2-a3d3-d45e8a552486" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/15-trainfeaturetests-B.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/21-TestTextDisplacement.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/22-testMinMax.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/15-trainfeaturetests-B.py" beforeDir="false" afterPath="$PROJECT_DIR$/15-trainfeaturetests-B.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/15-trainfeaturetests.py" beforeDir="false" afterPath="$PROJECT_DIR$/15-trainfeaturetests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/patches/Gitterschraube1 - Kopie.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/trainfeature.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainfeature.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,15 +24,15 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DockManager">
-    <window id="1">
+    <window id="2">
       <content type="file-editors">
         <state>
           <leaf>
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/trainfeature.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="100">
-                    <caret line="432" lean-forward="true" selection-start-line="432" selection-end-line="432" />
+                  <state relative-caret-position="397">
+                    <caret line="91" column="57" lean-forward="true" selection-start-line="91" selection-start-column="57" selection-end-line="91" selection-end-column="57" />
                     <folding>
                       <element signature="e#69#87#0" expanded="true" />
                     </folding>
@@ -40,13 +41,10 @@
               </entry>
             </file>
             <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/15-trainfeaturetests.py">
+              <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-B.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="302">
-                    <caret line="63" column="59" selection-start-line="63" selection-start-column="59" selection-end-line="63" selection-end-column="59" />
-                    <folding>
-                      <element signature="e#73#83#0" expanded="true" />
-                    </folding>
+                  <state relative-caret-position="286">
+                    <caret line="17" column="45" lean-forward="true" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
                   </state>
                 </provider>
               </entry>
@@ -60,29 +58,7 @@
     <favorites_list name="p6" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/20-lamdaMax.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="107">
-              <caret line="5" column="13" lean-forward="true" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/21-TestTextDisplacement.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -94,11 +70,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>patchsize</find>
-      <find>L</find>
-      <find>self.warpedpatchL</find>
-      <find>§</find>
-      <find>self.warpedpatchClah</find>
       <find>warpedpatchLmasks</find>
       <find>argmax</find>
       <find>mask</find>
@@ -124,6 +95,11 @@
       <find>p1</find>
       <find>imgR</find>
       <find>res</find>
+      <find>corners2DtemplateL</find>
+      <find>.patchimage</find>
+      <find>score</find>
+      <find># für NOISE komplett unbrauchbar.</find>
+      <find>)*2</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -135,8 +111,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/tmp_reorder_Images.py" />
-        <option value="$PROJECT_DIR$/05templateGitterSmall.py" />
         <option value="$PROJECT_DIR$/05templateGitterMethodenBlur.py" />
         <option value="$PROJECT_DIR$/06LocalizeByFeatures.py" />
         <option value="$PROJECT_DIR$/01pmatchGitter.py" />
@@ -185,6 +159,8 @@
         <option value="$PROJECT_DIR$/cvaux.py" />
         <option value="$PROJECT_DIR$/21-TestTextDisplacement.py" />
         <option value="$PROJECT_DIR$/15-trainfeaturetests.py" />
+        <option value="$PROJECT_DIR$/15-trainfeaturetests-B.py" />
+        <option value="$PROJECT_DIR$/22-testMinMax.py" />
         <option value="$PROJECT_DIR$/trainfeature.py" />
       </list>
     </option>
@@ -218,6 +194,12 @@
               <item name="p6" type="b2602c69:ProjectViewProjectNode" />
               <item name="p6" type="462c0819:PsiDirectoryNode" />
               <item name="trainfeature.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="p6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="p6" type="462c0819:PsiDirectoryNode" />
+              <item name="trainfeature.py" type="8704e2dd:PyFileNode" />
+              <item name="Trainfeature" type="dd8bbb05:PyElementNode" />
             </path>
           </expand>
           <select />
@@ -263,7 +245,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.15-trainfeaturetests">
+  <component name="RunManager" selected="Python.15-trainfeaturetests-B">
     <configuration name="15-trainfeaturetests-B" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -348,7 +330,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="trainfeature" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="22-testMinMax" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -360,7 +342,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/trainfeature.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/22-testMinMax.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -370,23 +352,27 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.trainfeature" />
       <item itemvalue="Python.15-trainfeaturetests" />
       <item itemvalue="Python.20-lamdaMax" />
       <item itemvalue="Python.15-trainfeaturetests-B" />
       <item itemvalue="Python.21-TestTextDisplacement" />
+      <item itemvalue="Python.22-testMinMax" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.15-trainfeaturetests-B" />
+        <item itemvalue="Python.22-testMinMax" />
         <item itemvalue="Python.15-trainfeaturetests" />
         <item itemvalue="Python.21-TestTextDisplacement" />
-        <item itemvalue="Python.15-trainfeaturetests-B" />
         <item itemvalue="Python.20-lamdaMax" />
-        <item itemvalue="Python.trainfeature" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="1" Folder0="C:\pycharmDict" CustomDictionaries="1" CustomDictionary0="C:\pycharmDict\german.dic" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="project-level" UseSingleDictionary="true" />
+  <component name="StructureViewFactory">
+    <option name="AUTOSCROLL_MODE" value="false" />
+    <option name="AUTOSCROLL_FROM_SOURCE" value="true" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -418,7 +404,7 @@
       <window_info id="Favorites" order="2" sideWeight="0.5022523" side_tool="true" weight="0.13963039" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.609375" />
-      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" visible="true" weight="0.95596594" />
+      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" visible="true" weight="0.24857955" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.3278101" />
@@ -512,13 +498,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>549</line>
-          <option name="timeStamp" value="141" />
+          <line>90</line>
+          <option name="timeStamp" value="159" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>86</line>
-          <option name="timeStamp" value="159" />
+          <line>406</line>
+          <option name="timeStamp" value="160" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trainfeature.py</url>
+          <line>209</line>
+          <option name="timeStamp" value="161" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -529,9 +520,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tmp/deckeltest1.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/tmp/jokowwarptest4.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -667,16 +655,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/18-CLAHE-test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="18" column="51" lean-forward="true" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pylsd/lsd.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -778,34 +756,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-B.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/patchCreator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="684">
           <caret line="109" lean-forward="true" selection-start-line="91" selection-end-line="109" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/20-lamdaMax.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="5" column="13" lean-forward="true" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/21-TestTextDisplacement.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>
@@ -819,20 +773,61 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/18-CLAHE-test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="18" column="51" lean-forward="true" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/15-trainfeaturetests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="63" column="59" selection-start-line="63" selection-start-column="59" selection-end-line="63" selection-end-column="59" />
+        <state relative-caret-position="193">
+          <caret line="37" column="43" lean-forward="true" selection-start-line="37" selection-start-column="43" selection-end-line="37" selection-end-column="43" />
           <folding>
             <element signature="e#73#83#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/21-TestTextDisplacement.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/20-lamdaMax.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="5" column="13" lean-forward="true" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/22-testMinMax.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-B.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="17" column="45" lean-forward="true" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/trainfeature.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="432" lean-forward="true" selection-start-line="432" selection-end-line="432" />
+        <state relative-caret-position="397">
+          <caret line="91" column="57" lean-forward="true" selection-start-line="91" selection-start-column="57" selection-end-line="91" selection-end-column="57" />
           <folding>
             <element signature="e#69#87#0" expanded="true" />
           </folding>

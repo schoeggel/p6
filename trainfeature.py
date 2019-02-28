@@ -13,6 +13,7 @@ class tm(Enum):
     CANNY = 4           # Template und Suchbereich durch canny edge detector laufen lassen
     TRANSPARENT = 5     # Verwenden der von opencv unterstützeten Transparenz mit Maske
     CANNYBLUR = 7       # Wie CANNY aber unscharf
+    NOISEBLUR = 8       # Wie NOISE aber unscharf
     ELSD = 6            # TODO: statt canny die ellipsen und linien erkennen.
 
 
@@ -29,15 +30,18 @@ class Trainfeature:
     __R_approx = np.diag([0, 0, 0])                 # Init Wert
     __t_approx = np.zeros(3)                        # Init Wert
     __rtstatus = -1                                 # -1: keine, 0: approx, 1:exakte vorhanden
-    __tmmode = tm.CANNY                             # Standard TM Mode
+    __tmmode = tm.CANNYBLUR                         # Standard TM Mode
+    __SCOREFILTER_K_SIZE = 5                        # Kernelgrösse für die Glättung des TM Resultats (Score)
 
     def __init__(self, name, center3d, realsize, tmmode = None):
         assert (len(name) > 0) and (center3d.shape == (3,)) and (realsize > 1)
 
         self.name = name  # Objektname
         self.patchfilename = "data/patches/" + name + ".png"          # zum laden des patchbilds
-        self.patchimageRaw = None                   # Das Bild im Originalzustand
-        self.patchimage = None                      # Das Bild (Kontrastverbessert)
+        self.patchimageOriginalL = None             # Das Bild im Originalzustand
+        self.patchimageOriginalR = None             # Das Bild im Originalzustand
+        self.patchimageL = None                     # Das Bild (Kontrastverbessert)
+        self.patchimageR = None                     # Das Bild (Kontrastverbessert)
         self.patchCenter3d = center3d.astype(float) # Vektor 3d zum Patch Mitelpunkt im sys_zug
         self.realsize = realsize                    # Kantenlänge 3d des Patches.
         self.rotation = None                        # später: TODO : objekt kann auch schräg sein
@@ -65,8 +69,8 @@ class Trainfeature:
         self.ROIR = None                            # Der ROI (Gray) (wird je nach Methode noch weiterbearbeitet)
         self.markedROIL = None                      # Der ROIL (RGB) mit einem Marker
         self.markedROIR = None                      # Der ROIL (RGB) mit einem Marker
-        self.reprojectedPosition2dL = None          # Die gemessene 3d Position projeziert ins 2d Bild
-        self.reprojectedPosition2dR = None          # Die gemessene 3d Position projeziert ins 2d Bild
+        self.reprojectedPosition2dL = np.zeros(1)   # Die gemessene 3d Position projeziert ins 2d Bild
+        self.reprojectedPosition2dR = np.zeros(1)   # Die gemessene 3d Position projeziert ins 2d Bild
         self.scoreL = None                          # Die ScoreMap aus dem Matching Vorgang
         self.scoreR = None                          # Die ScoreMap aus dem Matching Vorgang
         self.loadpatch()                            # default-Patch laden
@@ -123,7 +127,7 @@ class Trainfeature:
             return imgL, imgR
 
 
-    def showAll(self):
+    def showAllSteps(self):
         imgL = self.imgMergerH([self.markedROIL, self.scoreL, self.activeROIL, self.activeTemplateL])
         imgR = self.imgMergerH([self.markedROIR, self.scoreR, self.activeROIR, self.activeTemplateR])
         imgL = self.putBetterText(imgL, "L", (10,70), cv2.FONT_HERSHEY_DUPLEX, 1, (255,255,255),1,2)
@@ -203,7 +207,7 @@ class Trainfeature:
     @staticmethod
     def getROIsingleSide(corners, extend):
         # Liefert den Suchbereich einer Seite
-        minx, miny = corners.min(0)[0]
+        minx, miny = corners.min(0)[0]  # liefert individuell, nicht paarweise
         maxx, maxy = corners.max(0)[0]
         olx, oly = minx - extend, miny - extend
         urx, ury = maxx + extend, maxy + extend
@@ -220,22 +224,23 @@ class Trainfeature:
         return res
 
 
-    @staticmethod
-    def filterScore(score_in):
+
+    def filterScore(self, score_in):
+        # TODO: Nutzen nicht ganz klar. Es gibt auch Probleme wegen dem Rand. Deshalb Filter inaktiv.
         # macht gauss filter über map, um eindeutig maximum zu erhalten.
+        # Problem: mehrere Punkte haben den selben Score, ohne Glätten wird irgendeiner (erster?) davon verwendet.
         # mappt die bild info auf einen range 0..1
         # TODO: die Auflösung könnte auch hochskaliert werden vor dem gauss filter, um
-        # den peak sub-pixel-"genau" zu lokalisieren.
+        # den peak sub-pixel "genauer" zu lokalisieren.
 
         # glätten (Filter Parameter wurden experimentell bestimmt)
-        scoreSmooth = cv2.GaussianBlur(score_in, (9, 9), 2)
+        # sigma = self.__SCOREFILTER_K_SIZE / 5
+        # scoreSmooth = cv2.GaussianBlur(score_in, (self.__SCOREFILTER_K_SIZE, self.__SCOREFILTER_K_SIZE), sigma)
+        scoreSmooth =  score_in
 
         # Kontrast verbessern: Das bild ist nicht uint8, cv2.equalizeHist() funktioniert nicht
         imin, imax = scoreSmooth.min(),scoreSmooth.max()
-        scoreSmooth = np.interp(scoreSmooth, [imin, imax] , [0, 1])
-
-        #in uint8 wandeln
-        scoreSmooth = (scoreSmooth*255).astype(np.uint8)
+        scoreSmooth = np.interp(scoreSmooth, [imin, imax] , [0, 255]).astype(np.uint8)
 
         return scoreSmooth
 
@@ -327,10 +332,10 @@ class Trainfeature:
             self.activeROIL = cv2.Canny(self.ROIL, 80, 160)
             self.activeROIR = cv2.Canny(self.ROIR, 80, 160)
             if self.tmmode == tm.CANNYBLUR:
-                self.activeROIL = cv2.blur(self.activeROIL, (9,9))
-                self.activeROIR = cv2.blur(self.activeROIR, (9,9))
-                self.activeTemplateL = cv2.blur(self.activeTemplateL, (9,9))
-                self.activeTemplateR = cv2.blur(self.activeTemplateR, (9,9))
+                self.activeROIL = cv2.blur(self.activeROIL, (15,15))
+                self.activeROIR = cv2.blur(self.activeROIR, (15,15))
+                self.activeTemplateL = cv2.blur(self.activeTemplateL, (15,15))
+                self.activeTemplateR = cv2.blur(self.activeTemplateR, (15,15))
 
 
 
@@ -342,7 +347,7 @@ class Trainfeature:
             self.activeROIL = np.dstack((self.ROIL[:,:,0],self.ROIL[:,:,0],self.ROIL[:,:,0]))
             self.activeROIR = np.dstack((self.ROIR[:,:,0],self.ROIR[:,:,0],self.ROIR[:,:,0]))
 
-        elif self.tmmode == tm.NOISE:
+        elif self.tmmode == tm.NOISE or self.tmmode == tm.NOISEBLUR:
             # Kanal 0 auf alle RGB erweitern, template hintergrund mit rauschen füllen
             self.activeROIL = np.dstack((self.ROIL, self.ROIL, self.ROIL))
             self.activeROIR = np.dstack((self.ROIR, self.ROIR, self.ROIR))
@@ -350,13 +355,18 @@ class Trainfeature:
             valueR =  2 * self.ROIR.mean()                                # Mittlere Helligkeit im Suchbereich
             noiseL = (np.random.random(self.wpShapeL) * valueL).astype(np.uint8)
             noiseR = (np.random.random(self.wpShapeR) * valueR).astype(np.uint8)
-
             patchGreyL = self.warpedpatchL
             patchGreyR = self.warpedpatchR
             noiseL[self.wpMaskExtL] =  patchGreyL[self.wpMaskExtL]
             noiseR[self.wpMaskExtR] =  patchGreyR[self.wpMaskExtR]
             self.activeTemplateL = np.dstack((noiseL, noiseL, noiseL))
             self.activeTemplateR = np.dstack((noiseR, noiseR, noiseR))
+            if self.tmmode == tm.NOISEBLUR:
+                self.activeROIL = cv2.blur(self.activeROIL, (9, 9))
+                self.activeROIR = cv2.blur(self.activeROIR, (9, 9))
+                self.activeTemplateL = cv2.blur(self.activeTemplateL, (9, 9))
+                self.activeTemplateR = cv2.blur(self.activeTemplateR, (9, 9))
+
 
         elif self.tmmode == tm.TRANSPARENT:
             pass
@@ -385,8 +395,18 @@ class Trainfeature:
         # match L
         (centerx, centery), valL, resL = self.match(self.activeROIL, self.activeTemplateL, self.corners2DtemplateL[4],verbose=verbose)
         self.scoreL = resL
+
+        # Gefundene Zentrum - Position des Templates markieren
         self.markedROIL = cv2.cvtColor(self.ROIL, cv2.COLOR_GRAY2RGB)
         self.markedROIL = cv2.drawMarker(self.markedROIL, (centerx, centery), (255, 255, 0), cv2.MARKER_CROSS, 10, 1)
+
+        # Warp-Ecken, die den Suchbereich vorgeben, als Polygon zeichnen. (Wurde am richtigen Ort gesucht?)
+        pt = self.polygonpoints(self.corners2DimgL)              # Erwartete Eckpunkte für den Template Warp Vorgang.
+        ofsx, ofsy = self.getROIptsL()[2], self.getROIptsL()[0]  # im Format [oly, ury, olx, urx]
+        offset = np.tile([ofsx, ofsy], (1,4,1))
+        pt -= offset
+        self.markedROIL = cv2.polylines(self.markedROIL, pt, True, (0, 255, 255), 2 )
+
 
         # centerL ist messpunkt relativ zum linken oberen Ecke der ROI
         # Umrechnen: centerL = (y,x), ROI : [oly, ury, olx, urx]
@@ -426,7 +446,7 @@ class Trainfeature:
         self.reprojectedPosition2dR = tuple(self.reprojectedPosition2dR.flatten().astype(int))
 
 
-        if verbose: self.showAll()
+        if verbose: self.showAllSteps()
 
         return centerxyL, valL, centerxyR, valR,
 
@@ -439,8 +459,15 @@ class Trainfeature:
         # Gemäss Versuchsauswertung die am besten geeignet bei multikanal mit maske: CCORR_NORMED
         #method = cv2.TM_CCORR_NORMED
         if self.tmmode not in [tm.MASK3CH]:
-            #method = cv2.TM_CCOEFF_NORMED
-            method = cv2.TM_SQDIFF_NORMED
+            method = cv2.TM_CCOEFF # für cannyBLur gehts, aber nicht für NOISE und NOISEBLUR
+            method = cv2.TM_CCORR_NORMED # für NOISE und NOISEBLUR komplett unbrauchbar.
+            method = cv2.TM_CCORR # für NOISE  und NOISEBLUR komplett unbrauchbar.
+            method = cv2.TM_SQDIFF
+            method = cv2.TM_SQDIFF_NORMED # ok für cannyBLUR gute peaks, ab er nicht für NOISE und NOISEBLUR !
+            method = cv2.TM_CCOEFF_NORMED # für cannyBLur gehts, aber nicht für NOISE und NOISEBLUR
+
+
+
         else:
             method = cv2.TM_CCORR_NORMED
 
@@ -457,6 +484,11 @@ class Trainfeature:
         # Apply template Matching
         # "location" ist im Format (x,y), wie auch "offset" und "centerL"
         res = cv2.matchTemplate(img, template, method)
+
+        # Scoremap glätten und ablegen
+        res = self.filterScore(res)
+
+        # Min / Max auslesen
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
 
         # If the method is TM_SQDIFF or TM_SQDIFF_NORMED, take minimum
@@ -467,15 +499,14 @@ class Trainfeature:
             top_left = max_loc
             val = max_val
 
-        # Versatz von der Ecke des Templates zur Mitte des Templates berücksichtigen
-        location = top_left + patchcenter
-        location = tuple(location.astype(int))
-
-        # Scoremap ablegen
-        res = self.filterScore(res)
+        # Marker setzen:
         res = cv2.cvtColor(res, cv2.COLOR_GRAY2RGB)
         res = cv2.circle(res, top_left, 8, (0,0,0), 1)
         res = cv2.circle(res, top_left, 9, (0,0,255), 1)
+
+        # Versatz von der Ecke des Templates zur Mitte des Templates berücksichtigen
+        location = top_left + patchcenter
+        location = tuple(location.astype(int))
 
         if verbose:
             print(f'Template.shape: {template.shape}')
@@ -509,7 +540,7 @@ class Trainfeature:
     def warp(self):
         # der Patch wird perspektivisch verzerrt, damit er so aussieht wie auf dem Bild erwartet
         # Eckpunkte des quadratischen Patchs (wie gespeichert, Vogelperspektive, quadratisch)
-        d = self.patchimage.shape[0]
+        d = self.patchimageOriginalL.shape[0]
         quadrat = np.float32([[0, 0], [d, 0], [0, d], [d, d]])
 
         # Eckpunkte Pixelkoordinaten (x,y) für beide Bilder L,R berechnen
@@ -538,28 +569,9 @@ class Trainfeature:
         # für die Ermittlung von M nur die 4 Ecken ohne Zentrum verwenden
         ML = cv2.getPerspectiveTransform(quadrat, self.corners2DtemplateL[:4])
         MR = cv2.getPerspectiveTransform(quadrat, self.corners2DtemplateR[:4])
-        imgL = cv2.warpPerspective(self.patchimage, ML, (self.wpShapeL[1], self.wpShapeL[0]))   # dSize ist (x,y)
-        imgR = cv2.warpPerspective(self.patchimage, MR, (self.wpShapeR[1], self.wpShapeR[0]))   # dSize ist (x,y)
+        imgL = cv2.warpPerspective(self.patchimageL, ML, (self.wpShapeL[1], self.wpShapeL[0]))   # dSize ist (x,y)
+        imgR = cv2.warpPerspective(self.patchimageR, MR, (self.wpShapeR[1], self.wpShapeR[0]))   # dSize ist (x,y)
 
-        # # template ist noch greyscale. rgb Version erstellen mit unterschiedlichen Informationen pro Kanal. Siehe Doku
-        # # grey in den Kanal 0 kopieren.
-        # channel_0L = imgL.copy()
-        # channel_0R = imgR.copy()
-        #
-        # # Kanal 1: Maske Template (0 wenn es sich um den zu ignorierenden Bereich des Templates handelt)
-        # channel_1L = np.zeros(self.wpShapeL, dtype=np.uint8)
-        # channel_1R = np.zeros(self.wpShapeR, dtype=np.uint8)
-        # channel_1L[self.wpMaskNormL] = 255
-        # channel_1R[self.wpMaskNormR] = 255
-        #
-        # # Kanal 2: Bleibt Nuller (wird nur im zu durchsuchenden Bild verwendet, nicht im Template)
-        # channel_2L = np.zeros(self.wpShapeL, dtype=np.uint8)
-        # channel_2R = np.zeros(self.wpShapeR, dtype=np.uint8)
-        #
-        # # Kanäle stapeln
-        # rgbL = np.dstack((channel_0L, channel_1L, channel_2L))
-        # rgbR = np.dstack((channel_0R, channel_1R, channel_2R))
-        #
         self.warpedpatchL = imgL
         self.warpedpatchR = imgR
         return imgL, imgR
@@ -568,7 +580,7 @@ class Trainfeature:
     def showpatch(self):
         # zeigt den geladenen und fall vorhanden die gewarpten patches an
         cv2.namedWindow(f'patch as loaded ({self.patchfilename})', cv2.WINDOW_NORMAL)
-        cv2.imshow(f'patch as loaded ({self.patchfilename})', self.patchimage)
+        cv2.imshow(f'patch L as loaded ({self.patchfilename})', self.patchimageOriginalL)
         if self.warpedpatchL is not None:
             cv2.namedWindow('patch warp L', cv2.WINDOW_NORMAL)
             cv2.imshow("patch warp L", self.warpedpatchL)
@@ -820,10 +832,16 @@ class Trainfeature:
         if filename is not None:                    # optional kann ein anderes als das standardbild geladen werden
             self.patchfilename = filename
         print("Lade: ", self.patchfilename )
-        self.patchimageRaw = cv2.imread(self.patchfilename, cv2.IMREAD_GRAYSCALE)
+        self.patchimageOriginalL = cv2.imread(self.patchfilename, cv2.IMREAD_GRAYSCALE)
 
         # Kontrastverbesserte Variante
-        self.patchimage = self.clahe(self.patchimageRaw)
+        self.patchimageL = self.clahe(self.patchimageOriginalL)
+
+        # TODO: eigene Variante der rechten Seite laden etc.. bis dann: spiegeln L-->R
+        self.patchimageOriginalR = np.fliplr(self.patchimageOriginalL)
+        self.patchimageR = np.fliplr(self.patchimageL)
+
+        assert (self.patchimageR.shape == self.patchimageL.shape)
 
 
     def __str__(self):

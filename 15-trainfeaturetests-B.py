@@ -31,7 +31,7 @@ Trainfeature.approxreference(gitterL, gitterR)
 
 # Schraube oben links
 xyz = np.array([-240, 240, 0])
-s1 = Trainfeature("Gitterschraube1", xyz, 32, tmmode=tm.NOISE)
+s1 = Trainfeature("test1", xyz, 27) #32 für kleiner patch , ca 45 für grosse
 print(s1)
 s1.warp()
 centerL, val, centerR, _ = s1.find(sbbL, sbbR, verbose=True)
@@ -42,7 +42,7 @@ sbbL = s1.drawBasis(sbbL, sideLR=0, show=False, thickness=5)
 
 # weitere Teile
 xyz = np.array([-240, -240, 0])
-s2 = Trainfeature("Gitterschraube1", xyz, 32)
+s2 = Trainfeature("test1", xyz, 27)
 print(s2)
 s2.warp()
 centerL, _, centerR, _ = s2.find(sbbL, sbbR, verbose=True)
@@ -50,7 +50,7 @@ sbbL = cv2.drawMarker(sbbL, centerL, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 sbbR = cv2.drawMarker(sbbR, centerR, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 
 xyz = np.array([+240, +240, 0])
-s3 = Trainfeature("Gitterschraube1", xyz, 32)
+s3 = Trainfeature("test1", xyz, 27)
 print(s3)
 s3.warp()
 centerL, _ , centerR, _ = s3.find(sbbL, sbbR, verbose=True)
@@ -58,10 +58,10 @@ sbbL = cv2.drawMarker(sbbL, centerL, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 sbbR = cv2.drawMarker(sbbR, centerR, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 
 xyz = np.array([+240, -240, 0])
-s4 = Trainfeature("Gitterschraube1", xyz, 32)
+s4 = Trainfeature("test1", xyz, 27)
 print(s4)
 s4.warp()
-centerL, _, centerR, _  = s4.find(sbbL, sbbR, verbose=True, extend=30)
+centerL, _, centerR, _  = s4.find(sbbL, sbbR, verbose=True)
 sbbL = cv2.drawMarker(sbbL, centerL, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 sbbR = cv2.drawMarker(sbbR, centerR, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 
@@ -77,10 +77,17 @@ s2.drawMarker(sbbL, sbbR, show=False)
 s3.drawMarker(sbbL, sbbR, show=False)
 expL, expR = s4.drawMarker(sbbL, sbbR, show=True)
 
-# Fertige Bilder speichern
-now = datetime.datetime.now()
-cv2.imwrite(f'tmp/reprojection-{now.year}-{now.month}-{now.day}--{now.hour}{now.minute}{now.second}-L.jpg', expL)
-cv2.imwrite(f'tmp/reprojection-{now.year}-{now.month}-{now.day}--{now.hour}{now.minute}{now.second}-R.jpg', expR)
+# Bilder anzeigen bis Taste gedrückt.
+now = None
+key = cv2.waitKey(0) & 0xFF
+print(f'Key: {key}')
+
+# Falls Taste "s" --> Bild speichern
+if key == ord("s") or key == ord("S"):
+    now = datetime.datetime.now()
+    print(f'Export: tmp/reprojection-{now.year}-{now.month}-{now.day}--{now.hour}{now.minute}{now.second}-X.jpg ...')
+    cv2.imwrite(f'tmp/reprojection-{now.year}-{now.month}-{now.day}--{now.hour}{now.minute}{now.second}-L.jpg', expL)
+    cv2.imwrite(f'tmp/reprojection-{now.year}-{now.month}-{now.day}--{now.hour}{now.minute}{now.second}-R.jpg', expR)
 
 cv2.destroyAllWindows()
 
