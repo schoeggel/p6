@@ -12,7 +12,7 @@ class tm(Enum):
     AVERAGE = 3         # TODO Template auf Hintergrund, der dem mittelwert des Templates entspricht
     CANNY = 4           # Template und Suchbereich durch canny edge detector laufen lassen
     TRANSPARENT = 5     # Verwenden der von opencv unterstützeten Transparenz mit Maske
-
+    CANNYBLUR = 7       # Wie CANNY aber unscharf
     ELSD = 6            # TODO: statt canny die ellipsen und linien erkennen.
 
 
@@ -60,12 +60,15 @@ class Trainfeature:
         self.activeTemplateR = None                 # Das für den Match verwendete Template
         self.activeROIL = None                      # Der für den Match verwendete Bildausschnitt
         self.activeROIR = None                      # Der für den Match verwendete Bildausschnitt
+        self.activeMethod = -1                      # beim  Matching benutzte Methode
         self.ROIL = None                            # Der ROI (Gray) (wird je nach Methode noch weiterbearbeitet)
         self.ROIR = None                            # Der ROI (Gray) (wird je nach Methode noch weiterbearbeitet)
         self.markedROIL = None                      # Der ROIL (RGB) mit einem Marker
         self.markedROIR = None                      # Der ROIL (RGB) mit einem Marker
         self.reprojectedPosition2dL = None          # Die gemessene 3d Position projeziert ins 2d Bild
         self.reprojectedPosition2dR = None          # Die gemessene 3d Position projeziert ins 2d Bild
+        self.scoreL = None                          # Die ScoreMap aus dem Matching Vorgang
+        self.scoreR = None                          # Die ScoreMap aus dem Matching Vorgang
         self.loadpatch()                            # default-Patch laden
         if tmmode is not None:                      # In welcher Form werden die Bilder beim Matching verwendet.
             self.tmmode = tmmode                    # custom Mode für diese Instanz
@@ -73,6 +76,25 @@ class Trainfeature:
             self.tmmode = self.__tmmode             # Standard aus der Klasse übernehmen
 
 
+    @staticmethod
+    # Wie cv putText, aber immer lesbar wegen Umrandung.
+    def putBetterText(img, text, org, fontFace, fontScale, color, thickness=None, lineType=None, bottomLeftOrigin=None, colorOutline=None):
+        out = img.copy()
+        if colorOutline is None: #ohne explizite Angabe wird die Vordergrundfarbe invertiert für die Umrandungsfarbe
+            colorOutline = (255-color[0], 255-color[1], 255-color[2])
+
+        # 12x Hintergrund Text
+        displace = [ (0,  1), (1, 0),  (0, -1), (-1, 0),
+                    (-2, -2), (-2, 2), (2, -2), (-2, -2),
+                    ( 0,  2), (2, 0),  (0, -2), (-2, 0)]
+        for dx, dy in displace:
+            x = max(1, org[0] + dx)
+            y = max(1, org[1] + dy)
+            out = cv2.putText(out, text, (x,y), fontFace, fontScale, colorOutline, thickness, lineType)
+
+        # Vordergrund Text:
+        out = cv2.putText(out, text, org, fontFace, fontScale, color, thickness, lineType)
+        return out
 
     def drawMarker(self, imgL_in=None, imgR_in=None, size=25, color=(0,255,255), thickness= 3, show=False):
         #zeichnet den gemessenen Punkt ins Bild ein. Werden beide Bilder geliefert, gehen 2 Bilder zurück
@@ -101,13 +123,14 @@ class Trainfeature:
             return imgL, imgR
 
 
-    def showAllROIs(self):
-        imgL = self.imgMergerH([self.ROIL, self.activeROIL, self.activeTemplateL, self.markedROIL])
-        imgR = self.imgMergerH([self.ROIR, self.activeROIR, self.activeTemplateR, self.markedROIR])
-        imgL = cv2.putText(imgL, "L", (10,70), cv2.FONT_HERSHEY_DUPLEX, 1, (255,0,255),1,2)
-        imgR = cv2.putText(imgR, "R", (10,70), cv2.FONT_HERSHEY_DUPLEX, 1, (255,00,255),1,2)
+    def showAll(self):
+        imgL = self.imgMergerH([self.markedROIL, self.scoreL, self.activeROIL, self.activeTemplateL])
+        imgR = self.imgMergerH([self.markedROIR, self.scoreR, self.activeROIR, self.activeTemplateR])
+        imgL = self.putBetterText(imgL, "L", (10,70), cv2.FONT_HERSHEY_DUPLEX, 1, (255,255,255),1,2)
+        imgR = self.putBetterText(imgR, "R", (10,70), cv2.FONT_HERSHEY_DUPLEX, 1, (255,255,255),1,2)
         bigpic = self.imgMergerV([imgL, imgR])
-        bigpic = cv2.putText(bigpic, "ROI | activeROI | active T| markedROI", (10,30), cv2.FONT_HERSHEY_DUPLEX, 1, (255,00,255),1,2)
+        txt = f'res, score, actROI, actT, (cvMeth:{self.activeMethod})'
+        bigpic = self.putBetterText(bigpic, txt, (10,30), cv2.FONT_HERSHEY_DUPLEX, 1, (255,255,255),1,2)
         cv2.namedWindow("All ROIs", cv2.WINDOW_NORMAL)
         cv2.imshow("All ROIs", bigpic)
         cv2.waitKey(0)
@@ -127,8 +150,11 @@ class Trainfeature:
             # Alle Bilder auf diese Abmessung erweitern und in neue Liste speichern
             pixel = np.array(bgcolor, dtype=np.uint8)
             gap = maxv - img.shape[0]
-            filler = np.tile(pixel, (gap, img.shape[1], 1))
-            img = np.vstack((img, filler))
+            gap_upper = gap//2
+            gap_lower = gap - gap_upper
+            filler_upper = np.tile(pixel, (gap_upper, img.shape[1], 1))
+            filler_lower = np.tile(pixel, (gap_lower, img.shape[1], 1))
+            img = np.vstack((filler_upper, img, filler_lower))
             list_of_img.append(img)
 
         return np.hstack(list_of_img)
@@ -148,8 +174,11 @@ class Trainfeature:
             # Alle Bilder auf diese Abmessung erweitern und in neue Liste speichern
             pixel = np.array(bgcolor, dtype=np.uint8)
             gap = maxh - img.shape[1]
-            filler = np.tile(pixel, (img.shape[0],gap, 1))
-            img = np.hstack((img, filler))
+            gap_upper = gap // 2
+            gap_lower = gap - gap_upper
+            filler_upper = np.tile(pixel, (img.shape[0],gap_upper, 1))
+            filler_lower = np.tile(pixel, (img.shape[0],gap_lower, 1))
+            img = np.hstack((filler_upper, img, filler_lower))
             list_of_img.append(img)
 
         return np.vstack(list_of_img)
@@ -204,6 +233,9 @@ class Trainfeature:
         # Kontrast verbessern: Das bild ist nicht uint8, cv2.equalizeHist() funktioniert nicht
         imin, imax = scoreSmooth.min(),scoreSmooth.max()
         scoreSmooth = np.interp(scoreSmooth, [imin, imax] , [0, 1])
+
+        #in uint8 wandeln
+        scoreSmooth = (scoreSmooth*255).astype(np.uint8)
 
         return scoreSmooth
 
@@ -286,7 +318,7 @@ class Trainfeature:
         # bereitet das Bild und das Template für den eigentlichen template Matching Vorgang vor,
         # abhängig von der gewählten Methode (tm.NOISE, tm.MASK3CH etc)
 
-        if self.tmmode == tm.CANNY:
+        if self.tmmode == tm.CANNY or self.tmmode == tm.CANNYBLUR:
             # Kanten finden und template Hintergrund auf 0 setzen, inkl dem Rand zum Template (daher MaskEXT statt NORM)
             self.activeTemplateL = cv2.Canny(self.warpedpatchL, 80, 160)
             self.activeTemplateR = cv2.Canny(self.warpedpatchR, 80, 160)
@@ -294,6 +326,14 @@ class Trainfeature:
             self.activeTemplateR[self.wpMaskExtR==False] = 0
             self.activeROIL = cv2.Canny(self.ROIL, 80, 160)
             self.activeROIR = cv2.Canny(self.ROIR, 80, 160)
+            if self.tmmode == tm.CANNYBLUR:
+                self.activeROIL = cv2.blur(self.activeROIL, (9,9))
+                self.activeROIR = cv2.blur(self.activeROIR, (9,9))
+                self.activeTemplateL = cv2.blur(self.activeTemplateL, (9,9))
+                self.activeTemplateR = cv2.blur(self.activeTemplateR, (9,9))
+
+
+
 
         elif self.tmmode == tm.MASK3CH:
             # Kanal 0 auf alle RGB erweitern
@@ -343,7 +383,8 @@ class Trainfeature:
         self.prepareActiveImages()
 
         # match L
-        (centerx, centery), valL = self.match(self.activeROIL, self.activeTemplateL, self.corners2DtemplateL[4],verbose=verbose)
+        (centerx, centery), valL, resL = self.match(self.activeROIL, self.activeTemplateL, self.corners2DtemplateL[4],verbose=verbose)
+        self.scoreL = resL
         self.markedROIL = cv2.cvtColor(self.ROIL, cv2.COLOR_GRAY2RGB)
         self.markedROIL = cv2.drawMarker(self.markedROIL, (centerx, centery), (255, 255, 0), cv2.MARKER_CROSS, 10, 1)
 
@@ -354,7 +395,8 @@ class Trainfeature:
         centerxyL = (centerx + ROIL[2], centery + ROIL[0])
 
         # Match R
-        (centerx, centery), valR = self.match(self.activeROIR, self.activeTemplateR, self.corners2DtemplateR[4], verbose=verbose)
+        (centerx, centery), valR, resR = self.match(self.activeROIR, self.activeTemplateR, self.corners2DtemplateR[4], verbose=verbose)
+        self.scoreR = resR
         self.markedROIR = cv2.cvtColor(self.ROIR, cv2.COLOR_GRAY2RGB)
         self.markedROIR = cv2.drawMarker(self.markedROIR, (centerx, centery), (255, 255, 0), cv2.MARKER_CROSS, 10, 1)
         centerxyR = (centerx + ROIR[2], centery + ROIR[0])
@@ -384,7 +426,7 @@ class Trainfeature:
         self.reprojectedPosition2dR = tuple(self.reprojectedPosition2dR.flatten().astype(int))
 
 
-        if verbose: self.showAllROIs()
+        if verbose: self.showAll()
 
         return centerxyL, valL, centerxyR, valR,
 
@@ -397,12 +439,14 @@ class Trainfeature:
         # Gemäss Versuchsauswertung die am besten geeignet bei multikanal mit maske: CCORR_NORMED
         #method = cv2.TM_CCORR_NORMED
         if self.tmmode not in [tm.MASK3CH]:
-            method = cv2.TM_CCOEFF_NORMED
+            #method = cv2.TM_CCOEFF_NORMED
+            method = cv2.TM_SQDIFF_NORMED
         else:
             method = cv2.TM_CCORR_NORMED
 
         template = template_in.copy()
         img = img_in.copy()
+        self.activeMethod = method
 
         # falls rgb und greyscale gemischt kommen
         if img.ndim == 3 and template.ndim == 2:
@@ -427,25 +471,19 @@ class Trainfeature:
         location = top_left + patchcenter
         location = tuple(location.astype(int))
 
+        # Scoremap ablegen
+        res = self.filterScore(res)
+        res = cv2.cvtColor(res, cv2.COLOR_GRAY2RGB)
+        res = cv2.circle(res, top_left, 8, (0,0,0), 1)
+        res = cv2.circle(res, top_left, 9, (0,0,255), 1)
+
         if verbose:
             print(f'Template.shape: {template.shape}')
             print(f'image.shape: {img.shape}')
-            # cv2.imshow("matchingImage", cv2.drawMarker(img, location, (30,30,255), cv2.MARKER_CROSS, 10,1))
-            tmp = cv2.drawMarker(template, tuple(patchcenter.astype(int)), (255, 0, 255), cv2.MARKER_CROSS, 8, 1)
-            #cv2.namedWindow('matchingTemplate', cv2.WINDOW_NORMAL)
-            #cv2.imshow("matchingTemplate",tmp)
-            #cv2.imwrite('tmp/templatedebug.png', template)
-            #cv2.imwrite('tmp/templateImgdebug.png', img)
             print(f'Top-Left: {top_left} ; Offset PatchCenter: {patchcenter} ; Template Center: {location}')
-            res = self.filterScore(res)
-            res = cv2.circle(res, top_left,8, 0, 1)
-            res = cv2.circle(res, top_left, 9, 255, 1)
-            #cv2.namedWindow('scoremap', cv2.WINDOW_NORMAL)
-            #cv2.imshow("scoremap", res)
             print(res.shape)
-            #cv2.waitKey(0)
 
-        return location, val
+        return location, val, res
 
     def createMasks(self):
         # NEU ANDERS HERUM: WEISSES POLYGON AUF SCHWARZ

@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="176" mnemonic="1" />
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="481" mnemonic="2" />
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="210" mnemonic="4" />
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="565" mnemonic="5" />
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="375" mnemonic="6" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="205" mnemonic="1" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="519" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="242" mnemonic="4" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="603" mnemonic="5" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="417" mnemonic="6" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="543fc68e-51ac-46c2-a3d3-d45e8a552486" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/20-lamdaMax.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/15-trainfeaturetests-B.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/21-TestTextDisplacement.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/15-trainfeaturetests.py" beforeDir="false" afterPath="$PROJECT_DIR$/15-trainfeaturetests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GitterEckpunkte.py" beforeDir="false" afterPath="$PROJECT_DIR$/GitterEckpunkte.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cvaux.py" beforeDir="false" afterPath="$PROJECT_DIR$/cvaux.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/templateImgdebug.png" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/templateImgdebug.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/templatedebug.png" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/templatedebug.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/patches/Gitterschraube1 - Kopie.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/trainfeature.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainfeature.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,11 +22,67 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/trainfeature.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="100">
+                    <caret line="432" lean-forward="true" selection-start-line="432" selection-end-line="432" />
+                    <folding>
+                      <element signature="e#69#87#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/15-trainfeaturetests.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="302">
+                    <caret line="63" column="59" selection-start-line="63" selection-start-column="59" selection-end-line="63" selection-end-column="59" />
+                    <folding>
+                      <element signature="e#73#83#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="FavoritesManager">
     <favorites_list name="p6" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/20-lamdaMax.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="107">
+              <caret line="5" column="13" lean-forward="true" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/21-TestTextDisplacement.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="88">
+              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -40,7 +94,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>bisect</find>
       <find>patchsize</find>
       <find>L</find>
       <find>self.warpedpatchL</find>
@@ -70,6 +123,7 @@
       <find>waitkey</find>
       <find>p1</find>
       <find>imgR</find>
+      <find>res</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -81,7 +135,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/05templateGitterMethodenMedian.py" />
         <option value="$PROJECT_DIR$/tmp_reorder_Images.py" />
         <option value="$PROJECT_DIR$/05templateGitterSmall.py" />
         <option value="$PROJECT_DIR$/05templateGitterMethodenBlur.py" />
@@ -130,15 +183,16 @@
         <option value="$PROJECT_DIR$/19-contourTest.py" />
         <option value="$PROJECT_DIR$/20-lamdaMax.py" />
         <option value="$PROJECT_DIR$/cvaux.py" />
-        <option value="$PROJECT_DIR$/trainfeature.py" />
+        <option value="$PROJECT_DIR$/21-TestTextDisplacement.py" />
         <option value="$PROJECT_DIR$/15-trainfeaturetests.py" />
+        <option value="$PROJECT_DIR$/trainfeature.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
-    <option name="width" value="1933" />
+    <option name="width" value="1935" />
     <option name="height" value="1045" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -187,12 +241,12 @@
     </option>
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\gitstuff\p6\sample" />
       <recent name="C:\gitstuff\p6" />
       <recent name="C:\gitstuff\bt19" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\gitstuff\p6\sample" />
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\gitstuff\p6" />
       <recent name="C:\gitstuff\bt19" />
     </key>
@@ -210,6 +264,27 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.15-trainfeaturetests">
+    <configuration name="15-trainfeaturetests-B" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="bt19" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/15-trainfeaturetests-B.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="15-trainfeaturetests" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -231,48 +306,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="18-elsd-1" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="bt19" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/18-elsd-1.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="19-contourTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="bt19" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/19-contourTest.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="20-lamdaMax" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -286,6 +319,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/20-lamdaMax.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="21-TestTextDisplacement" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="bt19" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/21-TestTextDisplacement.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -318,17 +372,17 @@
     <list>
       <item itemvalue="Python.trainfeature" />
       <item itemvalue="Python.15-trainfeaturetests" />
-      <item itemvalue="Python.18-elsd-1" />
-      <item itemvalue="Python.19-contourTest" />
       <item itemvalue="Python.20-lamdaMax" />
+      <item itemvalue="Python.15-trainfeaturetests-B" />
+      <item itemvalue="Python.21-TestTextDisplacement" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.15-trainfeaturetests" />
+        <item itemvalue="Python.21-TestTextDisplacement" />
+        <item itemvalue="Python.15-trainfeaturetests-B" />
         <item itemvalue="Python.20-lamdaMax" />
         <item itemvalue="Python.trainfeature" />
-        <item itemvalue="Python.19-contourTest" />
-        <item itemvalue="Python.18-elsd-1" />
       </list>
     </recent_temporary>
   </component>
@@ -356,25 +410,26 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1546" height="836" extended-state="0" />
+    <frame x="-8" y="-8" width="1548" height="836" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" x="1095" y="86" width="350" height="703" id="Project" order="0" sideWeight="0.49774775" type="FLOATING" visible="true" weight="0.17718121" />
-      <window_info id="Structure" order="1" side_tool="true" visible="true" weight="0.21197847" />
+      <window_info id="Structure" order="1" side_tool="true" visible="true" weight="0.21505377" />
       <window_info id="Favorites" order="2" sideWeight="0.5022523" side_tool="true" weight="0.13963039" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.609375" />
-      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" weight="0.95596594" />
+      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" visible="true" weight="0.95596594" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.3278101" />
       <window_info anchor="bottom" id="Version Control" order="6" weight="0.79231864" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3224432" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.36946464" side_tool="true" weight="0.2346041" />
-      <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.49966952" visible="true" weight="0.50710225" />
+      <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.49966952" weight="0.50710225" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.24979457" />
-      <window_info anchor="right" x="116" y="32" width="539" height="489" id="Run" maximized="true" order="3" sideWeight="0.63053536" type="WINDOWED" weight="0.24307036" />
+      <window_info active="true" anchor="right" x="0" y="23" width="1536" height="798" id="Run" maximized="true" order="3" sideWeight="0.63053536" type="WINDOWED" visible="true" weight="0.24307036" />
       <window_info anchor="right" x="0" y="0" width="337" height="635" id="Documentation" order="4" side_tool="true" weight="0.3295302" />
     </layout>
     <layout-to-restore>
@@ -457,23 +512,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>511</line>
+          <line>549</line>
           <option name="timeStamp" value="141" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>78</line>
-          <option name="timeStamp" value="154" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>380</line>
-          <option name="timeStamp" value="155" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>577</line>
-          <option name="timeStamp" value="156" />
+          <line>86</line>
+          <option name="timeStamp" value="159" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -484,12 +529,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/data/testDoG1.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/test3a.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/tmp/deckeltest1.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -536,13 +575,6 @@
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/patchCreator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -696,19 +728,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sample/z3rtdoao.bmp">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharmCE2018.3/system/python_stubs/-3016789/cv2/cv2/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="5727" column="4" selection-start-line="5727" selection-start-column="4" selection-end-line="5727" selection-end-column="4" />
-          <folding>
-            <element signature="e#174#259#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/sample/z3rtdoao.bmp" />
     <entry file="file://C:/python364/Lib/random.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -758,32 +778,63 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-B.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/patchCreator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="684">
+          <caret line="109" lean-forward="true" selection-start-line="91" selection-end-line="109" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/20-lamdaMax.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+        <state relative-caret-position="107">
+          <caret line="5" column="13" lean-forward="true" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trainfeature.py">
+    <entry file="file://$PROJECT_DIR$/21-TestTextDisplacement.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="87" column="31" selection-start-line="87" selection-start-column="31" selection-end-line="87" selection-end-column="31" />
+        <state relative-caret-position="88">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2018.3/system/python_stubs/-3016789/cv2/cv2/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="8841" column="4" selection-start-line="8841" selection-start-column="4" selection-end-line="8841" selection-end-column="4" />
           <folding>
-            <element signature="e#69#87#0" expanded="true" />
+            <element signature="e#174#259#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/15-trainfeaturetests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1100">
-          <caret line="70" column="45" lean-forward="true" selection-start-line="70" selection-start-column="45" selection-end-line="70" selection-end-column="45" />
+        <state relative-caret-position="302">
+          <caret line="63" column="59" selection-start-line="63" selection-start-column="59" selection-end-line="63" selection-end-column="59" />
           <folding>
             <element signature="e#73#83#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trainfeature.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="432" lean-forward="true" selection-start-line="432" selection-end-line="432" />
+          <folding>
+            <element signature="e#69#87#0" expanded="true" />
           </folding>
         </state>
       </provider>
