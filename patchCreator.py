@@ -49,12 +49,11 @@ class edit(Enum):
 # Quellbild
 srcimagename = "tmp\\13Lcrop1.png"
 srcimagename = "tmp/13Lcrop2.png"
+srcimagename = "tmp/13Rmessen2.png"
+srcimagename = "data/patchVorbereitung/GitterschraubenRechts.png"
 #srcimagename = "data\\test3a.png"
 #srcimagename = "data\\test3b.png"
 #srcimagename = "data\\test-contrast1.png"
-
-# Welche Seite (0 oder 1)?
-srcSide = 0
 
 
 # Für den Export (ohne Fadenkreuz)
@@ -100,6 +99,7 @@ def updateImages():
 	image = clone.copy()
 	for (a, b) in [(0, 1), (1, 2), (2, 3), (3, 0),(0,2),(1,3)]:
 		cv2.line(image, tuple(refPt[a]), tuple(refPt[b]), (0, 255, 255), 1)
+	cv2.drawMarker(image, tuple(refPt[0]), (255,255,255),cv2.MARKER_CROSS, 11, 2)
 	cv2.drawMarker(image, tuple(refPt[ecke]), (255,255,255),cv2.MARKER_DIAMOND, 12, 1)
 	cv2.drawMarker(image, tuple(refPt[ecke]), (255,0,255),cv2.MARKER_DIAMOND, 11, 1)
 	cv2.imshow("image", image)
@@ -113,7 +113,7 @@ def warp():
 	warpexport = warpedimg.copy()
 
 	# Kontrast verbessern
-	clahe = cv2.createCLAHE(clipLimit=4.0, tileGridSize=(8, 8))
+	clahe = cv2.createCLAHE(clipLimit=4.0, tileGridSize=(6, 6))
 	for n in range(0,3):
 		warpedimg[:,:,n] = clahe.apply(warpedimg[:,:,n])
 
@@ -181,9 +181,15 @@ def editSrc(e: edit):
 
 	elif e == edit.ALIGN:
 		# Obere und untere Kante an Vorgabe ausrichten. Vereinfacht, Kantenlänge bleibt nicht gleich.
-		steigung1 = -0.2488905325444  # ermittelt im oiberen Dritten
-		steigung2 = -0.2308880308880  # ermittelt im untersten Drittel
-		m = (steigung1 + steigung2)/2
+		ml = -0.2398892817162 					# Manuell ermittelte mittlere Steigung L
+		mr =  0.1492859							# Manuell ermittelte mittlere Steigung R
+
+		# erkennt Seite daran, welcher Punkt zuoberst liegt im Bild
+		if refPt[0][1] > refPt[3][1]:
+			m = ml
+		else:
+			m = mr
+
 
 		# x - Distanzen
 		dx1 = refPt[3][0] - refPt[0][0]

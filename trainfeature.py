@@ -34,11 +34,16 @@ class Trainfeature:
     __PRE_TM_K_SIZE = 5
     __SCOREFILTER_K_SIZE = 5                        # Kernelgrösse für die Glättung des TM Resultats (Score)
 
-    def __init__(self, name, center3d, realsize, tmmode = None, filename=None):
-        assert (len(name) > 0) and (center3d.shape == (3,)) and (realsize > 1)
+    def __init__(self, filename, center3d, realsize, tmmode = None, name=None):
+        assert (len(filename) > 0) and (center3d.shape == (3,)) and (realsize > 1)
 
-        self.name = name  # Objektname
-        self.patchfilename = "data/patches/" + name + ".png"          # zum laden des patchbilds
+        if name is None:
+            self.name = filename  # Objektname
+        else:
+            self.name = name
+
+        self.patchfilenameL = None
+        self.patchfilenameR = None
         self.patchimageOriginalL = None             # Das Bild im Originalzustand
         self.patchimageOriginalR = None             # Das Bild im Originalzustand
         self.patchimageL = None                     # Das Bild (Kontrastverbessert)
@@ -848,15 +853,21 @@ class Trainfeature:
         print("t\n", Trainfeature.__t_exact)
 
 
-    def loadpatch(self, filename=None):
-        if filename is not None:                    # optional kann ein anderes als das standardbild geladen werden
-            self.patchfilename = filename
-        print("Lade: ", self.patchfilename )
-        self.patchimageOriginalL = cv2.imread(self.patchfilename, cv2.IMREAD_GRAYSCALE)
+    def loadpatch(self, filename): #TODO anpassen für auto L/R (und falls kein R, dann L doppelt verwenden)
+        # muss .png sein !
+        self.patchfilenameL = filename + "_L.png"
+        self.patchfilenameL = filename + "_R.png"
+
+
+
+        print(f'Lade: {self.patchfilenameL} und {self.patchfilenameR}')
+        self.patchimageOriginalL = cv2.imread(self.patchfilenameL, cv2.IMREAD_GRAYSCALE)
+        self.patchimageOriginalR = cv2.imread(self.patchfilenameR, cv2.IMREAD_GRAYSCALE)
         #  data\patches\GitterschraubeSet1\ol-L.png
         # 'data/patch  /GitterschraubeSet1/ol-L.png'
         # Kontrastverbesserte Variante
         self.patchimageL = self.clahe(self.patchimageOriginalL)
+        self.patchimageR = self.clahe(self.patchimageOriginalR)
 
         # TODO: eigene Variante der rechten Seite laden etc.. bis dann: spiegeln L-->R
         self.patchimageOriginalR = np.fliplr(self.patchimageOriginalL)
