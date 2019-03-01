@@ -145,12 +145,12 @@ def editSrc(e: edit):
 		if e == edit.ROT_CW:
 			alpha = -alpha
 		m = np.average(refPt, 0)
-		print(f'Schwepunkt:  {m}')
 		mod = refPt - np.tile(m, (4,1))
 		rot = np.array([[cos(alpha), -sin(alpha)], [sin(alpha), cos(alpha)]])  # rad
+		print(rot)
 		mod = np.matmul(mod, rot)
-		mod = mod +  np.tile(m, (1, 4))
-		refPt = mod.astype(int)
+		mod = mod +  np.tile(m, (4,1))
+		refPt = mod.round().astype(int)
 
 	elif e == edit.SWAP_CORNERS:
 		refPt = np.roll(refPt,2)  # rollt 2 stellen im flachen array
