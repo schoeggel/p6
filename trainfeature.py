@@ -30,7 +30,7 @@ class Trainfeature:
     __R_approx = np.diag([0, 0, 0])                 # Init Wert
     __t_approx = np.zeros(3)                        # Init Wert
     __rtstatus = -1                                 # -1: keine, 0: approx, 1:exakte vorhanden
-    __tmmode = tm.CANNY                         # Standard TM Mode
+    __tmmode = tm.TRANSPARENT                       # Standard TM Mode
     __PRE_TM_K_SIZE = 5
     __SCOREFILTER_K_SIZE = 5                        # Kernelgrösse für die Glättung des TM Resultats (Score)
 
@@ -366,9 +366,6 @@ class Trainfeature:
                 self.blurActiveImages(self.__PRE_TM_K_SIZE)
 
 
-        elif self.tmmode == tm.TRANSPARENT:
-            pass
-
         else:
             self.activeTemplateL = self.warpedpatchL
             self.activeTemplateR = self.warpedpatchR
@@ -391,7 +388,11 @@ class Trainfeature:
         self.prepareActiveImages()
 
         # match L
-        (centerx, centery), valL, resL = self.match(self.activeROIL, self.activeTemplateL, self.corners2DtemplateL[4],verbose=verbose)
+        (centerx, centery), valL, resL = self.match(self.activeROIL,
+                                                    self.activeTemplateL,
+                                                    self.corners2DtemplateL[4],
+                                                    self.wpMaskNormL,
+                                                    verbose=verbose)
         self.scoreL = resL
 
         # Gefundene Zentrum - Position des Templates markieren
@@ -413,7 +414,11 @@ class Trainfeature:
         centerxyL = (centerx + ROIL[2], centery + ROIL[0])
 
         # Match R
-        (centerx, centery), valR, resR = self.match(self.activeROIR, self.activeTemplateR, self.corners2DtemplateR[4], verbose=verbose)
+        (centerx, centery), valR, resR = self.match(self.activeROIR,
+                                                    self.activeTemplateR,
+                                                    self.corners2DtemplateR[4],
+                                                    self.wpMaskNormR,
+                                                    verbose=verbose)
         self.scoreR = resR
         self.markedROIR = cv2.cvtColor(self.ROIR, cv2.COLOR_GRAY2RGB)
         self.markedROIR = cv2.drawMarker(self.markedROIR, (centerx, centery), (0, 0, 255), cv2.MARKER_CROSS, 10, 1)
@@ -450,7 +455,7 @@ class Trainfeature:
         return centerxyL, valL, centerxyR, valR,
 
 
-    def match(self, img_in, template_in, patchcenter, verbose=False):
+    def match(self, img_in, template_in, patchcenter, mask, verbose=False):
         # Rückgabewerte: beste Position und Konfidenz
         # code kopiert aus opencv tutorial
         # patchcenter = Mitte des Patchs. TM Resultat bezieht sich auf die Ecke
@@ -462,8 +467,8 @@ class Trainfeature:
 
         elif self.tmmode in [tm.TRANSPARENT]:
             # gem opencv doku wird nur TM_SQDIFF and TM_CCORR_NORMED unterstützt bei Maskenanwendung
-            method = cv2.TM_CCORR_NORMED
             method = cv2.TM_SQDIFF
+            method = cv2.TM_CCORR_NORMED
 
         else:
             method = cv2.TM_CCOEFF  # für cannyBLur gehts, aber nicht für NOISE und NOISEBLUR
@@ -483,9 +488,17 @@ class Trainfeature:
         elif img.ndim == 2 and template.ndim == 3:
             img = np.dstack((img, img, img))
 
-        # Apply template Matching
+        # Apply template Matching.
         # "location" ist im Format (x,y), wie auch "offset" und "centerL"
-        res = cv2.matchTemplate(img, template, method)
+        if self.tmmode in  [tm.TRANSPARENT]:
+            # Maske muss gleiche Form haben wie Template
+
+            mask = (mask * 255).astype(np.uint8)
+            # mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2RGB)
+            res = cv2.matchTemplate(img, template, method, None, mask)
+        else:
+            res = cv2.matchTemplate(img, template, method)
+
 
         # Scoremap glätten und ablegen
         res = self.filterScore(res)

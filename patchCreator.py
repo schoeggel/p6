@@ -26,39 +26,44 @@ warpexport = []
 
 # refPt sind die Koordinaten der 4 Ecken im Quellbild
 refPt =np.zeros((4,2), dtype=int)
-letzterKlick = np.zeros((1,2), dtype=int)
+undo = refPt.copy()
+letzterKlick = np.zeros((2,), dtype=int)
 ecke = 0
 warpdim = 300
 
 def click_and_crop(event, x, y, flags, param):
 	# grab references to the global variables
-	global refPt, ecke, image, letzterKlick
+	global refPt, ecke, image, letzterKlick, undo
 
 	# Linker klick setzt aktuelle Position der Ecke. Mit der Maus ziehen verschiebt alle Ecken
 	if event == cv2.EVENT_LBUTTONDOWN:
-		letzterKlick[0] = (x, y)
+		letzterKlick = (x, y)
 
 	# Beim Loslassen prüfen, ob die Koordinaten noch übereinstimmen.
 	# Nein: Mousedrag, alle eckpunkte ändern
 	#  Ja: Nur die aktuelle Ecke ändern
 	elif event == cv2.EVENT_LBUTTONUP:
-		drag =  np.array((x,y)) - letzterKlick[0]
+		undo = refPt.copy()
+		drag =  np.array((x,y)) - letzterKlick
 		if drag.sum() != 0:
 			refPt = refPt + drag
 		else:
-			refPt[ecke] =  letzterKlick[0]
+			refPt[ecke] =  letzterKlick
 		updateImages()
 
 	elif event == cv2.EVENT_RBUTTONDOWN:
 		#nächste Ecke
 		ecke = ecke + 1
 		if ecke >= 4: ecke = 0
+		updateImages()
 
 def updateImages():
 	global refPt, image
 	image = clone.copy()
 	for (a, b) in [(0, 1), (1, 2), (2, 3), (3, 0),(0,2),(1,3)]:
 		cv2.line(image, tuple(refPt[a]), tuple(refPt[b]), (0, 255, 255), 1)
+	cv2.drawMarker(image, tuple(refPt[ecke]), (255,255,255),cv2.MARKER_DIAMOND, 12, 1)
+	cv2.drawMarker(image, tuple(refPt[ecke]), (255,0,255),cv2.MARKER_DIAMOND, 11, 1)
 	cv2.imshow("image", image)
 	warp()
 
@@ -77,7 +82,8 @@ def warp():
 	# "Zielhilfe" anzeigen: Fadenkreuz und zwei konzentrische Kreise
 	cv2.drawMarker(warpedimg,(warpdim//2,warpdim//2),(255,255,0),cv2.MARKER_CROSS, 15, 1,1)
 	cv2.circle(warpedimg,(warpdim//2,warpdim//2),warpdim//2, (255,255,0),1,cv2.LINE_4)
-	cv2.circle(warpedimg,(warpdim//2,warpdim//2),warpdim//4, (255,255,0),1,cv2.LINE_4)
+	cv2.circle(warpedimg,(warpdim//2,warpdim//2),warpdim//3, (255,255,0),1,cv2.LINE_4)
+	cv2.circle(warpedimg,(warpdim//2,warpdim//2),warpdim//6, (255,255,0),1,cv2.LINE_4)
 	cv2.imshow("warped", warpedimg)
 
 
@@ -100,6 +106,16 @@ while True:
 	if key == ord("s"):
 		savename =  str(input("Save as: "))
 		break
+
+	# q --> quit
+	if key == ord("q"):
+		break
+
+	# z --> undo
+	if key == ord("z"):
+		refPt = undo.copy()
+		updateImages()
+
 
 if len(savename) != 0:
 	if savename.find(".png") < 2:

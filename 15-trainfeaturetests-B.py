@@ -30,10 +30,11 @@ Trainfeature.approxreference(gitterL, gitterR)
 
 
 # Schraube oben links
-patchNameSchraube = "Gitterschraube1"
 patchNameSchraube = "test1"
 patchNameSchraube = "test2"
-realsize = 30
+patchNameSchraube = "Gitterschraube1"
+patchNameSchraube = "gitterschraube_or_L1"
+realsize = 44
 
 
 xyz = np.array([-240, 240, 0])
