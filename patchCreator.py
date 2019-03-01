@@ -9,11 +9,36 @@
 # Linker Mausklick: Ecke setzen
 # Rechter Mausklick: Zur nächsten Ecke wechseln
 # Linker Mausklick und ziehen: ganzes Viereck verschieben
-# Tastatur 's' : Template speichern, name in Konsole tippen und bestätigen.
+# Tastatur:
+#   s: Template speichern, name in Konsole tippen und bestätigen.
+#   i, j, k, l : Ecken um 1 pixel verschieben
+#   u, o : Rotieren ccw, cw
+#   b, n : breiter, schmaler
+#   c, v : höher, niederiger
+# TODO : Rotation funktioniert noch nicht korrekt
+
 
 # import the necessary packages
 import cv2
 import numpy as np
+from enum import Enum
+from math import cos,sin
+
+
+
+class edit(Enum):
+	UP1PX = 1
+	DOWN1PX =2
+	LEFT1PX = 3
+	RIGHT1PX =4
+	ROT_CCW = 5
+	ROT_CW =6
+	SCALE_X_POS = 7
+	SCALE_X_NEG = 8
+	SCALE_Y_POS = 9
+	SCALE_Y_NEG = 10
+	SWAP_CORNERS =11
+
 
 #Quellbild
 srcimagename = "tmp\\13Lcrop1.png"
@@ -38,6 +63,7 @@ def click_and_crop(event, x, y, flags, param):
 	# Linker klick setzt aktuelle Position der Ecke. Mit der Maus ziehen verschiebt alle Ecken
 	if event == cv2.EVENT_LBUTTONDOWN:
 		letzterKlick = (x, y)
+		print(f'(x,y) = ({x}, {y})')
 
 	# Beim Loslassen prüfen, ob die Koordinaten noch übereinstimmen.
 	# Nein: Mousedrag, alle eckpunkte ändern
@@ -87,6 +113,52 @@ def warp():
 	cv2.imshow("warped", warpedimg)
 
 
+def editSrc(e: edit):
+	global refPt, undo
+	undo = refPt.copy()
+	if e == edit.DOWN1PX:
+		refPt = refPt + [[0, 1]] * 4
+
+	elif e == edit.UP1PX:
+		refPt = refPt - [[0, 1]] * 4
+
+	elif e == edit.LEFT1PX:
+		refPt = refPt + [[-1, 0]] * 4
+
+	elif e == edit.RIGHT1PX:
+		refPt = refPt - [[-1, 0]] * 4
+
+	elif e == edit.SCALE_X_NEG:
+		refPt = refPt + [[1, 0], [1, 0], [-1, 0], [-1, 0]]
+
+	elif e == edit.SCALE_X_POS:
+		refPt = refPt - [[1, 0], [1, 0], [-1, 0], [-1, 0]]
+
+	elif e == edit.SCALE_Y_NEG:
+		refPt = refPt + [[0, 1], [0, -1], [0, -1], [0, 1]]
+
+	elif e == edit.SCALE_Y_POS:
+		refPt = refPt - [[0, 1], [0, -1], [0, -1], [0, 1]]
+
+	elif e in [edit.ROT_CCW, edit.ROT_CW]:
+		alpha = 0.01
+		if e == edit.ROT_CW:
+			alpha = -alpha
+		m = np.average(refPt, 0)
+		print(f'Schwepunkt:  {m}')
+		mod = refPt - np.tile(m, (4,1))
+		rot = np.array([[cos(alpha), -sin(alpha)], [sin(alpha), cos(alpha)]])  # rad
+		mod = np.matmul(mod, rot)
+		mod = mod +  np.tile(m, (1, 4))
+		refPt = mod.astype(int)
+
+	elif e == edit.SWAP_CORNERS:
+		refPt = np.roll(refPt,2)  # rollt 2 stellen im flachen array
+
+	updateImages()
+
+
+
 # load the image, clone it, and setup the mouse callback function
 image = cv2.imread(srcimagename)
 clone = image.copy()
@@ -115,6 +187,32 @@ while True:
 	if key == ord("z"):
 		refPt = undo.copy()
 		updateImages()
+
+	if key == ord('i'):
+		editSrc(edit.UP1PX)
+	if key == ord('j'):
+		editSrc(edit.LEFT1PX)
+	if key == ord('k'):
+		editSrc(edit.DOWN1PX)
+	if key == ord('l'):
+		editSrc(edit.RIGHT1PX)
+
+	if key == ord('b'):
+		editSrc(edit.SCALE_X_POS)
+	if key == ord('n'):
+		editSrc(edit.SCALE_X_NEG)
+	if key == ord('c'):
+		editSrc(edit.SCALE_Y_POS)
+	if key == ord('v'):
+		editSrc(edit.SCALE_Y_NEG)
+
+	if key == ord('u'):
+		editSrc(edit.ROT_CCW)
+	if key == ord('o'):
+		editSrc(edit.ROT_CW)
+	if key == ord('x'):
+		editSrc(edit.SWAP_CORNERS)
+
 
 
 if len(savename) != 0:
