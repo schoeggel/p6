@@ -10,8 +10,12 @@ import findGrid
 
 # Gitter
 # Bilder laden
-sbbL_gray = cv2.imread("sbb/10L.png", cv2.IMREAD_GRAYSCALE)
-sbbR_gray = cv2.imread("sbb/10R.png", cv2.IMREAD_GRAYSCALE)
+sbbL_gray = cv2.imread("sbb/15L.png", cv2.IMREAD_GRAYSCALE)
+sbbR_gray = cv2.imread("sbb/15R.png", cv2.IMREAD_GRAYSCALE)
+
+
+#sbbL_gray = cv2.imread("sbb/3-OK1L.png", cv2.IMREAD_GRAYSCALE)
+#sbbR_gray = cv2.imread("sbb/3-OK1R.png", cv2.IMREAD_GRAYSCALE)
 
 # Bilder kopieren, umwandeln #
 sbbL_rgb = cv2.cvtColor(sbbL_gray, cv2.COLOR_GRAY2BGR)
@@ -29,16 +33,17 @@ Trainfeature.loadmatrixp()
 Trainfeature.approxreference(gitterL, gitterR)
 
 
-# Schraube oben links
 patchNameSchraube = "test1"
 patchNameSchraube = "test2"
 patchNameSchraube = "Gitterschraube1"
 patchNameSchraube = "gitterschraube_or_L1"
-realsize = 44
+patchName = "data/patches/GitterschraubeSet1/"
+realsize = 38
 
 
+# Schraube oben links
 xyz = np.array([-240, 240, 0])
-s1 = Trainfeature(patchNameSchraube, xyz, realsize) #32 für kleiner patch , ca 45 für grosse
+s1 = Trainfeature(patchNameSchraube, xyz, realsize, filename=patchName+"ol-L.png") #32 für kleiner patch , ca 45 für grosse
 print(s1)
 s1.warp()
 centerL, val, centerR, _ = s1.find(sbbL, sbbR, verbose=True)
@@ -47,27 +52,29 @@ sbbL = cv2.drawMarker(sbbL, centerL, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 sbbR = cv2.drawMarker(sbbR, centerR, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 sbbL = s1.drawBasis(sbbL, sideLR=0, show=False, thickness=5)
 
-# # Schraube unten links
-xyz = np.array([-240, -240, 0])
-s2 = Trainfeature(patchNameSchraube, xyz, realsize)
-print(s2)
-s2.warp()
-centerL, _, centerR, _ = s2.find(sbbL, sbbR, verbose=True)
-sbbL = cv2.drawMarker(sbbL, centerL, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
-sbbR = cv2.drawMarker(sbbR, centerR, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
-
 # Schraube oben rechts
 xyz = np.array([+240, +240, 0])
-s3 = Trainfeature(patchNameSchraube, xyz, realsize)
+s3 = Trainfeature(patchNameSchraube, xyz, realsize, filename=patchName+"or-L.png")
 print(s3)
 s3.warp()
 centerL, _ , centerR, _ = s3.find(sbbL, sbbR, verbose=True)
 sbbL = cv2.drawMarker(sbbL, centerL, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 sbbR = cv2.drawMarker(sbbR, centerR, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 
+
+# Schraube unten links
+xyz = np.array([-240, -240, 0])
+s2 = Trainfeature(patchNameSchraube, xyz, realsize, filename=patchName+"ul-L.png")
+print(s2)
+s2.warp()
+centerL, _, centerR, _ = s2.find(sbbL, sbbR, verbose=True)
+sbbL = cv2.drawMarker(sbbL, centerL, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
+sbbR = cv2.drawMarker(sbbR, centerR, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
+
+
 # Schraube unten rechts
 xyz = np.array([+240, -240, 0])
-s4 = Trainfeature(patchNameSchraube, xyz, realsize)
+s4 = Trainfeature(patchNameSchraube, xyz, realsize, filename=patchName+"ur-L.png")
 print(s4)
 s4.warp()
 centerL, _, centerR, _  = s4.find(sbbL, sbbR, verbose=True)

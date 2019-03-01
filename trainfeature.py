@@ -34,7 +34,7 @@ class Trainfeature:
     __PRE_TM_K_SIZE = 5
     __SCOREFILTER_K_SIZE = 5                        # Kernelgrösse für die Glättung des TM Resultats (Score)
 
-    def __init__(self, name, center3d, realsize, tmmode = None):
+    def __init__(self, name, center3d, realsize, tmmode = None, filename=None):
         assert (len(name) > 0) and (center3d.shape == (3,)) and (realsize > 1)
 
         self.name = name  # Objektname
@@ -74,7 +74,7 @@ class Trainfeature:
         self.reprojectedPosition2dR = np.zeros(1)   # Die gemessene 3d Position projeziert ins 2d Bild
         self.scoreL = None                          # Die ScoreMap aus dem Matching Vorgang
         self.scoreR = None                          # Die ScoreMap aus dem Matching Vorgang
-        self.loadpatch()                            # default-Patch laden
+        self.loadpatch(filename)                    # default-Patch laden
         if tmmode is not None:                      # In welcher Form werden die Bilder beim Matching verwendet.
             self.tmmode = tmmode                    # custom Mode für diese Instanz
         else:
@@ -332,12 +332,12 @@ class Trainfeature:
 
         if self.tmmode == tm.CANNY or self.tmmode == tm.CANNYBLUR:
             # Kanten finden und template Hintergrund auf 0 setzen, inkl dem Rand zum Template (daher MaskEXT statt NORM)
-            self.activeTemplateL = cv2.Canny(self.warpedpatchL, 80, 160)
-            self.activeTemplateR = cv2.Canny(self.warpedpatchR, 80, 160)
+            self.activeTemplateL = cv2.Canny(self.warpedpatchL, 80, 240)
+            self.activeTemplateR = cv2.Canny(self.warpedpatchR, 80, 240)
             self.activeTemplateL[self.wpMaskExtL==False] = 0
             self.activeTemplateR[self.wpMaskExtR==False] = 0
-            self.activeROIL = cv2.Canny(self.ROIL, 80, 160)
-            self.activeROIR = cv2.Canny(self.ROIR, 80, 160)
+            self.activeROIL = cv2.Canny(self.ROIL, 80, 240)
+            self.activeROIR = cv2.Canny(self.ROIR, 80, 240)
             if self.tmmode == tm.CANNYBLUR:
                 self.blurActiveImages(self.__PRE_TM_K_SIZE)
 
@@ -467,16 +467,21 @@ class Trainfeature:
 
         elif self.tmmode in [tm.TRANSPARENT]:
             # gem opencv doku wird nur TM_SQDIFF and TM_CCORR_NORMED unterstützt bei Maskenanwendung
-            method = cv2.TM_SQDIFF
-            method = cv2.TM_CCORR_NORMED
+            method = cv2.TM_SQDIFF    # deutlichere Peaks, aber bei anderen Bilder falsche Resultate
+            method = cv2.TM_CCORR_NORMED # stabiler als TM_SQDIFF
+
+        elif self.tmmode in [tm.CANNY, tm.CANNYBLUR]:
+            method = cv2.TM_CCORR_NORMED  # für NOISE und NOISEBLUR komplett unbrauchbar.
+            method = cv2.TM_SQDIFF_NORMED  # ok für cannyBLUR gute peaks, aber etwas instabil (scoremap alles weiss)
+            method = cv2.TM_CCOEFF_NORMED  # passt
 
         else:
             method = cv2.TM_CCOEFF  # für cannyBLur gehts, aber nicht für NOISE und NOISEBLUR
             method = cv2.TM_CCORR  # für NOISE  und NOISEBLUR komplett unbrauchbar.
             method = cv2.TM_CCORR_NORMED  # für NOISE und NOISEBLUR komplett unbrauchbar.
-            method = cv2.TM_SQDIFF  # canny blurred nur halbwegs
             method = cv2.TM_SQDIFF_NORMED  # ok für cannyBLUR gute peaks, ab er nicht für NOISE und NOISEBLUR !
-            method = cv2.TM_CCOEFF_NORMED  # für cannyBLur gehts, aber nicht für NOISE und NOISEBLUR
+            method = cv2.TM_SQDIFF  # canny blurred nur halbwegs
+            method = cv2.TM_CCOEFF_NORMED  # passt
 
         template = template_in.copy()
         img = img_in.copy()
@@ -848,7 +853,8 @@ class Trainfeature:
             self.patchfilename = filename
         print("Lade: ", self.patchfilename )
         self.patchimageOriginalL = cv2.imread(self.patchfilename, cv2.IMREAD_GRAYSCALE)
-
+        #  data\patches\GitterschraubeSet1\ol-L.png
+        # 'data/patch  /GitterschraubeSet1/ol-L.png'
         # Kontrastverbesserte Variante
         self.patchimageL = self.clahe(self.patchimageOriginalL)
 
