@@ -10,8 +10,8 @@ import findGrid
 
 # Gitter
 # Bilder laden 10 bis 15
-sbbL_gray = cv2.imread("sbb/15L.png", cv2.IMREAD_GRAYSCALE)
-sbbR_gray = cv2.imread("sbb/15R.png", cv2.IMREAD_GRAYSCALE)
+sbbL_gray = cv2.imread("sbb/11L.png", cv2.IMREAD_GRAYSCALE)
+sbbR_gray = cv2.imread("sbb/11R.png", cv2.IMREAD_GRAYSCALE)
 
 #sbbL_gray = cv2.imread("sbb/3-OK1L.png", cv2.IMREAD_GRAYSCALE)
 #sbbR_gray = cv2.imread("sbb/3-OK1R.png", cv2.IMREAD_GRAYSCALE)
@@ -36,24 +36,24 @@ patchNameSchraube = "test1"
 patchNameSchraube = "test2"
 patchNameSchraube = "Gitterschraube1"
 patchNameSchraube = "gitterschraube_or_L1"
-patchName = "data/patches/GitterschraubeSet1/"
-realsize = 38
+patchName = "data/patches/ScharnierSet1/"
+realsize = 65
 
 
-# Schraube oben links
-xyz = np.array([-240, 240, 0])
-s1 = Trainfeature(patchName+"ol", xyz, realsize) #32 für kleiner patch , ca 45 für grosse
+# Scharnier links
+xyz = np.array([-250, 550, 0])
+s1 = Trainfeature(patchName+"Scharnier_l", xyz, realsize) #32 für kleiner patch , ca 45 für grosse
 print(s1)
 s1.warp()
-centerL, val, centerR, _ = s1.find(sbbL, sbbR, verbose=True)
+centerL, val, centerR, _ = s1.find(sbbL, sbbR, verbose=True,extend=150)
 print(f'center: {centerL}\nvalue: {val}\n')
 sbbL = cv2.drawMarker(sbbL, centerL, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 sbbR = cv2.drawMarker(sbbR, centerR, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 sbbL = s1.drawBasis(sbbL, sideLR=0, show=False, thickness=5)
 
-# Schraube oben rechts
+# Scharnier rechts
 xyz = np.array([+240, +240, 0])
-s3 = Trainfeature(patchName+"or", xyz, realsize)
+s3 = Trainfeature(patchName+"Scharnier_r", xyz, realsize)
 print(s3)
 s3.warp()
 centerL, _ , centerR, _ = s3.find(sbbL, sbbR, verbose=True)
@@ -61,36 +61,10 @@ sbbL = cv2.drawMarker(sbbL, centerL, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 sbbR = cv2.drawMarker(sbbR, centerR, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 
 
-# Schraube unten links
-xyz = np.array([-240, -240, 0])
-s2 = Trainfeature(patchName+"ul", xyz, realsize)
-print(s2)
-s2.warp()
-centerL, _, centerR, _ = s2.find(sbbL, sbbR, verbose=True)
-sbbL = cv2.drawMarker(sbbL, centerL, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
-sbbR = cv2.drawMarker(sbbR, centerR, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
-
-
-# Schraube unten rechts
-xyz = np.array([+240, -240, 0])
-s4 = Trainfeature(patchName+"ur", xyz, realsize)
-print(s4)
-s4.warp()
-centerL, _, centerR, _  = s4.find(sbbL, sbbR, verbose=True)
-sbbL = cv2.drawMarker(sbbL, centerL, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
-sbbR = cv2.drawMarker(sbbR, centerR, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
-
-
-
-
-Trainfeature.referenceViaObjects(s1,s2,s3,s4)
-
 sbbL = s1.drawBasis(sbbL, sideLR=0, show=False, length= 66, thickness=20)
 
 s1.drawMarker(sbbL, sbbR, show=False)
-s2.drawMarker(sbbL, sbbR, show=False)
-s3.drawMarker(sbbL, sbbR, show=False)
-expL, expR = s4.drawMarker(sbbL, sbbR, show=True)
+expL, expR = s3.drawMarker(sbbL, sbbR, show=True)
 
 # Bilder anzeigen bis Taste gedrückt.
 now = None

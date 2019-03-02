@@ -224,6 +224,11 @@ class Trainfeature:
         maxx, maxy = corners.max(0)[0]
         olx, oly = minx - extend, miny - extend
         urx, ury = maxx + extend, maxy + extend
+
+        # begrenzen, keine negativen
+        olx, oly = max(olx, 0), max(oly, 0)
+        urx, ury = max(urx, 0), max(ury, 0)
+
         return list(map(int, [oly, ury, olx, urx]))
 
     @staticmethod
