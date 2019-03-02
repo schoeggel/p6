@@ -33,6 +33,10 @@ class Trainfeature:
     __tmmode = tm.CANNYBLUR                       # Standard TM Mode
     __PRE_TM_K_SIZE = 5
     __SCOREFILTER_K_SIZE = 5                        # Kernelgrösse für die Glättung des TM Resultats (Score)
+    __OPT_STEPS = 10
+    __OPT_START = 0.5
+    __OPT_END = 1.7
+    __OPT_ENABLED = True
 
     def __init__(self, filename, center3d, realsize, tmmode = None, name=None):
         assert (len(filename) > 0) and (center3d.shape == (3,)) and (realsize > 1)
@@ -385,6 +389,48 @@ class Trainfeature:
             self.activeROIR = self.ROIR
 
 
+    def matchOptimizer(self, sideLR=0, verbose=False ):
+        # Probiert verschiedene Grössenänderungen durch, um die Ungenauigkeiten beim Patch Erstellung zu korrigieren:
+        # TODO: besser lösen, so dass nicht immer beide Seiten neu durchgerechnet werden müssen
+
+        steps = np.linspace(self.__OPT_START, self.__OPT_END, self.__OPT_STEPS, endpoint=True)
+        results = np.zeros(self.__OPT_STEPS)
+        bruteforce = np.dstack((steps, results))[0]
+        bruteforce = list(bruteforce)
+        backupsize = self.realsize
+
+        for i, element in enumerate(bruteforce):
+            # Die Grössen anpassen und die effektiven Bilder und Templates neu erstellen
+            self.realsize = backupsize * element[0]
+            test1, test2 = self.warp()
+            cv2.namedWindow("wrp", cv2.WINDOW_NORMAL)
+            cv2.imshow("wrp", test1)
+            cv2.waitKey(400)
+
+            self.prepareActiveImages()
+
+            if sideLR == 0:
+                (centerx, centery), val, res = self.match(self.activeROIL,
+                                                          self.activeTemplateL,
+                                                          self.corners2DtemplateL[4],
+                                                          self.wpMaskNormL,
+                                                          verbose=True)
+
+            else:
+                (centerx, centery), val, res = self.match(self.activeROIR,
+                                                          self.activeTemplateR,
+                                                          self.corners2DtemplateR[4],
+                                                          self.wpMaskNormR,
+                                                          verbose=True)
+
+
+            element[1] = val
+            print(f'Optimizer: scale {element[0]} scored {element[1]}')
+
+        optScale = np.max(bruteforce,1)
+        return (centerx, centery), val, res, optScale
+
+
     def find(self, imageL, imageR, verbose=False, extend=100):
         # sucht das objekt im angegebenen Bild
         # Liefert die gemessene Position zurück (2d,3d)
@@ -396,15 +442,8 @@ class Trainfeature:
         # ROIS als kontrastoptimierte Graustufe speichern in self.ROIR und self.ROIR
         self.storeROIs(imageL, imageR, extend)
 
-        # Die effektiven Bilder und Templates erstellen
-        self.prepareActiveImages()
-
-        # match L
-        (centerx, centery), valL, resL = self.match(self.activeROIL,
-                                                    self.activeTemplateL,
-                                                    self.corners2DtemplateL[4],
-                                                    self.wpMaskNormL,
-                                                    verbose=verbose)
+        # match L: Optimizer
+        (centerx, centery), valL, resL, opt_scaleL = self.matchOptimizer(sideLR=0, verbose=verbose)
         self.scoreL = resL
 
         # Gefundene Zentrum - Position des Templates markieren
@@ -426,11 +465,7 @@ class Trainfeature:
         centerxyL = (centerx + ROIL[2], centery + ROIL[0])
 
         # Match R
-        (centerx, centery), valR, resR = self.match(self.activeROIR,
-                                                    self.activeTemplateR,
-                                                    self.corners2DtemplateR[4],
-                                                    self.wpMaskNormR,
-                                                    verbose=verbose)
+        (centerx, centery), valR, resR, optScaleR = self.matchOptimizer(sideLR=1, verbose=verbose)
         self.scoreR = resR
         self.markedROIR = cv2.cvtColor(self.ROIR, cv2.COLOR_GRAY2RGB)
         self.markedROIR = cv2.drawMarker(self.markedROIR, (centerx, centery), (0, 0, 255), cv2.MARKER_CROSS, 10, 1)
@@ -486,6 +521,7 @@ class Trainfeature:
             method = cv2.TM_CCORR_NORMED  # für NOISE und NOISEBLUR komplett unbrauchbar.
             method = cv2.TM_SQDIFF_NORMED  # ok für cannyBLUR gute peaks, aber etwas instabil (scoremap alles weiss)
             method = cv2.TM_CCOEFF_NORMED  # passt
+            method = cv2.TM_CCOEFF
 
         else:
             method = cv2.TM_CCOEFF  # für cannyBLur gehts, aber nicht für NOISE und NOISEBLUR
