@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="253" mnemonic="4" />
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="640" mnemonic="5" />
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="445" mnemonic="6" />
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="868" mnemonic="8" />
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="404" mnemonic="9" />
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="462" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="260" mnemonic="4" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="647" mnemonic="5" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="452" mnemonic="6" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="873" mnemonic="8" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="411" mnemonic="9" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="469" mnemonic="2" />
     <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="33" mnemonic="1" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="543fc68e-51ac-46c2-a3d3-d45e8a552486" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/15-trainfeaturetests-B.py" beforeDir="false" afterPath="$PROJECT_DIR$/15-trainfeaturetests-B.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/patches/GitterschraubeSet1/ol-L.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/patches/GitterschraubeSet1/or-L.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/patches/GitterschraubeSet1/ul-L.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/patches/GitterschraubeSet1/ur-L.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patchCreator.py" beforeDir="false" afterPath="$PROJECT_DIR$/patchCreator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/patches/GitterschraubeSet1/or_R.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/patches/GitterschraubeSet1/or_R.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/patches/GitterschraubeSet1/ul_R.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/patches/GitterschraubeSet1/ul_R.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trainfeature.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainfeature.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,6 +21,46 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DockManager">
+    <window id="2">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/patchCreator.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="374">
+                    <caret line="50" column="33" lean-forward="true" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-B.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="302">
+                    <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/trainfeature.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="335">
+                    <caret line="32" column="27" selection-start-line="32" selection-start-column="27" selection-end-line="32" selection-end-column="27" />
+                    <folding>
+                      <element signature="e#69#87#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
   </component>
   <component name="FavoritesManager">
     <favorites_list name="p6" />
@@ -139,7 +176,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
-    <option name="width" value="1933" />
+    <option name="width" value="1934" />
     <option name="height" value="1045" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -149,6 +186,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -165,7 +203,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -356,25 +393,26 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1546" height="836" extended-state="0" />
+    <frame x="-8" y="-8" width="1547" height="836" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" x="593" y="61" width="344" height="697" id="Project" order="0" sideWeight="0.49774775" type="FLOATING" visible="true" weight="0.17718121" />
-      <window_info id="Structure" order="1" side_tool="true" visible="true" weight="0.21870793" />
+      <window_info id="Structure" order="1" side_tool="true" visible="true" weight="0.22192334" />
       <window_info id="Favorites" order="2" sideWeight="0.5022523" side_tool="true" weight="0.13963039" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.609375" />
-      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" weight="0.84232956" />
+      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" visible="true" weight="0.84232956" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.3278101" />
       <window_info anchor="bottom" id="Version Control" order="6" weight="0.79231864" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3224432" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.36946464" side_tool="true" weight="0.2346041" />
-      <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.49966952" visible="true" weight="0.50710225" />
+      <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.49966952" weight="0.50710225" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.24979457" />
-      <window_info anchor="right" x="93" y="250" width="1392" height="489" id="Run" order="3" sideWeight="0.63053536" type="WINDOWED" weight="0.24307036" />
+      <window_info active="true" anchor="right" x="63" y="141" width="1392" height="489" id="Run" order="3" sideWeight="0.63053536" type="WINDOWED" visible="true" weight="0.24307036" />
       <window_info anchor="right" x="0" y="0" width="337" height="635" id="Documentation" order="4" side_tool="true" weight="0.3295302" />
     </layout>
     <layout-to-restore>
@@ -457,12 +495,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>507</line>
+          <line>514</line>
           <option name="timeStamp" value="166" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>505</line>
+          <line>512</line>
           <option name="timeStamp" value="167" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -474,6 +512,11 @@
           <url>file://$PROJECT_DIR$/trainfeature.py</url>
           <line>81</line>
           <option name="timeStamp" value="184" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trainfeature.py</url>
+          <line>864</line>
+          <option name="timeStamp" value="185" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -764,13 +807,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/patchCreator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
-          <caret line="43" column="21" lean-forward="true" selection-start-line="43" selection-start-column="21" selection-end-line="43" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/15-trainfeaturetests.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="413">
@@ -781,20 +817,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-B.py">
+    <entry file="file://$PROJECT_DIR$/patchCreator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="76" column="47" selection-start-line="76" selection-start-column="47" selection-end-line="76" selection-end-column="47" />
+        <state relative-caret-position="374">
+          <caret line="50" column="33" lean-forward="true" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trainfeature.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5742">
-          <caret line="261" column="59" selection-start-line="261" selection-start-column="59" selection-end-line="261" selection-end-column="59" />
+        <state relative-caret-position="335">
+          <caret line="32" column="27" selection-start-line="32" selection-start-column="27" selection-end-line="32" selection-end-column="27" />
           <folding>
             <element signature="e#69#87#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-B.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
         </state>
       </provider>
     </entry>

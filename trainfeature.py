@@ -30,7 +30,7 @@ class Trainfeature:
     __R_approx = np.diag([0, 0, 0])                 # Init Wert
     __t_approx = np.zeros(3)                        # Init Wert
     __rtstatus = -1                                 # -1: keine, 0: approx, 1:exakte vorhanden
-    __tmmode = tm.TRANSPARENT                       # Standard TM Mode
+    __tmmode = tm.CANNYBLUR                       # Standard TM Mode
     __PRE_TM_K_SIZE = 5
     __SCOREFILTER_K_SIZE = 5                        # Kernelgrösse für die Glättung des TM Resultats (Score)
 
@@ -134,15 +134,22 @@ class Trainfeature:
 
 
     def showAllSteps(self):
-        imgL = self.imgMergerH([self.markedROIL, self.scoreL, self.activeROIL, self.activeTemplateL])
-        imgR = self.imgMergerH([self.markedROIR, self.scoreR, self.activeROIR, self.activeTemplateR])
-        imgL = self.putBetterText(imgL, "L", (10,70), cv2.FONT_HERSHEY_DUPLEX, 1, (255,255,255),1,2)
-        imgR = self.putBetterText(imgR, "R", (10,70), cv2.FONT_HERSHEY_DUPLEX, 1, (255,255,255),1,2)
+        templatesL = self.imgMergerV(
+            [cv2.resize(self.patchimageOriginalL, (100, 100)), self.warpedpatchL, self.activeTemplateL])
+        templatesR = self.imgMergerV(
+            [cv2.resize(self.patchimageOriginalR, (100, 100)), self.warpedpatchR, self.activeTemplateR])
+        imgL = self.imgMergerH([self.markedROIL, self.scoreL, self.activeROIL, templatesL])
+        imgR = self.imgMergerH([self.markedROIR, self.scoreR, self.activeROIR, templatesR])
+        imgL = self.putBetterText(imgL, "L", (10, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 255, 255), 1, 2)
+        imgR = self.putBetterText(imgR, "R", (10, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 255, 255), 1, 2)
         bigpic = self.imgMergerV([imgL, imgR])
         txt = f'res, score, actROI, actT, (cvMeth:{self.activeMethod})'
-        bigpic = self.putBetterText(bigpic, txt, (10,30), cv2.FONT_HERSHEY_DUPLEX, 1, (255,255,255),1,2)
-        cv2.namedWindow("All ROIs", cv2.WINDOW_NORMAL)
-        cv2.imshow("All ROIs", bigpic)
+        bigpic = self.putBetterText(bigpic, txt, (10, 30), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 255, 255), 1, 2)
+        aspect = bigpic.shape[0] / bigpic.shape[1]
+        wname = f'All steps ({self.name})'
+        cv2.namedWindow(wname, cv2.WINDOW_NORMAL)
+        cv2.imshow(wname, bigpic)
+        cv2.resizeWindow(wname, 1800, int(1800*aspect))
         cv2.waitKey(0)
 
     @staticmethod
@@ -856,22 +863,21 @@ class Trainfeature:
     def loadpatch(self, filename): #TODO anpassen für auto L/R (und falls kein R, dann L doppelt verwenden)
         # muss .png sein !
         self.patchfilenameL = filename + "_L.png"
-        self.patchfilenameL = filename + "_R.png"
-
-
+        self.patchfilenameR = filename + "_R.png"
 
         print(f'Lade: {self.patchfilenameL} und {self.patchfilenameR}')
         self.patchimageOriginalL = cv2.imread(self.patchfilenameL, cv2.IMREAD_GRAYSCALE)
         self.patchimageOriginalR = cv2.imread(self.patchfilenameR, cv2.IMREAD_GRAYSCALE)
-        #  data\patches\GitterschraubeSet1\ol-L.png
-        # 'data/patch  /GitterschraubeSet1/ol-L.png'
-        # Kontrastverbesserte Variante
-        self.patchimageL = self.clahe(self.patchimageOriginalL)
-        self.patchimageR = self.clahe(self.patchimageOriginalR)
 
-        # TODO: eigene Variante der rechten Seite laden etc.. bis dann: spiegeln L-->R
-        self.patchimageOriginalR = np.fliplr(self.patchimageOriginalL)
-        self.patchimageR = np.fliplr(self.patchimageL)
+        # Kontrastverbesserte Variante
+        assert(self.patchimageOriginalL.size > 0)
+        self.patchimageL = self.clahe(self.patchimageOriginalL)
+
+        if self.patchimageOriginalR is None:
+            self.patchimageOriginalR = self.patchimageOriginalL
+            self.patchimageR = self.patchimageL
+        else:
+            self.patchimageR = self.clahe(self.patchimageOriginalR)
 
         assert (self.patchimageR.shape == self.patchimageL.shape)
 
@@ -880,7 +886,8 @@ class Trainfeature:
         s = f'\nClass Info:\n rt status: {self.__rtstatus}'
         s += f'\n R (exact):\n{self.__R_exact}\n t (exact):\n{self.__t_exact}\n'
         s += f' R (approx.):\n{self.__R_approx}\n t (approx.):\n{self.__t_approx}\n'
-        s += f'\nObject info:\n Name: {self.name}\n Patchfilename: {self.patchfilename}\n'
+        s += f'\nObject info:\n Name: {self.name}\n'
+        s += f' PatchfilenameL: {self.patchfilenameL}\n PatchfilenameR: {self.patchfilenameR}\n'
         s += f' Real position center:\n{self.patchCenter3d}\n'
         s += f' Real position corners:\n{self.corners3Dtrain}\n'
         return s

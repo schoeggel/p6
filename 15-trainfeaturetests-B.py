@@ -9,13 +9,12 @@ import findGrid
 
 
 # Gitter
-# Bilder laden
+# Bilder laden 10 bis 15
 sbbL_gray = cv2.imread("sbb/15L.png", cv2.IMREAD_GRAYSCALE)
 sbbR_gray = cv2.imread("sbb/15R.png", cv2.IMREAD_GRAYSCALE)
 
-
-#sbbL_gray = cv2.imread("sbb/3-OK1L.png", cv2.IMREAD_GRAYSCALE)
-#sbbR_gray = cv2.imread("sbb/3-OK1R.png", cv2.IMREAD_GRAYSCALE)
+sbbL_gray = cv2.imread("sbb/3-OK1L.png", cv2.IMREAD_GRAYSCALE)
+sbbR_gray = cv2.imread("sbb/3-OK1R.png", cv2.IMREAD_GRAYSCALE)
 
 # Bilder kopieren, umwandeln #
 sbbL_rgb = cv2.cvtColor(sbbL_gray, cv2.COLOR_GRAY2BGR)
