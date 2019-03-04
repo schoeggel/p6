@@ -4,6 +4,7 @@ import cv2
 from rigid_transform_3d import rigid_transform_3D, rmserror
 import calibMatrix
 from enum import Enum
+from cvaux import imgMergerV, imgMergerH
 
 
 class tm(Enum):
@@ -134,15 +135,15 @@ class Trainfeature:
 
 
     def showAllSteps(self):
-        templatesL = self.imgMergerV(
+        templatesL = imgMergerV(
             [cv2.resize(self.patchimageOriginalL, (100, 100)), self.warpedpatchL, self.activeTemplateL])
-        templatesR = self.imgMergerV(
+        templatesR = imgMergerV(
             [cv2.resize(self.patchimageOriginalR, (100, 100)), self.warpedpatchR, self.activeTemplateR])
-        imgL = self.imgMergerH([self.markedROIL, self.scoreL, self.activeROIL, templatesL])
-        imgR = self.imgMergerH([self.markedROIR, self.scoreR, self.activeROIR, templatesR])
+        imgL = imgMergerH([self.markedROIL, self.scoreL, self.activeROIL, templatesL])
+        imgR = imgMergerH([self.markedROIR, self.scoreR, self.activeROIR, templatesR])
         imgL = self.putBetterText(imgL, "L", (10, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 255, 255), 1, 2)
         imgR = self.putBetterText(imgR, "R", (10, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 255, 255), 1, 2)
-        bigpic = self.imgMergerV([imgL, imgR])
+        bigpic = imgMergerV([imgL, imgR])
         txt = f'res, score, actROI, actT, (cvMeth:{self.activeMethod})'
         bigpic = self.putBetterText(bigpic, txt, (10, 30), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 255, 255), 1, 2)
         aspect = bigpic.shape[0] / bigpic.shape[1]
@@ -152,53 +153,7 @@ class Trainfeature:
         cv2.resizeWindow(wname, 1800, int(1800*aspect))
         cv2.waitKey(0)
 
-    @staticmethod
-    def imgMergerH(list_of_img_in: list, bgcolor=(128, 128, 128)):
-        # Abmessungen des Bilds mit der grössten vertikalen Abmessung finden)
-        resolutions = [x.shape[0] for x in list_of_img_in]
-        maxv = max(resolutions)
-        list_of_img = []
 
-        for img in list_of_img_in:
-            # alles auf RGB ändern
-            if img.ndim == 2:
-                img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
-
-            # Alle Bilder auf diese Abmessung erweitern und in neue Liste speichern
-            pixel = np.array(bgcolor, dtype=np.uint8)
-            gap = maxv - img.shape[0]
-            gap_upper = gap//2
-            gap_lower = gap - gap_upper
-            filler_upper = np.tile(pixel, (gap_upper, img.shape[1], 1))
-            filler_lower = np.tile(pixel, (gap_lower, img.shape[1], 1))
-            img = np.vstack((filler_upper, img, filler_lower))
-            list_of_img.append(img)
-
-        return np.hstack(list_of_img)
-
-    @staticmethod
-    def imgMergerV(list_of_img_in: list, bgcolor=(128, 128, 128)):
-        # Abmessungen des Bilds mit der grössten horizontalen Abmessung finden)
-        resolutions = [x.shape[1] for x in list_of_img_in]
-        maxh = max(resolutions)
-        list_of_img = []
-
-        for img in list_of_img_in:
-            # alles auf RGB ändern
-            if img.ndim == 2:
-                img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
-
-            # Alle Bilder auf diese Abmessung erweitern und in neue Liste speichern
-            pixel = np.array(bgcolor, dtype=np.uint8)
-            gap = maxh - img.shape[1]
-            gap_upper = gap // 2
-            gap_lower = gap - gap_upper
-            filler_upper = np.tile(pixel, (img.shape[0],gap_upper, 1))
-            filler_lower = np.tile(pixel, (img.shape[0],gap_lower, 1))
-            img = np.hstack((filler_upper, img, filler_lower))
-            list_of_img.append(img)
-
-        return np.vstack(list_of_img)
 
 
     def showMarkedROIs(self):

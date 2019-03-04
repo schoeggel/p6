@@ -1,6 +1,7 @@
 # Verschiedene Hilfsfunktionen
 import scipy.io.matlab
 import numpy as np
+import cv2
 
 
 
@@ -72,4 +73,49 @@ def mixtochannel(im1, im2=None, im3=None):
     return rgb
 
 
+def imgMergerH(list_of_img_in: list, bgcolor=(128, 128, 128)):
+    # Abmessungen des Bilds mit der grössten vertikalen Abmessung finden)
+    resolutions = [x.shape[0] for x in list_of_img_in]
+    maxv = max(resolutions)
+    list_of_img = []
 
+    for img in list_of_img_in:
+        # alles auf RGB ändern
+        if img.ndim == 2:
+            img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
+
+        # Alle Bilder auf diese Abmessung erweitern und in neue Liste speichern
+        pixel = np.array(bgcolor, dtype=np.uint8)
+        gap = maxv - img.shape[0]
+        gap_upper = gap // 2
+        gap_lower = gap - gap_upper
+        filler_upper = np.tile(pixel, (gap_upper, img.shape[1], 1))
+        filler_lower = np.tile(pixel, (gap_lower, img.shape[1], 1))
+        img = np.vstack((filler_upper, img, filler_lower))
+        list_of_img.append(img)
+
+    return np.hstack(list_of_img)
+
+
+def imgMergerV(list_of_img_in: list, bgcolor=(128, 128, 128)):
+    # Abmessungen des Bilds mit der grössten horizontalen Abmessung finden)
+    resolutions = [x.shape[1] for x in list_of_img_in]
+    maxh = max(resolutions)
+    list_of_img = []
+
+    for img in list_of_img_in:
+        # alles auf RGB ändern
+        if img.ndim == 2:
+            img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
+
+        # Alle Bilder auf diese Abmessung erweitern und in neue Liste speichern
+        pixel = np.array(bgcolor, dtype=np.uint8)
+        gap = maxh - img.shape[1]
+        gap_upper = gap // 2
+        gap_lower = gap - gap_upper
+        filler_upper = np.tile(pixel, (img.shape[0], gap_upper, 1))
+        filler_lower = np.tile(pixel, (img.shape[0], gap_lower, 1))
+        img = np.hstack((filler_upper, img, filler_lower))
+        list_of_img.append(img)
+
+    return np.vstack(list_of_img)

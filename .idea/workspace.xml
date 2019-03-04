@@ -1,63 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="261" mnemonic="4" />
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="616" mnemonic="5" />
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="418" mnemonic="6" />
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="842" mnemonic="8" />
-    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="392" mnemonic="9" />
-    <bookmark url="file://$PROJECT_DIR$/patchCreator3d.py" line="194" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="216" mnemonic="4" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="571" mnemonic="5" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="373" mnemonic="6" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="797" mnemonic="8" />
+    <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="347" mnemonic="9" />
+    <bookmark url="file://$PROJECT_DIR$/patchCreator3d.py" line="197" mnemonic="2" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="543fc68e-51ac-46c2-a3d3-d45e8a552486" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/15-trainfeaturetests-D.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patchCreator3d.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/01pmatchGitter.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/01pmatchGitter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/02templateSkeleton.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/02templateSkeleton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/03templateMask.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/03templateMask.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/04templateMaskNoEdge.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/04templateMaskNoEdge.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/05-gittermittelpunkt.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/05-gittermittelpunkt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/05templateGitterMethoden.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/05templateGitterMethoden.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/05templateGitterMethodenBlur.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/05templateGitterMethodenBlur.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/05templateGitterMethodenMedian.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/05templateGitterMethodenMedian.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/05templateGitterSmall.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/05templateGitterSmall.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/05templateGitterTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/05templateGitterTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/06LocalizeByFeatures.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/06LocalizeByFeatures.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/06LocalizeByFeaturesB.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/06LocalizeByFeaturesB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/06LocalizeByFeaturesC.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/06LocalizeByFeaturesC.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/07templateMatchForm.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/07templateMatchForm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/08templateMatchPeakFreq.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/08templateMatchPeakFreq.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/08templateMatchPeakFreqPersp.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/08templateMatchPeakFreqPersp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/09GitterLR1.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/09GitterLR1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/10triangulation1.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/10triangulation1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/10triangulation2.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/10triangulation2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/11Exaktgitter1.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/11Exaktgitter1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/11Exaktgitter2-noise.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/11Exaktgitter2-noise.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/13-Check3dQuadrat1.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/13-Check3dQuadrat1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/13-Check3dQuadrat2.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/13-Check3dQuadrat2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/13-Check3dQuadrat3.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/13-Check3dQuadrat3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/13-Check3dQuadrat4.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/13-Check3dQuadrat4.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/14-triangulationFehlersuche.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/14-triangulationFehlersuche.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/14-triangulationFehlersuche1a.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/14-triangulationFehlersuche1a.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/14-triangulationFehlersuche2.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/14-triangulationFehlersuche2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/14-triangulationFehlersuche4.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/14-triangulationFehlersuche4.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/14-triangulationFehlersuche5.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/14-triangulationFehlersuche5.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/14-triangulationFehlersuche6.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/14-triangulationFehlersuche6.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/15-trainfeaturetests-C.py" beforeDir="false" afterPath="$PROJECT_DIR$/15-trainfeaturetests-C.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/16-warptestBackground.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/16-warptestBackground.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17-templatematchChannelTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/17-templatematchChannelTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/170366ntl.txt" beforeDir="false" afterPath="$PROJECT_DIR$/archive/170366ntl.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/18-CLAHE-test.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/18-CLAHE-test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/18-elsd-1.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/18-elsd-1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C" beforeDir="false" afterPath="$PROJECT_DIR$/archive/C" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GitterEckpunkte.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/GitterEckpunkte.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/equalAxis3d.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/equalAxis3d.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/findGrid.py" beforeDir="false" afterPath="$PROJECT_DIR$/findGrid.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patchCreatorTest1.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/patchCreatorTest1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-undistort-14L.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/test-undistort-14L.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test2png.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/test2png.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/warpedTemplate13L.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/warpedTemplate13L.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cvaux.py" beforeDir="false" afterPath="$PROJECT_DIR$/cvaux.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patchCreator3d.py" beforeDir="false" afterPath="$PROJECT_DIR$/patchCreator3d.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainfeature.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainfeature.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,89 +20,21 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/trainfeature.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="420">
-                    <caret line="229" column="43" lean-forward="true" selection-start-line="229" selection-start-column="43" selection-end-line="229" selection-end-column="43" />
-                    <folding>
-                      <element signature="e#69#87#0" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/patchCreator3d.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="288">
-                    <caret line="263" column="19" lean-forward="true" selection-start-line="263" selection-start-column="19" selection-end-line="263" selection-end-column="19" />
-                    <folding>
-                      <element signature="n#!!doc" />
-                      <element signature="e#287#297#0" expanded="true" />
-                      <element signature="e#666#748#0" />
-                      <element signature="e#1379#1620#0" />
-                      <element signature="e#1633#1840#0" />
-                      <element signature="e#770#838#0" />
-                      <element signature="e#910#1121#0" />
-                      <element signature="e#3159#3760#0" />
-                      <element signature="e#3264#3350#0" />
-                      <element signature="e#2096#2719#0" />
-                      <element signature="e#2096#2149#0" />
-                      <element signature="e#2461#2560#0" />
-                      <element signature="e#2602#2679#0" />
-                      <element signature="e#643#685#0" />
-                      <element signature="e#1449#1493#0" />
-                      <element signature="e#721#777#0" />
-                      <element signature="e#819#875#0" />
-                      <element signature="e#934#1332#0" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="728">
-                    <caret line="1740" selection-start-line="1740" selection-end-line="1740" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/lib/shape_base.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="702">
-                    <caret line="1152" selection-start-line="1152" selection-end-line="1152" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-D.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="610">
-                    <caret line="78" column="16" selection-start-line="78" selection-start-column="16" selection-end-line="78" selection-end-column="16" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="FavoritesManager">
     <favorites_list name="p6" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/rigid_transform_3d.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="31">
+              <caret line="63" column="4" selection-start-line="63" selection-start-column="4" selection-end-line="63" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -159,10 +46,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>matchingimage</find>
-      <find>LINE</find>
-      <find>prepareA</find>
-      <find>gauss</find>
       <find>hstack</find>
       <find>triangul</find>
       <find>projec</find>
@@ -189,6 +72,10 @@
       <find>polygon</find>
       <find>poly</find>
       <find>roi</find>
+      <find>marker§</find>
+      <find>print</find>
+      <find>imgMergerV</find>
+      <find>warp</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -240,7 +127,6 @@
         <option value="$PROJECT_DIR$/pylsd/lsd.py" />
         <option value="$PROJECT_DIR$/19-contourTest.py" />
         <option value="$PROJECT_DIR$/20-lamdaMax.py" />
-        <option value="$PROJECT_DIR$/cvaux.py" />
         <option value="$PROJECT_DIR$/21-TestTextDisplacement.py" />
         <option value="$PROJECT_DIR$/15-trainfeaturetests.py" />
         <option value="$PROJECT_DIR$/22-testMinMax.py" />
@@ -249,6 +135,7 @@
         <option value="$PROJECT_DIR$/findGrid.py" />
         <option value="$PROJECT_DIR$/15-trainfeaturetests-C.py" />
         <option value="$PROJECT_DIR$/15-trainfeaturetests-D.py" />
+        <option value="$PROJECT_DIR$/cvaux.py" />
         <option value="$PROJECT_DIR$/trainfeature.py" />
         <option value="$PROJECT_DIR$/patchCreator3d.py" />
       </list>
@@ -283,17 +170,6 @@
               <item name="p6" type="b2602c69:ProjectViewProjectNode" />
               <item name="p6" type="462c0819:PsiDirectoryNode" />
               <item name="rigid_transform_3d.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="p6" type="b2602c69:ProjectViewProjectNode" />
-              <item name="p6" type="462c0819:PsiDirectoryNode" />
-              <item name="trainfeature.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="p6" type="b2602c69:ProjectViewProjectNode" />
-              <item name="p6" type="462c0819:PsiDirectoryNode" />
-              <item name="trainfeature.py" type="8704e2dd:PyFileNode" />
-              <item name="Trainfeature" type="dd8bbb05:PyElementNode" />
             </path>
           </expand>
           <select />
@@ -404,7 +280,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="20-lamdaMax" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="patchCreator" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -416,7 +292,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/20-lamdaMax.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/patchCreator.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -447,19 +323,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.20-lamdaMax" />
       <item itemvalue="Python.19-contourTest" />
       <item itemvalue="Python.19-contourTest (1)" />
       <item itemvalue="Python.patchCreator3d" />
       <item itemvalue="Python.15-trainfeaturetests-D" />
+      <item itemvalue="Python.patchCreator" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.patchCreator3d" />
+        <item itemvalue="Python.patchCreator" />
         <item itemvalue="Python.15-trainfeaturetests-D" />
         <item itemvalue="Python.19-contourTest (1)" />
         <item itemvalue="Python.19-contourTest" />
-        <item itemvalue="Python.20-lamdaMax" />
       </list>
     </recent_temporary>
   </component>
@@ -492,14 +368,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1548" height="836" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" x="1126" y="95" width="344" height="697" id="Project" order="0" sideWeight="0.49774775" type="FLOATING" weight="0.17718121" />
+      <window_info content_ui="combo" x="1126" y="95" width="344" height="697" id="Project" order="0" sideWeight="0.49774775" type="FLOATING" visible="true" weight="0.17718121" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.22849463" />
       <window_info id="Favorites" order="2" sideWeight="0.5022523" side_tool="true" visible="true" weight="0.1391129" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.609375" />
-      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" visible="true" weight="0.796875" />
+      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" weight="0.2997159" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.3278101" />
@@ -510,7 +385,7 @@
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.24979457" />
-      <window_info active="true" anchor="right" x="140" y="299" width="1392" height="489" id="Run" order="3" sideWeight="0.63053536" type="WINDOWED" visible="true" weight="0.24307036" />
+      <window_info anchor="right" x="140" y="175" width="1392" height="613" id="Run" order="3" sideWeight="0.63053536" type="WINDOWED" weight="0.24307036" />
       <window_info anchor="right" x="0" y="0" width="337" height="635" id="Documentation" order="4" side_tool="true" weight="0.3295302" />
     </layout>
     <layout-to-restore>
@@ -598,18 +473,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>833</line>
+          <line>788</line>
           <option name="timeStamp" value="185" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trainfeature.py</url>
-          <line>464</line>
+          <line>419</line>
           <option name="timeStamp" value="202" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/patchCreator3d.py</url>
-          <line>55</line>
-          <option name="timeStamp" value="220" />
+          <line>232</line>
+          <option name="timeStamp" value="226" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/patchCreator3d.py</url>
+          <line>95</line>
+          <option name="timeStamp" value="227" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -681,13 +561,6 @@
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rigid_transform_3d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="11" column="13" lean-forward="true" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -855,13 +728,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cvaux.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-C.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
@@ -896,23 +762,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="728">
-          <caret line="1740" selection-start-line="1740" selection-end-line="1740" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trainfeature.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="229" column="43" lean-forward="true" selection-start-line="229" selection-start-column="43" selection-end-line="229" selection-end-column="43" />
-          <folding>
-            <element signature="e#69#87#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
@@ -937,30 +786,56 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/patchCreator.py">
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="215" column="18" lean-forward="true" selection-start-line="215" selection-start-column="18" selection-end-line="215" selection-end-column="18" />
+        <state relative-caret-position="742">
+          <caret line="1740" selection-start-line="1740" selection-end-line="1740" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trainfeature.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-20">
+          <caret line="537" column="59" selection-start-line="537" selection-start-column="59" selection-end-line="537" selection-end-column="59" />
+          <folding>
+            <element signature="e#69#87#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-D.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="610">
-          <caret line="78" column="16" selection-start-line="78" selection-start-column="16" selection-end-line="78" selection-end-column="16" />
+        <state relative-caret-position="22">
+          <caret line="1" column="37" lean-forward="true" selection-start-line="1" selection-start-column="37" selection-end-line="1" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cvaux.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1804">
+          <caret line="82" column="30" lean-forward="true" selection-start-line="82" selection-start-column="30" selection-end-line="82" selection-end-column="30" />
+          <folding>
+            <element signature="e#31#53#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/patchCreator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="115" lean-forward="true" selection-start-line="115" selection-end-line="115" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/patchCreator3d.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="263" column="19" lean-forward="true" selection-start-line="263" selection-start-column="19" selection-end-line="263" selection-end-column="19" />
+        <state relative-caret-position="22">
+          <caret line="82" column="13" lean-forward="true" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
           <folding>
             <element signature="n#!!doc" />
             <element signature="e#287#297#0" expanded="true" />
             <element signature="e#666#748#0" />
             <element signature="e#1379#1620#0" />
-            <element signature="e#1633#1840#0" />
             <element signature="e#770#838#0" />
             <element signature="e#910#1121#0" />
             <element signature="e#3159#3760#0" />
@@ -975,6 +850,13 @@
             <element signature="e#819#875#0" />
             <element signature="e#934#1332#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rigid_transform_3d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="31">
+          <caret line="63" column="4" selection-start-line="63" selection-start-column="4" selection-end-line="63" selection-end-column="4" />
         </state>
       </provider>
     </entry>
