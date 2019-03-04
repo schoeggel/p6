@@ -7,8 +7,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import calibMatrix
-from GitterEckpunkte import eckpunkte
-from equalAxis3d import set_axes_equal
+from archive.GitterEckpunkte import eckpunkte
+from archive.equalAxis3d import set_axes_equal
 
 
 # Es sollen die 4 Eckpunkte trianguliert werden, um zu kontrollieren, ob
@@ -18,10 +18,11 @@ from equalAxis3d import set_axes_equal
 # einer der Ecken reisst aus.
 # die Funktion "equal Axis" kann die Form stark verändern, Grund nicht nachvollziehbar.
 # wenn die x/y pixelkorrdinaten in pt1L und pt1R untereinander vertausch werden,
-# bleibt das ergenis ähnlich, aber "Equal axis" funktioniert.
-# Geprüft: x/y swap
-# stat manueller conversion mit cv2. funktion convertFromHomogenous
-
+# bleibt das ergebnis ähnlich, aber "Equal axis" funktioniert.
+# Geprüft: swap x/y
+# - andere formen np.array etc
+# - punkte einzeln pro triangulation --> check im excel --> gleiches problem
+# - invertiertes y (gem. buch zissermann geht xy vom bildecken unten links nach oben rechts.
 
 SWITCH_UNDISTORT = True  # kamera korrektur nicht ausführen --> schneller
 SWITCH_VERBOSE = False
@@ -243,23 +244,65 @@ matchL = cv2.warpPerspective(sbbL_rgb, ML, canvas, borderMode=cv2.BORDER_TRANSPA
 pts1L = np.float32([[[1110, 1111], [2376, 814], [2850, 1557], [1529, 1881], [1110, 1111]]])
 pts1R = np.float32([[[1715, 820], [3010, 1004], [2712, 1795], [1357, 1591], [1715, 820]]])
 
+
 # TEST-DATEN ECKEN plus MITTELPUNKT (UZS) X/Y SWAP TEST
 pts1L = np.float32([[[1111, 1110], [814, 2376], [1557, 2850], [1881, 1529], [1111, 1110]]])
 pts1R = np.float32([[[820, 1715], [1004, 3010], [1795, 2712], [1591, 1357], [820, 1715]]])
 
+# TEST-DATEN ECKEN plus MITTELPUNKT (UZS) MIT FORMAT WIE SO: https://stackoverflow.com/questions/46163831 GEHT NICHT
+pts1L = np.array([[[1110], [1111]], [[2376],  [814]], [[2850], [1557]], [[1529], [1881]], [[1110], [1111]]], dtype=np.float)
+pts1R = np.array([[[1715],  [820]], [[3010], [1004]], [[2712], [1795]], [[1357], [1591]], [[1715],  [820]]], dtype=np.float)
+
+
+# VIELLEICHT MIT EINEM EINZELNEN PUNKT: MIT FORMAT WIE SO: https://stackoverflow.com/questions/46163831 GEHT NICHT
+pts1L = np.array([[1110], [1111]], dtype=np.float)
+pts1R = np.array([[1715],  [820]], dtype=np.float)
+
+pts1L = np.array([[2376],  [814]], dtype=np.float)
+pts1R = np.array([[3010], [1004]], dtype=np.float)
+
+pts1L = np.array([[2850], [1557]], dtype=np.float)
+pts1R = np.array([[2712], [1795]], dtype=np.float)
+
+pts1L = np.array([[1529], [1881]], dtype=np.float)
+pts1R = np.array([[1357], [1591]], dtype=np.float)
+
+
+
+# TEST-DATEN mit y invertiert --> Resultat: Ändert nichts an der Form des möchtegern "Quadrats"
+ih = 3000
+pts1L = np.float32([[[1110, ih - 1111], [2376, ih - 814], [2850, ih - 1557], [1529, ih - 1881], [1110, ih - 1111]]])
+pts1R = np.float32([[[1715, ih - 820], [3010, ih - 1004], [2712, ih - 1795], [1357, ih - 1591], [1715, ih - 820]]])
+
+# 3000-y und  X/Y SWAP TEST --> Resultat : ändern nicht viel an der Form
+pts1L = np.float32([[[ih-1111, 1110], [ih-814, 2376], [ih-1557, 2850], [ih-1881, 1529], [ih-1111, 1110]]])
+pts1R = np.float32([[[ih-820, 1715], [ih-1004, 3010], [ih-1795, 2712], [ih-1591, 1357], [ih-820, 1715]]])
+
+
+# TEST-DATEN ECKEN plus MITTELPUNKT (UZS)
+pts1L = np.float32([[[1110, 1111], [2376, 814], [2850, 1557], [1529, 1881], [1110, 1111]]])
+pts1R = np.float32([[[1715, 820], [3010, 1004], [2712, 1795], [1357, 1591], [1715, 820]]])
+
 pt3d = cv2.triangulatePoints(cal.pl, cal.pr, pts1L, pts1R)
+
+
 print("Triangulation 3d pt:", pt3d)
 fn = "tmp/3dpoints-Ecken"
 
-pt3d = pt3d[:-1] / pt3d[-1]  # https://pythonpath.wordpress.com/import-cv2/
+
+test = cv2.convertPointsFromHomogeneous(pt3d.T)
+print("TEST: ")
+print(test)
+
+# pt3d = pt3d[:-1] / pt3d[-1]  # https://pythonpath.wordpress.com/import-cv2/
 # pt3d = pt3d / np.max(pt3d)
-np.save(fn + ".npy", pt3d.T)
-np.savetxt(fn + ".asc", pt3d.T, "%10.8f")
-
-
+# np.save(fn + ".npy", pt3d.T)
+# np.savetxt(fn + ".asc", pt3d.T, "%10.8f")
+pt3d = cv2.convertPointsFromHomogeneous(pt3d.T)
+pt3d = pt3d.T
 fig = plt.figure()
 ax = Axes3D(fig)
-X, Y, Z = pt3d[0], pt3d[1], pt3d[2]
+X, Y, Z = pt3d[0][0], pt3d[1][0], pt3d[2][0]
 ax.plot(X, Y, Z)
 
 #weil ax scaled nicht funktioniert bei 3d plot, dann sieh aber das rechteck nicht mehr nach rechteck aus ?!?!!

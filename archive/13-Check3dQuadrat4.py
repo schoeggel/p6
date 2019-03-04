@@ -1,14 +1,10 @@
-
-
-
-
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import calibMatrix
-from GitterEckpunkte import eckpunkte
-from equalAxis3d import set_axes_equal
+from archive.GitterEckpunkte import eckpunkte
+from archive.equalAxis3d import set_axes_equal
 
 
 # Es sollen die 4 Eckpunkte trianguliert werden, um zu kontrollieren, ob
@@ -16,13 +12,9 @@ from equalAxis3d import set_axes_equal
 # Problem : 3d koordinaten stimmen noch nicht ganz ??
 # Es handelt sich grob im ein längliches Rechteck anstelle eines Quadrats.
 # einer der Ecken reisst aus.
-# die Funktion "equal Axis" kann die Form stark verändern, Grund nicht nachvollziehbar.
-# wenn die x/y pixelkorrdinaten in pt1L und pt1R untereinander vertausch werden,
-# bleibt das ergebnis ähnlich, aber "Equal axis" funktioniert.
-# Geprüft: swap x/y
-# - andere formen np.array etc
-# - punkte einzeln pro triangulation --> check im excel --> gleiches problem
-# - invertiertes y (gem. buch zissermann geht xy vom bildecken unten links nach oben rechts.
+# versuch, die entzerrungsdaten nicht zu laden bei den Kamerdaten
+
+
 
 SWITCH_UNDISTORT = True  # kamera korrektur nicht ausführen --> schneller
 SWITCH_VERBOSE = False
@@ -75,11 +67,11 @@ for i in range(0, 4):
     checkR = cv2.drawMarker(sbbR_rgb, (pts1R[i][0], pts1R[i][1]), colorcube[i], cv2.MARKER_CROSS, 100, 10)
 
 
-cv2.namedWindow("checkL", cv2.WINDOW_NORMAL)
-cv2.namedWindow("checkR", cv2.WINDOW_NORMAL)
-cv2.imshow("checkL", checkL)
-cv2.imshow("checkR", checkR)
-cv2.waitKey(0)
+# cv2.namedWindow("checkL", cv2.WINDOW_NORMAL)
+# cv2.namedWindow("checkR", cv2.WINDOW_NORMAL)
+# cv2.imshow("checkL", checkL)
+# cv2.imshow("checkR", checkR)
+# cv2.waitKey(0)
 
 
 # Die Leinwand für das transformierte Bild wird so gross
@@ -119,10 +111,10 @@ mirror = cv2.flip(imgR, 1)
 imgR[mask] = mirror[mask]
 
 # plt.subplot(141), plt.imshow(sbbL_gray), plt.title('Photo')
-plt.subplot(141), plt.imshow(partialL), plt.title('L warpPerspective')
-plt.subplot(142), plt.imshow(imgL), plt.title('L warpPerspective + mirror')
-plt.subplot(143), plt.imshow(partialR), plt.title('R warpPerspective')
-plt.subplot(144), plt.imshow(imgR), plt.title('R warpPerspective + mirror')
+# plt.subplot(141), plt.imshow(partialL), plt.title('L warpPerspective')
+# plt.subpl# ot(142), plt.imshow(imgL), plt.title('L warpPerspective + mirror')
+# plt.subplot(143), plt.imshow(partialR), plt.title('R warpPerspective')
+# plt.subplot(144), plt.imshow(imgR), plt.title('R warpPerspective + mirror')
 
 # Vorverarbeitung, nur interessante Frequenzen behalten (8 pixel breite gitter)
 # DoG: Difference of Gauss, Werte experimentell bestimmt.
@@ -154,23 +146,23 @@ gitterposL = freqHitsSmoothL.argmax()
 freqHitsSmoothR = cv2.filter2D(freqHitsR, -1, k)
 gitterposR = freqHitsSmoothR.argmax()
 
-plt.figure(2)  # TODO : Triggert eine warnung
-plt.subplot(121), plt.plot(freqHitsL), plt.title('L')
-plt.subplot(121), plt.plot(freqHitsSmoothL)
-plt.subplot(122), plt.plot(freqHitsR), plt.title('R')
-plt.subplot(122), plt.plot(freqHitsSmoothR)
+# plt.figure(2)  # TODO : Triggert eine warnung
+# plt.subplot(121), plt.plot(freqHitsL), plt.title('L')
+# plt.subplot(121), plt.plot(freqHitsSmoothL)
+# plt.subplot(122), plt.plot(freqHitsR), plt.title('R')
+# plt.subplot(122), plt.plot(freqHitsSmoothR)
 # plt.show()
 
 # Farbige Markierungen setzen
 imgL = cv2.cvtColor(imgL, cv2.COLOR_GRAY2RGB)
 imgL = cv2.circle(imgL, (int(canvas[0] / 2), gitterposL), 25, (255, 0, 255), -1)
-cv2.namedWindow('DoG Left', cv2.WINDOW_NORMAL)
-cv2.imshow("DoG Left", imgL)
+# cv2.namedWindow('DoG Left', cv2.WINDOW_NORMAL)
+# cv2.imshow("DoG Left", imgL)
 
 imgR = cv2.cvtColor(imgR, cv2.COLOR_GRAY2RGB)
 imgR = cv2.circle(imgR, (int(canvas[0] / 2), gitterposR), 25, (255, 0, 255), -1)
-cv2.namedWindow('DoG Right', cv2.WINDOW_NORMAL)
-cv2.imshow("DoG Right", imgR)
+# cv2.namedWindow('DoG Right', cv2.WINDOW_NORMAL)
+# cv2.imshow("DoG Right", imgR)
 
 # gefundene vertikale Position in opencv Punkt x y wandeln
 gitterL = np.array([[[canvas[0] / 2, gitterposL]]], dtype=np.float32)
@@ -205,10 +197,9 @@ print(pts2L)
 ML = cv2.getPerspectiveTransform(pts1L, pts2L)
 ML_inv = np.linalg.inv(ML)
 templateL = cv2.warpPerspective(templateL, ML, canvas, borderMode=cv2.BORDER_TRANSPARENT)
-cv2.namedWindow("warpedTemplate", cv2.WINDOW_NORMAL)
-cv2.imshow("warpedTemplate", templateL)
-
-cv2.imwrite("warpedTemplate13L.png", templateL)
+# cv2.namedWindow("warpedTemplate", cv2.WINDOW_NORMAL)
+# cv2.imshow("warpedTemplate", templateL)
+# cv2.imwrite("warpedTemplate13L.png", templateL)
 
 # Perspektivisch korrigiertes Bild erstellen
 # TODO: camera intrinics !?
@@ -279,9 +270,22 @@ pts1L = np.float32([[[ih-1111, 1110], [ih-814, 2376], [ih-1557, 2850], [ih-1881,
 pts1R = np.float32([[[ih-820, 1715], [ih-1004, 3010], [ih-1795, 2712], [ih-1591, 1357], [ih-820, 1715]]])
 
 
-# TEST-DATEN ECKEN plus MITTELPUNKT (UZS)
+# TEST-DATEN ECKEN
 pts1L = np.float32([[[1110, 1111], [2376, 814], [2850, 1557], [1529, 1881], [1110, 1111]]])
 pts1R = np.float32([[[1715, 820], [3010, 1004], [2712, 1795], [1357, 1591], [1715, 820]]])
+
+
+# im format gemäss pythonpath.wordpress.com
+pts1L = np.float32([[1110, 2376, 2850, 1529, 1110],
+                    [1111,  814, 1557, 1881, 1111]])
+
+pts1R = np.float32([[1715, 3010, 2712, 1357, 1715],
+                    [820, 1004, 1795, 1591, 820]])
+
+
+
+
+
 
 pt3d = cv2.triangulatePoints(cal.pl, cal.pr, pts1L, pts1R)
 
@@ -298,18 +302,35 @@ print(test)
 # pt3d = pt3d / np.max(pt3d)
 # np.save(fn + ".npy", pt3d.T)
 # np.savetxt(fn + ".asc", pt3d.T, "%10.8f")
-pt3d = cv2.convertPointsFromHomogeneous(pt3d.T)
-pt3d = pt3d.T
+# pt3d = cv2.convertPointsFromHomogeneous(pt3d.T)
+
+
+# Remember to divide out the 4th row. Make it homogeneous
+pt3d /= pt3d[3]
+X = pt3d
+# Recover the origin arrays from PX
+x1 = np.dot(cal.pl, X)
+x2 = np.dot(cal.pr, X)
+# Again, put in homogeneous form before using them
+x1 /= x1[2]
+x2 /= x2[2]
+print('X\n', X)
+print('x1\n', x1)
+print('x2\n', x2)
+
+# pt3d = pt3d.T
 fig = plt.figure()
 ax = Axes3D(fig)
-X, Y, Z = pt3d[0][0], pt3d[1][0], pt3d[2][0]
+X, Y, Z = pt3d[0], pt3d[1], pt3d[2]
+#X, Y, Z = pt3d[0][0], pt3d[1][0], pt3d[2][0]
 ax.plot(X, Y, Z)
+
 
 #weil ax scaled nicht funktioniert bei 3d plot, dann sieh aber das rechteck nicht mehr nach rechteck aus ?!?!!
 set_axes_equal(ax)
 plt.show()
 
-exit(0)
+# exit(0)
 
 # Template matching
 # templateL = cv2.Canny(templateL, threshold1=50, threshold2=90)
@@ -332,10 +353,10 @@ for pt in zip(*loc[::-1]):
 cv2.namedWindow("warpedMatch", cv2.WINDOW_NORMAL)
 cv2.imshow("warpedMatch", matchL)
 
-plt.figure(3)
-plt.imshow(resultL, cmap='gray')
-plt.title('Matching Result'), plt.xticks([]), plt.yticks([])
-plt.show()
+# plt.figure(3)
+# plt.imshow(resultL, cmap='gray')
+# plt.title('Matching Result'), plt.xticks([]), plt.yticks([])
+# plt.show()
 
 # auf Original Foto einzeichnen
 sbbL = cv2.circle(sbbL_rgb, (gitterL[0][0][0], gitterL[0][0][1]), 25, (255, 0, 255), -1)

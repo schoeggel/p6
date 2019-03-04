@@ -1,8 +1,7 @@
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
-import calibMatrix
-from GitterEckpunkte import eckpunkte
+
+
 
 # unter der Annahme, dass sich das Gitter in der Bildmitte befindet wird eine
 # grobe perspektivische Verformung  durchgeführt. Die Zug Längsachse liegt danach
@@ -137,6 +136,7 @@ def find(imageLeft, imageRight, verbose=False):
 
 # Unit test
 if __name__ == '__main__':
+    from matplotlib import pyplot as plt
 
     # Bilder laden
     sbbL_gray = cv2.imread("sbb/13L.png", cv2.IMREAD_GRAYSCALE)

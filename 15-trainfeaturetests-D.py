@@ -1,6 +1,6 @@
 # Tests mit Trainfeature Objekten
 # Patch laden, Eckpunkte rechnen etc.
-# Version
+# Version D : mit nicht-quadratischen PAtches arbeiten
 
 import cv2
 import numpy as np
@@ -10,7 +10,7 @@ import findGrid
 
 
 # Gitter
-# Bilder laden 10 bis 15
+# Bilder laden (10 bis 15 möglich)
 sbbL_gray = cv2.imread("sbb/11L.png", cv2.IMREAD_GRAYSCALE)
 sbbR_gray = cv2.imread("sbb/11R.png", cv2.IMREAD_GRAYSCALE)
 

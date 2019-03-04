@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 import calibMatrix
-from GitterEckpunkte import eckpunkte
+from archive.GitterEckpunkte import eckpunkte
 
 # das sbb-Bild wird so verarbeitet:
 # unter der Annahme, dass sich das Gitter in der Bildmitte befindet wird eine
@@ -13,9 +13,7 @@ from GitterEckpunkte import eckpunkte
 # perspektivisch korrigiert werden. Damit wird eine genaue Lokalisierung mittels
 # Template matching möglich.
 
-# Für die Einbindung nach diesem Test braucht es eine Anpassung: Die Triangulation
-# wird komplett entfernt, Input sind Bilder {L,R} und Output sind die beiden Gitter-
-# mittelpunkte (x,y) {L,R}.
+# was passiert, wenn ein Teil des tmeplates mit rauschen verdeckt wird? ==> Kein Probmlem.
 
 SWITCH_UNDISTORT = True  # kamera korrektur nicht ausführen --> schneller
 SWITCH_VERBOSE = False
@@ -23,11 +21,9 @@ SWITCH_VERBOSE = False
 # Bild vom Zug laden
 sbbL_gray = cv2.imread("sbb/4-OK1L.png", cv2.IMREAD_GRAYSCALE)
 sbbR_gray = cv2.imread("sbb/16R.png", cv2.IMREAD_GRAYSCALE)
-sbbL_gray = cv2.imread("sbb/13L.png", cv2.IMREAD_GRAYSCALE)
-sbbR_gray = cv2.imread("sbb/13R.png", cv2.IMREAD_GRAYSCALE)
 
 # Die Gitter Templates für die Groblokalisierung werden immer vom Bild 13 geladen
-templateL_gray = cv2.imread("sbb/13L.png", cv2.IMREAD_GRAYSCALE)
+templateL_gray = cv2.imread("sbb/13L-noise.png", cv2.IMREAD_GRAYSCALE)
 templateR_gray = cv2.imread("sbb/13R.png", cv2.IMREAD_GRAYSCALE)
 
 # L und R identische Abmessungen
