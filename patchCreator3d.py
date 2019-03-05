@@ -3,6 +3,20 @@
 #  Die Koordinatenbasis Zug wird in die Mitte des Bild gesetzt. (So, als wäre das Gitter möglichst in der Mitte)
 #  es können keine Zugeschnittenen Bilder mehr verwendet werden
 
+# Tastaturbefehle:
+# I J K L : verschieben auf x und y Achse
+# O P     : verschieben auf z Achse
+# W S     : Kleiner Grösser y Achse
+# A D     : Kleiner Grösser x Achse
+# E F     : Rotiere x Achse
+# R G     : Rotiere y Achse
+# T H     : Rotiere z Achse
+# Z       : Undo
+# X       : eXport
+
+
+
+
 import cv2
 import numpy as np
 import calibMatrix
@@ -11,6 +25,11 @@ import math
 from trainfeature import imgMergerH, imgMergerV
 
 warpdim = 300
+exportDone = False
+warpexpL = np.zeros((warpdim, warpdim))
+warpexpR = np.zeros((warpdim, warpdim))
+
+
 
 
 class Param3d:
@@ -25,6 +44,19 @@ class Param3d:
         self.sizex = 100
         self.sizey = 100
         self.corners3d = np.zeros((5, 3))
+
+    def __str__(self):
+        s = str()
+        s = s + f'posx:  {self.posx}\n'
+        s = s + f'posy:  {self.posy}\n'
+        s = s + f'posz:  {self.posz}\n'
+        s = s + f'rotx:  {self.rotx}\n'
+        s = s + f'roty:  {self.roty}\n'
+        s = s + f'rotz:  {self.rotz}\n'
+        s = s + f'sizex: {self.sizex}\n'
+        s = s + f'sizey: {self.sizey}\n'
+        s = s + f'corners: \n{self.corners3d}\n'
+        return s
 
     def updateCorners(self):
         # Ausgehend von der Grösse des quadratischen Patchs und dessen Zentrumskoordinaten
@@ -183,20 +215,16 @@ def update3d():
 
 
 def update2d():
-    global par3d, par2dL, par2dL, stereo
+    global par3d, par2dL, par2dR, stereo
     stereo.updateCorners2d(par3d, par2dL, par2dR)
     par2dL.setROI()
     par2dR.setROI()
 
 
 def updateScreen():
-    global par2dL, par2dR, cloneL, cloneR, winmain, winwarp, winzoom
+    global par2dL, par2dR, cloneL, cloneR, winmain, winwarp, winzoom, overlay, warpexpL, warpexpR
     imgL = cloneL.copy()
     imgR = cloneR.copy()
-    # xyL = tuple([par2dL.corners2d[4][0][0].astype(int), par2dL.corners2d[4][0][1].astype(int)])
-    # xyR = tuple([par2dR.corners2d[4][0][0].astype(int), par2dR.corners2d[4][0][1].astype(int)])
-    # imgL = cv2.circle(imgL, xyL, 25, (255, 0, 255), -1)
-    # imgR = cv2.circle(imgR, xyL, 25, (255, 0, 255), -1)
 
     # polygon einzeichnen
     drawPolygon(imgL, par2dL)
@@ -221,8 +249,11 @@ def updateScreen():
     cv2.imshow(winzoom, zoom)
     cv2.imshow(winmain, imgL)
 
+
     warpL, warpexpL = warp(cloneL.copy(), par2dL.getWarpCorners())
     warpR, warpexpR = warp(cloneR.copy(), par2dR.getWarpCorners())
+    overlay.draw(warpL)
+    overlay.draw(warpR)
     warps = imgMergerH([warpL, warpR])
 
     cv2.imshow(winwarp, warps)
@@ -244,10 +275,7 @@ def warp(img, refPt):
         warped[:, :, n] = clahe.apply(warped[:, :, n])
 
     # Overlay
-    cv2.drawMarker(warped, (warpdim // 2, warpdim // 2), (255, 255, 0), cv2.MARKER_CROSS, 15, 1, 1)
-    cv2.circle(warped, (warpdim // 2, warpdim // 2), warpdim // 2, (255, 255, 0), 1, cv2.LINE_4)
-    cv2.circle(warped, (warpdim // 2, warpdim // 2), warpdim // 3, (255, 255, 0), 1, cv2.LINE_4)
-    cv2.circle(warped, (warpdim // 2, warpdim // 2), warpdim // 6, (255, 255, 0), 1, cv2.LINE_4)
+
     return warped, warpexport
 
 
@@ -261,21 +289,80 @@ def drawPolygon(img, par2d: Param2d):
     img = cv2.polylines(img, poly, True, (0, 255, 255), 3)
 
 
+class Overlay:
+    # für das Overlay auf dem quadratischen Template
+    otype  = -1                     # aktives Overplay Nr
+    maxtypes = 14                   # wieviele sind definiert
+    templateSize = -1               # die Kantenlänge des quadratischen Templates
+    rgb = (255, 255, 0)             # Farbe des Overlays
+
+    def __init__(self, templateSize):
+        self.otype = 1
+        self.templateSize = templateSize
+
+    def next(self):
+        self.otype += 1
+        if self.otype > self.maxtypes:
+            self.otype = 0
+
+    def draw(self, img):
+        t = self.otype
+        d = self.templateSize
+        x = d // 50
+
+        # Die Kreise
+        if t in [0, 1, 2, 3, 4, 5, 6, 7]:
+            cv2.drawMarker(img, (d // 2, d // 2), self.rgb, cv2.MARKER_CROSS, 15, 1, 1)
+            cv2.circle(img, (d // 2, d // 2), d // 2 - x * t, self.rgb, 1, cv2.LINE_4)
+            cv2.circle(img, (d // 2, d // 2), d // 3 - x * t, self.rgb, 1, cv2.LINE_4)
+            cv2.circle(img, (d // 2, d // 2), d // 6 - x * t, self.rgb, 1, cv2.LINE_4)
+        elif t == 8:
+            pass
+        elif t == 9:
+            cv2.drawMarker(img, (d // 2, d // 2), self.rgb, cv2.MARKER_CROSS, 15, 1, 1)
+        # Das Gitter
+        elif t in [10, 11, 12, 13, 14]:
+            n = t - 9  # --> range 1 .. 5
+            n = 2 * n + 1  # --> [3, 5, 7, 8, 9, 11]
+            grid = np.linspace(0, d, n).astype(int)
+            for xy in grid:
+                cv2.line(img, (0, xy), (d, xy), self.rgb, 1)
+                cv2.line(img, (xy, 0), (xy, d), self.rgb, 1)
+        return img
+
+
+def export():
+    global exportDone, warpexpL, warpexpR, par3d, exportDone
+    print(par3d)
+    savename = str(input("export: "))
+    if len(savename) < 2: return
+    savename = "tmp/tcr3d" + savename
+    print("writing ", savename)
+    cv2.imwrite(savename + "-L.png", warpexpL)
+    cv2.imwrite(savename + "-R.png", warpexpR)
+    savename += "-meta.txt"
+    f = open(savename , "w")
+    f.write(str(par3d))
+    f.close()
+    print('Done.')
+    exportDone = True
+
+
 def posx_callback(val):
     global par3d
-    par3d.posx = val - 512
+    par3d.posx = val - 750
     updateAllViews()
 
 
 def posy_callback(val):
     global par3d
-    par3d.posy = val - 512
+    par3d.posy = val - 750
     updateAllViews()
 
 
 def posz_callback(val):
     global par3d
-    par3d.posz = val - 512
+    par3d.posz = val - 750
     updateAllViews()
 
 
@@ -316,6 +403,12 @@ def zoom_callback(val):
     updateAllViews()
 
 
+def modTrackbarPos(trackbarname, winname, delta):
+    value = cv2.getTrackbarPos(trackbarname, winname)
+    value += delta
+    cv2.setTrackbarPos(trackbarname, winname, value)
+
+
 # Parameter
 par3d = Param3d()
 par2dL = Param2d()
@@ -342,50 +435,79 @@ cv2.namedWindow(winwarp, cv2.WINDOW_NORMAL)
 cv2.namedWindow(winparam, cv2.WINDOW_NORMAL)
 
 # Parameter Trackbars
-val = 512
-val_max = 2 * val
-cv2.createTrackbar('Position x', winparam, val, val_max, posx_callback)
-cv2.createTrackbar('Position y', winparam, val, val_max, posy_callback)
-cv2.createTrackbar('Position z', winparam, val, val_max, posz_callback)
-cv2.createTrackbar('Rotation x', winparam, 0, 360, rotx_callback)
-cv2.createTrackbar('Rotation y', winparam, 0, 360, roty_callback)
-cv2.createTrackbar('Rotation z', winparam, 0, 360, rotz_callback)
-cv2.createTrackbar('Size x', winparam, val, val_max, sizex_callback)
-cv2.createTrackbar('Size y', winparam, val, val_max, sizey_callback)
-cv2.createTrackbar('Zoom', winparam, val, val_max, zoom_callback)
+
+cv2.createTrackbar('Position x', winparam, par3d.posx + 750, 1500, posx_callback)
+cv2.createTrackbar('Position y', winparam, par3d.posy + 750, 1500, posy_callback)
+cv2.createTrackbar('Position z', winparam, par3d.posz + 750, 1500, posz_callback)
+cv2.createTrackbar('Rotation x', winparam, par3d.rotx, 360, rotx_callback)
+cv2.createTrackbar('Rotation y', winparam, par3d.roty, 360, roty_callback)
+cv2.createTrackbar('Rotation z', winparam, par3d.rotz, 360, rotz_callback)
+cv2.createTrackbar('Size x', winparam, par3d.sizex, 300, sizex_callback)
+cv2.createTrackbar('Size y', winparam, par3d.sizex, 300, sizey_callback)
+cv2.createTrackbar('Zoom', winparam, 200, 1000, zoom_callback)
 
 # ROI setzen
 par2dL.setROI()
 par2dR.setROI()
 
-cv2.imshow(winmain, imgL)
-cv2.waitKey(0)
+#Overlay für warp Template
+overlay = Overlay(warpdim)
+
+#Anzeige Refresh
+updateAllViews()
 
 
-# liefert die eckpunkte für den suchbereich.
-# im Format [oly, ury, olx, urx]
-def getROIptsL(self, extend=100):
-    return self.getROIsingleSide(self.corners2DimgL, extend)
+while True:
+    key = cv2.waitKey(1) & 0xFF
 
+    ############################    Translation    ###########################
+    if key == ord('i'):
+        modTrackbarPos('Position y', winparam, 1)
+    if key == ord('k'):
+        modTrackbarPos('Position y', winparam, -1)
+    if key == ord('j'):
+        modTrackbarPos('Position x', winparam, -1)
+    if key == ord('l'):
+        modTrackbarPos('Position x', winparam, 1)
+    if key == ord('o'):
+        modTrackbarPos('Position z', winparam, -1)
+    if key == ord('p'):
+        modTrackbarPos('Position z', winparam, 1)
 
-def getROIptsR(self, extend=100):
-    return self.getROIsingleSide(self.corners2DimgR, extend)
+    ############################    Rotation    ###########################
+    if key == ord('e'):
+        modTrackbarPos('Rotation x', winparam, 1)
+    if key == ord('f'):
+        modTrackbarPos('Rotation x', winparam, -1)
+    if key == ord('r'):
+        modTrackbarPos('Rotation y', winparam, 1)
+    if key == ord('g'):
+        modTrackbarPos('Rotation y', winparam, -1)
+    if key == ord('t'):
+        modTrackbarPos('Rotation z', winparam, 1)
+    if key == ord('h'):
+        modTrackbarPos('Rotation z', winparam, -1)
 
+  ############################    Grösse    ###########################
+    if key == ord('w'):
+        modTrackbarPos('Size x', winparam, 1)
+    if key == ord('s'):
+        modTrackbarPos('Size x', winparam, -1)
+    if key == ord('a'):
+        modTrackbarPos('Size y', winparam, 1)
+    if key == ord('d'):
+        modTrackbarPos('Size y', winparam, -1)
 
-@staticmethod
-def getROIsingleSide(corners, extend):
-    # Liefert den Suchbereich einer Seite
-    minx, miny = corners.min(0)[0]  # liefert individuell, nicht paarweise
-    maxx, maxy = corners.max(0)[0]
-    olx, oly = minx - extend, miny - extend
-    urx, ury = maxx + extend, maxy + extend
-
-    # begrenzen, keine negativen
-    olx, oly = max(olx, 0), max(oly, 0)
-    urx, ury = max(urx, 0), max(ury, 0)
-
-    return list(map(int, [oly, ury, olx, urx]))
-
+    ############################    Diverse    ###########################
+    if key == 32:
+        overlay.next()
+        updateAllViews()
+    if key == ord('x'):
+        export()
+    if key == ord('q'):
+        if exportDone:
+            break
 
 # close all open windows
 cv2.destroyAllWindows()
+exit(0)

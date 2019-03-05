@@ -6,11 +6,10 @@
     <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="373" mnemonic="6" />
     <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="797" mnemonic="8" />
     <bookmark url="file://$PROJECT_DIR$/trainfeature.py" line="347" mnemonic="9" />
-    <bookmark url="file://$PROJECT_DIR$/patchCreator3d.py" line="197" mnemonic="2" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="543fc68e-51ac-46c2-a3d3-d45e8a552486" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/cvaux.py" beforeDir="false" afterPath="$PROJECT_DIR$/cvaux.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/patchCreator3d.py" beforeDir="false" afterPath="$PROJECT_DIR$/patchCreator3d.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trainfeature.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainfeature.py" afterDir="false" />
     </list>
@@ -20,21 +19,30 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/patchCreator3d.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="200">
+                    <caret line="426" column="20" lean-forward="true" selection-start-line="426" selection-start-column="20" selection-end-line="426" selection-end-column="20" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="FavoritesManager">
     <favorites_list name="p6" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/rigid_transform_3d.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="31">
-              <caret line="63" column="4" selection-start-line="63" selection-start-column="4" selection-end-line="63" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -46,7 +54,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>hstack</find>
       <find>triangul</find>
       <find>projec</find>
       <find>reproject</find>
@@ -76,6 +83,7 @@
       <find>print</find>
       <find>imgMergerV</find>
       <find>warp</find>
+      <find>warpexpR</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -131,12 +139,12 @@
         <option value="$PROJECT_DIR$/15-trainfeaturetests.py" />
         <option value="$PROJECT_DIR$/22-testMinMax.py" />
         <option value="$PROJECT_DIR$/15-trainfeaturetests-B.py" />
-        <option value="$PROJECT_DIR$/patchCreator.py" />
         <option value="$PROJECT_DIR$/findGrid.py" />
         <option value="$PROJECT_DIR$/15-trainfeaturetests-C.py" />
         <option value="$PROJECT_DIR$/15-trainfeaturetests-D.py" />
         <option value="$PROJECT_DIR$/cvaux.py" />
         <option value="$PROJECT_DIR$/trainfeature.py" />
+        <option value="$PROJECT_DIR$/patchCreator.py" />
         <option value="$PROJECT_DIR$/patchCreator3d.py" />
       </list>
     </option>
@@ -144,8 +152,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
-    <option name="width" value="1935" />
-    <option name="height" value="1045" />
+    <option name="width" value="1933" />
+    <option name="height" value="1308" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -154,6 +162,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -175,14 +184,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="terminal" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.completion" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -217,6 +225,48 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.patchCreator3d">
+    <configuration name="15-trainfeaturetests-B" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="bt19" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/15-trainfeaturetests-B.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="15-trainfeaturetests-C" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="bt19" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/15-trainfeaturetests-C.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="15-trainfeaturetests-D" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -230,48 +280,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/15-trainfeaturetests-D.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="19-contourTest (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="bt19" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/19-contourTest.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="19-contourTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="bt19" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/archive" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\gitstuff\p6\19-contourTest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -323,19 +331,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.19-contourTest" />
-      <item itemvalue="Python.19-contourTest (1)" />
       <item itemvalue="Python.patchCreator3d" />
       <item itemvalue="Python.15-trainfeaturetests-D" />
       <item itemvalue="Python.patchCreator" />
+      <item itemvalue="Python.15-trainfeaturetests-C" />
+      <item itemvalue="Python.15-trainfeaturetests-B" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.patchCreator3d" />
-        <item itemvalue="Python.patchCreator" />
+        <item itemvalue="Python.15-trainfeaturetests-C" />
+        <item itemvalue="Python.15-trainfeaturetests-B" />
         <item itemvalue="Python.15-trainfeaturetests-D" />
-        <item itemvalue="Python.19-contourTest (1)" />
-        <item itemvalue="Python.19-contourTest" />
+        <item itemvalue="Python.patchCreator" />
       </list>
     </recent_temporary>
   </component>
@@ -367,14 +375,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1548" height="836" extended-state="0" />
+    <frame x="-8" y="-8" width="1546" height="1046" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" x="1126" y="95" width="344" height="697" id="Project" order="0" sideWeight="0.49774775" type="FLOATING" visible="true" weight="0.17718121" />
+      <window_info content_ui="combo" x="1100" y="130" width="344" height="697" id="Project" order="0" sideWeight="0.49774775" type="FLOATING" visible="true" weight="0.17718121" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.22849463" />
-      <window_info id="Favorites" order="2" sideWeight="0.5022523" side_tool="true" visible="true" weight="0.1391129" />
+      <window_info id="Favorites" order="2" sideWeight="0.5022523" side_tool="true" weight="0.1391129" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.609375" />
-      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" weight="0.2997159" />
+      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" visible="true" weight="0.9332604" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.3278101" />
@@ -385,7 +394,7 @@
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.24979457" />
-      <window_info anchor="right" x="140" y="175" width="1392" height="613" id="Run" order="3" sideWeight="0.63053536" type="WINDOWED" weight="0.24307036" />
+      <window_info active="true" anchor="right" x="0" y="23" width="1536" height="798" id="Run" maximized="true" order="3" sideWeight="0.63053536" type="WINDOWED" visible="true" weight="0.24307036" />
       <window_info anchor="right" x="0" y="0" width="337" height="635" id="Documentation" order="4" side_tool="true" weight="0.3295302" />
     </layout>
     <layout-to-restore>
@@ -483,13 +492,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/patchCreator3d.py</url>
-          <line>232</line>
-          <option name="timeStamp" value="226" />
+          <line>340</line>
+          <option name="timeStamp" value="228" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/patchCreator3d.py</url>
-          <line>95</line>
-          <option name="timeStamp" value="227" />
+          <line>339</line>
+          <option name="timeStamp" value="229" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/patchCreator3d.py</url>
+          <line>505</line>
+          <option name="timeStamp" value="230" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -691,13 +705,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-B.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="20" column="54" lean-forward="true" selection-start-line="20" selection-start-column="54" selection-end-line="20" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/archive/equalAxis3d.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
@@ -725,13 +732,6 @@
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-C.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -793,23 +793,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trainfeature.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-20">
-          <caret line="537" column="59" selection-start-line="537" selection-start-column="59" selection-end-line="537" selection-end-column="59" />
-          <folding>
-            <element signature="e#69#87#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-D.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1" column="37" lean-forward="true" selection-start-line="1" selection-start-column="37" selection-end-line="1" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cvaux.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1804">
@@ -820,36 +803,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/patchCreator.py">
+    <entry file="file://$PROJECT_DIR$/trainfeature.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="115" lean-forward="true" selection-start-line="115" selection-end-line="115" />
+        <state relative-caret-position="132">
+          <caret line="26" column="28" lean-forward="true" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+          <folding>
+            <element signature="e#69#87#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/patchCreator3d.py">
+    <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-B.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="82" column="13" lean-forward="true" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
-          <folding>
-            <element signature="n#!!doc" />
-            <element signature="e#287#297#0" expanded="true" />
-            <element signature="e#666#748#0" />
-            <element signature="e#1379#1620#0" />
-            <element signature="e#770#838#0" />
-            <element signature="e#910#1121#0" />
-            <element signature="e#3159#3760#0" />
-            <element signature="e#3264#3350#0" />
-            <element signature="e#2096#2719#0" />
-            <element signature="e#2096#2149#0" />
-            <element signature="e#2461#2560#0" />
-            <element signature="e#2602#2679#0" />
-            <element signature="e#643#685#0" />
-            <element signature="e#1449#1493#0" />
-            <element signature="e#721#777#0" />
-            <element signature="e#819#875#0" />
-            <element signature="e#934#1332#0" />
-          </folding>
+        <state relative-caret-position="352">
+          <caret line="20" column="54" lean-forward="true" selection-start-line="20" selection-start-column="54" selection-end-line="20" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-C.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-D.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>
@@ -857,6 +838,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="31">
           <caret line="63" column="4" selection-start-line="63" selection-start-column="4" selection-end-line="63" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/patchCreator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="296" lean-forward="true" selection-start-line="291" selection-start-column="4" selection-end-line="296" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/patchCreator3d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="426" column="20" lean-forward="true" selection-start-line="426" selection-start-column="20" selection-end-line="426" selection-end-column="20" />
         </state>
       </provider>
     </entry>

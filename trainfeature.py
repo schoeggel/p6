@@ -31,7 +31,7 @@ class Trainfeature:
     __R_approx = np.diag([0, 0, 0])                 # Init Wert
     __t_approx = np.zeros(3)                        # Init Wert
     __rtstatus = -1                                 # -1: keine, 0: approx, 1:exakte vorhanden
-    __tmmode = tm.CANNYBLUR                       # Standard TM Mode
+    __tmmode = tm.TRANSPARENT                       # Standard TM Mode
     __PRE_TM_K_SIZE = 5
     __SCOREFILTER_K_SIZE = 5                        # Kernelgrösse für die Glättung des TM Resultats (Score)
 
