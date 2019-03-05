@@ -5,7 +5,7 @@ from rigid_transform_3d import rigid_transform_3D, rmserror
 import calibMatrix
 from enum import Enum
 from cvaux import imgMergerV, imgMergerH
-
+import math
 
 class tm(Enum):
     MASK3CH = 1         # Template in einem bildkanal, masken in anderen kanälen. Versuch TM mit transparen
@@ -14,6 +14,7 @@ class tm(Enum):
     CANNY = 4           # Template und Suchbereich durch canny edge detector laufen lassen
     TRANSPARENT = 5     # Verwenden der von opencv unterstützeten Transparenz mit Maske
     CANNYBLUR = 7       # Wie CANNY aber unscharf
+    CANNYBLUR2 = 9      # Wie CANNY aber unscharf und INVERS
     NOISEBLUR = 8       # Wie NOISE aber unscharf
     ELSD = 6            # TODO: statt canny die ellipsen und linien erkennen.
 
@@ -31,12 +32,20 @@ class Trainfeature:
     __R_approx = np.diag([0, 0, 0])                 # Init Wert
     __t_approx = np.zeros(3)                        # Init Wert
     __rtstatus = -1                                 # -1: keine, 0: approx, 1:exakte vorhanden
-    __tmmode = tm.TRANSPARENT                       # Standard TM Mode
+    __tmmode = tm.CANNYBLUR                         # Standard TM Mode
     __PRE_TM_K_SIZE = 5
+    __PRE_TM_PX_PER_K  = 15                          # warpedTemplate hat Abmessung 50x50 px --> K = (5,5)
     __SCOREFILTER_K_SIZE = 5                        # Kernelgrösse für die Glättung des TM Resultats (Score)
 
-    def __init__(self, filename, center3d, realsize, tmmode = None, name=None):
-        assert (len(filename) > 0) and (center3d.shape == (3,)) and (realsize > 1)
+    def __init__(self, filename, center3d, realsize, rotation3d=None, tmmode = None, name=None):
+        assert (len(filename) > 0) and (center3d.shape == (3,))
+        assert (realsize[0] > 1) and realsize[1] > 1
+
+        if rotation3d is None:
+            self.rotation = None
+        else:
+            assert len(rotation3d) == 3
+            self.rotation = rotation3d
 
         if name is None:
             self.name = filename  # Objektname
@@ -50,8 +59,8 @@ class Trainfeature:
         self.patchimageL = None                     # Das Bild (Kontrastverbessert)
         self.patchimageR = None                     # Das Bild (Kontrastverbessert)
         self.patchCenter3d = center3d.astype(float) # Vektor 3d zum Patch Mitelpunkt im sys_zug
-        self.realsize = realsize                    # Kantenlänge 3d des Patches.
-        self.rotation = None                        # später: TODO : objekt kann auch schräg sein
+        self.realsizex = realsize[0]                # Kantenlänge 3d des Patches.
+        self.realsizey = realsize[1]                # Kantenlänge 3d des Patches.
         self.corners3Dtrain = np.zeros((5, 3))      # Vier Eckpunkte plus Mittelpunkt des Objekts als 3d Koord.
         self.measuredposition3d_zug = None          # Die gemessene Position im System Zug
         self.measuredposition3d_cam = None          # Die gemessene Position im System Kamera
@@ -291,7 +300,17 @@ class Trainfeature:
         self.ROIR = self.clahe(img)
 
 
-    def blurActiveImages(self, k):
+    def blurActiveImages(self, k=None):
+        # k ist abhängig von der Grösse des Templates
+        if k is None:
+            d   = 0.25 * self.activeTemplateL.shape[0]
+            d  += 0.25 * self.activeTemplateL.shape[1]
+            d  += 0.25 * self.activeTemplateR.shape[0]
+            d  += 0.25 * self.activeTemplateR.shape[1]
+            k = int(d / self.__PRE_TM_PX_PER_K)
+            if (k % 2) == 0: k +=1
+            if k < 3: k=3
+
         self.activeROIL = cv2.blur(self.activeROIL, (k, k))
         self.activeROIR = cv2.blur(self.activeROIR, (k, k))
         self.activeTemplateL = cv2.blur(self.activeTemplateL, (k, k))
@@ -302,7 +321,7 @@ class Trainfeature:
         # bereitet das Bild und das Template für den eigentlichen template Matching Vorgang vor,
         # abhängig von der gewählten Methode (tm.NOISE, tm.MASK3CH etc)
 
-        if self.tmmode == tm.CANNY or self.tmmode == tm.CANNYBLUR:
+        if self.tmmode in [tm.CANNY, tm.CANNYBLUR]:
             # Kanten finden und template Hintergrund auf 0 setzen, inkl dem Rand zum Template (daher MaskEXT statt NORM)
             self.activeTemplateL = cv2.Canny(self.warpedpatchL, 80, 240)
             self.activeTemplateR = cv2.Canny(self.warpedpatchR, 80, 240)
@@ -310,8 +329,25 @@ class Trainfeature:
             self.activeTemplateR[self.wpMaskExtR==False] = 0
             self.activeROIL = cv2.Canny(self.ROIL, 80, 240)
             self.activeROIR = cv2.Canny(self.ROIR, 80, 240)
-            if self.tmmode == tm.CANNYBLUR:
-                self.blurActiveImages(self.__PRE_TM_K_SIZE)
+            if self.tmmode in [tm.CANNYBLUR]:
+                self.blurActiveImages()
+
+        elif self.tmmode == tm.CANNYBLUR2:
+            # Kanten finden und template Hintergrund auf 0 setzen, inkl dem Rand zum Template (daher MaskEXT statt NORM)
+            self.activeTemplateL = cv2.Canny(self.warpedpatchL, 80, 240)
+            self.activeTemplateR = cv2.Canny(self.warpedpatchR, 80, 240)
+            self.activeROIL = cv2.Canny(self.ROIL, 80, 240)
+            self.activeROIR = cv2.Canny(self.ROIR, 80, 240)
+            #invertieren:
+            self.activeTemplateL[self.activeTemplateL==0] = 32
+            self.activeTemplateR[self.activeTemplateR==0] = 32
+            self.activeROIL     [self.activeROIL     ==0] = 32
+            self.activeROIR     [self.activeROIR     ==0] = 32
+            #Maske anwenden:
+            self.activeTemplateL[self.wpMaskExtL == False] = 0
+            self.activeTemplateR[self.wpMaskExtR == False] = 0
+            self.blurActiveImages()
+
 
         elif self.tmmode == tm.MASK3CH:
             # Kanal 0 auf alle RGB erweitern
@@ -320,7 +356,7 @@ class Trainfeature:
             self.activeROIL = np.dstack((self.ROIL[:,:,0],self.ROIL[:,:,0],self.ROIL[:,:,0]))
             self.activeROIR = np.dstack((self.ROIR[:,:,0],self.ROIR[:,:,0],self.ROIR[:,:,0]))
 
-        elif self.tmmode == tm.NOISE or self.tmmode == tm.NOISEBLUR:
+        elif self.tmmode in [tm.NOISE, tm.NOISEBLUR]:
             # Kanal 0 auf alle RGB erweitern, template hintergrund mit rauschen füllen
             self.activeROIL = np.dstack((self.ROIL, self.ROIL, self.ROIL))
             self.activeROIR = np.dstack((self.ROIR, self.ROIR, self.ROIR))
@@ -335,7 +371,7 @@ class Trainfeature:
             self.activeTemplateL = np.dstack((noiseL, noiseL, noiseL))
             self.activeTemplateR = np.dstack((noiseR, noiseR, noiseR))
             if self.tmmode == tm.NOISEBLUR:
-                self.blurActiveImages(self.__PRE_TM_K_SIZE)
+                self.blurActiveImages()
 
 
         else:
@@ -668,22 +704,46 @@ class Trainfeature:
         # Ausgehend von der Grösse des quadratischen Patchs und dessen Zentrumskoordinaten
         # werden die Koordinaten der vier Eckpunkte berechnet. Bezugssystem: sys_zug
         # Ohne Rotation liegt der Patch auf xy Ebene mit dem Zentrum des Quadrats bei patchCenter3d
-        if self.rotation is not None:
-            print("Warnung, Rotation des Templates ist nicht nicht implementiert.") # TODO
 
         # Patchmitte bis Patch Rand (in x oder y Richtung)
-        d = self.realsize / 2
+        dx = self.realsizex / 2
+        dy = self.realsizey / 2
 
         # Alle Ecken erhalten vorerst den Mittelpunkt als Koordinaten
         self.corners3Dtrain = np.tile(self.patchCenter3d, (5, 1))
 
         # Patchmitte bis Patch Ecken, die Differenz vom Mittelpunkt zur Ecke
-        d = np.array([[-d, +d, 0],          # oben links
-                      [+d, +d, 0],          # oben rechts
-                      [-d, -d, 0],          # unten links
-                      [+d, -d, 0],          # unten rechts
-                      [ 0,  0, 0]])         # Mitte
-        self.corners3Dtrain += d
+        d = np.array([[-dx, +dy, 0],  # oben links
+                      [+dx, +dy, 0],  # oben rechts
+                      [-dx, -dy, 0],  # unten links
+                      [+dx, -dy, 0],  # unten rechts
+                      [0, 0, 0]])  # Mitte
+
+        # Ecken erstellen
+        self.corners3Dtrain =  self.corners3Dtrain + d
+
+        # Rotieren
+        if self.rotation is not None:
+            self.rotatePoints()
+
+    def rotatePoints(self):
+        pt = self.corners3Dtrain
+
+        # Schwerpunkt auf Ursprung setzen
+        t = np.average(pt, 0)
+        pt = pt - t
+
+        # Rotationsmatrizen mit den Winkeln in [rad] erstellen
+        a, b, c = self.rotation[0], self.rotation[1], self.rotation[2]
+        Rx = np.array([[1, 0, 0], [0, math.cos(a), -math.sin(a)], [0, math.sin(a), math.cos(a)]])
+        Ry = np.array([[math.cos(b), 0, math.sin(b)], [0, 1, 0], [-math.sin(b), 0, math.cos(b)]])
+        Rz = np.array([[math.cos(c), -math.sin(c), 0], [math.sin(c), math.cos(c), 0], [0, 0, 1]])
+
+        # Multiplizere Matrizen (@ statt np.matmul)
+        pt = pt @ Rx @ Ry @ Rz
+
+        # Translation wieder rückgängig machen
+        self.corners3Dtrain = pt + t
 
 
     @staticmethod

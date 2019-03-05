@@ -42,7 +42,7 @@ realsize = 38
 
 # Schraube oben links
 xyz = np.array([-240, 240, 0])
-s1 = Trainfeature(patchName+"ol", xyz, realsize) #32 für kleiner patch , ca 45 für grosse
+s1 = Trainfeature(patchName+"ol", xyz, (realsize,realsize)) #32 für kleiner patch , ca 45 für grosse
 print(s1)
 s1.warp()
 centerL, val, centerR, _ = s1.find(sbbL, sbbR, verbose=True)
@@ -53,7 +53,7 @@ sbbL = s1.drawBasis(sbbL, sideLR=0, show=False, thickness=5)
 
 # Schraube oben rechts
 xyz = np.array([+240, +240, 0])
-s3 = Trainfeature(patchName+"or", xyz, realsize)
+s3 = Trainfeature(patchName+"or", xyz, (realsize,realsize))
 print(s3)
 s3.warp()
 centerL, _ , centerR, _ = s3.find(sbbL, sbbR, verbose=True)
@@ -63,7 +63,7 @@ sbbR = cv2.drawMarker(sbbR, centerR, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 
 # Schraube unten links
 xyz = np.array([-240, -240, 0])
-s2 = Trainfeature(patchName+"ul", xyz, realsize)
+s2 = Trainfeature(patchName+"ul", xyz, (realsize,realsize))
 print(s2)
 s2.warp()
 centerL, _, centerR, _ = s2.find(sbbL, sbbR, verbose=True)
@@ -73,7 +73,7 @@ sbbR = cv2.drawMarker(sbbR, centerR, (0, 90, 255), cv2.MARKER_CROSS, 70, 2)
 
 # Schraube unten rechts
 xyz = np.array([+240, -240, 0])
-s4 = Trainfeature(patchName+"ur", xyz, realsize)
+s4 = Trainfeature(patchName+"ur", xyz, (realsize,realsize))
 print(s4)
 s4.warp()
 centerL, _, centerR, _  = s4.find(sbbL, sbbR, verbose=True)

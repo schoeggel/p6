@@ -1,0 +1,15 @@
+Name: tmp/tcr3dshit__.txt
+posx:  -360
+posy:  -540
+posz:  0
+rotx:  0
+roty:  0
+rotz:  0
+sizex: 100
+sizey: 100
+corners: 
+[[-410. -490.    0.]
+ [-310. -490.    0.]
+ [-410. -590.    0.]
+ [-310. -590.    0.]
+ [-360. -540.    0.]]

@@ -338,11 +338,11 @@ def export():
     if len(savename) < 2: return
     savename = "tmp/tcr3d" + savename
     print("writing ", savename)
-    cv2.imwrite(savename + "-L.png", warpexpL)
-    cv2.imwrite(savename + "-R.png", warpexpR)
-    savename += "-meta.txt"
+    cv2.imwrite(savename + "_L.png", warpexpL)
+    cv2.imwrite(savename + "_R.png", warpexpR)
+    savename += "__.txt"
     f = open(savename , "w")
-    f.write(str(par3d))
+    f.write(f'Name: {savename}\n{par3d}')
     f.close()
     print('Done.')
     exportDone = True
