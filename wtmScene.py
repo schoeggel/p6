@@ -2,10 +2,10 @@
 import numpy as np
 import cv2
 from rigid_transform_3d import rigid_transform_3D, rmserror
-import calibMatrix
-from cvaux import imgMergerV, imgMergerH, putBetterText, separateRGB
+from wtmAux import imgMergerV, imgMergerH, putBetterText, separateRGB, clahe
 import wtmObject
 import wtmComposition
+import wtmFindGrid
 from wtmEnum import tm
 
 
@@ -21,16 +21,18 @@ class Scene:
         über alle Bildpaare (Szenen) hinweg gleichbleibende Daten sind in der
         Klasse 'Composition' definiert."""
 
-    _R_exact = np.diag([0, 0, 0])  # Init Wert
-    _t_exact = np.zeros(3)  # Init Wert
-    _R_approx = np.diag([0, 0, 0])  # Init Wert
-    _t_approx = np.zeros(3)  # Init Wert
-    _rtstatus = -1  # -1: keine, 0: approx, 1:exakte vorhanden
+    __R_exact = np.diag([0, 0, 0])  # Init Wert
+    __t_exact = np.zeros(3)  # Init Wert
+    __R_approx = np.diag([0, 0, 0])  # Init Wert
+    __t_approx = np.zeros(3)  # Init Wert
+    __rtstatus = -1  # -1: keine, 0: approx, 1:exakte vorhanden
     context = None
 
-    def __init__(self, context):                    # :wtmComposition.Composition nicht hier reinschreiben !
+    def __init__(self, context, photoL, photoR):    # :wtmComposition.Composition nicht hier reinschreiben !
         self.context:wtmComposition.Composition = context # Die gleichbleibenden Daten
         self.tobj:wtmObject.MachineObject = None    # das aktuelle Template Objekt
+        self.photoL:np.ndarray = photoL             # Das von der Kamera gemachte Originalbild
+        self.photoR:np.ndarray = photoR             # Das von der Kamera gemachte Originalbild
         self.measuredposition3d_cam = None
         self.measuredposition3d_mac = None
         self.corners2DimgL = np.zeros((1, 5, 2))    # Eckpunkte auf dem Bild. (plus Mitte)
@@ -58,10 +60,10 @@ class Scene:
         self.reprojectedPosition2dR = np.zeros(1)   # Die gemessene 3d Position projeziert ins 2d Bild
         self.scoreL = None                          # Die ScoreMap aus dem Matching Vorgang
         self.scoreR = None                          # Die ScoreMap aus dem Matching Vorgang
-
-
-
-
+        self.gitterPosL, self.gitterPosR, self.gitterPosValid = wtmFindGrid.findGrid(self.photoL, self.photoR, verbose=False)
+        if self.gitterPosValid:
+            self.approxreference()
+            # TODO : wenn kein Valid Grid oder keine Valid ApproxRef. --> Kennzeichnen und später über die Bewegung lösen
 
 
     def drawMarker(self, imgL_in=None, imgR_in=None, size=25, color=(0,255,255), thickness= 3, show=False):
@@ -179,7 +181,7 @@ class Scene:
         pts_cam = self.transformsys(basis3d, direction=0)
 
         # Projektion der Punkte in Bildpixelkoordinaten
-        cal = calibMatrix.CalibData()
+        cal = self.context.calib
         if sideLR == 0:
             pts, jcb = cv2.projectPoints(pts_cam, cal.rl, cal.tl, cal.kl, cal.drl)
         elif sideLR == 1:
@@ -199,43 +201,16 @@ class Scene:
 
         return img
 
-    def clahe(self, img, channel=None):
-        # verbessert den kontrast im angegebenen Kanal
-
-        # Kanal aus RGB separieren, falls RGB Bild (Kanalnr als Arg. vorhanden)
-        if channel is not None:
-            ch = img[:,:,channel]
-        else:
-            ch = img.copy()
-
-        # grid ist abhängig von der bildgrösse aber immer mind. 2x2
-        px = 0.5 * (ch.shape[0] + ch.shape[1])
-        grid  = round(px / self.context.PIXEL_PER_CLAHE_BLOCK)
-        if grid < 2: grid = 2
-
-        # Kontrast verbessern
-        clahe = cv2.createCLAHE(clipLimit=2, tileGridSize=(grid,grid))
-        ch = clahe.apply(ch)
-
-        # Verbesserter Kanal wieder in RGB-Bild einfügen, falls RGB
-        if img.ndim == 3:
-            res = img.copy()
-            res[:,:,channel] = ch
-        else:
-            res = ch
-
-        return res
-
 
     def storeROIs(self, img_in_L, img_in_R, extend):
         # Nur Regions of interest ausschneiden, Kontrast optimieren.
         ROIL = self.getROIptsL(extend)
         img = img_in_L[ROIL[0]:ROIL[1], ROIL[2]:ROIL[3], 0]
-        self.ROIL = self.clahe(img)
+        self.ROIL = clahe(img, self.context.PIXEL_PER_CLAHE_BLOCK)
 
         ROIR = self.getROIptsR(extend)
         img = img_in_R[ROIR[0]:ROIR[1], ROIR[2]:ROIR[3], 0]
-        self.ROIR = self.clahe(img)
+        self.ROIR = clahe(img, self.context.PIXEL_PER_CLAHE_BLOCK)
 
 
     def blurActiveImages(self, k=None):
@@ -319,16 +294,19 @@ class Scene:
             self.activeROIR = self.ROIR
 
 
-    def find(self, imageL, imageR, verbose=False, extend=100):
+    #def find(self, imageL, imageR, verbose=False, extend=100):
+    def locate(self, tobj, verbose=False, extend=100):
         # sucht das objekt im angegebenen Bild
         # Liefert die gemessene Position zurück (2d,3d)
         # Speichert gemessene 3d pos in Instanz und zur Kontrolle auch die Rückprojektionskoordinaten (xy) pro Bildseite
 
+        self.tobj = tobj                # übernimm das Template Objekt von aussen
+
         # Die Ecken müssen zuvor berechnet worden sein.
-        assert (self.corners3Dtrain.sum != 0)
+        assert (self.tobj.corners3d.sum != 0)
 
         # ROIS als kontrastoptimierte Graustufe speichern in self.ROIR und self.ROIR
-        self.storeROIs(imageL, imageR, extend)
+        self.storeROIs(self.photoL, self.photoR, extend)
 
         # Die effektiven Bilder und Templates erstellen
         self.prepareActiveImages()
@@ -380,7 +358,7 @@ class Scene:
                            [centerxyR[1]]])
 
         # koordinaten trangulieren und umformen homogen --> kathesisch
-        self.measuredposition3d_cam = cv2.triangulatePoints(self.p1[:3], self.p2[:3], a3xN[:2], b3xN[:2])
+        self.measuredposition3d_cam = cv2.triangulatePoints(self.context.calib.pl[:3], self.context.calib.pr[:3], a3xN[:2], b3xN[:2])
         self.measuredposition3d_cam /= self.measuredposition3d_cam[3]
 
         # System Cam --> System Zug
@@ -389,9 +367,9 @@ class Scene:
         # Reprojection
         # Projektion der Punkte in Bildpixelkoordinaten. Die stimmen nur mit dem template Match Punkt überein, wenn
         # beide Seiten beim Template Match den gleichen Punkt auf dem Zug gefunden hatten.
-        cal = calibMatrix.CalibData()
-        self.reprojectedPosition2dL, _ = cv2.projectPoints(self.measuredposition3d_cam[:3].T, cal.rl, cal.tl, cal.kl, cal.drl)
-        self.reprojectedPosition2dR, _ = cv2.projectPoints(self.measuredposition3d_cam[:3].T, cal.rr, cal.tr, cal.kr, cal.drr)
+        c = self.context.calib
+        self.reprojectedPosition2dL, _ = cv2.projectPoints(self.measuredposition3d_cam[:3].T, c.rl, c.tl, c.kl, c.drl)
+        self.reprojectedPosition2dR, _ = cv2.projectPoints(self.measuredposition3d_cam[:3].T, c.rr, c.tr, c.kr, c.drr)
         self.reprojectedPosition2dL = tuple(self.reprojectedPosition2dL.flatten().astype(int))
         self.reprojectedPosition2dR = tuple(self.reprojectedPosition2dR.flatten().astype(int))
         if verbose: self.showAllSteps()
@@ -639,7 +617,8 @@ class Scene:
 
 
 
-    def approxreference(self, gitterposL, gitterposR):
+    def approxreference(self):
+        gL, gR = self.gitterPosL, self.gitterPosR
         # ungefähre Koordinatenbasis auf die Mitte des Gitter stellen. Pose ist Standard, stimmt nur ungefähr.
 
         # die Kanonischen Einheitsvektoren des sys_zug, aber mit dem Ursprung noch bei [0,0,0] von sys_cam
@@ -650,13 +629,14 @@ class Scene:
 
         # Raumpunkt Gitter triangulieren
         # Bildkoordinaten  Gitter
-        a3xN = np.float64([[gitterposL[0][0][0]],
-                           [gitterposL[0][0][1]]])
+        a3xN = np.float64([[gL[0][0][0]],
+                           [gL[0][0][1]]])
 
-        b3xN = np.float64([[gitterposR[0][0][0]],
-                           [gitterposR[0][0][1]]])
+        b3xN = np.float64([[gR[0][0][0]],
+                           [gR[0][0][1]]])
 
-        gitter = cv2.triangulatePoints(self.context.calib.pl[:3], self.context.calib.pr[:3], a3xN[:2], b3xN[:2])
+        c = self.context.calib
+        gitter = cv2.triangulatePoints(c.pl[:3], c.pr[:3], a3xN[:2], b3xN[:2])
 
         # homogen --> karthesisch
         gitter /= gitter[3]

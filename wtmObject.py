@@ -16,7 +16,8 @@
 
 import numpy as np
 import cv2, math
-
+from wtmAux import clahe
+import wtmComposition
 
 class Position:
     # Eine gemessene Position eines Objekts. Jeweils in beiden unterschiedliechen Bezugssystemen.
@@ -136,6 +137,10 @@ class MachineObject:
 
         if self.patchimageOriginalR is None:
             self.patchimageOriginalR = self.patchimageOriginalL
+
+        # Kontrasoptimierte Kopie erstellen
+        self.patchimageL = clahe(self.patchimageOriginalL, wtmComposition.Composition.PIXEL_PER_CLAHE_BLOCK)
+        self.patchimageR = clahe(self.patchimageOriginalR, wtmComposition.Composition.PIXEL_PER_CLAHE_BLOCK)
 
         assert (self.patchimageOriginalL.size > 0)
         assert (self.patchimageOriginalL.shape == self.patchimageOriginalR.shape)

@@ -4,7 +4,6 @@ import numpy as np
 import cv2
 
 
-
 # Lädt ein .mat File und liefert das angegebene Struct zurück.
 # Es kann auf dem Returnobjekt direkt mit den Strukturnamen gearbeitet werden:
 # obj.CameraData1.ImageSize  etc...
@@ -14,36 +13,13 @@ def ___loadconfigmat(filename, structname='paramStruct'):
     return cfg[structname]
 
 
-# Lädt ein YAML. Auf dem Return Objekt muss etwas umständlicher auf die Daten zugegriffen werden:
-# obj['CameraData1'
-def ___loadconfigyaml(filename):
-    with open(filename, 'r') as ymlfile:
-        yaml = YAML(typ='safe')  # default, if not specfied, is 'rt' (round-trip)
-        yaml.load(filename)
-        return pyaml.load(ymlfile)
-
-
-# TODO: Fertigstellen !
-# Lädt ein ini. Auf dem Return Objekt muss etwas umständlicher auf die Daten zugegriffen werden:
-# obj['CameraData1']
-# NOCH NICHT GETESTET / FERTIG !!!
-def ___loadconfigini(filename):
-    cfg = configparser.ConfigParser()
-    cfg.read(filename)
-    cfg.sections()
-    return cfg
-
-
-
 def loadconfig(filename, structname='paramStruct'):
     if '.mat' in filename:
         return ___loadconfigmat(filename, structname)
     if '.yaml' in filename or '.yml' in filename:
-        return ___loadconfigyaml(filename)
+        return ...  # Removed
     if '.ini' in filename:
-        return ___loadconfigini(filename)
-
-
+        return ...  # Removed
 
 
 def mixtochannel(im1, im2=None, im3=None):
@@ -122,19 +98,20 @@ def imgMergerV(list_of_img_in: list, bgcolor=(128, 128, 128)):
 
 
 # Wie cv putText, aber immer lesbar wegen Umrandung.
-def putBetterText(img, text, org, fontFace, fontScale, color, thickness=None, lineType=None, bottomLeftOrigin=None, colorOutline=None):
+def putBetterText(img, text, org, fontFace, fontScale, color, thickness=None, lineType=None, bottomLeftOrigin=None,
+                  colorOutline=None):
     out = img.copy()
-    if colorOutline is None: #ohne explizite Angabe wird die Vordergrundfarbe invertiert für die Umrandungsfarbe
-        colorOutline = (255-color[0], 255-color[1], 255-color[2])
+    if colorOutline is None:  # ohne explizite Angabe wird die Vordergrundfarbe invertiert für die Umrandungsfarbe
+        colorOutline = (255 - color[0], 255 - color[1], 255 - color[2])
 
     # 12x Hintergrund Text
-    displace = [ (0,  1), (1, 0),  (0, -1), (-1, 0),
+    displace = [(0, 1), (1, 0), (0, -1), (-1, 0),
                 (-2, -2), (-2, 2), (2, -2), (-2, -2),
-                ( 0,  2), (2, 0),  (0, -2), (-2, 0)]
+                (0, 2), (2, 0), (0, -2), (-2, 0)]
     for dx, dy in displace:
         x = max(1, org[0] + dx)
         y = max(1, org[1] + dy)
-        out = cv2.putText(out, text, (x,y), fontFace, fontScale, colorOutline, thickness, lineType)
+        out = cv2.putText(out, text, (x, y), fontFace, fontScale, colorOutline, thickness, lineType)
 
     # Vordergrund Text:
     out = cv2.putText(out, text, org, fontFace, fontScale, color, thickness, lineType)
@@ -143,38 +120,37 @@ def putBetterText(img, text, org, fontFace, fontScale, color, thickness=None, li
 
 def separateRGB(img_in, vertical=False):
     # separiert die 3 Kanäle und legt sie nebeneinander oder übereinander
-    r, g, b = img_in[:,:,0], img_in[:,:,1], img_in[:,:,2]
+    r, g, b = img_in[:, :, 0], img_in[:, :, 1], img_in[:, :, 2]
     if vertical:
-        res = np.vstack((r,g,b))
+        res = np.vstack((r, g, b))
     else:
-        res = np.hstack((r,g,b))
+        res = np.hstack((r, g, b))
     return res
 
 
-def clahe(img, pxPerBlock = 50,  channel=None):
+def clahe(img, pxPerBlock=50, channel=None):
     # verbessert den kontrast im angegebenen Kanal
 
     # Kanal aus RGB separieren, falls RGB Bild (Kanalnr als Arg. vorhanden)
     if channel is not None:
-        ch = img[:,:,channel]
+        ch = img[:, :, channel]
     else:
         ch = img.copy()
 
     # grid ist abhängig von der bildgrösse aber immer mind. 2x2
     px = 0.5 * (ch.shape[0] + ch.shape[1])
-    grid  = round(px / pxPerBlock)
+    grid = round(px / pxPerBlock)
     if grid < 2: grid = 2
 
     # Kontrast verbessern
-    clahe = cv2.createCLAHE(clipLimit=2, tileGridSize=(grid,grid))
+    clahe = cv2.createCLAHE(clipLimit=2, tileGridSize=(grid, grid))
     ch = clahe.apply(ch)
 
     # Verbesserter Kanal wieder in RGB-Bild einfügen, falls RGB
     if img.ndim == 3:
         res = img.copy()
-        res[:,:,channel] = ch
+        res[:, :, channel] = ch
     else:
         res = ch
 
     return res
-

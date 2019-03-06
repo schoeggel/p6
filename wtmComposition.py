@@ -1,6 +1,7 @@
 # WTM : Warped Template Matching
 from cvaux import imgMergerV, imgMergerH, putBetterText, separateRGB
-import calibMatrix
+import cv2
+import wtmCalib
 import wtmObject
 import wtmScene
 import wtmEnum
@@ -10,10 +11,8 @@ class Composition:
     _scenes = []
 
     imagePairs = []                     # eine Liste mit Bildpaaren in der Form [[01L,01R], [02L, 02R] , ... ]
-    calib = calibMatrix.CalibData()
-    refObj = [None] * 4
-    p1 = None  # P Matrix für Triangulation
-    p2 = None  # P Matrix für Triangulation
+    calib = wtmCalib.CalibData()
+    refObj = [None] * 4                 # Die Gitterschrauben Objekte werden separat geführt.
     tmmode = wtmEnum.tm.CANNYBLUR  # Standard TM Mode
 
     PRE_TM_K_SIZE = 5
@@ -30,20 +29,48 @@ class Composition:
             Deren Reihenfolge innerhalb der Liste ist vorgegeben:
             Oben links, oben rechts, unten rechts, unten links.
             """
+        assert imagePairs is not None and refObj is not None
         # todo: prüfen der Liste, ob die Bilder existieren etc..
         if tmmode is not None:
             self._tmmode = tmmode
         self.imagePairs = imagePairs
         self.refObj = refObj
+        self.createScenes()
+
+    def createScenes(self):
+        # Für jedes Bildpaar wird eine scene erstellt und in der Liste angefügt
+        for pair in self.imagePairs:
+            imgL = cv2.imread(pair[0])
+            imgR = cv2.imread(pair[1])
+            newScene = wtmScene.Scene(self,imgL, imgR)
+            self._scenes.append(newScene)
 
     # Alle angegebenen Objekte messen
-    def measureObjects(self, objects_list:list):
+    def measureObjects(self, objects_list: list):
         pass
 
     # auf allen scenes das objekt suchen, vermessen
-    def measureObject(self, oneObject:wtmObject.MachineObject):
+    def measureObject(self, oneObject):
+        oneObject: wtmObject.MachineObject = oneObject
         pass
 
     # Ein Objekt in einer Scene lokalisieren
-    def measureObjectInScene(self,oneObject:wtmObject.MachineObject, scene:wtmScene.Scene):
-        pass
+    def measureObjectInScene(self, oneObject, scene):
+        oneObject: wtmObject.MachineObject = oneObject
+        scene: wtmScene.Scene = scene
+        res = scene.locate(oneObject, self)
+
+    def __str__(self):
+        return f"""
+        {self.calib}\n
+        composition contains {len(self.imagePairs)} image pair(s) 
+        and {len(self.refObj)} reference objects. 
+        active template matching mode (tmmode): {self.tmmode}
+        """
+
+
+if __name__ == '__main__':
+    fn1 = "SBB/13L.png"
+    fn2 = "SBB/13R.png"
+    test = Composition([[fn1, fn2], [fn1, fn2]], [])
+    print(test)
