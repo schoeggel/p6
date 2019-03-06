@@ -3,63 +3,10 @@ import numpy as np
 import cv2
 from rigid_transform_3d import rigid_transform_3D, rmserror
 import calibMatrix
-from enum import Enum
 from cvaux import imgMergerV, imgMergerH, putBetterText, separateRGB
-import math
-from wtmObject import MachineObject
-
-
-class tm(Enum):
-    MASK3CH = 1         # Template in einem bildkanal, masken in anderen kanälen. Versuch TM mit transparen
-    NOISE = 2           # Template auf Rauschen.
-    AVERAGE = 3         # TODO Template auf Hintergrund, der dem mittelwert des Templates entspricht
-    CANNY = 4           # Template und Suchbereich durch canny edge detector laufen lassen
-    TRANSPARENT = 5     # Verwenden der von opencv unterstützeten Transparenz mit Maske
-    CANNYBLUR = 7       # Wie CANNY aber unscharf
-    CANNYBLUR2 = 9      # Wie CANNY aber unscharf und INVERS
-    NOISEBLUR = 8       # Wie NOISE aber unscharf
-    ELSD = 6            # TODO: statt canny die ellipsen und linien erkennen.
-
-
-class Composition:
-    _trainIsReversed = False             #TODO Der Zug könnte auch verkehrt herum einfahren?
-    _imagePairs = []                     # eine Liste mit Bildpaaren in der Form [[01L,01R], [02L, 02R] , ... ]
-    _scenes = []
-
-    calib = calibMatrix.CalibData()
-    refObj = [None] * 4
-    p1 = None  # P Matrix für Triangulation
-    p2 = None  # P Matrix für Triangulation
-    tmmode = tm.CANNYBLUR  # Standard TM Mode
-
-    PRE_TM_K_SIZE = 5
-    PRE_TM_PX_PER_K = 15  # warpedTemplate hat Abmessung 50x50 px --> K = (5,5)
-    SCOREFILTER_K_SIZE = 5  # Kernelgrösse für die Glättung des TM Resultats (Score)
-    PIXEL_PER_CLAHE_BLOCK = 50  # Anzahl Blocks ist abhängig von der Bildgrösse
-
-
-
-    def __init__(self, imagePairs:list, refObj:list, tmmode:tm = None):
-        """Lädt die Bildpaare und Referenzobjekte.
-
-            Die Referenzobjekt sind die vier Gitterschrauben.
-            Deren Reihenfolge innerhalb der Liste ist vorgegeben:
-            Oben links, oben rechts, unten rechts, unten links.
-            """
-        if tmmode is not None:
-            self._tmmode = tmmode
-        # todo: prüfen der Liste, ob die Bilder existieren etc..
-
-
-
-    def findObjects(self, objects_list:list):
-        pass
-
-    # auf allen scenes das objekt suchen, vermessen
-    def findObject(self, oneObject):
-        pass
-
-
+import wtmObject
+import wtmComposition
+from wtmEnum import tm
 
 
 class Scene:
@@ -81,9 +28,9 @@ class Scene:
     _rtstatus = -1  # -1: keine, 0: approx, 1:exakte vorhanden
     context = None
 
-    def __init__(self, context:Composition):
-        self.context = context                     # Die gleichbleibenden Daten
-        self.tobj:MachineObject = None              # das aktuelle Template Objekt
+    def __init__(self, context):                    # :wtmComposition.Composition nicht hier reinschreiben !
+        self.context:wtmComposition.Composition = context # Die gleichbleibenden Daten
+        self.tobj:wtmObject.MachineObject = None    # das aktuelle Template Objekt
         self.measuredposition3d_cam = None
         self.measuredposition3d_mac = None
         self.corners2DimgL = np.zeros((1, 5, 2))    # Eckpunkte auf dem Bild. (plus Mitte)
@@ -807,5 +754,5 @@ class Scene:
 
         print("sysCam\n", systemcam)
         print("sysTrain\n", systemzug)
-        print("R\n", Trainfeature.__R_exact)
-        print("t\n", Trainfeature.__t_exact)
+        print("R\n", cls.__R_exact)
+        print("t\n", cls.__t_exact)

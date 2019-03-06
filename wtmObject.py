@@ -1,19 +1,22 @@
-# Objekt, das im Modul wtm.py verarbeitet werden kann.
-# Definition: Bezugssystem Kamera (camera) <---> Bezugssystem Zug (machine) = cam <---> mac
-#
-# Klasse MachineObject:
-# Ein Objekt ist ein Teil/Obejekt/Feature auf dem Zugdach
-# Von einem Objekt bestehen zwei Patches, von jeder Kamera eine Aufnahme, verzerrt in eine flache Draufsicht.
-#
-# Klasse Positionen:
-# Darin sind alle gemessenen Positionen aufgeführt. Erweiterung einer Liste, vom Typ "Position"
-#
-# Klasse Position:
-# eine einzelne Messung. Repräsntiert die 3d Koordinaten in beiden Bezugssystemen cam und mac (Kamera und Zug)
-# Die Bildnamen zeigen, in welchem Bildpaar die Messung vorgenommen wurde.
+""" Objekt, das in den Modulen wtmComposition und wtmScene verarbeitet werden kann.
+
+ Definition: Bezugssystem Kamera (camera) <---> Bezugssystem Zug (machine) = cam <---> mac
+
+ Klasse MachineObject:
+ Ein Objekt ist ein Teil/Obejekt/Feature auf dem Zugdach
+ Von einem Objekt bestehen zwei Patches, von jeder Kamera eine Aufnahme, verzerrt in eine flache Draufsicht.
+
+ Klasse Positionen:
+ Darin sind alle gemessenen Positionen aufgeführt. Erweiterung einer Liste, vom Typ "Position"
+
+ Klasse Position:
+ eine einzelne Messung. Repräsntiert die 3d Koordinaten in beiden Bezugssystemen cam und mac (Kamera und Zug)
+ Die Bildnamen zeigen, in welchem Bildpaar die Messung vorgenommen wurde. """
+   
 
 import numpy as np
 import cv2, math
+
 
 class Position:
     # Eine gemessene Position eines Objekts. Jeweils in beiden unterschiedliechen Bezugssystemen.
@@ -71,16 +74,21 @@ class Positions(list):
 
 
 class MachineObject:
-    _patchfilenameL = None
-    _patchfilenameR = None
-    _patchimageOriginalL = None  # Das Bild im Originalzustand
-    _patchimageOriginalR = None  # Das Bild im Originalzustand
-    _patchimageL = None  # Das Bild (Kontrastverbessert), wird erst später befüllt
-    _patchimageR = None  # Das Bild (Kontrastverbessert), wird erst später befüllt
+    """ Ein Objekt ist ein Teil/Obejekt/Feature auf dem Zugdach
+
+         Von einem Objekt bestehen zwei Patches, von jeder Kamera eine
+         Aufnahme, verzerrt in eine flache Draufsicht."""
+
+    patchfilenameL = None
+    patchfilenameR = None
+    patchimageOriginalL = None  # Das Bild im Originalzustand
+    patchimageOriginalR = None  # Das Bild im Originalzustand
+    patchimageL = None  # Das Bild (Kontrastverbessert), wird erst später befüllt
+    patchimageR = None  # Das Bild (Kontrastverbessert), wird erst später befüllt
     _patchCenter3d = [0, 0, 0]  # Vektor 3d zum Patch Mitelpunkt im sys_zug
     _realsizex = 0  # Kantenlänge 3d des Patches.
     _realsizey = 0  # Kantenlänge 3d des Patches.
-    _corners3d = np.zeros((5, 3))  # Vier Eckpunkte plus Mittelpunkt des Objekts als 3d Koord.
+    corners3d = np.zeros((5, 3))  # Vier Eckpunkte plus Mittelpunkt des Objekts als 3d Koord.
     _positions = Positions()  # Die gemessene Position im System Zug
     _measuredposition3d_cam = None  # Die gemessene Position im System Kamera
 
@@ -119,18 +127,18 @@ class MachineObject:
 
     def loadpatch(self, filename):
         # muss .png sein !
-        self._patchfilenameL = filename + "_L.png"
-        self._patchfilenameR = filename + "_R.png"
+        self.patchfilenameL = filename + "_L.png"
+        self.patchfilenameR = filename + "_R.png"
 
-        print(f'Lade: {self._patchfilenameL} und {self._patchfilenameR}')
-        self._patchimageOriginalL = cv2.imread(self._patchfilenameL, cv2.IMREAD_GRAYSCALE)
-        self._patchimageOriginalR = cv2.imread(self._patchfilenameR, cv2.IMREAD_GRAYSCALE)
+        print(f'Lade: {self.patchfilenameL} und {self.patchfilenameR}')
+        self.patchimageOriginalL = cv2.imread(self.patchfilenameL, cv2.IMREAD_GRAYSCALE)
+        self.patchimageOriginalR = cv2.imread(self.patchfilenameR, cv2.IMREAD_GRAYSCALE)
 
-        if self._patchimageOriginalR is None:
-            self._patchimageOriginalR = self._patchimageOriginalL
+        if self.patchimageOriginalR is None:
+            self.patchimageOriginalR = self.patchimageOriginalL
 
-        assert (self._patchimageOriginalL.size > 0)
-        assert (self._patchimageOriginalL.shape == self._patchimageOriginalR.shape)
+        assert (self.patchimageOriginalL.size > 0)
+        assert (self.patchimageOriginalL.shape == self.patchimageOriginalR.shape)
 
     def calculatePatchCorners3d(self):
         # Ausgehend von der Grösse des quadratischen Patchs und dessen Zentrumskoordinaten
@@ -142,7 +150,7 @@ class MachineObject:
         dy = self._realsizey / 2
 
         # Alle Ecken erhalten vorerst den Mittelpunkt als Koordinaten
-        self._corners3d = np.tile(self._patchCenter3d, (5, 1))
+        self.corners3d = np.tile(self._patchCenter3d, (5, 1))
 
         # Patchmitte bis Patch Ecken, die Differenz vom Mittelpunkt zur Ecke
         d = np.array([[-dx, +dy, 0],  # oben links
@@ -152,14 +160,14 @@ class MachineObject:
                       [0, 0, 0]])  # Mitte
 
         # Ecken erstellen
-        self._corners3d = self._corners3d + d
+        self.corners3d = self.corners3d + d
 
         # Rotieren
         if self._rotation is not None:
             self.rotatePoints()
 
     def rotatePoints(self):
-        pt = self._corners3d
+        pt = self.corners3d
 
         # Schwerpunkt auf Ursprung setzen
         t = np.average(pt, 0)
@@ -175,13 +183,13 @@ class MachineObject:
         pt = pt @ Rx @ Ry @ Rz
 
         # Translation wieder rückgängig machen
-        self._corners3d = pt + t
+        self.corners3d = pt + t
 
     def __str__(self):
         s = f'wtmObject:\n Name:{self._name}\n'
-        s += f' PatchfilenameL: {self._patchfilenameL}\n PatchfilenameR: {self._patchfilenameR}\n'
+        s += f' PatchfilenameL: {self.patchfilenameL}\n PatchfilenameR: {self.patchfilenameR}\n'
         s += f' Real position center:\n {self._patchCenter3d}\n'
-        s += f' Real position corners:\n{self._corners3d}\n'
+        s += f' Real position corners:\n{self.corners3d}\n'
         return s
 
 

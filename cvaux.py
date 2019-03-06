@@ -119,3 +119,33 @@ def imgMergerV(list_of_img_in: list, bgcolor=(128, 128, 128)):
         list_of_img.append(img)
 
     return np.vstack(list_of_img)
+
+
+# Wie cv putText, aber immer lesbar wegen Umrandung.
+def putBetterText(img, text, org, fontFace, fontScale, color, thickness=None, lineType=None, bottomLeftOrigin=None, colorOutline=None):
+    out = img.copy()
+    if colorOutline is None: #ohne explizite Angabe wird die Vordergrundfarbe invertiert für die Umrandungsfarbe
+        colorOutline = (255-color[0], 255-color[1], 255-color[2])
+
+    # 12x Hintergrund Text
+    displace = [ (0,  1), (1, 0),  (0, -1), (-1, 0),
+                (-2, -2), (-2, 2), (2, -2), (-2, -2),
+                ( 0,  2), (2, 0),  (0, -2), (-2, 0)]
+    for dx, dy in displace:
+        x = max(1, org[0] + dx)
+        y = max(1, org[1] + dy)
+        out = cv2.putText(out, text, (x,y), fontFace, fontScale, colorOutline, thickness, lineType)
+
+    # Vordergrund Text:
+    out = cv2.putText(out, text, org, fontFace, fontScale, color, thickness, lineType)
+    return out
+
+
+def separateRGB(img_in, vertical=False):
+    # separiert die 3 Kanäle und legt sie nebeneinander oder übereinander
+    r, g, b = img_in[:,:,0], img_in[:,:,1], img_in[:,:,2]
+    if vertical:
+        res = np.vstack((r,g,b))
+    else:
+        res = np.hstack((r,g,b))
+    return res
