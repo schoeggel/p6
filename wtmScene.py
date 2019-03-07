@@ -305,6 +305,9 @@ class Scene:
         # Die Ecken müssen zuvor berechnet worden sein.
         assert (self.tobj.corners3d.sum != 0)
 
+        # Verzerrung
+        self.warp()
+
         # ROIS als kontrastoptimierte Graustufe speichern in self.ROIR und self.ROIR
         self.storeROIs(self.photoL, self.photoR, extend)
 
@@ -736,3 +739,11 @@ class Scene:
         print("sysTrain\n", systemzug)
         print("R\n", cls.__R_exact)
         print("t\n", cls.__t_exact)
+
+    def __str__(self):
+        return f"""
+        Scene Summary:
+        Gridposition: ({self.gitterPosL}, {self.gitterPosR})
+        Gridposition is valid: {self.gitterPosValid}
+        TODO ... 
+        """

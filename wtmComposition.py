@@ -60,12 +60,27 @@ class Composition:
         scene: wtmScene.Scene = scene
         res = scene.locate(oneObject, self)
 
+    def sceneinfo(self, n:int = None):
+        if n is None:
+            n = range(len(self._scenes))
+        else:
+            n = [n]
+
+        for i in n:
+            print(f'Scene [{i}]:')
+            try:
+                scene:wtmScene.Scene = self._scenes[i]
+                print(scene)
+            except (TypeError, IndexError):
+                print(f'Scene not found.')
+
     def __str__(self):
         return f"""
         {self.calib}\n
-        composition contains {len(self.imagePairs)} image pair(s) 
+        composition containg {len(self.imagePairs)} image pair(s) 
         and {len(self.refObj)} reference objects. 
-        active template matching mode (tmmode): {self.tmmode}
+        active template matching mode (tmmode) is {self.tmmode}
+        use .sceneinfo() for scene details.
         """
 
 
@@ -74,3 +89,9 @@ if __name__ == '__main__':
     fn2 = "SBB/13R.png"
     test = Composition([[fn1, fn2], [fn1, fn2]], [])
     print(test)
+    test.sceneinfo()
+    test.sceneinfo(9999.323)
+    test.sceneinfo(20000)
+
+
+

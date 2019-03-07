@@ -16,7 +16,7 @@
 
 import numpy as np
 import cv2, math
-from wtmAux import clahe
+from wtmAux import clahe, imgMergerV, imgMergerH
 import wtmComposition
 
 class Position:
@@ -190,6 +190,17 @@ class MachineObject:
         # Translation wieder rückgängig machen
         self.corners3d = pt + t
 
+    def show(self):
+        upper = imgMergerH([self.patchimageOriginalL, self.patchimageOriginalR])
+        lower = imgMergerH([self.patchimageL, self.patchimageR])
+        quadro = imgMergerV([upper, lower])
+        wname = f'Patch object: original + CLAHE'
+        cv2.namedWindow(wname, cv2.WINDOW_NORMAL)
+        cv2.imshow(wname, quadro)
+        cv2.resizeWindow(wname, quadro.shape[0], quadro.shape[1])
+        cv2.waitKey(0)
+        cv2.destroyWindow(wname)
+
     def __str__(self):
         s = f'wtmObject:\n Name:{self._name}\n'
         s += f' PatchfilenameL: {self.patchfilenameL}\n PatchfilenameR: {self.patchfilenameR}\n'
@@ -230,6 +241,7 @@ if __name__ == '__main__':
     s2.addPosition([51,52,53],[54,55,56],["14-L.png","14-R.png"])
     s2.addPosition([81,82,83],[84,85,86],["15-L.png","15-R.png"])
     print(s2.positions)
+    s2.show()
 
 
 
