@@ -28,11 +28,13 @@ class Scene:
     __rtstatus = -1  # -1: keine, 0: approx, 1:exakte vorhanden
     context = None
 
-    def __init__(self, context, photoL, photoR):    # :wtmComposition.Composition nicht hier reinschreiben !
+    def __init__(self, context, photoNameL, photoNameR):    # :wtmComposition.Composition nicht hier reinschreiben !
         self.context:wtmComposition.Composition = context # Die gleichbleibenden Daten
-        self.tobj:wtmObject.MachineObject = None    # das aktuelle Template Objekt
-        self.photoL:np.ndarray = photoL             # Das von der Kamera gemachte Originalbild
-        self.photoR:np.ndarray = photoR             # Das von der Kamera gemachte Originalbild
+        self.tobj:wtmObject.MachineObject           # das aktuelle Template Objekt
+        self.photoNameL = photoNameL
+        self.photoNameR = photoNameR
+        self.photoL = cv2.imread(photoNameL)             # Das von der Kamera gemachte Originalbild
+        self.photoR = cv2.imread(photoNameR)             # Das von der Kamera gemachte Originalbild
         self.measuredposition3d_cam = None
         self.measuredposition3d_mac = None
         self.corners2DimgL = np.zeros((1, 5, 2))    # Eckpunkte auf dem Bild. (plus Mitte)
@@ -60,10 +62,13 @@ class Scene:
         self.reprojectedPosition2dR = np.zeros(1)   # Die gemessene 3d Position projeziert ins 2d Bild
         self.scoreL = None                          # Die ScoreMap aus dem Matching Vorgang
         self.scoreR = None                          # Die ScoreMap aus dem Matching Vorgang
+
         self.gitterPosL, self.gitterPosR, self.gitterPosValid = wtmFindGrid.findGrid(self.photoL, self.photoR, verbose=False)
         if self.gitterPosValid:
             self.approxreference()
             # TODO : wenn kein Valid Grid oder keine Valid ApproxRef. --> Kennzeichnen und später über die Bewegung lösen
+
+
 
 
     def drawMarker(self, imgL_in=None, imgR_in=None, size=25, color=(0,255,255), thickness= 3, show=False):
@@ -111,7 +116,7 @@ class Scene:
         cv2.imshow(wname, bigpic)
         cv2.resizeWindow(wname, 1800, int(1800*aspect))
         cv2.waitKey(0)
-
+        cv2.destroyWindow(wname)
 
 
 
@@ -294,8 +299,7 @@ class Scene:
             self.activeROIR = self.ROIR
 
 
-    #def find(self, imageL, imageR, verbose=False, extend=100):
-    def locate(self, tobj, verbose=False, extend=100):
+    def locate(self, tobj, verbose=False, extend=100) -> wtmObject.Position:
         # sucht das objekt im angegebenen Bild
         # Liefert die gemessene Position zurück (2d,3d)
         # Speichert gemessene 3d pos in Instanz und zur Kontrolle auch die Rückprojektionskoordinaten (xy) pro Bildseite
@@ -375,8 +379,16 @@ class Scene:
         self.reprojectedPosition2dR, _ = cv2.projectPoints(self.measuredposition3d_cam[:3].T, c.rr, c.tr, c.kr, c.drr)
         self.reprojectedPosition2dL = tuple(self.reprojectedPosition2dL.flatten().astype(int))
         self.reprojectedPosition2dR = tuple(self.reprojectedPosition2dR.flatten().astype(int))
+
+        pos = wtmObject.Position()
+        pos.mac = self.measuredposition3d_mac[0]
+        pos.cam = self.measuredposition3d_cam[:3,0]
+        pos.imgNames = [self.photoNameL, self.photoNameR]
+
+        self.tobj.addPosition(pos.mac, pos.cam, pos.imgNames)
+
         if verbose: self.showAllSteps()
-        return centerxyL, valL, centerxyR, valR,
+        return pos
 
 
     def match(self, img_in, template_in, patchcenter, mask, verbose=False):

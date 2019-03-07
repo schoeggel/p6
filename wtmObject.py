@@ -23,40 +23,13 @@ class Position:
     # Eine gemessene Position eines Objekts. Jeweils in beiden unterschiedliechen Bezugssystemen.
     # Die Bildernamen zeigen, in welchem Bildpaar die Messung erfolgte.
 
-    _mac = np.zeros(3)
-    _cam = np.zeros(3)
-    _imgNames = ["",""]
+    mac = np.zeros(3)
+    cam = np.zeros(3)
+    imgNames = ["",""]
 
     def __str__(self):
-        return f"Position in images '{self._imgNames[0]}' and '{self._imgNames[1]}'" \
-            f":\tSystem camera (cam): {self._cam}\t\tSystem machine (mac): {self._mac}\n"
-
-    @property
-    def mac(self):
-        return self._mac
-
-    @mac.setter
-    def mac(self, mac):
-        assert len(mac) == 3
-        self._mac = mac
-
-    @property
-    def cam(self):
-        return self._cam
-
-    @cam.setter
-    def cam(self, cam):
-        assert len(cam) == 3
-        self._cam = cam
-
-    @property
-    def imgNames(self):
-        return self._imgNames
-
-    @imgNames.setter
-    def imgNames(self, imgNames: list):
-        assert len(imgNames) == 2 and len(imgNames[0]) > 0 and len(imgNames[1]) > 0
-        self._imgNames = imgNames
+        return f"Position in images '{self.imgNames[0]}' and '{self.imgNames[1]}'" \
+            f":\tcamera (cam): {self.cam}\t\tmachine (mac): {self.mac}\n"
 
 
 class Positions(list):
@@ -119,12 +92,18 @@ class MachineObject:
     def positions(self):
         return self._positions.__str__()
 
-    def addPosition(self, mac, cam, imgNames):
+    def addPosition(self, mac, cam, imgNames:list) -> Position:
+        # Erstellt eine neue Positionsmessung, fügt sie zur Messliste hinzu
+        # und gibt die Referenz der neuen Messung zurück
+        assert len(cam) == 3 and len(mac) == 3
+        assert len(imgNames) == 2 and len(imgNames[0]) > 0 and len(imgNames[1]) > 0
         p = Position()
         p.mac = mac
         p.cam = cam
         p.imgNames = imgNames
         self._positions.append(p)
+        print(f'added:  {p}')
+        return p
 
     def loadpatch(self, filename):
         # muss .png sein !

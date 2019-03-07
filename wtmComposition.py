@@ -39,9 +39,7 @@ class Composition:
 
     def createScenes(self):
         # Für jedes Bildpaar wird eine scene erstellt und in der Liste angefügt
-        for pair in self.imagePairs:
-            imgL = cv2.imread(pair[0])
-            imgR = cv2.imread(pair[1])
+        for imgL,imgR in self.imagePairs:
             newScene = wtmScene.Scene(self,imgL, imgR)
             self._scenes.append(newScene)
 
@@ -52,13 +50,17 @@ class Composition:
     # auf allen scenes das objekt suchen, vermessen
     def measureObject(self, oneObject):
         oneObject: wtmObject.MachineObject = oneObject
-        pass
+        for s in self._scenes:
+            s:wtmScene.Scene
+            s.locate(oneObject)
+
 
     # Ein Objekt in einer Scene lokalisieren
     def measureObjectInScene(self, oneObject, scene):
         oneObject: wtmObject.MachineObject = oneObject
         scene: wtmScene.Scene = scene
-        res = scene.locate(oneObject, self)
+        pos = scene.locate(oneObject, verbose=True)
+
 
     def sceneinfo(self, n:int = None):
         if n is None:
