@@ -18,6 +18,7 @@ import numpy as np
 import cv2, math
 from wtmAux import clahe, imgMergerV, imgMergerH
 import wtmComposition
+from rigid_transform_3d import rmserror
 
 class Position:
     # Eine gemessene Position eines Objekts. Jeweils in beiden unterschiedliechen Bezugssystemen.
@@ -92,12 +93,30 @@ class MachineObject:
 
     @property
     def avgPosMac(self):
-        # Rechnet den Mittelwert der Positionen und gibt sie zurück
-        mac = np.zeros(  (len(self._positions),  3)  )
+        # Rechnet den Mittelwert der Positionen (System mac) und gibt sie zurück
+        return np.average(self._positionsAsNumpyArray()[0], 0)
+
+    @property
+    def avgPosCam(self):
+        # Rechnet den Mittelwert der Positionen (System cam) und gibt sie zurück
+        return np.average(self._positionsAsNumpyArray()[1], 0)
+
+    @property
+    def rmserror(self):
+        """Liefert den rms Error der Messungen. Da noch kein echter SOLL - Wert vorhanden: Mittelwert verwenden"""
+        A = self.avgPosMac
+        A = np.tile(A, (len(self._positions),1))
+        B = self._positionsAsNumpyArray()[0]
+        e = rmserror(A, B)
+        return e
+
+    def _positionsAsNumpyArray(self):
+        mac = np.zeros((len(self._positions), 3))
+        cam = np.zeros((len(self._positions), 3))
         for idx, p in enumerate(self._positions):
             mac[idx] = p.mac
-        return np.average(mac, 0)
-
+            cam[idx] = p.cam
+        return mac, cam
 
 
     def addPosition(self, mac, cam, imgNames:list) -> Position:
@@ -229,9 +248,3 @@ if __name__ == '__main__':
     s2.addPosition([81,82,83],[84,85,86],["15-L.png","15-R.png"])
     print(s2.positions)
     s2.show()
-
-
-
-
-
-

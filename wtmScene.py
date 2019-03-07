@@ -16,7 +16,7 @@ class Scene:
         Pro Bildpaar wird eine Scene erstellt. Im Rahmen der Initialisierung
         wird versucht, die Basis des Bezugssystems Zug zu setzen, also die
         Matrizen 'R' und 't' zwischen cam(era) und mac(hine) zu bestimmen.
-        Anschliessend können von ausserhalb Objekte in die Funktion 'measure'
+        Anschliessend können von ausserhalb Objekte in die Funktion 'locate'
         übergeben werden, deren Position dann ermittelt wird. Grundlegende,
         über alle Bildpaare (Szenen) hinweg gleichbleibende Daten sind in der
         Klasse 'Composition' definiert."""
@@ -545,6 +545,7 @@ class Scene:
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
+    @property
     def rt(self):
         """
         Liefert die beste verfügbare Umrechnung der Bezugsysteme zurück.
@@ -598,7 +599,7 @@ class Scene:
         # dir == 1: sys_cam --> sys_zug
         # pts müssen in shape (n,3) sein, bspw: [[x,y,z]] oder [[x,y,z],[x2,y2,z2]]
 
-        R, t = self.rt()    # beste verfügbare R|t Matrix
+        R, t = self.rt    # beste verfügbare R|t Matrix
         n = pts.shape[0]    # wieviele punkte ?
 
         if direction == 0:
@@ -654,7 +655,6 @@ class Scene:
         # homogen --> karthesisch
         gitter /= gitter[3]
         gitter = gitter[:3]
-        print(f'\nGitter Raumpunkt:\n{gitter}')
 
         # Einheitsvektoren an die richtige Position verschieben
         gitter = np.tile(gitter.T, (4, 1))                          # zeilen vervielfachen

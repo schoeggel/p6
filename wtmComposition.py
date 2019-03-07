@@ -37,20 +37,29 @@ class Composition:
         self.refObj = refObj
         self.createScenes()
 
+
+    @property
+    def status(self):
+        """Zeigt den Status der scenes an: Ob die Gitterposition in Ordnung ist und ob
+            eine exakte Referenz gesetzt werden konnte."""
+
+
     def createScenes(self):
-        # Für jedes Bildpaar wird eine scene erstellt und in der Liste angefügt
+        """Für jedes Bildpaar wird eine scene erstellt und in der Liste angefügt
+            Konnte beim Initialisieren der scene ein Gitter gefunden werden,
+            so ist kann die scene ab jetzt Objekte lokalisieren."""
         for imgL,imgR in self.imagePairs:
             newScene = wtmScene.Scene(self,imgL, imgR)
             self._scenes.append(newScene)
 
-    # Alle angegebenen Objekte messen
-    def measureObjects(self, objects_list: list):
+    def locateObjects(self, objects_list: list):
+        """"Alle angegebenen Objekte auf allen scenes messen"""
         for obj in objects_list:
             print(obj)
-            self.measureObject(obj)
+            self.locateObject(obj)
 
-    # auf allen scenes das objekt suchen, vermessen
-    def measureObject(self, oneObject):
+    def locateObject(self, oneObject):
+        """Auf allen scenes das eine Objekt lokalisieren"""
         oneObject: wtmObject.MachineObject = oneObject
         for s in self._scenes:
             s:wtmScene.Scene
@@ -60,8 +69,9 @@ class Composition:
                 print(f'Could not locate Object {oneObject.patchfilenameL} in scene {s.photoNameL}' )
 
 
-    # Ein Objekt in einer Scene lokalisieren
-    def measureObjectInScene(self, oneObject, scene):
+    def locateObjectInScene(self, oneObject, scene):
+        """ Ein einzelnes Objekt in einer einzelnen Scene lokalisieren
+            TODO: Fehlerhandling verbessern."""
         oneObject: wtmObject.MachineObject = oneObject
         scene: wtmScene.Scene = scene
         try:
@@ -82,6 +92,7 @@ class Composition:
                 print(scene)
             except (TypeError, IndexError):
                 print(f'Scene not found.')
+
 
     def __str__(self):
         return f"""

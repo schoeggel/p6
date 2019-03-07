@@ -23,16 +23,18 @@ fn = [["SBB/11L.png", "SBB/11R.png"], ["SBB/12L.png", "SBB/12R.png"], ["SBB/13L.
 cp = Composition(fn, [s1, s1, s1, s1])
 print(cp)
 cp.sceneinfo()
-#cp.measureObjectInScene(s1, cp._scenes[0])
-cp.measureObject(s1)
+#cp.locateObjectInScene(s1, cp._scenes[0])
+cp.locateObject(s1)
 print(s1.positions)
 
 # vieles messen
-cp.measureObjects(allObjects)
+cp.locateObjects(allObjects)
 for o in allObjects:
     o:MachineObject
     print(o.positions)
     print(o.avgPosMac)
+    print(o.rmserror)
+    print(np.std(o._positionsAsNumpyArray()[0], 0))
 
 
 
