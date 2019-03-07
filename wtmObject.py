@@ -53,23 +53,20 @@ class MachineObject:
          Von einem Objekt bestehen zwei Patches, von jeder Kamera eine
          Aufnahme, verzerrt in eine flache Draufsicht."""
 
-    patchfilenameL = None
-    patchfilenameR = None
-    patchimageOriginalL = None  # Das Bild im Originalzustand
-    patchimageOriginalR = None  # Das Bild im Originalzustand
-    patchimageL = None  # Das Bild (Kontrastverbessert), wird erst später befüllt
-    patchimageR = None  # Das Bild (Kontrastverbessert), wird erst später befüllt
-    _patchCenter3d = [0, 0, 0]  # Vektor 3d zum Patch Mitelpunkt im sys_zug
-    _realsizex = 0  # Kantenlänge 3d des Patches.
-    _realsizey = 0  # Kantenlänge 3d des Patches.
-    corners3d = np.zeros((5, 3))  # Vier Eckpunkte plus Mittelpunkt des Objekts als 3d Koord.
-    _positions = Positions()  # Die gemessene Position im System Zug
-    _measuredposition3d_cam = None  # Die gemessene Position im System Kamera
 
     def __init__(self, filename, center3d, realsize, rotation3d=None, name=None):
         self._patchCenter3d = center3d.astype(float)  # Vektor 3d zum Patch Mitelpunkt im sys_zug
         self._realsizex = realsize[0]  # Kantenlänge 3d des Patches.
         self._realsizey = realsize[1]  # Kantenlänge 3d des Patches.
+        self.patchfilenameL = None
+        self.patchfilenameR = None
+        self.patchimageOriginalL = None  # Das Bild im Originalzustand
+        self.patchimageOriginalR = None  # Das Bild im Originalzustand
+        self.patchimageL = None  # Das Bild (Kontrastverbessert), wird erst später befüllt
+        self.patchimageR = None  # Das Bild (Kontrastverbessert), wird erst später befüllt
+        self.corners3d = np.zeros((5, 3))  # Vier Eckpunkte plus Mittelpunkt des Objekts als 3d Koord.
+        self._positions = Positions()  # Die gemessene Position im System Zug
+        self._measuredposition3d_cam = None  # Die gemessene Position im System Kamera
 
         assert (len(filename) > 0) and (center3d.shape == (3,))
         assert (realsize[0] > 1) and realsize[1] > 1
@@ -91,6 +88,17 @@ class MachineObject:
     @property
     def positions(self):
         return self._positions.__str__()
+
+
+    @property
+    def avgPosMac(self):
+        # Rechnet den Mittelwert der Positionen und gibt sie zurück
+        mac = np.zeros(  (len(self._positions),  3)  )
+        for idx, p in enumerate(self._positions):
+            mac[idx] = p.mac
+        return np.average(mac, 0)
+
+
 
     def addPosition(self, mac, cam, imgNames:list) -> Position:
         # Erstellt eine neue Positionsmessung, fügt sie zur Messliste hinzu

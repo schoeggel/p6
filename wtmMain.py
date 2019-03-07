@@ -3,16 +3,20 @@
 import numpy as np
 from wtmComposition import Composition
 from wtmObject import MachineObject
-
-patchName = "data/patches/3dcreatorSet1/"
-
+import wtmFactory
 
 ############################# OBJEKTE #######################################
-# Erstellt ein einfaches Objekt und kopiere 4x
+patchName = "data/patches/3dcreatorSet1/"
+# Erstellt ein einfaches Objekt
 xyz = np.array([-312, 128, 4])
 size = (36, 37)
 s1 = MachineObject(patchName + "tcr3dschraubeKleinGanzLinkeSeite", xyz, size)
 print(s1)
+
+
+####################### NEU DIE OBJEKTE PER FACTORY HOLEN #####################
+allRefs, allObjects =  wtmFactory.createMachineObjects()
+
 
 ############################# COMPOSITION #######################################
 fn = [["SBB/11L.png", "SBB/11R.png"], ["SBB/12L.png", "SBB/12R.png"], ["SBB/13L.png", "SBB/13R.png"], ["SBB/14L.png", "SBB/14R.png"], ["SBB/15L.png", "SBB/15R.png"]]
@@ -22,6 +26,14 @@ cp.sceneinfo()
 #cp.measureObjectInScene(s1, cp._scenes[0])
 cp.measureObject(s1)
 print(s1.positions)
+
+# vieles messen
+cp.measureObjects(allObjects)
+for o in allObjects:
+    o:MachineObject
+    print(o.positions)
+    print(o.avgPosMac)
+
 
 
 

@@ -299,7 +299,7 @@ class Scene:
             self.activeROIR = self.ROIR
 
 
-    def locate(self, tobj, verbose=False, extend=100) -> wtmObject.Position:
+    def locate(self, tobj, verbose=False, extend=100):
         # sucht das objekt im angegebenen Bild
         # Liefert die gemessene Position zurück (2d,3d)
         # Speichert gemessene 3d pos in Instanz und zur Kontrolle auch die Rückprojektionskoordinaten (xy) pro Bildseite
@@ -433,15 +433,13 @@ class Scene:
         # "location" ist im Format (x,y), wie auch "offset" und "centerL"
         if self.context.tmmode in  [tm.TRANSPARENT]:
             # Maske muss gleiche Form haben wie Template
-
             mask = (mask * 255).astype(np.uint8)
-            # mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2RGB)
             res = cv2.matchTemplate(img, template, method, None, mask)
         else:
             res = cv2.matchTemplate(img, template, method)
 
 
-        # Scoremap glätten und ablegen
+        # Scoremap Darstellung verbessern
         res = self.filterScore(res)
 
         # Min / Max auslesen
@@ -584,7 +582,7 @@ class Scene:
         c = self.context.calib
         left, jcb = cv2.projectPoints(edges3d_cam, c.rl, c.tl, c.kl, c.drl)
         right, jcb = cv2.projectPoints(edges3d_cam, c.rr, c.tr, c.kr, c.drr)
-        print(f'projection LEFT:\n{left}\n\nprojection RIGHT:\n{right}')
+        #print(f'projection LEFT:\n{left}\n\nprojection RIGHT:\n{right}')
 
         # opencv liefert die punkte im shape (n,1,3) zurück.
         self.corners2DimgL = left

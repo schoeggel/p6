@@ -15,7 +15,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="543fc68e-51ac-46c2-a3d3-d45e8a552486" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/wtmFactory.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/patches/3dcreatorSet1/tcr3dscharnierLinkeSeite_meta.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite_meta.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/patches/3dcreatorSet1/tcr3dschraubeKleinLinkeSeite_meta.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/patches/3dcreatorSet1/tcr3dschraubeMiniLinkeSeite_meta.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/patches/3dcreatorSet1/tcr3dtestDeckelTiefLinkeSeite_meta.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/wtmComposition.py" beforeDir="false" afterPath="$PROJECT_DIR$/wtmComposition.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wtmMain.py" beforeDir="false" afterPath="$PROJECT_DIR$/wtmMain.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wtmObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/wtmObject.py" afterDir="false" />
@@ -53,17 +59,17 @@
             <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/wtmCalib.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="220">
-                    <caret line="11" column="45" lean-forward="true" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+                  <state relative-caret-position="676">
+                    <caret line="57" selection-start-line="57" selection-end-line="57" selection-end-column="26" />
                   </state>
                 </provider>
               </entry>
             </file>
-            <file pinned="false" current-in-tab="false">
+            <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/wtmObject.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="990">
-                    <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
+                  <state relative-caret-position="408">
+                    <caret line="101" lean-forward="true" selection-start-line="101" selection-end-line="101" />
                     <folding>
                       <element signature="e#694#712#0" expanded="true" />
                     </folding>
@@ -74,8 +80,8 @@
             <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/wtmScene.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="694">
-                    <caret line="118" column="32" selection-start-line="118" selection-start-column="32" selection-end-line="118" selection-end-column="32" />
+                  <state relative-caret-position="200">
+                    <caret line="580" column="57" lean-forward="true" selection-start-line="580" selection-start-column="57" selection-end-line="580" selection-end-column="57" />
                     <folding>
                       <element signature="e#33#51#0" expanded="true" />
                     </folding>
@@ -86,8 +92,8 @@
             <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/wtmComposition.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="1226">
-                    <caret line="90" column="23" lean-forward="true" selection-start-line="90" selection-start-column="23" selection-end-line="90" selection-end-column="23" />
+                  <state relative-caret-position="1100">
+                    <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
                     <folding>
                       <element signature="e#33#101#0" expanded="true" />
                     </folding>
@@ -95,13 +101,25 @@
                 </provider>
               </entry>
             </file>
-            <file pinned="false" current-in-tab="true">
+            <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/wtmMain.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="154">
-                    <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+                  <state relative-caret-position="682">
+                    <caret line="31" selection-start-line="31" selection-end-line="31" />
                     <folding>
                       <element signature="e#34#52#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/wtmFactory.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="88">
+                    <caret line="14" column="28" lean-forward="true" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
+                    <folding>
+                      <element signature="e#247#265#0" expanded="true" />
                     </folding>
                   </state>
                 </provider>
@@ -128,8 +146,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>800</find>
-      <find>circle</find>
       <find>p1</find>
       <find>reproje</find>
       <find>Ster</find>
@@ -158,6 +174,8 @@
       <find>masks</find>
       <find>corners2DimgR</find>
       <find>NAME</find>
+      <find>projection LEFT</find>
+      <find>projection RIGHT</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -169,7 +187,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/10triangulation2.py" />
         <option value="$PROJECT_DIR$/equalAxis3d.py" />
         <option value="$PROJECT_DIR$/13-Referenz-ExportWarpedTemplate.py" />
         <option value="$PROJECT_DIR$/13-Check3dQuadrat2.py" />
@@ -216,6 +233,7 @@
         <option value="$PROJECT_DIR$/wtmFindGrid.py" />
         <option value="$PROJECT_DIR$/cvaux.py" />
         <option value="$PROJECT_DIR$/wtmAux.py" />
+        <option value="$PROJECT_DIR$/wtmFactory.py" />
         <option value="$PROJECT_DIR$/wtmScene.py" />
         <option value="$PROJECT_DIR$/wtmComposition.py" />
         <option value="$PROJECT_DIR$/wtmMain.py" />
@@ -264,7 +282,7 @@
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.completion" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -341,6 +359,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="wtmFactory" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="bt19" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/wtmFactory.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="wtmMain" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -383,41 +422,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="wtmScene" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="bt19" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/wtmScene.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Python.wtmObject" />
-      <item itemvalue="Python.wtmScene" />
       <item itemvalue="Python.wtmComposition" />
       <item itemvalue="Python.calibMatrix" />
       <item itemvalue="Python.wtmMain" />
+      <item itemvalue="Python.wtmFactory" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.wtmMain" />
+        <item itemvalue="Python.wtmFactory" />
         <item itemvalue="Python.wtmComposition" />
         <item itemvalue="Python.wtmObject" />
         <item itemvalue="Python.calibMatrix" />
-        <item itemvalue="Python.wtmScene" />
       </list>
     </recent_temporary>
   </component>
@@ -450,13 +468,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="835" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" x="1117" y="110" width="344" height="697" id="Project" order="0" sideWeight="0.49774775" type="FLOATING" weight="0.17718121" />
+      <window_info content_ui="combo" x="1117" y="110" width="344" height="697" id="Project" order="0" sideWeight="0.49774775" type="FLOATING" visible="true" weight="0.17718121" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.22849463" />
       <window_info id="Favorites" order="2" sideWeight="0.5022523" side_tool="true" weight="0.1391129" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.60881937" />
-      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" visible="true" weight="0.9331437" />
+      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" visible="true" weight="0.79231864" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.3278101" />
@@ -589,11 +608,6 @@
           <option name="timeStamp" value="234" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/wtmObject.py</url>
-          <line>99</line>
-          <option name="timeStamp" value="239" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/archive/24-testSepClassRef.py</url>
           <line>56</line>
           <option name="timeStamp" value="241" />
@@ -604,14 +618,14 @@
           <option name="timeStamp" value="242" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/wtmScene.py</url>
-          <line>383</line>
-          <option name="timeStamp" value="255" />
+          <url>file://$PROJECT_DIR$/wtmMain.py</url>
+          <line>31</line>
+          <option name="timeStamp" value="268" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/wtmScene.py</url>
-          <line>390</line>
-          <option name="timeStamp" value="256" />
+          <url>file://$PROJECT_DIR$/wtmObject.py</url>
+          <line>95</line>
+          <option name="timeStamp" value="269" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -622,16 +636,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/archive/13-Check3dQuadrat4.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="360" column="31" selection-start-line="360" selection-start-column="31" selection-end-line="360" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/archive/17-templatematchChannelTest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="104">
@@ -831,13 +835,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-B.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="73" column="23" lean-forward="true" selection-start-line="73" selection-start-column="23" selection-end-line="73" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-C.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
@@ -961,6 +958,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/15-trainfeaturetests-B.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="39" column="13" lean-forward="true" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wtmScene.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="580" column="57" lean-forward="true" selection-start-line="580" selection-start-column="57" selection-end-line="580" selection-end-column="57" />
+          <folding>
+            <element signature="e#33#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/wtmEnum.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
@@ -970,35 +984,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/wtmCalib.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="11" column="45" lean-forward="true" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+        <state relative-caret-position="676">
+          <caret line="57" selection-start-line="57" selection-end-line="57" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wtmObject.py">
+    <entry file="file://$PROJECT_DIR$/wtmFactory.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
+        <state relative-caret-position="88">
+          <caret line="14" column="28" lean-forward="true" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
           <folding>
-            <element signature="e#694#712#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wtmScene.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="694">
-          <caret line="118" column="32" selection-start-line="118" selection-start-column="32" selection-end-line="118" selection-end-column="32" />
-          <folding>
-            <element signature="e#33#51#0" expanded="true" />
+            <element signature="e#247#265#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wtmComposition.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1226">
-          <caret line="90" column="23" lean-forward="true" selection-start-line="90" selection-start-column="23" selection-end-line="90" selection-end-column="23" />
+        <state relative-caret-position="1100">
+          <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
           <folding>
             <element signature="e#33#101#0" expanded="true" />
           </folding>
@@ -1007,10 +1011,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/wtmMain.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="682">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
           <folding>
             <element signature="e#34#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wtmObject.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="101" lean-forward="true" selection-start-line="101" selection-end-line="101" />
+          <folding>
+            <element signature="e#694#712#0" expanded="true" />
           </folding>
         </state>
       </provider>

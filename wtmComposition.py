@@ -45,22 +45,29 @@ class Composition:
 
     # Alle angegebenen Objekte messen
     def measureObjects(self, objects_list: list):
-        pass
+        for obj in objects_list:
+            print(obj)
+            self.measureObject(obj)
 
     # auf allen scenes das objekt suchen, vermessen
     def measureObject(self, oneObject):
         oneObject: wtmObject.MachineObject = oneObject
         for s in self._scenes:
             s:wtmScene.Scene
-            s.locate(oneObject)
+            try:
+                s.locate(oneObject)
+            except:
+                print(f'Could not locate Object {oneObject.patchfilenameL} in scene {s.photoNameL}' )
 
 
     # Ein Objekt in einer Scene lokalisieren
     def measureObjectInScene(self, oneObject, scene):
         oneObject: wtmObject.MachineObject = oneObject
         scene: wtmScene.Scene = scene
-        pos = scene.locate(oneObject, verbose=True)
-
+        try:
+            pos = scene.locate(oneObject, verbose=True)
+        except:
+            print(f'Could not locate Object {oneObject.patchfilenameL} in scene {scene.photoNameL}' )
 
     def sceneinfo(self, n:int = None):
         if n is None:
