@@ -62,9 +62,22 @@ if __name__ == '__main__':
     print("unit test.")
     i1 = cv2.imread("SBB/13L.png")
     i2 = cv2.imread("SBB/14L.png")
-    kameramatrix = np.array([[2.20421168e+04, 0.00000000e+00, 1.98666895e+03],
-                             [0.00000000e+00, 2.20443322e+04, 1.54111484e+03],
-                             [0.00000000e+00, 0.00000000e+00, 1.00000000e+00]])
-    print(kameramatrix)
-    R, t = sfm(i1, i2,kameramatrix)
-    print(f'R - Matrix:\n{R}\nt-Matrix:\n{t}')
+    i3 = cv2.imread("SBB/15L.png")
+    i11 = cv2.imread("SBB/13R.png")
+    i12 = cv2.imread("SBB/14R.png")
+    i13 = cv2.imread("SBB/15R.png")
+    kameramatrix1 = np.array([[2.20421168e+04, 0.00000000e+00, 1.98666895e+03],
+                              [0.00000000e+00, 2.20443322e+04, 1.54111484e+03],
+                              [0.00000000e+00, 0.00000000e+00, 1.00000000e+00]])
+    print(kameramatrix1)
+    R, t = sfm(i1, i2, kameramatrix1)
+    print(f'\n{45*"-"}\n\t\t\timage 1 -> 2 (Cam1)\nR:\n{R}\nt:\n{t}')
+
+    R, t = sfm(i2, i3, kameramatrix1)
+    print(f'\n{45*"-"}\n\t\t\timage 2 -> 3 (Cam1)\nR:\n{R}\nt:\n{t}')
+
+    R, t = sfm(i11, i12, kameramatrix1)
+    print(f'\n{45*"-"}\n\t\t\timage 11 -> 12 (Cam2)\nR:\n{R}\nt:\n{t}')
+
+    R, t = sfm(i12, i13, kameramatrix1)
+    print(f'\n{45*"-"}\n\t\t\timage 12 -> 13 (Cam2)\nR:\n{R}\nt:\n{t}')
