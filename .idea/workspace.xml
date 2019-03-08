@@ -15,10 +15,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="543fc68e-51ac-46c2-a3d3-d45e8a552486" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/reproFilter.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wtmSfmTest1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wtmSfm.py" beforeDir="false" afterPath="$PROJECT_DIR$/wtmSfm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reproFilter.py" beforeDir="false" afterPath="$PROJECT_DIR$/reproFilter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wtmSfmTest1.py" beforeDir="false" afterPath="$PROJECT_DIR$/wtmSfmTest1.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,23 +32,13 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/wtmSfmTest1.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="390">
-                    <caret line="68" column="4" lean-forward="true" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="4" />
-                    <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
+                  <state relative-caret-position="342">
+                    <caret line="121" column="47" lean-forward="true" selection-start-line="121" selection-start-column="47" selection-end-line="121" selection-end-column="47" />
                     <folding>
                       <element signature="e#30#40#0" expanded="true" />
                       <element signature="e#1829#2116#0" />
-                      <element signature="e#2936#3231#0" />
+                      <element signature="e#3097#3731#0" />
                     </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/reproFilter.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="396">
-                    <caret line="18" column="63" selection-start-line="18" selection-start-column="63" selection-end-line="18" selection-end-column="63" />
                   </state>
                 </provider>
               </entry>
@@ -408,13 +396,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="835" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" x="1117" y="110" width="344" height="697" id="Project" order="0" sideWeight="0.49774775" type="FLOATING" visible="true" weight="0.17718121" />
+      <window_info content_ui="combo" x="1117" y="110" width="344" height="697" id="Project" order="0" sideWeight="0.49774775" type="FLOATING" weight="0.17718121" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.22849463" />
       <window_info id="Favorites" order="2" sideWeight="0.5022523" side_tool="true" weight="0.1391129" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.60881937" />
-      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" visible="true" weight="0.6998578" />
+      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" visible="true" weight="0.88762444" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.3278101" />
@@ -425,7 +414,7 @@
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.24966443" />
-      <window_info anchor="right" x="277" y="301" width="424" height="64" id="Run" maximized="true" order="3" sideWeight="0.63053536" type="WINDOWED" weight="0.24307036" />
+      <window_info active="true" anchor="right" x="0" y="23" width="1536" height="798" id="Run" maximized="true" order="3" sideWeight="0.63053536" type="WINDOWED" visible="true" weight="0.24307036" />
       <window_info anchor="right" x="0" y="0" width="337" height="635" id="Documentation" order="4" side_tool="true" weight="0.3295302" />
     </layout>
     <layout-to-restore>
@@ -565,6 +554,16 @@
           <url>file://$PROJECT_DIR$/wtmSfm.py</url>
           <line>57</line>
           <option name="timeStamp" value="276" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/wtmSfmTest1.py</url>
+          <line>97</line>
+          <option name="timeStamp" value="281" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/wtmSfmTest1.py</url>
+          <line>118</line>
+          <option name="timeStamp" value="283" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -792,16 +791,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trainfeature.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="7" column="11" lean-forward="true" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="11" />
-          <folding>
-            <element signature="e#69#87#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/findGrid.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
@@ -950,22 +939,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/trainfeature.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="302" selection-start-line="302" selection-end-line="302" />
+          <folding>
+            <element signature="e#69#87#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/reproFilter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="18" column="63" selection-start-line="18" selection-start-column="63" selection-end-line="18" selection-end-column="63" />
+        <state relative-caret-position="308">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wtmSfmTest1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="68" column="4" lean-forward="true" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="4" />
-          <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
+        <state relative-caret-position="342">
+          <caret line="121" column="47" lean-forward="true" selection-start-line="121" selection-start-column="47" selection-end-line="121" selection-end-column="47" />
           <folding>
             <element signature="e#30#40#0" expanded="true" />
             <element signature="e#1829#2116#0" />
-            <element signature="e#2936#3231#0" />
+            <element signature="e#3097#3731#0" />
           </folding>
         </state>
       </provider>

@@ -16,7 +16,7 @@ def reprojectionErrorFromLines(line1, line2, point1, point2):
     return abs(point1[0] * a2 + point1[1] * b2 + c2) / norm_factor2 + abs(point2[0] * a1 + point2[1] * b1 + c1) / norm_factor1
 
 
-def filterReprojectionError(matches, F, pts1, pts2, maxDistance = 10):
+def filterReprojectionError(matches, F, pts1, pts2, maxDistance = 5):
     lines1 = cv2.computeCorrespondEpilines(pts1.reshape(-1, 1, 2), 1, F)
     lines2 = cv2.computeCorrespondEpilines(pts2.reshape(-1, 1, 2), 2, F)
     lines1 = lines1.reshape(-1, 3)
