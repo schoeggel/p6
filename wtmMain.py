@@ -24,11 +24,13 @@ cp = Composition(fn, [s1, s1, s1, s1])
 print(cp)
 cp.sceneinfo()
 #cp.locateObjectInScene(s1, cp._scenes[0])
-cp.locateObject(s1)
+cp.locateObject(s1, verbose=False)
 print(s1.positions)
 
+# cp.locateObject(allObjects[5], verbose=True)
+
 # vieles messen
-cp.locateObjects(allObjects)
+cp.locateObjects(allObjects, verbose=True)
 for o in allObjects:
     o:MachineObject
     print(o.positions)

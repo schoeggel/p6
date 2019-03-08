@@ -52,30 +52,30 @@ class Composition:
             newScene = wtmScene.Scene(self,imgL, imgR)
             self._scenes.append(newScene)
 
-    def locateObjects(self, objects_list: list):
+    def locateObjects(self, objects_list: list, verbose=False):
         """"Alle angegebenen Objekte auf allen scenes messen"""
         for obj in objects_list:
             print(obj)
-            self.locateObject(obj)
+            self.locateObject(obj, verbose=verbose)
 
-    def locateObject(self, oneObject):
+    def locateObject(self, oneObject, verbose=False):
         """Auf allen scenes das eine Objekt lokalisieren"""
         oneObject: wtmObject.MachineObject = oneObject
         for s in self._scenes:
             s:wtmScene.Scene
             try:
-                s.locate(oneObject)
+                s.locate(oneObject, verbose=verbose)
             except:
                 print(f'Could not locate Object {oneObject.patchfilenameL} in scene {s.photoNameL}' )
 
 
-    def locateObjectInScene(self, oneObject, scene):
+    def locateObjectInScene(self, oneObject, scene, verbose=False):
         """ Ein einzelnes Objekt in einer einzelnen Scene lokalisieren
             TODO: Fehlerhandling verbessern."""
         oneObject: wtmObject.MachineObject = oneObject
         scene: wtmScene.Scene = scene
         try:
-            pos = scene.locate(oneObject, verbose=True)
+            pos = scene.locate(oneObject, verbose=verbose)
         except:
             print(f'Could not locate Object {oneObject.patchfilenameL} in scene {scene.photoNameL}' )
 

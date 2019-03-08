@@ -37,16 +37,25 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
     ################################### MATCHING ZWISCHEN L UND R Bilder     ###################
 
     # Detector / descriptor
-    orb:cv2.ORB = cv2.ORB_create(1000)
-    k1, d1 = orb.detectAndCompute(img1, mask1)
-    k2, d2 = orb.detectAndCompute(img2, mask2)
-    k3, d3 = orb.detectAndCompute(img3, mask2)
-    k4, d4 = orb.detectAndCompute(img4, mask2)
+    akaze:cv2.AKAZE = cv2.AKAZE_create(cv2.AKAZE_DESCRIPTOR_MLDB)  # KAZE Descriptor geht nicht, weil float64 type...
+    akazeU:cv2.AKAZE = cv2.AKAZE_create(cv2.AKAZE_DESCRIPTOR_MLDB_UPRIGHT)
+    latch:cv2.xfeatures2d_LATCH = cv2.xfeatures2d_LATCH.create()
 
-    # Bruteforcematcher
+    print("detect and compute... (~ 30 sec)")
+    k1, d1 = akaze.detectAndCompute(img1, mask1)
+    k2, d2 = akaze.detectAndCompute(img2, mask2)
+    k3, d3 = akaze.detectAndCompute(img3, mask1)
+    k4, d4 = akaze.detectAndCompute(img4, mask2)
+
+
+    # Bruteforcematcher, Matches nach distance sortieren
+    print("bruteforce matcher...")
     bf: cv2.BFMatcher = cv2.BFMatcher_create(cv2.NORM_HAMMING, crossCheck=True)
     matches12 = bf.match(d1, d2)
     matches34 = bf.match(d3, d4)
+    matches12 = sorted(matches12, key=lambda x: x.distance)
+    matches34 = sorted(matches34, key=lambda x: x.distance)
+
 
     # Ausrichten der Punkte (sortedPts1[i] entspricht sortedPts2[i])
     pt1sort12 = []
@@ -73,11 +82,16 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
     # repro error filter liefert sehr gute Ergebnisse bei L+R kombi
     sel_matches12, msg12  = reproFilter.filterReprojectionError(matches12, cal.f, np.int32(pt1sort12), np.int32(pt2sort12), 4 )
     sel_matches34, msg34  = reproFilter.filterReprojectionError(matches34, cal.f, np.int32(pt3sort34), np.int32(pt4sort34), 4 )
-    print(msg12, "\n" , msg34)
+    print(msg12)
+    print(msg34)
+
+
+
+
 
     # Matches anzeigen in den beiden LR Paaren
     if verbose:
-        n =  50 # max soviele matches zeichnen
+        n =  150 # max soviele matches zeichnen
         wname1, wname2 = "matches 1-2", "matches 3-4"
         mimg12 = cv2.drawMatches(img1, k1, img2, k2, sel_matches12[:n], None, flags=2)
         mimg34 = cv2.drawMatches(img3, k3, img4, k4, sel_matches34[:n], None, flags=2)
@@ -91,43 +105,38 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
         cv2.destroyWindow(wname1)
         cv2.destroyWindow(wname2)
 
+
     ################################### MATCHING ZWISCHEN UNTERSCHIEDLICHEN ZEITPUNKTEN  ###################
 
     # neue Matches Bilden auf Basis der gefilterten L-R Matches
-    # Dazu erst die Keypoints reduzieren auf diejenigen, die in den L-Matches vorkommen.
+    # Nur die Keypoints aus Bild 1 übernehmen, die einen erfolgreichen Match mit Bild 2 hatten
     sel_k1 = []
-    sel_k2 = []
-    sel_d1 = []
-    sel_d2 = []
     for match in sel_matches12:
         sel_k1.append(k1[match.queryIdx])  # ohne .pt: ganzes keypoint objekt verwenden, queryIdx = Linkes Bild
-        sel_k2.append(k2[match.trainIdx])  # ohne .pt: ganzes keypoint objekt verwenden, trainIdx = Rechtes Bild
-        sel_d1.append(d1[match.queryIdx])  # ohne .pt: ganzes keypoint objekt verwenden, queryIdx = Linkes Bild
-        sel_d2.append(d2[match.trainIdx])  # ohne .pt: ganzes keypoint objekt verwenden, trainIdx = Rechtes Bild
 
-    sel_k3 = []
-    sel_k4 = []
-    sel_d3 = []
-    sel_d4 = []
-    for match in sel_matches34:
-        sel_k3.append(k3[match.queryIdx])  # ohne .pt: ganzes keypoint objekt verwenden, queryIdx = Linkes Bild
-        sel_k4.append(k4[match.trainIdx])  # ohne .pt: ganzes keypoint objekt verwenden, trainIdx = Rechtes Bild
-        sel_d3.append(d3[match.queryIdx])  # ohne .pt: ganzes keypoint objekt verwenden, queryIdx = Linkes Bild
-        sel_d4.append(d4[match.trainIdx])  # ohne .pt: ganzes keypoint objekt verwenden, trainIdx = Rechtes Bild
+    # Es sollen zu diesem Keypoints Matches gefunden werden im Bild 3. Da Bild 1-->3 ohne Rotation ist, werden neue
+    # Deskriptoren erstellt für: Ausgewählte k in Bild 1, alle k in Bild 3
 
-    # Die descriptoren sind noch als liste
-    sel_d1 = np.asarray(sel_d1, dtype=np.uint8)
-    sel_d2 = np.asarray(sel_d1, dtype=np.uint8)
-    sel_d3 = np.asarray(sel_d1, dtype=np.uint8)
-    sel_d4 = np.asarray(sel_d1, dtype=np.uint8)
+    uk1, ud1 = akazeU.compute(img1, sel_k1)  # u für UPRIGHT
+    uk3, ud3 = akazeU.compute(img3, k3)      # u für UPRIGHT
 
     # mit den ausgewählten Keypoints neue Matches bilden (L-L und R-R)
-    matches13 = bf.match(sel_d1, sel_d3)
-    matches24 = bf.match(sel_d2, sel_d4)
+    matches13 = bf.match(ud1, ud3)
+    #matches24 = bf.match(sel_d2, sel_d4)
+    matches13 = sorted(matches13, key=lambda x: x.distance)
+    #matches24 = sorted(matches24, key=lambda x: x.distance)
 
-    n = 50  # max soviele matches zeichnen
+    # Ausrichten der Punkte (sortedPts1[i] entspricht sortedPts2[i])
+    pt1sort13 = []
+    pt3sort13 = []
+    for match in matches13:
+        pt1sort13.append(uk1[match.queryIdx].pt)  # queryIdx = Linkes Bild
+        pt3sort13.append(uk3[match.trainIdx].pt)  # trainIdx = Rechtes Bild
+
+
+    n = 150  # max soviele matches zeichnen
     wname3, wname4 = "matches 1-3", "matches 2-4"
-    mimg13 = cv2.drawMatches(img1, sel_k1, img3, sel_k3, matches13[:n], None, flags=2)
+    mimg13 = cv2.drawMatches(img1, uk1, img3, uk3, matches13[:n], None, flags=2)
     cv2.namedWindow(wname3, cv2.WINDOW_NORMAL)
     cv2.imshow(wname3, mimg13)
     cv2.resizeWindow(wname3, w // 10, h // 10)
@@ -141,16 +150,16 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
 
 if __name__ == '__main__':
     print("unit test.")
-    img13L = cv2.imread("SBB/13L.png")
-    img14L = cv2.imread("SBB/14L.png")
-    img15L = cv2.imread("SBB/15L.png")
-    img13R = cv2.imread("SBB/13R.png")
-    img14R = cv2.imread("SBB/14R.png")
-    img15R = cv2.imread("SBB/15R.png")
+    img13L = cv2.imread("SBB/13L.png", cv2.IMREAD_GRAYSCALE)
+    img14L = cv2.imread("SBB/14L.png", cv2.IMREAD_GRAYSCALE)
+    img15L = cv2.imread("SBB/15L.png", cv2.IMREAD_GRAYSCALE)
+    img13R = cv2.imread("SBB/13R.png", cv2.IMREAD_GRAYSCALE)
+    img14R = cv2.imread("SBB/14R.png", cv2.IMREAD_GRAYSCALE)
+    img15R = cv2.imread("SBB/15R.png", cv2.IMREAD_GRAYSCALE)
     cal = wtmCalib.CalibData()
     print(cal)
 
-    R, t = sfm(img13L, img13R, img14L,img14R, cal, verbose=False)
+    R, t = sfm(img13L, img13R, img14L,img14R, cal, verbose=True)
 
     print(f'\n{45*"-"}\n\t\t\timage 1 -> 2 (Cam1)\nR:\n{R}\nt:\n{t}')
 
@@ -174,5 +183,19 @@ if __name__ == '__main__':
     #sel_matches = [m for m in matches if m.distance < thres_dist]
 
 
+   # sel_k4 = []
+    # sel_d3 = []
+    # sel_d4 = []
+    # for match in sel_matches34:
+    #     sel_k3.append(k3[match.queryIdx])  # ohne .pt: ganzes keypoint objekt verwenden, queryIdx = Linkes Bild
+    #     sel_k4.append(k4[match.trainIdx])  # ohne .pt: ganzes keypoint objekt verwenden, trainIdx = Rechtes Bild
+    #     sel_d3.append(d3[match.queryIdx])  # ohne .pt: ganzes keypoint objekt verwenden, queryIdx = Linkes Bild
+    #     sel_d4.append(d4[match.trainIdx])  # ohne .pt: ganzes keypoint objekt verwenden, trainIdx = Rechtes Bild
+
+    # Die descriptoren sind noch als liste
+    # sel_d1 = np.asarray(sel_d1, dtype=np.uint8)
+    # sel_d2 = np.asarray(sel_d1, dtype=np.uint8)
+    # sel_d3 = np.asarray(sel_d1, dtype=np.uint8)
+    # sel_d4 = np.asarray(sel_d1, dtype=np.uint8)
 
 

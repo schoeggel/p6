@@ -15,7 +15,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="543fc68e-51ac-46c2-a3d3-d45e8a552486" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/reproFilter.py" beforeDir="false" afterPath="$PROJECT_DIR$/reproFilter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wtmComposition.py" beforeDir="false" afterPath="$PROJECT_DIR$/wtmComposition.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wtmMain.py" beforeDir="false" afterPath="$PROJECT_DIR$/wtmMain.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wtmSfmTest1.py" beforeDir="false" afterPath="$PROJECT_DIR$/wtmSfmTest1.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,12 +34,34 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/wtmSfmTest1.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="342">
-                    <caret line="121" column="47" lean-forward="true" selection-start-line="121" selection-start-column="47" selection-end-line="121" selection-end-column="47" />
+                  <state relative-caret-position="-308">
+                    <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
                     <folding>
                       <element signature="e#30#40#0" expanded="true" />
-                      <element signature="e#1829#2116#0" />
-                      <element signature="e#3097#3731#0" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/wtmMain.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="478">
+                    <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+                    <folding>
+                      <element signature="e#34#52#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/wtmComposition.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="302">
+                    <caret line="96" column="22" lean-forward="true" selection-start-line="96" selection-start-column="22" selection-end-line="96" selection-end-column="22" />
+                    <folding>
+                      <element signature="e#33#101#0" expanded="true" />
                     </folding>
                   </state>
                 </provider>
@@ -64,7 +88,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>p1</find>
       <find>reproje</find>
       <find>Ster</find>
       <find>updateCorners</find>
@@ -94,6 +117,7 @@
       <find>NAME</find>
       <find>projection LEFT</find>
       <find>projection RIGHT</find>
+      <find>exit</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -148,13 +172,13 @@
         <option value="$PROJECT_DIR$/cvaux.py" />
         <option value="$PROJECT_DIR$/wtmAux.py" />
         <option value="$PROJECT_DIR$/wtmFactory.py" />
-        <option value="$PROJECT_DIR$/wtmMain.py" />
         <option value="$PROJECT_DIR$/wtmScene.py" />
-        <option value="$PROJECT_DIR$/wtmComposition.py" />
         <option value="$PROJECT_DIR$/lumpy1/Lumpy.py" />
         <option value="$PROJECT_DIR$/wtmObject.py" />
         <option value="$PROJECT_DIR$/wtmSfm.py" />
         <option value="$PROJECT_DIR$/reproFilter.py" />
+        <option value="$PROJECT_DIR$/wtmMain.py" />
+        <option value="$PROJECT_DIR$/wtmComposition.py" />
         <option value="$PROJECT_DIR$/wtmSfmTest1.py" />
       </list>
     </option>
@@ -360,10 +384,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.wtmSfmTest1" />
+        <item itemvalue="Python.wtmMain" />
         <item itemvalue="Python.wtmSfm" />
         <item itemvalue="Python.wtmCalib" />
         <item itemvalue="Python.wtmObject" />
-        <item itemvalue="Python.wtmMain" />
       </list>
     </recent_temporary>
   </component>
@@ -396,11 +420,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="835" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" x="1117" y="110" width="344" height="697" id="Project" order="0" sideWeight="0.49774775" type="FLOATING" weight="0.17718121" />
+      <window_info content_ui="combo" x="1117" y="110" width="344" height="697" id="Project" order="0" sideWeight="0.49774775" type="FLOATING" visible="true" weight="0.17718121" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.22849463" />
       <window_info id="Favorites" order="2" sideWeight="0.5022523" side_tool="true" weight="0.1391129" />
+      <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.60881937" />
       <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49966952" visible="true" weight="0.88762444" />
@@ -557,13 +581,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/wtmSfmTest1.py</url>
-          <line>97</line>
-          <option name="timeStamp" value="281" />
+          <line>52</line>
+          <option name="timeStamp" value="284" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/wtmSfmTest1.py</url>
-          <line>118</line>
-          <option name="timeStamp" value="283" />
+          <line>154</line>
+          <option name="timeStamp" value="285" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -847,16 +871,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wtmComposition.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="704">
-          <caret line="37" column="27" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
-          <folding>
-            <element signature="e#33#101#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wtmFactory.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
@@ -888,13 +902,6 @@
           <folding>
             <element signature="e#694#712#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wtmMain.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="3" column="38" lean-forward="true" selection-start-line="3" selection-start-column="38" selection-end-line="3" selection-end-column="38" />
         </state>
       </provider>
     </entry>
@@ -956,14 +963,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/wtmComposition.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="96" column="22" lean-forward="true" selection-start-line="96" selection-start-column="22" selection-end-line="96" selection-end-column="22" />
+          <folding>
+            <element signature="e#33#101#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wtmMain.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="478">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+          <folding>
+            <element signature="e#34#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/wtmSfmTest1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="121" column="47" lean-forward="true" selection-start-line="121" selection-start-column="47" selection-end-line="121" selection-end-column="47" />
+        <state relative-caret-position="-308">
+          <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
           <folding>
             <element signature="e#30#40#0" expanded="true" />
-            <element signature="e#1829#2116#0" />
-            <element signature="e#3097#3731#0" />
           </folding>
         </state>
       </provider>
