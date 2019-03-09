@@ -560,8 +560,7 @@ class Scene:
 
     @staticmethod
     def polygonpoints(edges):
-        # oben links oben rechts unten links unten rechts --> punkte für fillConvexPoly
-        # fillConvexpoly vertausch die Punkt x und y --> hier korrigieren ( [::-1] tauscht)
+        # oben links, oben rechts, unten links, unten rechts --> punkte für fillConvexPoly
         poly = np.zeros((1, 4, 2), dtype=np.int32)
         poly[0][0] = edges[0]
         poly[0][1] = edges[1]
@@ -570,8 +569,7 @@ class Scene:
         return poly
 
     def reprojectCorners(self):
-        # rechnet die Patch Ecken in x,y Pixelkoordinaten um
-        # und speicher diese in der Instanz
+        """rechnet die Patch Ecken in x,y Pixelkoordinaten um"""
 
         # Koordinaten der Patch Ecken rechnen (sys_zug)
         self.tobj.calculatePatchCorners3d()
