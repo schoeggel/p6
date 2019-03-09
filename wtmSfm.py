@@ -3,27 +3,49 @@ import cv2
 import numpy as np
 import wtmCalib
 import reproFilter
+import copy
 
 
-
-def sortKeypoints(kp1, kp2, matches, backref:tuple=None)-> (list, list, cv2.DMatch):
+def sortKeypoints(kp1, kp2, matches) -> (list, list):
     """ Gibt die Punkte aus den Keypoints sortiert
         zurück, entsprechend der Zuordnung in 'matches'.
         (sortedPts1[i] entspricht sortedPts2[i]) """
     pt1sort, pt2sort = [], []
-    if backref is None:
-        for match in matches:
-            pt1sort.append(kp1[match.queryIdx].pt)  # queryIdx = Linkes Bild
-            pt2sort.append(kp2[match.trainIdx].pt)  # trainIdx = Rechtes Bild
-    else:
-        for match in matches:
-            newidx1 = match.queryIdx
-            newidx2 = match.trainIdx
-            oldidx1 = backref[0].index(newidx1)
-            oldidx2 = backref[1].index(newidx2)
-            pt1sort.append(kp1[oldidx1].pt)  # queryIdx = Linkes Bild
-            pt2sort.append(kp2[oldidx2].pt)  # trainIdx = Rechtes Bild
-    return pt1sort, pt2sort, matches
+    for match in matches:
+        pt1sort.append(kp1[match.queryIdx].pt)  # queryIdx = Linkes Bild
+        pt2sort.append(kp2[match.trainIdx].pt)  # trainIdx = Rechtes Bild
+    return pt1sort, pt2sort
+
+
+def copyMatch(match:cv2.DMatch) -> cv2.DMatch:
+    # deepcopy geht nicht -> can't pickle cv2.DMatch objects
+    # es muss eine kopie sein, weil anschliessend wert überschrieben werden.
+    newmatch = cv2.DMatch()
+    newmatch.imgIdx = copy.copy(match.imgIdx)
+    newmatch.distance = copy.copy(match.distance)
+    newmatch.queryIdx = copy.copy(match.queryIdx)
+    newmatch.trainIdx = copy.copy(match.trainIdx)
+    return newmatch
+
+
+
+def cleanup(matches, key1, key2) -> (list, list, list, list, list):
+    """ Räumt keypoints auf, nachdem matches entfernt wurden.
+        Gibt die korrigierten Matches zurück.
+        Gibt eine Liste nur mit den in 'matches' vorkommenden Keypoints zurück.
+        Gibt nebst den matches die geordneten Koordinaten der Keypoints zurück"""
+    xy1, xy2 = [], []
+    newkeys1, newkeys2 = [], []
+    newmatches = [] # funktioniert nicht, error : copy.deepcopy(matches)  --> can't pickle cv2.DMatch objects   # kopie machen von matches
+    for i, match in enumerate(matches):
+        newmatches.append(copyMatch(match))
+        newmatches[i].queryIdx = i
+        newmatches[i].trainIdx = i
+        newkeys1.append(key1[match.queryIdx])  # queryIdx = Linkes Bild
+        newkeys2.append(key2[match.trainIdx])  # trainIdx = Rechtes Bild
+        xy1 = newkeys1[-1].pt
+        xy2 = newkeys2[-1].pt
+    return newmatches, newkeys1, newkeys2, xy1, xy2
 
 
 def sfm(img1, img2, img3, img4, calib, verbose=False):
@@ -80,25 +102,19 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
     matches12 = bf.match(d1, d2)
     matches34 = bf.match(d3, d4)
 
-    # Matches nach distance sortieren und Reihenfolge der Punkte gleichsetzen (sortedPts1[i] entspricht sortedPts2[i])
-    pt1sort12, pt2sort12, matches12 = sortKeypoints(k1, k2, matches12)
-    pt3sort34, pt4sort34, matches34 = sortKeypoints(k3, k4, matches34)
+    # Reihenfolge der Punkte gleichsetzen (sortedPts1[i] entspricht sortedPts2[i])
+    pt1sort12, pt2sort12 = sortKeypoints(k1, k2, matches12)
+    pt3sort34, pt4sort34 = sortKeypoints(k3, k4, matches34)
 
-    # Infos anzeigen min/max/mittelwert
-    if verbose:
-        print(f'There are {len(pt1sort12)} sorted Points')
-        print(f'#matches: {len(matches12)}')
-        dist = [m.distance for m in matches12]
-        print(f'distance: min: {min(dist)}')
-        print(f'distance: mean: {sum(dist) / len(dist)}')
-        print(f'distance: max: {max(dist)}')
-
-    # repro error filter liefert sehr gute Ergebnisse bei L+R kombi
+    # repro error Filter liefert sehr gute Ergebnisse bei L+R kombi
     sel_matches12, msg12  = reproFilter.filterReprojectionError(matches12, cal.f, np.int32(pt1sort12), np.int32(pt2sort12), 4 )
     sel_matches34, msg34  = reproFilter.filterReprojectionError(matches34, cal.f, np.int32(pt3sort34), np.int32(pt4sort34), 4 )
     print(msg12)
     print(msg34)
 
+    # Verkleinerte Kopie erstellen, die nur die verbleibenden Matches und davon betroffenen Keypoints enthält
+    cleanMatches12, sel_k1, sel_k2, pt1sort12, pt2sort12 = cleanup(sel_matches12, k1, k2)
+    cleanMatches34, sel_k3, sel_k4, pt3sort34, pt4sort34 = cleanup(sel_matches34, k3, k4)
 
     # Matches anzeigen in den beiden LR Paaren
     if verbose:
@@ -123,36 +139,20 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
     ################################################################################################################
 
     # neue Matches bilden auf Basis der gefilterten L-R Matches
-    # Nur die Keypoints aus Bild 1+2 übernehmen, die einen erfolgreichen Match bildeten
-    # Die Zuordnung neuer index -->  alter index aber sichern, wird später benötigt.
-    sel_k1, sel_k2 = [], []
-    backref1, backref2 = [], []
-    for match in sel_matches12:
-        sel_k1.append(k1[match.queryIdx])  # ohne .pt: ganzes keypoint objekt verwenden, queryIdx = Linkes Bild
-        sel_k2.append(k2[match.trainIdx])  # ohne .pt: ganzes keypoint objekt verwenden, trainIdx = Rechtes Bild
-        backref1.append(match.queryIdx)
-        backref2.append(match.trainIdx)
-
-
-
-    # Zu diesen ausgewählten Keypoints sollen  Matches gefunden werden im Bild 3 (matches13), resp. Bild 4 (matches24)
+    # Zu den ausgewählten Keypoints sollen  Matches gefunden werden im Bild 3 (matches13), resp. Bild 4 (matches24)
     # Da Bild 1<-->3 und Bild 2<-->4 ohne Rotation ist (Der Zug fährt geradeaus), werden neue Deskriptoren
     # erstellt für die ausgewählten Keypoints in Bild 1 und 2, sowie zu allen Keypoints in den Bilder 3 und 4.
     uk1, ud1 = latch.compute(img1, sel_k1)  # u für UPRIGHT
-    uk3, ud3 = latch.compute(img3, k3)
     uk2, ud2 = latch.compute(img2, sel_k2)
-    uk4, ud4 = latch.compute(img4, k4)
+    uk3, ud3 = latch.compute(img3, sel_k3)
+    uk4, ud4 = latch.compute(img4, sel_k4)
 
     # mit den ausgewählten Keypoints neue Matches bilden (L-L und R-R)
     matches13 = bf.match(ud1, ud3)
     matches24 = bf.match(ud2, ud4)
 
-    # Matches nach distance sortieren und Reihenfolge der Punkte gleichsetzen (sortedPts1[i] entspricht sortedPts2[i])
-    pt1sort13, pt3sort13, matches13 = sortKeypoints(uk1, uk3, matches13)
-    pt2sort24, pt4sort24, matches24 = sortKeypoints(uk2, uk4, matches24)
-
     if verbose:
-        n = 150  # max soviele matches zeichnen
+        n = 100  # max soviele matches zeichnen
         wname3, wname4 = "matches 1-3", "matches 2-4"
         mimg13 = cv2.drawMatches(img1, uk1, img3, uk3, matches13[:n], None, flags=2)
         mimg24 = cv2.drawMatches(img2, uk2, img4, uk4, matches24[:n], None, flags=2)
@@ -168,25 +168,27 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
         cv2.destroyWindow(wname3)
         cv2.destroyWindow(wname4)
 
+    # Matches nach distance sortieren und Reihenfolge der Punkte gleichsetzen (sortedPts1[i] entspricht sortedPts2[i])
+    pt1sort13, pt3sort13 = sortKeypoints(uk1, uk3, matches13)
+    pt2sort24, pt4sort24 = sortKeypoints(uk2, uk4, matches24)
+
+
 
     ##################################### Keypoints ordnen, k2,k3,k4 an k1 ausrichten ###########################
 
-    # Ziel: triangulieren(k1[i], k2[i) und triangulieren(k3[i], k4[i]) zeigen auf den gleichen Ort am Zug.
-    # (vorausgesetzt es gibt keine falschen matches)
-    # damit alle keypoints "sychron" sind gemäss index: keypoints der reihe nach sortieren:
-    # einmalig matches12 nach dist sortieren, danach:
-    # k3 ausrichten an k1 (matches13)
-    # k4 ausrichten an k2 (matchesk24)
-    # die matches dürfen während oder danach nicht mehr sortiert werden
+    # Hier liegen die reduzierten Listen mit keypoints vor uk1 bis uk4.  sel_matches12 und sel_matches34 beinhalten
+    # alle keypoints uk1 und uk2, resp uk3 und uk4. (Diese sind ja anhand dierser Matchs in die Liste kopiert worden)
+    # die matches13 und matches 24 referenzieren (in der Regel) nur eine Teilmenge der Keypoints, da nicht für alle
+    # keypoints matches gefunden werden konnten.
+    # Nun müssen die Punktquartette erstellt werden. Nur wenn zum Punkt aus uk1 über die Matches Verbindungen zu uk2,
+    # uk3 und uk4 bestehen, darf das Quartett erstellt werden.
 
-    # sel_matches beziehen sich noch auf das ganze spekrum der keypoints, in uk sind aber nur noch ein Teil davon vorhanden mit anderem index.
-    # erte zeile ist eigenltich überflü¨ssig, die sind schon ausgerichtet?
-    # pt1sort12, pt2sort12, sel_matches12 = sortKeypoints(uk1, uk2, sel_matches12, (backref1,backref2))
 
-    pt1sort13, pt3sort13, matches13 = sortKeypoints(uk1, uk3, matches13)
-    pt2sort24, pt4sort24, matches24 = sortKeypoints(uk2, uk4, matches24)
 
-    # pt1sort12 müsste mit pt1sort13 übereinstimmen, identisch sein. TODO prüfen
+    pt1sort13, pt3sort13 = sortKeypoints(uk1, uk3, matches13)
+    pt2sort24, pt4sort24 = sortKeypoints(uk2, uk4, matches24)
+
+
     pt3d34 = None
 
     # Triangulieren, Punkte in Form "2xN" : [[x1,x2, ...], [y1,y2, ...]]
