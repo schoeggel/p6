@@ -6,6 +6,13 @@ import reproFilter
 import copy
 
 
+def getLinkedMatch(kpidx, otherMatch):
+    for other in otherMatch:
+        if other.queryIdx == kpidx:
+            return other.trainIdx
+    print("No linking match found.")
+    return -1
+
 def sortKeypoints(kp1, kp2, matches) -> (list, list):
     """ Gibt die Punkte aus den Keypoints sortiert
         zurück, entsprechend der Zuordnung in 'matches'.
@@ -176,27 +183,39 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
 
     ##################################### Keypoints ordnen, k2,k3,k4 an k1 ausrichten ###########################
 
-    # Hier liegen die reduzierten Listen mit keypoints vor uk1 bis uk4.  sel_matches12 und sel_matches34 beinhalten
-    # alle keypoints uk1 und uk2, resp uk3 und uk4. (Diese sind ja anhand dierser Matchs in die Liste kopiert worden)
-    # die matches13 und matches 24 referenzieren (in der Regel) nur eine Teilmenge der Keypoints, da nicht für alle
-    # keypoints matches gefunden werden konnten.
+    # Hier liegen die reduzierten Listen mit keypoints vor: uk1 bis uk4.  sel_matches12 und sel_matches34 beinhalten
+    # alle keypoints uk1 und uk2, resp uk3 und uk4. (die keypoints sind ja anhand dieser Matchess in die Liste kopiert
+    # worden). Die matches13 und matches 24 referenzieren (in der Regel) nur eine Teilmenge der Keypoints, da nicht
+    # für alle Keypoints auch Matches gefunden werden können.
     # Nun müssen die Punktquartette erstellt werden. Nur wenn zum Punkt aus uk1 über die Matches Verbindungen zu uk2,
     # uk3 und uk4 bestehen, darf das Quartett erstellt werden.
 
+    quadro= []
+    pt1, pt2, pt3, pt4 = [],[],[],[]
 
+    for mastermatch in cleanMatches12:
+        kpidx1 = mastermatch.queryIdx
+        kpidx2 = mastermatch.trainIdx
 
-    pt1sort13, pt3sort13 = sortKeypoints(uk1, uk3, matches13)
-    pt2sort24, pt4sort24 = sortKeypoints(uk2, uk4, matches24)
+        # finde dazugehörigen kp auf Bild 3
+        kpidx3 = getLinkedMatch(mastermatch.queryIdx, matches13)
 
+        # finde dazugehörigen kp auf Bild 4
+        kpidx4 = getLinkedMatch(mastermatch.trainIdx, matches24)
 
-    pt3d34 = None
+        # Wenn gültiges Quartett: keypoints in Liste aufnehmen
+        if kpidx1 >= 0 and kpidx2 >= 0 and kpidx3 >= 0 and kpidx4 >= 0:
+            quadro.append([uk1[kpidx1], uk2[kpidx2], uk3[kpidx3], uk4[kpidx4]])
+            pt1.append(uk1[kpidx1].pt)
+            pt2.append(uk2[kpidx2].pt)
+            pt3.append(uk3[kpidx3].pt)
+            pt4.append(uk4[kpidx4].pt)
 
     # Triangulieren, Punkte in Form "2xN" : [[x1,x2, ...], [y1,y2, ...]]
-    a =  np.float64(pt1sort12).T
-    b =  np.float64(pt2sort12).T
-    c =  np.float64(pt3sort13).T
-    d =  np.float64(pt4sort24).T
-
+    a =  np.float64(pt1).T
+    b =  np.float64(pt2).T
+    c =  np.float64(pt3).T
+    d =  np.float64(pt4).T
 
     # koordinaten trangulieren und umformen homogen --> kathesisch
     pt3d12 = cv2.triangulatePoints(calib.pl[:3], calib.pr[:3], a[:2], b[:2])
