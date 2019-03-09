@@ -2,9 +2,9 @@
 import numpy as np
 import cv2
 from rigid_transform_3d import rigid_transform_3D, rmserror
-import calibMatrix
+from archive import calibMatrix
 from enum import Enum
-from cvaux import imgMergerV, imgMergerH
+from archive.cvaux import imgMergerV, imgMergerH
 import math
 
 class tm(Enum):

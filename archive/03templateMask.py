@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import cvaux
+from archive import cvaux
 from matplotlib import pyplot as plt
 
 # Bild vom Zug laden

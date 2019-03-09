@@ -19,10 +19,10 @@
 
 import cv2
 import numpy as np
-import calibMatrix
-from rigid_transform_3d import rigid_transform_3D, rmserror
+import wtmCalib
+from rigid_transform_3d import rigid_transform_3D
 import math
-from trainfeature import imgMergerH, imgMergerV
+from archive.trainfeature import imgMergerH
 
 warpdim = 300
 exportDone = False
@@ -136,7 +136,7 @@ class Param2d:
 class Stereo:
     # alles was mit Koordinaten umrechnen, triangulieren, stereo etc zu tun hat.
     # Kamera Calibrierdaten
-    cal = calibMatrix.CalibData()
+    cal = wtmCalib.CalibData()
 
     # die Kanonischen Einheitsvektoren des sys_zug, aber mit dem Ursprung noch bei [0,0,0] von sys_cam
     systemzug = np.array([[0, 0, 0],

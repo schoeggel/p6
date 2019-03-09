@@ -1,11 +1,10 @@
 # WTM : Warped Template Matching
 import numpy as np
 import cv2
-from rigid_transform_3d import rigid_transform_3D, rmserror
-import calibMatrix
+from rigid_transform_3d import rigid_transform_3D
+from archive import calibMatrix
 from enum import Enum
-from cvaux import imgMergerV, imgMergerH, putBetterText, separateRGB
-import math
+from archive.cvaux import imgMergerV, imgMergerH, putBetterText
 from wtmObject import MachineObject
 
 

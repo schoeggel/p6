@@ -2,12 +2,9 @@
 # Patch laden, Eckpunkte rechnen etc.
 # Version
 
-import cv2
-import numpy as np
 import datetime
-from trainfeature import *
-import findGrid
-
+from archive.trainfeature import *
+from archive import findGrid
 
 # Gitter
 # Bilder laden 10 bis 15

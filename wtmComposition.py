@@ -1,6 +1,4 @@
 # WTM : Warped Template Matching
-from cvaux import imgMergerV, imgMergerH, putBetterText, separateRGB
-import cv2
 import wtmCalib
 import wtmObject
 import wtmScene

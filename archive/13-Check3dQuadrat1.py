@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-import calibMatrix
+from archive import calibMatrix
 from archive.GitterEckpunkte import eckpunkte
 from archive.equalAxis3d import set_axes_equal
 

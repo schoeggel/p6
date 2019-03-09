@@ -2,14 +2,14 @@
 # MAtlab speichert die Daten jeweils transponiert.
 
 import numpy
-import cvaux
+import wtmAux
 
 
 class CalibData:
     def __init__(self, cfile="cfg/cameracalib.mat", ffile="cfg/F.mat"):
         self.files = [cfile, ffile]
-        self.__cal = cvaux.loadconfig(cfile)
-        self.f = cvaux.loadconfig(ffile, "F")
+        self.__cal = wtmAux.loadconfig(cfile)
+        self.f = wtmAux.loadconfig(ffile, "F")
         self.rl = numpy.eye(3)
         self.tl = numpy.zeros(3)
         self.rr = self.__cal.RotationOfCamera2.transpose()

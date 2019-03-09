@@ -2,7 +2,7 @@
 # MAtlab speichert die Daten jeweils transponiert.
 
 import numpy
-import cvaux
+from archive import cvaux
 
 
 class CalibData:

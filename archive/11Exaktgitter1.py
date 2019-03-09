@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
-import calibMatrix
+from archive import calibMatrix
 from archive.GitterEckpunkte import eckpunkte
 
 # das sbb-Bild wird so verarbeitet:

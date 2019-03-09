@@ -1,6 +1,6 @@
 import numpy as np
 import cv2
-import calibMatrix
+from archive import calibMatrix
 
 # quelle: https://pythonpath.wordpress.com/2012/08/29/cv2-triangulatepoints/
 # Die eigene Triangulation ("14-...") funktioniert nicht, Fehlersuche erfolglos.

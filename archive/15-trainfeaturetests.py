@@ -1,12 +1,9 @@
 # Tests mit Trainfeature Objekten
 # Patch laden, Eckpunkte rechnen etc.
 
-import cv2
-import numpy as np
 import datetime
-from trainfeature import *
-import findGrid
-
+from archive.trainfeature import *
+from archive import findGrid
 
 # Gitter
 # Bilder laden

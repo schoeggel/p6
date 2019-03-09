@@ -1,5 +1,4 @@
-import numpy as np
-import trainfeature
+from archive import trainfeature
 import cv2
 
 a = (0 , 104)
@@ -18,8 +17,8 @@ print(mymax)
 a = cv2.imread("sample/HappyFish.jpg", cv2.IMREAD_COLOR)
 b = cv2.imread("sample/HappyFish2.jpg", cv2.IMREAD_GRAYSCALE)
 
-trainfeature.Trainfeature.imgMergerH([a,b])
-bigpic = trainfeature.Trainfeature.imgMergerV([a,b])
+trainfeature.Trainfeature.imgMergerH([a, b])
+bigpic = trainfeature.Trainfeature.imgMergerV([a, b])
 
 cv2.namedWindow("test1", cv2.WINDOW_NORMAL)
 cv2.imshow("test1", bigpic)
