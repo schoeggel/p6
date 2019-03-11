@@ -223,6 +223,7 @@ class MachineObject:
 if __name__ == '__main__':
     # Erstellt diverse Objekte und Testet die Funktionen
     # Benötigt ein vorhandenes Patch Paar.
+    print(f'unit test.\nopencv version: {cv2.getVersionString()}')
 
     patchName = "data/patches/3dcreatorSet1/"
 
