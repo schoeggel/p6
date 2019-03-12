@@ -139,8 +139,8 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
     pt3sort34, pt4sort34 = sortKeypoints(k3, k4, matches34)
 
     # repro error Filter liefert sehr gute Ergebnisse bei L+R kombi
-    sel_matches12, msg12  = reproFilter.filterReprojectionError(matches12, cal.f, np.int32(pt1sort12), np.int32(pt2sort12), 4 )
-    sel_matches34, msg34  = reproFilter.filterReprojectionError(matches34, cal.f, np.int32(pt3sort34), np.int32(pt4sort34), 4 )
+    sel_matches12, msg12  = reproFilter.filterReprojectionError(matches12, calib.f, np.int32(pt1sort12), np.int32(pt2sort12), 4 )
+    sel_matches34, msg34  = reproFilter.filterReprojectionError(matches34, calib.f, np.int32(pt3sort34), np.int32(pt4sort34), 4 )
     print(msg12)
     print(msg34)
 
@@ -259,8 +259,8 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
     tvec = np.where((tvec >= p25) & (tvec <= p75), tvec, np.nan)
     tvec = np.nanmean(tvec,1)
 
-    R = np.zeros((3,3))   # TODO: statt mit t mittelwerten einen echten abgleich der punkte via rigid3d machen?
-    return R, tvec
+    R = np.diag((1,1,1))   # TODO: statt mit t mittelwerten einen echten abgleich der punkte via rigid3d machen?
+    return R, tvec[:,None]
 
 
 

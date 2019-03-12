@@ -35,6 +35,7 @@ warpexpR = np.zeros((warpdim, warpdim))
 class Param3d:
 
     def __init__(self):
+        self.name = "noname"
         self.posx = 240
         self.posy = -240
         self.posz = 0
@@ -47,15 +48,16 @@ class Param3d:
 
     def __str__(self):
         s = str()
-        s = s + f'posx:  {self.posx}\n'
-        s = s + f'posy:  {self.posy}\n'
-        s = s + f'posz:  {self.posz}\n'
-        s = s + f'rotx:  {self.rotx}\n'
-        s = s + f'roty:  {self.roty}\n'
-        s = s + f'rotz:  {self.rotz}\n'
-        s = s + f'sizex: {self.sizex}\n'
-        s = s + f'sizey: {self.sizey}\n'
-        s = s + f'corners: \n{self.corners3d}\n'
+        s += f'name:  {self.name}\n'
+        s += f'posx:  {self.posx}\n'
+        s += f'posy:  {self.posy}\n'
+        s += f'posz:  {self.posz}\n'
+        s += f'rotx:  {self.rotx}\n'
+        s += f'roty:  {self.roty}\n'
+        s += f'rotz:  {self.rotz}\n'
+        s += f'sizex: {self.sizex}\n'
+        s += f'sizey: {self.sizey}\n'
+        s += f'corners: \n{self.corners3d}\n'
         return s
 
     def updateCorners(self):
@@ -334,15 +336,16 @@ class Overlay:
 def export():
     global exportDone, warpexpL, warpexpR, par3d, exportDone
     print(par3d)
-    savename = str(input("export: "))
-    if len(savename) < 2: return
-    savename = "tmp/tcr3d" + savename
+    name = str(input("export: "))
+    if len(name) < 2: return
+    par3d.name = name
+    savename = f'tmp/tcr3d-{name}'
     print("writing ", savename)
     cv2.imwrite(savename + "_L.png", warpexpL)
     cv2.imwrite(savename + "_R.png", warpexpR)
     savename += "__.txt"
     f = open(savename , "w")
-    f.write(f'Name: {savename}\n{par3d}')
+    f.write(str(par3d))
     f.close()
     print('Done.')
     exportDone = True

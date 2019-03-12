@@ -3,6 +3,8 @@ import wtmCalib
 import wtmObject
 import wtmScene
 import wtmEnum
+import wtmSfm
+import copy
 
 class Composition:
     _trainIsReversed = False             #TODO Der Zug könnte auch verkehrt herum einfahren?
@@ -11,7 +13,7 @@ class Composition:
     imagePairs = []                     # eine Liste mit Bildpaaren in der Form [[01L,01R], [02L, 02R] , ... ]
     calib = wtmCalib.CalibData()
     refObj = [None] * 4                 # Die Gitterschrauben Objekte werden separat geführt.
-    tmmode = wtmEnum.tm.CANNYBLUR  # Standard TM Mode
+    tmmode = wtmEnum.tm.CANNYBLUR       # Standard TM Mode
 
     PRE_TM_K_SIZE = 5
     PRE_TM_PX_PER_K = 15  # warpedTemplate hat Abmessung 50x50 px --> K = (5,5)
@@ -29,12 +31,14 @@ class Composition:
             """
         assert imagePairs is not None and refObj is not None
         # todo: prüfen der Liste, ob die Bilder existieren etc..
+        self.refScene = None            # Eine Scene, bei der die Transformatione zwischen cam und mac bekannt ist.
         if tmmode is not None:
             self._tmmode = tmmode
         self.imagePairs = imagePairs
         self.refObj = refObj
         self.createScenes()
-
+        if self.refScene is not None:
+            self.sfmScenes()            # Transformation versuchen über sfm zu erhalten
 
     @property
     def status(self):
@@ -45,10 +49,21 @@ class Composition:
     def createScenes(self):
         """Für jedes Bildpaar wird eine scene erstellt und in der Liste angefügt
             Konnte beim Initialisieren der scene ein Gitter gefunden werden,
-            so ist kann die scene ab jetzt Objekte lokalisieren."""
+            so kann die scene ab jetzt Objekte lokalisieren."""
+        # Die scenes werde untereinander verlinkt mit .next und .prev.
+        # .refScene enthält eine gültige Referenz fürs System machine.
+        newScene = None
         for imgL,imgR in self.imagePairs:
-            newScene = wtmScene.Scene(self,imgL, imgR)
+            newScene = wtmScene.Scene(self,imgL, imgR, prevScene = newScene)
             self._scenes.append(newScene)
+
+            if len(self.refObj) == 4 and newScene.rtstatus == wtmEnum.rtref.APPROX:
+                singleUseRefObjects = copy.deepcopy(self.refObj)    # auf diesen Objekten nur einmal messen
+                self.locateObjectInScene(singleUseRefObjects, newScene, verbose= False)
+                newScene.referenceViaObjects(singleUseRefObjects)   # exakte Transformation Rt finden
+
+            if newScene.rtstatus in [wtmEnum.rtref.BYOBJECT]:
+                self.refScene = newScene
 
     def locateObjects(self, objects_list: list, verbose=False):
         """"Alle angegebenen Objekte auf allen scenes messen"""
@@ -60,24 +75,28 @@ class Composition:
         """Auf allen scenes das eine Objekt lokalisieren"""
         oneObject: wtmObject.MachineObject = oneObject
         for s in self._scenes:
-            s:wtmScene.Scene
+            s:wtmScene.Scene = s
             try:
                 s.locate(oneObject, verbose=verbose)
             except:
                 print(f'Could not locate Object {oneObject.patchfilenameL} in scene {s.photoNameL}' )
 
 
-    def locateObjectInScene(self, oneObject, scene, verbose=False):
-        """ Ein einzelnes Objekt in einer einzelnen Scene lokalisieren
+    def locateObjectInScene(self, oneOrMoreObjects, scene, verbose=False):
+        """ Ein einzelnes Objekt (oder mehrere) in einer einzelnen Scene lokalisieren
             TODO: Fehlerhandling verbessern."""
-        oneObject: wtmObject.MachineObject = oneObject
         scene: wtmScene.Scene = scene
-        try:
-            pos = scene.locate(oneObject, verbose=verbose)
-        except:
-            print(f'Could not locate Object {oneObject.patchfilenameL} in scene {scene.photoNameL}' )
+        if type(oneOrMoreObjects) is not list:
+            oneOrMoreObjects = [oneOrMoreObjects]
+        for oneObject in oneOrMoreObjects:
+            oneObject:wtmObject.MachineObject = oneObject
+            try:
+                pos = scene.locate(oneObject, verbose=verbose)
+            except:
+                print(f'Could not locate Object {oneObject.patchfilenameL} in scene {scene.photoNameL}' )
 
     def sceneinfo(self, n:int = None):
+        """Informationen zu einer bestimmten scene anzeigen"""
         if n is None:
             n = range(len(self._scenes))
         else:
@@ -90,6 +109,21 @@ class Composition:
                 print(scene)
             except (TypeError, IndexError):
                 print(f'Scene not found.')
+
+    def sfmScenes(self):
+        """findet die scene, bei der die Zug Referenz nicht mehr über das Gitter gesetzt werden konnte
+            und setzt die Referenz anhand der smf mit dem bildpaar mit der letzten gültigen referenz."""
+        # vorwärts:
+        sc:wtmScene.Scene =  self.refScene
+        while sc.next.rtstatus in [wtmEnum.rtref.NONE, wtmEnum.rtref.APPROX]:
+            dR, dt = wtmSfm.sfm(sc.photoL,sc.photoR,sc.next.photoL,sc.next.photoR, self.calib, verbose= False)
+            sc.next.R_exact = sc.R_exact @ dR
+            sc.next.t_exact = sc.t_exact - dt
+            sc.next.rtstatus = wtmEnum.rtref.BYSFM
+
+
+
+
 
 
     def __str__(self):

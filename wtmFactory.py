@@ -23,7 +23,7 @@ def createMachineObjects2():
     """
 
     manyMachineObjects = processFolder("data/patches/3dcreatorSet1/")
-    refObjects = processFolder("data/patches/3dcreatorSet1/")
+    refObjects = processFolder("data/patches/3dcreatorSetRef1/")
     return refObjects, manyMachineObjects
 
 
@@ -33,13 +33,14 @@ def processFolder(folder):
     lst = []
     for metafile in txtfiles:
         stem = metafile.stem[:-2]
-        xyz, rot, size = parser(metafile)
-        lst.append(wtmObject.MachineObject(folder + stem, xyz, size))
+        name, xyz, rot, size = parser(metafile)
+        lst.append(wtmObject.MachineObject(folder + stem, xyz, size, rotation3d=rot, name=name))
     return lst
 
 
 def parser(filename):
     f = open(filename, 'r')
+    name = f.readline()[7:]
     posx = int(f.readline()[7:])
     posy = int(f.readline()[7:])
     posz = int(f.readline()[7:])
@@ -51,7 +52,7 @@ def parser(filename):
     f.close()
     xyz = np.array([posx, posy, posz])
     rot = np.array([rotx, roty, rotz])
-    return xyz , rot, (sizex, sizey)
+    return name, xyz , rot, (sizex, sizey)
 
 
 def createMachineObjects1():
@@ -69,4 +70,7 @@ def createMachineObjects1():
 
 
 if __name__ == '__main__':
-    createMachineObjects2()
+    ref, objs = createMachineObjects2()
+    print(ref)
+    print("-"*30)
+    print(objs)

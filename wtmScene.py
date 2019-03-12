@@ -6,7 +6,7 @@ from wtmAux import imgMergerV, imgMergerH, putBetterText, separateRGB, clahe
 import wtmObject
 import wtmComposition
 import wtmFindGrid
-from wtmEnum import tm
+from wtmEnum import tm, rtref
 
 
 class Scene:
@@ -21,20 +21,23 @@ class Scene:
         über alle Bildpaare (Szenen) hinweg gleichbleibende Daten sind in der
         Klasse 'Composition' definiert."""
 
-    __R_exact = np.diag([0, 0, 0])  # Init Wert
-    __t_exact = np.zeros(3)  # Init Wert
-    __R_approx = np.diag([0, 0, 0])  # Init Wert
-    __t_approx = np.zeros(3)  # Init Wert
-    __rtstatus = -1  # -1: keine, 0: approx, 1:exakte vorhanden
-    context = None
 
-    def __init__(self, context, photoNameL, photoNameR):    # :wtmComposition.Composition nicht hier reinschreiben !
+
+
+    def __init__(self, context, photoNameL, photoNameR, prevScene = None):
+        self.R_exact = np.diag([0, 0, 0])         # Init Wert
+        self.t_exact = np.zeros(3)                # Init Wert
+        self.R_approx = np.diag([0, 0, 0])        # Init Wert
+        self.t_approx = np.zeros(3)               # Init Wert
+        self.rtstatus = rtref.NONE
+        self.next:Scene = self                      # Link zur nächsten scene
+        self.prev:Scene = self                      # Link zur vorangegangenen scene
         self.context:wtmComposition.Composition = context # Die gleichbleibenden Daten
         self.tobj:wtmObject.MachineObject           # das aktuelle Template Objekt
         self.photoNameL = photoNameL
         self.photoNameR = photoNameR
-        self.photoL = cv2.imread(photoNameL)             # Das von der Kamera gemachte Originalbild
-        self.photoR = cv2.imread(photoNameR)             # Das von der Kamera gemachte Originalbild
+        self.photoL = cv2.imread(photoNameL)        # Das von der Kamera gemachte Originalbild
+        self.photoR = cv2.imread(photoNameR)        # Das von der Kamera gemachte Originalbild
         self.measuredposition3d_cam = None
         self.measuredposition3d_mac = None
         self.corners2DimgL = np.zeros((1, 5, 2))    # Eckpunkte auf dem Bild. (plus Mitte)
@@ -63,12 +66,13 @@ class Scene:
         self.scoreL = None                          # Die ScoreMap aus dem Matching Vorgang
         self.scoreR = None                          # Die ScoreMap aus dem Matching Vorgang
 
+        if prevScene is not None:
+            self.prev = prevScene                   # link zur letzten Scene
+            self.prev.next = self                   # Sich selbst als next verlinken in der vorgänger-scene
+
         self.gitterPosL, self.gitterPosR, self.gitterPosValid = wtmFindGrid.findGrid(self.photoL, self.photoR, verbose=False)
         if self.gitterPosValid:
             self.approxreference()
-            # TODO : wenn kein Valid Grid oder keine Valid ApproxRef. --> Kennzeichnen und später über die Bewegung lösen
-
-
 
 
     def drawMarker(self, imgL_in=None, imgR_in=None, size=25, color=(0,255,255), thickness= 3, show=False):
@@ -172,11 +176,16 @@ class Scene:
         return scoreSmooth
 
 
-    def drawBasis(self, img_in, sideLR = 0, length=100, thickness=20, show=False):
+    def drawOrigin(self, img_in=None, sideLR = 0, length=100, thickness=20, show=False):
         # zeichnet die Basis des Zugssystems auf das Bild ein
         # RGB == XYZ (opencv draw: BGR)
         # SideLR = 0 : Links   |  SideLR = 1 : Rechts
-        img = img_in.copy()
+        if img_in is None and sideLR == 0:
+            img = self.photoL
+        elif img_in is None and sideLR == 1:
+            img = self.photoR
+        else:
+            img = img_in.copy()
 
         # Basis aufstellen im system zug
         basis3d = np.diag(np.float64([length, length, length]))  # kanonische Einheitsvektoren
@@ -553,11 +562,12 @@ class Scene:
 
         :return: R, t (sys_cam --> sys_zug)
         """
-        if self.__rtstatus == 2:
-            return self.__R_exact, self.__t_exact
+        if self.rtstatus in [rtref.BYOBJECT, rtref.BYSFM]:
+            return self.R_exact, self.t_exact
+        elif self.rtstatus in [rtref.APPROX]:
+            return self.R_approx, self.t_approx
         else:
-            return self.__R_approx, self.__t_approx
-
+            raise ValueError('R t not available.')
     @staticmethod
     def polygonpoints(edges):
         # oben links, oben rechts, unten links, unten rechts --> punkte für fillConvexPoly
@@ -663,29 +673,28 @@ class Scene:
         systemcam = np.append([np.zeros(3)], systemcam, axis=0)     # erste Zeile = Ursprung
 
         # Rotation und Translation zwischen den beiden Bezugssystem berechnen
-        self.__R_approx, self.__t_approx = rigid_transform_3D(systemcam, systemzug)
-        self.__rtstatus = 0
+        self.R_approx, self.t_approx = rigid_transform_3D(systemcam, systemzug)
+        self.rtstatus = rtref.APPROX
 
-    @classmethod
-    def referenceViaObjects(cls, tfol, tfor, tfur, tful):
+
+    def referenceViaObjects(self, refObjects:list):
         """
         Referenz festlegen für das Koordinatensystem "Zug"
 
-        :param objects: Die auf einer Ebene quadratisch angeordneten Schrauben (als Trainfeature Objekte)
+        :param refObjects: Liste mit 4 im Quadrat angeordneten Schrauben (als Machine Objekte)
         :return: None
         """
+        tfol, tfor, tfur, tful = refObjects
+        tfol:wtmObject.MachineObject = tfol
         refpts = np.zeros((4,3))
-        refpts[0] = tfol.measuredposition3d_cam[:3].flatten()
-        refpts[1] = tfor.measuredposition3d_cam[:3].flatten()
-        refpts[2] = tfur.measuredposition3d_cam[:3].flatten()
-        refpts[3] = tful.measuredposition3d_cam[:3].flatten()
-        cls.reference(refpts)
+        refpts[0] = tfol.avgPosCam
+        refpts[1] = tfor.avgPosCam
+        refpts[2] = tfur.avgPosCam
+        refpts[3] = tful.avgPosCam
+        self.reference(refpts)
 
 
-
-
-    @classmethod
-    def reference(cls, refpts):
+    def reference(self, refpts):
         """
         Referenz festlegen für das Koordinatensystem "Zug"
 
@@ -724,12 +733,12 @@ class Scene:
         z_ok = np.cross(x_wrong, y_wrong)
 
         #Winkelhalbierende zwischen den ungefähren x und y achsen
-        xym = cls.bisect(x_wrong, y_wrong)
+        xym = self.bisect(x_wrong, y_wrong)
 
         #Achsen x und y mit den geforderten 90° Winkel erstellen
         tmp1 = np.cross(xym, z_ok)  # Hilfsvektoren
-        x_ok = cls.bisect(tmp1, xym)
-        y_ok = cls.bisect(-tmp1, xym)
+        x_ok = self.bisect(tmp1, xym)
+        y_ok = self.bisect(-tmp1, xym)
 
         #Normieren und verschieben
         ex = x_ok / np.linalg.norm(x_ok) + m
@@ -740,13 +749,13 @@ class Scene:
         systemcam = np.diag(np.float64([1, 1 , 1]))                 # kanonische Einheitsvektoren
         systemcam = np.append([np.zeros(3)], systemcam, axis=0)     # erste Zeile = Ursprung
         systemzug = np.stack((m, ex,ey,ez))                         # Usprung und kanonische Einheitsvektoren
-        cls.__R_exact, cls.__t_exact = rigid_transform_3D(systemcam, systemzug)
-        cls.__rtstatus = 1
+        self.R_exact, self.t_exact = rigid_transform_3D(systemcam, systemzug)
+        self.rtstatus = rtref.BYOBJECT
 
         print("sysCam\n", systemcam)
         print("sysTrain\n", systemzug)
-        print("R\n", cls.__R_exact)
-        print("t\n", cls.__t_exact)
+        print("R\n", self.R_exact)
+        print("t\n", self.t_exact)
 
     def __str__(self):
         return f"""

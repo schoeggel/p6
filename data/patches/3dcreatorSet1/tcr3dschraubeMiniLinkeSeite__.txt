@@ -1,3 +1,4 @@
+name: Schraube Mini Link
 posx:  -596
 posy:  278
 posz:  -67

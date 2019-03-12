@@ -19,18 +19,20 @@ allRefs, allObjects =  wtmFactory.createMachineObjects()
 
 
 ############################# COMPOSITION #######################################
-fn = [["SBB/11L.png", "SBB/11R.png"], ["SBB/12L.png", "SBB/12R.png"], ["SBB/13L.png", "SBB/13R.png"], ["SBB/14L.png", "SBB/14R.png"], ["SBB/15L.png", "SBB/15R.png"]]
-cp = Composition(fn, [s1, s1, s1, s1])
+fn = [["SBB/11L.png", "SBB/11R.png"], ["SBB/12L.png", "SBB/12R.png"], ["SBB/13L.png", "SBB/13R.png"], ["SBB/14L.png", "SBB/14R.png"], ["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"]]
+fn = [["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"]]
+cp = Composition(fn, allRefs)
 print(cp)
 cp.sceneinfo()
-#cp.locateObjectInScene(s1, cp._scenes[0])
-cp.locateObject(s1, verbose=False)
-print(s1.positions)
+cp._scenes[-1].drawOrigin(show=True)
 
-# cp.locateObject(allObjects[5], verbose=True)
+exit(0)
+
+
+
 
 # vieles messen
-cp.locateObjects(allObjects, verbose=True)
+cp.locateObjects(allObjects, verbose=False)
 for o in allObjects:
     o:MachineObject
     print(o.positions)

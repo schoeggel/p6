@@ -1,3 +1,4 @@
+name: Schraube klein ganz
 posx:  -312
 posy:  128
 posz:  4

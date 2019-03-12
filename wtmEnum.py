@@ -14,3 +14,9 @@ class tm(Enum):
     NOISEBLUR = 8       # Wie NOISE aber unscharf
     ELSD = 6            # TODO: statt canny die ellipsen und linien erkennen.
 
+
+class rtref(Enum):
+    NONE = 0           # Auf der Scene wurde noch kein Zug Referenz gesetzt
+    APPROX = 1       # Eine ungefähre Referenz anhand der Gitterstruktur
+    BYOBJECT = 2     # Eine exakte Refernz gesetzt anhand der Gitterschrauben
+    BYSFM = 3        # die Referenz wurde anhand Sfm  Bildvergleich bestimmt.
