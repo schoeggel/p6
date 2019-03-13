@@ -180,10 +180,11 @@ class Scene:
         return scoreSmooth
 
 
-    def drawOrigin(self, img_in=None, sideLR = 0, length=100, thickness=20, show=False):
+    def drawOrigin(self, img_in=None, sideLR = 0, length=100, thickness=20, show=False, mirror=False):
         # zeichnet die Basis des Zugssystems auf das Bild ein
         # RGB == XYZ (opencv draw: BGR)
         # SideLR = 0 : Links   |  SideLR = 1 : Rechts
+        # Mirror: zeichnet zusätzlich eine gespiegelte Basis (hilfreich, wenn ausserhalb des Bildes)
         if img_in is None and sideLR == 0:
             img = self.photoL
         elif img_in is None and sideLR == 1:
@@ -198,22 +199,36 @@ class Scene:
         # umrechnen ins Kamerasystem
         pts_cam = self.transformsys(basis3d, direction=0)
 
+        # die gespiegelte Variante davon erstellen
+        origin = np.tile(pts_cam[0], (4,1)) # Ursprung in 4 Zeilen
+        d = pts_cam - origin
+        pts_cam_mir = origin -d
+
         # Projektion der Punkte in Bildpixelkoordinaten
         cal = self.context.calib
         if sideLR == 0:
             pts, jcb = cv2.projectPoints(pts_cam, cal.rl, cal.tl, cal.kl, cal.drl)
+            pts_mir, jcb = cv2.projectPoints(pts_cam_mir, cal.rl, cal.tl, cal.kl, cal.drl)
+
         elif sideLR == 1:
             pts, jcb = cv2.projectPoints(pts_cam, cal.rr, cal.tr, cal.kr, cal.drr)
+            pts_mir, jcb = cv2.projectPoints(pts_cam_mir, cal.rr, cal.tr, cal.kr, cal.drr)
 
         #Basis einzeichnen
         # pts im shape (4,1,2)
         pts = pts.astype(int)
+        pts_mir = pts_mir.astype(int)
         img = cv2.line(img, (pts[0][0][0], pts[0][0][1]), (pts[1][0][0], pts[1][0][1]), (0,0,255), thickness)
         img = cv2.line(img, (pts[0][0][0], pts[0][0][1]), (pts[2][0][0], pts[2][0][1]), (0,255,0), thickness)
         img = cv2.line(img, (pts[0][0][0], pts[0][0][1]), (pts[3][0][0], pts[3][0][1]), (255,0,0), thickness)
+        if mirror:
+            img = cv2.line(img, (pts_mir[0][0][0], pts_mir[0][0][1]), (pts_mir[1][0][0], pts_mir[1][0][1]), (64, 64, 128), thickness)
+            img = cv2.line(img, (pts_mir[0][0][0], pts_mir[0][0][1]), (pts_mir[2][0][0], pts_mir[2][0][1]), (64, 128, 64), thickness)
+            img = cv2.line(img, (pts_mir[0][0][0], pts_mir[0][0][1]), (pts_mir[3][0][0], pts_mir[3][0][1]), (128, 64, 64), thickness)
 
         # wie wurde Rt cam->mac definiert?
-        img = putBetterText(img, f'Rt-Status: {self.rtstatus}', (30, 150), cv2.FONT_HERSHEY_DUPLEX, 5, (255, 255, 255), 5, 0)
+        txt = f'Rt-Status: {self.rtstatus},  mirror={mirror}'
+        img = putBetterText(img, txt, (30, 150), cv2.FONT_HERSHEY_DUPLEX, 5, (255, 255, 255), 5, 0)
 
         if show:
             cv2.namedWindow('Basis', cv2.WINDOW_NORMAL)

@@ -10,7 +10,6 @@ def getLinkedMatch(kpidx, otherMatch):
     for other in otherMatch:
         if other.queryIdx == kpidx:
             return other.trainIdx
-    print("No linking match found.")
     return -1
 
 def sortKeypoints(kp1, kp2, matches) -> (list, list):
@@ -217,7 +216,7 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
 
     quadro= []
     pt1, pt2, pt3, pt4 = [],[],[],[]
-
+    dropcounter = 0
     for mastermatch in cleanMatches12:
         kpidx1 = mastermatch.queryIdx
         kpidx2 = mastermatch.trainIdx
@@ -235,6 +234,10 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
             pt2.append(uk2[kpidx2].pt)
             pt3.append(uk3[kpidx3].pt)
             pt4.append(uk4[kpidx4].pt)
+        else:
+            dropcounter += 1
+
+    print(f'dropped {dropcounter} not fully connected keypoint quadruples.')
 
     # Triangulieren, Punkte in Form "2xN" : [[x1,x2, ...], [y1,y2, ...]]
     a =  np.float64(pt1).T
