@@ -260,6 +260,7 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
     tvec = np.nanmean(tvec,1)
 
     R = np.diag((1,1,1))   # TODO: statt mit t mittelwerten einen echten abgleich der punkte via rigid3d machen?
+
     return R, tvec[:,None]
 
 

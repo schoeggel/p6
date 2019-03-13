@@ -44,7 +44,7 @@ class Composition:
     def status(self):
         """Zeigt den Status der scenes an: Ob die Gitterposition in Ordnung ist und ob
             eine exakte Referenz gesetzt werden konnte."""
-
+        return ...
 
     def createScenes(self):
         """Für jedes Bildpaar wird eine scene erstellt und in der Liste angefügt
@@ -113,17 +113,25 @@ class Composition:
     def sfmScenes(self):
         """findet die scene, bei der die Zug Referenz nicht mehr über das Gitter gesetzt werden konnte
             und setzt die Referenz anhand der smf mit dem bildpaar mit der letzten gültigen referenz."""
-        # vorwärts:
+        # einmal vorwärts:
         sc:wtmScene.Scene =  self.refScene
-        while sc.next.rtstatus in [wtmEnum.rtref.NONE, wtmEnum.rtref.APPROX]:
-            dR, dt = wtmSfm.sfm(sc.photoL,sc.photoR,sc.next.photoL,sc.next.photoR, self.calib, verbose= False)
-            sc.next.R_exact = sc.R_exact @ dR
-            sc.next.t_exact = sc.t_exact - dt
-            sc.next.rtstatus = wtmEnum.rtref.BYSFM
+        while not sc.isLast:
+            if sc.next.rtstatus in [wtmEnum.rtref.NONE, wtmEnum.rtref.APPROX]:
+                dR, dt = wtmSfm.sfm(sc.photoL,sc.photoR,sc.next.photoL,sc.next.photoR, self.calib, verbose= False)
+                sc.next.R_exact = sc.R_exact
+                sc.next.t_exact = sc.t_exact - dt
+                sc.next.rtstatus = wtmEnum.rtref.BYSFM
+            sc = sc.next
 
-
-
-
+        # einmal rückwärts
+        sc: wtmScene.Scene = self.refScene
+        while not sc.isFirst:
+            if sc.prev.rtstatus in [wtmEnum.rtref.NONE, wtmEnum.rtref.APPROX]:
+                dR, dt = wtmSfm.sfm(sc.photoL, sc.photoR, sc.prev.photoL, sc.prev.photoR, self.calib, verbose=False)
+                sc.prev.R_exact = sc.R_exact
+                sc.prev.t_exact = sc.t_exact - dt
+                sc.prev.rtstatus = wtmEnum.rtref.BYSFM
+            sc = sc.prev
 
 
     def __str__(self):

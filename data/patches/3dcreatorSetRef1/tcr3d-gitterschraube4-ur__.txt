@@ -1,0 +1,15 @@
+name:  gitterschraube4-ur
+posx:  238
+posy:  -241
+posz:  7
+rotx:  0
+roty:  0
+rotz:  0
+sizex: 40
+sizey: 40
+corners: 
+[[ 218. -221.    7.]
+ [ 258. -221.    7.]
+ [ 218. -261.    7.]
+ [ 258. -261.    7.]
+ [ 238. -241.    7.]]

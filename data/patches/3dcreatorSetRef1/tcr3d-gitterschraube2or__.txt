@@ -1,0 +1,15 @@
+name:  gitterschraube2or
+posx:  238
+posy:  235
+posz:  7
+rotx:  0
+roty:  0
+rotz:  0
+sizex: 40
+sizey: 40
+corners: 
+[[218. 255.   7.]
+ [258. 255.   7.]
+ [218. 215.   7.]
+ [258. 215.   7.]
+ [238. 235.   7.]]

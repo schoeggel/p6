@@ -1,0 +1,15 @@
+name:  gitterschraube3ul
+posx:  -239
+posy:  -241
+posz:  7
+rotx:  0
+roty:  0
+rotz:  0
+sizex: 40
+sizey: 40
+corners: 
+[[-259. -221.    7.]
+ [-219. -221.    7.]
+ [-259. -261.    7.]
+ [-219. -261.    7.]
+ [-239. -241.    7.]]

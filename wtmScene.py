@@ -30,6 +30,8 @@ class Scene:
         self.R_approx = np.diag([0, 0, 0])        # Init Wert
         self.t_approx = np.zeros(3)               # Init Wert
         self.rtstatus = rtref.NONE
+        self.isFirst = True
+        self.isLast = True
         self.next:Scene = self                      # Link zur nächsten scene
         self.prev:Scene = self                      # Link zur vorangegangenen scene
         self.context:wtmComposition.Composition = context # Die gleichbleibenden Daten
@@ -69,6 +71,8 @@ class Scene:
         if prevScene is not None:
             self.prev = prevScene                   # link zur letzten Scene
             self.prev.next = self                   # Sich selbst als next verlinken in der vorgänger-scene
+            self.prev.isLast = False
+            self.isFirst = False
 
         self.gitterPosL, self.gitterPosR, self.gitterPosValid = wtmFindGrid.findGrid(self.photoL, self.photoR, verbose=False)
         if self.gitterPosValid:
@@ -207,6 +211,9 @@ class Scene:
         img = cv2.line(img, (pts[0][0][0], pts[0][0][1]), (pts[1][0][0], pts[1][0][1]), (0,0,255), thickness)
         img = cv2.line(img, (pts[0][0][0], pts[0][0][1]), (pts[2][0][0], pts[2][0][1]), (0,255,0), thickness)
         img = cv2.line(img, (pts[0][0][0], pts[0][0][1]), (pts[3][0][0], pts[3][0][1]), (255,0,0), thickness)
+
+        # wie wurde Rt cam->mac definiert?
+        img = putBetterText(img, f'Rt-Status: {self.rtstatus}', (30, 150), cv2.FONT_HERSHEY_DUPLEX, 5, (255, 255, 255), 5, 0)
 
         if show:
             cv2.namedWindow('Basis', cv2.WINDOW_NORMAL)
@@ -684,7 +691,7 @@ class Scene:
         :param refObjects: Liste mit 4 im Quadrat angeordneten Schrauben (als Machine Objekte)
         :return: None
         """
-        tfol, tfor, tfur, tful = refObjects
+        tfol, tfor, tful, tfur = refObjects
         tfol:wtmObject.MachineObject = tfol
         refpts = np.zeros((4,3))
         refpts[0] = tfol.avgPosCam
