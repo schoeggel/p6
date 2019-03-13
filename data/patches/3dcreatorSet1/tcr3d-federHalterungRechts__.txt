@@ -1,0 +1,15 @@
+name:  federHalterungRechts
+posx:  425
+posy:  -900
+posz:  -92
+rotx:  0
+roty:  0
+rotz:  0
+sizex: 58
+sizey: 140
+corners: 
+[[ 396.  -40.  -92.]
+ [ 454.  -40.  -92.]
+ [ 396. -180.  -92.]
+ [ 454. -180.  -92.]
+ [ 425. -110.  -92.]]

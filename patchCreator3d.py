@@ -28,7 +28,7 @@ warpdim = 300
 exportDone = False
 warpexpL = np.zeros((warpdim, warpdim))
 warpexpR = np.zeros((warpdim, warpdim))
-
+BASENAME = "SBB/17"
 
 
 
@@ -419,7 +419,7 @@ par2dR = Param2d()
 stereo = Stereo()
 
 # Lade Bilder
-basename = "sbb/13"
+basename = BASENAME
 imgL = cv2.imread(basename + "L.png")
 imgR = cv2.imread(basename + "R.png")
 cloneL = imgL.copy()

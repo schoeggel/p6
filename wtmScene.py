@@ -234,6 +234,7 @@ class Scene:
             cv2.namedWindow('Basis', cv2.WINDOW_NORMAL)
             cv2.imshow("Basis", img)
             cv2.waitKey(0)
+            cv2.destroyWindow("Basis")
 
         return img
 

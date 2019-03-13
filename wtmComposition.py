@@ -65,19 +65,20 @@ class Composition:
             if newScene.rtstatus in [wtmEnum.rtref.BYOBJECT]:
                 self.refScene = newScene
 
-    def locateObjects(self, objects_list: list, verbose=False):
+    def locateObjects(self, oneOrMoreObjects, verbose=False):
         """"Alle angegebenen Objekte auf allen scenes messen"""
-        for obj in objects_list:
-            print(obj)
-            self.locateObject(obj, verbose=verbose)
+        if type(oneOrMoreObjects) is not list:
+            oneOrMoreObjects = [oneOrMoreObjects]
+        for obj in oneOrMoreObjects:
+            self._locateObject(obj, verbose=verbose)
 
-    def locateObject(self, oneObject, verbose=False):
+    def _locateObject(self, oneObject, extend=100, verbose=False):
         """Auf allen scenes das eine Objekt lokalisieren"""
         oneObject: wtmObject.MachineObject = oneObject
         for s in self._scenes:
             s:wtmScene.Scene = s
             try:
-                s.locate(oneObject, verbose=verbose)
+                s.locate(oneObject, extend=extend, verbose=verbose)
             except:
                 print(f'Could not locate Object {oneObject.patchfilenameL} in scene {s.photoNameL}' )
 

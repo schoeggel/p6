@@ -25,23 +25,28 @@ fn = [["SBB/8L.png", "SBB/8R.png"], ["SBB/9L.png", "SBB/9R.png"], ["SBB/10L.png"
 fn = [["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"]]
 fn = [["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"],["SBB/17L.png", "SBB/17R.png"],["SBB/18L.png", "SBB/18R.png"]]
 
-
 cp = Composition(fn, allRefs)
 print(cp)
 cp.sceneinfo()
-cp._scenes[0].drawOrigin(length=1500, show=True, mirror=True)
+cp._scenes[0].drawOrigin(length=90, show=True, mirror=True)
 cp._scenes[1].drawOrigin(length=500, show=True, mirror=False)
 cp._scenes[-1].drawOrigin(length=1500, show=True, mirror=True)
 
-exit(0)
-
-
+#cp._locateObject(allObjects[0], extend=200,verbose=True)
+#exit(0)
 
 
 # vieles messen
+idx = int(input(f'welches Objekt vermessen? -1 für alle: '))
+if idx > -1:
+    allObjects = [allObjects[idx]]
+
 cp.locateObjects(allObjects, verbose=False)
 for o in allObjects:
+
     o:MachineObject
+    print("--------------------------------------------------------------------")
+    print(o)
     print(o.positions)
     print(o.avgPosMac)
     print(o.rmserror)

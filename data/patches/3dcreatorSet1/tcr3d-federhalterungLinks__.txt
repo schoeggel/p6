@@ -1,0 +1,15 @@
+name:  federhalterungLinks
+posx:  -403
+posy:  -850
+posz:  -92
+rotx:  0
+roty:  0
+rotz:  0
+sizex: 58
+sizey: 140
+corners: 
+[[-472.  -57.  -92.]
+ [-414.  -57.  -92.]
+ [-472. -197.  -92.]
+ [-414. -197.  -92.]
+ [-443. -127.  -92.]]
