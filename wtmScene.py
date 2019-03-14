@@ -7,6 +7,7 @@ import wtmObject
 import wtmComposition
 import wtmFindGrid
 from wtmEnum import tm, rtref
+import copy
 
 
 class Scene:
@@ -363,9 +364,13 @@ class Scene:
                                                     verbose=verbose)
         self.scoreL = resL
 
-        # Gefundene Zentrum - Position des Templates markieren
+        # Gefundene Zentrum - Position des Templates markieren, Markergrösse abhängig von der Bildgrösse
+        # für kleine templates ist size=10 und thickness=1 ok
+        diag = (self.ROIL.shape[0]**2 + self.ROIL.shape[1]**2) ** 0.5
+        msize, mthickness = int(diag/20), int(diag/300)
+
         self.markedROIL = cv2.cvtColor(self.ROIL, cv2.COLOR_GRAY2RGB)
-        self.markedROIL = cv2.drawMarker(self.markedROIL, (centerx, centery), (0, 0, 255), cv2.MARKER_CROSS, 10, 1)
+        self.markedROIL = cv2.drawMarker(self.markedROIL, (centerx, centery), (0, 0, 255), cv2.MARKER_CROSS, msize, mthickness)
 
         # Warp-Ecken, die den Suchbereich vorgeben, als Polygon zeichnen. (Wurde am richtigen Ort gesucht?)
         pt = self.polygonpoints(self.corners2DimgL)              # Erwartete Eckpunkte für den Template Warp Vorgang.
@@ -389,7 +394,7 @@ class Scene:
                                                     verbose=verbose)
         self.scoreR = resR
         self.markedROIR = cv2.cvtColor(self.ROIR, cv2.COLOR_GRAY2RGB)
-        self.markedROIR = cv2.drawMarker(self.markedROIR, (centerx, centery), (0, 0, 255), cv2.MARKER_CROSS, 10, 1)
+        self.markedROIR = cv2.drawMarker(self.markedROIR, (centerx, centery), (0, 0, 255), cv2.MARKER_CROSS, msize, mthickness)
         centerxyR = (centerx + ROIR[2], centery + ROIR[0])
 
         # Triangulieren
@@ -422,7 +427,11 @@ class Scene:
         pos.imgNames = [self.photoNameL, self.photoNameR]
         pos.sceneName = self.name
 
-        self.tobj.addPosition(pos.mac, pos.cam, pos.imgNames)
+        # TODO repro-Filter
+
+        # Position und Snapshot speichern
+        snapshots = [copy.copy(self.markedROIL), copy.copy(self.markedROIR)]
+        self.tobj.addPosition(pos.mac, pos.cam, pos.imgNames, pos.sceneName, snapshots)
 
         if verbose: self.showAllSteps()
         return pos

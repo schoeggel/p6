@@ -28,6 +28,8 @@ class Position:
     cam = np.zeros(3)
     imgNames = ["",""]
     sceneName = "unknownScene"
+    snapshotL = None
+    snapshotR = None      # ein schnappschuss aus der Detektion
 
     def __str__(self):
         return f"Position in scene '{self.sceneName}':\tcamera: {self.cam}\t\tmachine: {self.mac}\n"
@@ -42,9 +44,6 @@ class Positions(list):
                 s += e.__str__()
         return s
     # TODO: messwerte mitteln und gemittelte Koordinaten zurückgeben
-
-
-
 
 
 
@@ -123,7 +122,7 @@ class MachineObject:
         return mac, cam
 
 
-    def addPosition(self, mac, cam, imgNames:list) -> Position:
+    def addPosition(self, mac, cam, imgNames:list, sceneName, snapshots:list) -> Position:
         # Erstellt eine neue Positionsmessung, fügt sie zur Messliste hinzu
         # und gibt die Referenz der neuen Messung zurück
         assert len(cam) == 3 and len(mac) == 3
@@ -132,6 +131,9 @@ class MachineObject:
         p.mac = mac
         p.cam = cam
         p.imgNames = imgNames
+        p.sceneName = sceneName
+        p.snapshotL = snapshots[0]
+        p.snapshotR = snapshots[1]
         self._positions.append(p)
         #print(f'added:  {p}')
         return p
@@ -211,13 +213,24 @@ class MachineObject:
         cv2.waitKey(0)
         cv2.destroyWindow(wname)
 
+
+    def showSnapshots(self):
+        if len(self._positions) == 0: return
+        snapshots = []
+        for e in self._positions:
+            snapshots.append(imgMergerH([e.snapshotL, e.snapshotR]))
+
+        bigpic = imgMergerV(snapshots)
+        wname = "snapshots"
+        cv2.namedWindow(wname, cv2.WINDOW_NORMAL)
+        cv2.imshow(wname, bigpic)
+        cv2.waitKey(0)
+        cv2.destroyWindow(wname)
+
+
     def __str__(self):
         return f'wtmObject <{self.name}>\nPatchfilenameL: {self.patchfilenameL}\nPatchfilenameR: ' \
                f'{self.patchfilenameR}\npositions recorded: {len(self._positions)}'
-
-
-
-
 
 
 
