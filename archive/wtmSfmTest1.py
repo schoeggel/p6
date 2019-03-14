@@ -2,7 +2,8 @@
 import cv2
 import numpy as np
 import wtmCalib
-import reproFilter
+from archive import reproFilter
+
 
 def sfm(img1, img2, img3, img4, calib, verbose=False):
     """ Bestimmt die räumliche Translation zwischen zwei Bildpaaren
@@ -80,8 +81,8 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
         print(f'distance: max: {max(dist)}')
 
     # repro error filter liefert sehr gute Ergebnisse bei L+R kombi
-    sel_matches12, msg12  = reproFilter.filterReprojectionError(matches12, cal.f, np.int32(pt1sort12), np.int32(pt2sort12), 4 )
-    sel_matches34, msg34  = reproFilter.filterReprojectionError(matches34, cal.f, np.int32(pt3sort34), np.int32(pt4sort34), 4 )
+    sel_matches12, msg12  = reproFilter.filterReprojectionError(matches12, cal.f, np.int32(pt1sort12), np.int32(pt2sort12), 4)
+    sel_matches34, msg34  = reproFilter.filterReprojectionError(matches34, cal.f, np.int32(pt3sort34), np.int32(pt4sort34), 4)
     print(msg12)
     print(msg34)
 

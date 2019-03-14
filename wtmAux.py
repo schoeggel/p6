@@ -129,7 +129,12 @@ def separateRGB(img_in, vertical=False):
 
 
 def clahe(img, pxPerBlock=50, channel=None):
-    # verbessert den kontrast im angegebenen Kanal
+    """"Verbessert den kontrast im angegebenen Kanal.
+    :param img: Bild (1 oder 3 Kanal)
+    :param pxPerBlock: Zur Berechnung des CLAHE Parameters 'grid'
+    :param channel: Optional angeben, welcher Kanal optimiert werden soll"""
+
+    if len(img) == 0: raise ValueError('image empty.')
 
     # Kanal aus RGB separieren, falls RGB Bild (Kanalnr als Arg. vorhanden)
     if channel is not None:

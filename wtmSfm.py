@@ -2,7 +2,6 @@
 import cv2
 import numpy as np
 import wtmCalib
-import reproFilter
 import copy
 
 
@@ -98,7 +97,7 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
     orb:cv2.ORB = cv2.ORB_create()
     detectortype = 1
 
-    print("detect and compute... (< 30 sec)")
+    print("sfm: detect and compute...")
     if detectortype == 0:   # 25 sekunden (100-200 gültige matches L-R)
         k1, d1 = akaze.detectAndCompute(img1, mask1)
         k2, d2 = akaze.detectAndCompute(img2, mask2)
@@ -128,7 +127,7 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
         k4, d4 = orb.detectAndCompute(img4, mask2)
 
      # Bruteforcematcher, Matches nach distance sortieren
-    print("bruteforce matcher...")
+    print("sfm: bruteforce matcher...")
     bf: cv2.BFMatcher = cv2.BFMatcher_create(cv2.NORM_HAMMING, crossCheck=True)
     matches12 = bf.match(d1, d2)
     matches34 = bf.match(d3, d4)
@@ -138,8 +137,8 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
     pt3sort34, pt4sort34 = sortKeypoints(k3, k4, matches34)
 
     # repro error Filter liefert sehr gute Ergebnisse bei L+R kombi
-    sel_matches12, msg12  = reproFilter.filterReprojectionError(matches12, calib.f, np.int32(pt1sort12), np.int32(pt2sort12), 4 )
-    sel_matches34, msg34  = reproFilter.filterReprojectionError(matches34, calib.f, np.int32(pt3sort34), np.int32(pt4sort34), 4 )
+    sel_matches12, msg12  = filterReprojectionError(matches12, calib.f, np.int32(pt1sort12), np.int32(pt2sort12), 4 )
+    sel_matches34, msg34  = filterReprojectionError(matches34, calib.f, np.int32(pt3sort34), np.int32(pt4sort34), 4 )
     print(msg12)
     print(msg34)
 
@@ -237,7 +236,7 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
         else:
             dropcounter += 1
 
-    print(f'dropped {dropcounter} not fully connected keypoint quadruples.')
+    print(f'sfm: dropped {dropcounter} not fully connected keypoint quadruples.')
 
     # Triangulieren, Punkte in Form "2xN" : [[x1,x2, ...], [y1,y2, ...]]
     a =  np.float64(pt1).T
@@ -267,6 +266,35 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
     return R, tvec[:,None]
 
 
+# ReproFilter: original code in c++: P4 Trainscanner FeatureFilter.cpp (C) Brütsch Tobias / Burri Marcel
+def reprojectionErrorFromLines(line1, line2, point1, point2):
+    a2 = line2[0]   # epipolar line
+    b2 = line2[1]
+    c2 = line2[2]
+    norm_factor2 = (a2**2 + b2**2)**0.5
+
+    a1 = line1[0]
+    b1 = line1[1]
+    c1 = line1[2]
+    norm_factor1 = (a1**2 + b1**2)**0.5
+
+    return abs(point1[0] * a2 + point1[1] * b2 + c2) / norm_factor2 + abs(point2[0] * a1 + point2[1] * b1 + c1) / norm_factor1
+
+
+def filterReprojectionError(matches, F, pts1, pts2, maxDistance = 5):
+    lines1 = cv2.computeCorrespondEpilines(pts1.reshape(-1, 1, 2), 1, F)
+    lines2 = cv2.computeCorrespondEpilines(pts2.reshape(-1, 1, 2), 2, F)
+    lines1 = lines1.reshape(-1, 3)
+    lines2 = lines2.reshape(-1, 3)
+    goodMatches = []
+
+    for i, match in enumerate(matches):
+        err = abs(reprojectionErrorFromLines(lines1[i], lines2[i], pts1[i], pts2[i]))
+        if err < maxDistance:
+            goodMatches.append(match)
+
+    msg = f'sfm: reproFilter before/after (maxDistance={maxDistance}): {matches.__len__()} / {goodMatches.__len__()}'
+    return goodMatches, msg
 
 
 

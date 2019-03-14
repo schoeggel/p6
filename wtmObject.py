@@ -129,7 +129,7 @@ class MachineObject:
         p.cam = cam
         p.imgNames = imgNames
         self._positions.append(p)
-        print(f'added:  {p}')
+        #print(f'added:  {p}')
         return p
 
     def loadpatch(self, filename):
@@ -210,8 +210,6 @@ class MachineObject:
     def __str__(self):
         s = f'wtmObject:\n Name:{self._name}\n'
         s += f' PatchfilenameL: {self.patchfilenameL}\n PatchfilenameR: {self.patchfilenameR}\n'
-        s += f' Real position center:\n {self._patchCenter3d}\n'
-        s += f' Real position corners:\n{self.corners3d}\n'
         return s
 
 

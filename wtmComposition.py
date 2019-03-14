@@ -31,13 +31,13 @@ class Composition:
             """
         assert imagePairs is not None and refObj is not None
         # todo: prüfen der Liste, ob die Bilder existieren etc..
-        self.refScene = None            # Eine Scene, bei der die Transformatione zwischen cam und mac bekannt ist.
+        self.sceneWithExaktRt = None            # Eine Scene, bei der die Transformatione zwischen cam und mac bekannt ist.
         if tmmode is not None:
             self._tmmode = tmmode
         self.imagePairs = imagePairs
         self.refObj = refObj
         self.createScenes()
-        if self.refScene is not None:
+        if self.sceneWithExaktRt is not None:
             self.sfmScenes()            # Transformation versuchen über sfm zu erhalten
 
     @property
@@ -51,7 +51,7 @@ class Composition:
             Konnte beim Initialisieren der scene ein Gitter gefunden werden,
             so kann die scene ab jetzt Objekte lokalisieren."""
         # Die scenes werde untereinander verlinkt mit .next und .prev.
-        # .refScene enthält eine gültige Referenz fürs System machine.
+        # .sceneWithExaktRt enthält eine gültige Referenz fürs System machine.
         newScene = None
         for imgL,imgR in self.imagePairs:
             newScene = wtmScene.Scene(self,imgL, imgR, prevScene = newScene)
@@ -63,10 +63,10 @@ class Composition:
                 newScene.referenceViaObjects(singleUseRefObjects)   # exakte Transformation Rt finden
 
             if newScene.rtstatus in [wtmEnum.rtref.BYOBJECT]:
-                self.refScene = newScene
+                self.sceneWithExaktRt = newScene
 
-    def locateObjects(self, oneOrMoreObjects, verbose=False):
-        """"Alle angegebenen Objekte auf allen scenes messen"""
+    def locateObjects(self, oneOrMoreObjects, scenes=None, verbose=False):
+        """"Alle angegebenen Objekte auf allen angegbenen scenes messen"""
         if type(oneOrMoreObjects) is not list:
             oneOrMoreObjects = [oneOrMoreObjects]
         for obj in oneOrMoreObjects:
@@ -91,6 +91,7 @@ class Composition:
             oneOrMoreObjects = [oneOrMoreObjects]
         for oneObject in oneOrMoreObjects:
             oneObject:wtmObject.MachineObject = oneObject
+            print(f'locateObjectInScene: {oneObject.patchfilenameL} ---> {scene.photoNameL}')
             try:
                 pos = scene.locate(oneObject, verbose=verbose)
             except:
@@ -115,20 +116,23 @@ class Composition:
         """findet die scene, bei der die Zug Referenz nicht mehr über das Gitter gesetzt werden konnte
             und setzt die Referenz anhand der smf mit dem bildpaar mit der letzten gültigen referenz."""
         # einmal vorwärts:
-        sc:wtmScene.Scene =  self.refScene
+        sc: wtmScene.Scene = self.sceneWithExaktRt
         while not sc.isLast:
             if sc.next.rtstatus in [wtmEnum.rtref.NONE, wtmEnum.rtref.APPROX]:
-                dR, dt = wtmSfm.sfm(sc.photoL,sc.photoR,sc.next.photoL,sc.next.photoR, self.calib, verbose= False)
+                print(f'\nsfm: calculate t between scenes {sc.photoNameL}/{sc.photoNameR} and {sc.next.photoNameL}/{sc.next.photoNameR}')
+                _, dt = wtmSfm.sfm(sc.photoL,sc.photoR,sc.next.photoL,sc.next.photoR, self.calib, verbose= False)
                 sc.next.R_exact = sc.R_exact
                 sc.next.t_exact = sc.t_exact - dt
                 sc.next.rtstatus = wtmEnum.rtref.BYSFM
             sc = sc.next
 
         # einmal rückwärts
-        sc: wtmScene.Scene = self.refScene
+        sc: wtmScene.Scene = self.sceneWithExaktRt
         while not sc.isFirst:
             if sc.prev.rtstatus in [wtmEnum.rtref.NONE, wtmEnum.rtref.APPROX]:
-                dR, dt = wtmSfm.sfm(sc.photoL, sc.photoR, sc.prev.photoL, sc.prev.photoR, self.calib, verbose=False)
+                print(
+                    f'\nsfm: calculate t between scenes {sc.photoNameL}/{sc.photoNameR} and {sc.prev.photoNameL}/{sc.prev.photoNameR}')
+                _, dt = wtmSfm.sfm(sc.photoL, sc.photoR, sc.prev.photoL, sc.prev.photoR, self.calib, verbose=False)
                 sc.prev.R_exact = sc.R_exact
                 sc.prev.t_exact = sc.t_exact - dt
                 sc.prev.rtstatus = wtmEnum.rtref.BYSFM
@@ -138,7 +142,7 @@ class Composition:
     def __str__(self):
         return f"""
         {self.calib}\n
-        composition containg {len(self.imagePairs)} image pair(s) 
+        composition contains {len(self.imagePairs)} image pair(s) 
         and {len(self.refObj)} reference objects. 
         active template matching mode (tmmode) is {self.tmmode}
         use .sceneinfo() for scene details.

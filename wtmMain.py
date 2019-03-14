@@ -28,18 +28,18 @@ fn = [["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"],["SBB/17L.pn
 cp = Composition(fn, allRefs)
 print(cp)
 cp.sceneinfo()
-cp._scenes[0].drawOrigin(length=90, show=True, mirror=True)
-cp._scenes[1].drawOrigin(length=500, show=True, mirror=False)
-cp._scenes[-1].drawOrigin(length=1500, show=True, mirror=True)
 
+#cp._scenes[0].drawOrigin(length=90, show=True, mirror=False)
+#cp._scenes[1].drawOrigin(length=150, show=True, mirror=False)
+#cp._scenes[-1].drawOrigin(length=1500, show=True, mirror=True)
 #cp._locateObject(allObjects[0], extend=200,verbose=True)
 #exit(0)
 
-
-# vieles messen
-idx = int(input(f'welches Objekt vermessen? -1 für alle: '))
-if idx > -1:
-    allObjects = [allObjects[idx]]
+    # vieles messen
+if 1==0:
+    idx = int(input(f'welches Objekt vermessen? -1 für alle: '))
+    if idx > -1:
+        allObjects = [allObjects[idx]]
 
 cp.locateObjects(allObjects, verbose=False)
 for o in allObjects:

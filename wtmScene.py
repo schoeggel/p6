@@ -218,13 +218,17 @@ class Scene:
         # pts im shape (4,1,2)
         pts = pts.astype(int)
         pts_mir = pts_mir.astype(int)
+        if mirror:
+            img = cv2.line(img, (pts_mir[0][0][0], pts_mir[0][0][1]),
+                           (pts_mir[1][0][0], pts_mir[1][0][1]), (64, 64, 128), thickness)
+            img = cv2.line(img, (pts_mir[0][0][0], pts_mir[0][0][1]), (pts_mir[2][0][0], pts_mir[2][0][1]),
+                           (64, 128, 64), thickness)
+            img = cv2.line(img, (pts_mir[0][0][0], pts_mir[0][0][1]), (pts_mir[3][0][0], pts_mir[3][0][1]),
+                           (128, 64, 64), thickness)
+
         img = cv2.line(img, (pts[0][0][0], pts[0][0][1]), (pts[1][0][0], pts[1][0][1]), (0,0,255), thickness)
         img = cv2.line(img, (pts[0][0][0], pts[0][0][1]), (pts[2][0][0], pts[2][0][1]), (0,255,0), thickness)
         img = cv2.line(img, (pts[0][0][0], pts[0][0][1]), (pts[3][0][0], pts[3][0][1]), (255,0,0), thickness)
-        if mirror:
-            img = cv2.line(img, (pts_mir[0][0][0], pts_mir[0][0][1]), (pts_mir[1][0][0], pts_mir[1][0][1]), (64, 64, 128), thickness)
-            img = cv2.line(img, (pts_mir[0][0][0], pts_mir[0][0][1]), (pts_mir[2][0][0], pts_mir[2][0][1]), (64, 128, 64), thickness)
-            img = cv2.line(img, (pts_mir[0][0][0], pts_mir[0][0][1]), (pts_mir[3][0][0], pts_mir[3][0][1]), (128, 64, 64), thickness)
 
         # wie wurde Rt cam->mac definiert?
         txt = f'Rt-Status: {self.rtstatus},  mirror={mirror}'
@@ -388,7 +392,6 @@ class Scene:
         centerxyR = (centerx + ROIR[2], centery + ROIR[0])
 
         # Triangulieren
-        print(f'Trianguliere diese beiden Punkte: {centerxyL} und {centerxyR}')
         # Bild pixel koordinaten der Objekt Zentren
         a3xN = np.float64([[centerxyL[0]],
                            [centerxyL[1]]])
@@ -493,12 +496,6 @@ class Scene:
         # Versatz von der Ecke des Templates zur Mitte des Templates berücksichtigen
         location = top_left + patchcenter
         location = tuple(location.astype(int))
-
-        if verbose:
-            print(f'Template.shape: {template.shape}')
-            print(f'image.shape: {img.shape}')
-            print(f'Top-Left: {top_left} ; Offset PatchCenter: {patchcenter} ; Template Center: {location}')
-            print(res.shape)
 
         return location, val, res
 
@@ -741,8 +738,6 @@ class Scene:
         vmb = refpts[1] - m
         vmc = refpts[2] - m
         vmd = refpts[3] - m
-        print("Debug vma, vmb, vmc, vmd:")
-        print(vma, vmb, vmc, vmd)
 
         # Die Ausrichtung anhand der Ebene bestimmen
         # ungefähr deshalb, weil der winkel zwischen x und y nicht in jedem Fall 90° beträgt
@@ -775,15 +770,13 @@ class Scene:
         self.R_exact, self.t_exact = rigid_transform_3D(systemcam, systemzug)
         self.rtstatus = rtref.BYOBJECT
 
-        print("sysCam\n", systemcam)
-        print("sysTrain\n", systemzug)
-        print("R\n", self.R_exact)
-        print("t\n", self.t_exact)
+        # print("sysCam\n", systemcam)
+        # print("sysTrain\n", systemzug)
+        # print("R\n", self.R_exact)
+        # print("t\n", self.t_exact)
 
     def __str__(self):
-        return f"""
-        Scene Summary:
-        Gridposition: ({self.gitterPosL}, {self.gitterPosR})
-        Gridposition is valid: {self.gitterPosValid}
-        TODO ... 
+        return f"""        Scene Image Filenames: {self.photoNameL}, {self.photoNameR}
+        Rt status: {self.rtstatus}
+        isFirst={self.isFirst} / isLast={self.isLast}
         """
