@@ -40,7 +40,7 @@ def processFolder(folder):
 
 def parser(filename):
     f = open(filename, 'r')
-    name = f.readline()[7:]
+    name = f.readline()[7:-1]    # ohne \n
     posx = int(f.readline()[7:])
     posy = int(f.readline()[7:])
     posz = int(f.readline()[7:])

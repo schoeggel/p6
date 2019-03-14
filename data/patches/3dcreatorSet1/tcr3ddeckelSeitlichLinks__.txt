@@ -1,4 +1,4 @@
-name: Deckel seitlich Links
+name:  Deckel seitlich Links
 posx:  -421
 posy:  -186
 posz:  9

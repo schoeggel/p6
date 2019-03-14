@@ -1,4 +1,4 @@
-name: Schraube klein Links (oberkante)
+name:  Schraube klein Links (oberkante)
 posx:  -312
 posy:  128
 posz:  12

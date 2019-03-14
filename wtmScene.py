@@ -38,6 +38,7 @@ class Scene:
         self.tobj:wtmObject.MachineObject           # das aktuelle Template Objekt
         self.photoNameL = photoNameL
         self.photoNameR = photoNameR
+        self.name = f'{photoNameL[:-4]}---{photoNameR[:-4]}'
         self.photoL = cv2.imread(photoNameL)        # Das von der Kamera gemachte Originalbild
         self.photoR = cv2.imread(photoNameR)        # Das von der Kamera gemachte Originalbild
         self.measuredposition3d_cam = None
@@ -419,6 +420,7 @@ class Scene:
         pos.mac = self.measuredposition3d_mac[0]
         pos.cam = self.measuredposition3d_cam[:3,0]
         pos.imgNames = [self.photoNameL, self.photoNameR]
+        pos.sceneName = self.name
 
         self.tobj.addPosition(pos.mac, pos.cam, pos.imgNames)
 
@@ -776,7 +778,8 @@ class Scene:
         # print("t\n", self.t_exact)
 
     def __str__(self):
-        return f"""        Scene Image Filenames: {self.photoNameL}, {self.photoNameR}
+        return f"""        name: {self.name}
+        Scene Image Filenames: {self.photoNameL}, {self.photoNameR}
         Rt status: {self.rtstatus}
         isFirst={self.isFirst} / isLast={self.isLast}
         """

@@ -59,43 +59,33 @@ class Composition:
 
             if len(self.refObj) == 4 and newScene.rtstatus == wtmEnum.rtref.APPROX:
                 singleUseRefObjects = copy.deepcopy(self.refObj)    # auf diesen Objekten nur einmal messen
-                self.locateObjectInScene(singleUseRefObjects, newScene, verbose= False)
+                self.locateObjects(singleUseRefObjects, newScene, verbose= False)
                 newScene.referenceViaObjects(singleUseRefObjects)   # exakte Transformation Rt finden
 
             if newScene.rtstatus in [wtmEnum.rtref.BYOBJECT]:
                 self.sceneWithExaktRt = newScene
 
-    def locateObjects(self, oneOrMoreObjects, scenes=None, verbose=False):
-        """"Alle angegebenen Objekte auf allen angegbenen scenes messen"""
+    def locateObjects(self, oneOrMoreObjects, scenes =None, extend=100, verbose=False):
+        """"Alle angegebenen Objekte auf allen angegbenen scenes messen
+        :param oneOrMoreObjects: Ein einzelnes MachineObjekt oder eine Liste
+        :param scenes: Optional eine einzelne Scene oder eine Liste. Ohne Angabe werden alle scenes verwendet"""
+
         if type(oneOrMoreObjects) is not list:
             oneOrMoreObjects = [oneOrMoreObjects]
-        for obj in oneOrMoreObjects:
-            self._locateObject(obj, verbose=verbose)
 
-    def _locateObject(self, oneObject, extend=100, verbose=False):
-        """Auf allen scenes das eine Objekt lokalisieren"""
-        oneObject: wtmObject.MachineObject = oneObject
-        for s in self._scenes:
-            s:wtmScene.Scene = s
-            try:
-                s.locate(oneObject, extend=extend, verbose=verbose)
-            except:
-                print(f'Could not locate Object {oneObject.patchfilenameL} in scene {s.photoNameL}' )
+        if scenes is None:
+            scenes = self._scenes
+        elif type(scenes) is not list:
+            scenes = [scenes]
 
-
-    def locateObjectInScene(self, oneOrMoreObjects, scene, verbose=False):
-        """ Ein einzelnes Objekt (oder mehrere) in einer einzelnen Scene lokalisieren
-            TODO: Fehlerhandling verbessern."""
-        scene: wtmScene.Scene = scene
-        if type(oneOrMoreObjects) is not list:
-            oneOrMoreObjects = [oneOrMoreObjects]
         for oneObject in oneOrMoreObjects:
-            oneObject:wtmObject.MachineObject = oneObject
-            print(f'locateObjectInScene: {oneObject.patchfilenameL} ---> {scene.photoNameL}')
-            try:
-                pos = scene.locate(oneObject, verbose=verbose)
-            except:
-                print(f'Could not locate Object {oneObject.patchfilenameL} in scene {scene.photoNameL}' )
+            for s in scenes:
+                try:
+                    s.locate(oneObject, extend=extend, verbose=verbose)
+                    print(f'locate: successfully located {oneObject.name} in scene {s.name}')
+                except:
+                    print(f'locate: failed to locate {oneObject.name} in scene {s.name}')
+
 
     def sceneinfo(self, n:int = None):
         """Informationen zu einer bestimmten scene anzeigen"""
@@ -119,7 +109,7 @@ class Composition:
         sc: wtmScene.Scene = self.sceneWithExaktRt
         while not sc.isLast:
             if sc.next.rtstatus in [wtmEnum.rtref.NONE, wtmEnum.rtref.APPROX]:
-                print(f'\nsfm: calculate t between scenes {sc.photoNameL}/{sc.photoNameR} and {sc.next.photoNameL}/{sc.next.photoNameR}')
+                print(f'\nsfm: calculate t between scenes {sc.name} and {sc.next.name}')
                 _, dt = wtmSfm.sfm(sc.photoL,sc.photoR,sc.next.photoL,sc.next.photoR, self.calib, verbose= False)
                 sc.next.R_exact = sc.R_exact
                 sc.next.t_exact = sc.t_exact - dt
@@ -130,8 +120,7 @@ class Composition:
         sc: wtmScene.Scene = self.sceneWithExaktRt
         while not sc.isFirst:
             if sc.prev.rtstatus in [wtmEnum.rtref.NONE, wtmEnum.rtref.APPROX]:
-                print(
-                    f'\nsfm: calculate t between scenes {sc.photoNameL}/{sc.photoNameR} and {sc.prev.photoNameL}/{sc.prev.photoNameR}')
+                print(f'\nsfm: calculate t between scenes {sc.name} and {sc.prev.name}')
                 _, dt = wtmSfm.sfm(sc.photoL, sc.photoR, sc.prev.photoL, sc.prev.photoR, self.calib, verbose=False)
                 sc.prev.R_exact = sc.R_exact
                 sc.prev.t_exact = sc.t_exact - dt

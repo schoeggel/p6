@@ -134,7 +134,7 @@ def clahe(img, pxPerBlock=50, channel=None):
     :param pxPerBlock: Zur Berechnung des CLAHE Parameters 'grid'
     :param channel: Optional angeben, welcher Kanal optimiert werden soll"""
 
-    if len(img) == 0: raise ValueError('image empty.')
+    if len(img) == 0 or img.shape[0] == 0 or img.shape[1] == 0: raise ValueError('image empty')
 
     # Kanal aus RGB separieren, falls RGB Bild (Kanalnr als Arg. vorhanden)
     if channel is not None:

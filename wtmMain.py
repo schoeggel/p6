@@ -32,7 +32,7 @@ cp.sceneinfo()
 #cp._scenes[0].drawOrigin(length=90, show=True, mirror=False)
 #cp._scenes[1].drawOrigin(length=150, show=True, mirror=False)
 #cp._scenes[-1].drawOrigin(length=1500, show=True, mirror=True)
-#cp._locateObject(allObjects[0], extend=200,verbose=True)
+#cp._locateSingleObject(allObjects[0], extend=200,verbose=True)
 #exit(0)
 
     # vieles messen
@@ -42,15 +42,17 @@ if 1==0:
         allObjects = [allObjects[idx]]
 
 cp.locateObjects(allObjects, verbose=False)
+print("ok")
+
 for o in allObjects:
 
     o:MachineObject
     print("--------------------------------------------------------------------")
     print(o)
     print(o.positions)
-    print(o.avgPosMac)
-    print(o.rmserror)
-    print(np.std(o._positionsAsNumpyArray()[0], 0))
+    print(f'mean position: {o.avgPosMac}')
+    print(f'rms error: {o.rmserror}')
+    print(f'std dev per axis: {np.std(o._positionsAsNumpyArray()[0], 0)}')
 
 
 

@@ -27,18 +27,19 @@ class Position:
     mac = np.zeros(3)
     cam = np.zeros(3)
     imgNames = ["",""]
+    sceneName = "unknownScene"
 
     def __str__(self):
-        return f"Position in images '{self.imgNames[0]}' and '{self.imgNames[1]}'" \
-            f":\tcamera (cam): {self.cam}\t\tmachine (mac): {self.mac}\n"
+        return f"Position in scene '{self.sceneName}':\tcamera: {self.cam}\t\tmachine: {self.mac}\n"
 
 
 class Positions(list):
     # Liste mit den gemessenen Positionen vom Typ 'Position'
     def __str__(self) -> str:
         s = "All measured Positions:\n"
-        for e in self:
-            s += e.__str__()
+        with np.printoptions(precision=4, suppress=True):
+            for e in self:
+                s += e.__str__()
         return s
     # TODO: messwerte mitteln und gemittelte Koordinaten zurückgeben
 
@@ -79,9 +80,9 @@ class MachineObject:
             self._rotation = rotation3d
 
         if name is None:
-            self._name = filename  # Objektname
+            self.name = filename  # Objektname
         else:
-            self._name = name
+            self.name = name
 
         self.loadpatch(filename)  # default-Patch laden
         self.calculatePatchCorners3d()
@@ -94,16 +95,19 @@ class MachineObject:
     @property
     def avgPosMac(self):
         # Rechnet den Mittelwert der Positionen (System mac) und gibt sie zurück
+        if self._positions.__len__() == 0: return np.nan
         return np.average(self._positionsAsNumpyArray()[0], 0)
 
     @property
     def avgPosCam(self):
         # Rechnet den Mittelwert der Positionen (System cam) und gibt sie zurück
+        if self._positions.__len__() == 0: return np.nan
         return np.average(self._positionsAsNumpyArray()[1], 0)
 
     @property
     def rmserror(self):
         """Liefert den rms Error der Messungen. Da noch kein echter SOLL - Wert vorhanden: Mittelwert verwenden"""
+        if self._positions.__len__() == 0: return np.nan
         A = self.avgPosMac
         A = np.tile(A, (len(self._positions),1))
         B = self._positionsAsNumpyArray()[0]
@@ -208,9 +212,10 @@ class MachineObject:
         cv2.destroyWindow(wname)
 
     def __str__(self):
-        s = f'wtmObject:\n Name:{self._name}\n'
-        s += f' PatchfilenameL: {self.patchfilenameL}\n PatchfilenameR: {self.patchfilenameR}\n'
-        return s
+        return f'wtmObject <{self.name}>\nPatchfilenameL: {self.patchfilenameL}\nPatchfilenameR: ' \
+               f'{self.patchfilenameR}\npositions recorded: {len(self._positions)}'
+
+
 
 
 
