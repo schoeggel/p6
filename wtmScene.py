@@ -39,7 +39,7 @@ class Scene:
         self.tobj:wtmObject.MachineObject           # das aktuelle Template Objekt
         self.photoNameL = photoNameL
         self.photoNameR = photoNameR
-        self.name = f'{photoNameL[:-4]}---{photoNameR[:-4]}'
+        self.name = f'{photoNameL[:-4]}|{photoNameR[:-4]}'
         self.photoL = cv2.imread(photoNameL)        # Das von der Kamera gemachte Originalbild
         self.photoR = cv2.imread(photoNameR)        # Das von der Kamera gemachte Originalbild
         self.measuredposition3d_cam = None

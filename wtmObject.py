@@ -32,13 +32,13 @@ class Position:
     snapshotR = None      # ein schnappschuss aus der Detektion
 
     def __str__(self):
-        return f"Position in scene '{self.sceneName}':\tcamera: {self.cam}\t\tmachine: {self.mac}\n"
+        return f"Position in scene <{self.sceneName}>:\tcamera: {self.cam}\t\tmachine: {self.mac}\n"
 
 
 class Positions(list):
     # Liste mit den gemessenen Positionen vom Typ 'Position'
     def __str__(self) -> str:
-        s = "All measured Positions:\n"
+        s = ""
         with np.printoptions(precision=4, suppress=True):
             for e in self:
                 s += e.__str__()
@@ -54,6 +54,7 @@ class MachineObject:
          Von einem Objekt bestehen zwei Patches, von jeder Kamera eine
          Aufnahme, verzerrt in eine flache Draufsicht."""
 
+    maxReproError = 5
 
     def __init__(self, filename, center3d, realsize, rotation3d=None, name=None):
         self._patchCenter3d = center3d.astype(float)  # Vektor 3d zum Patch Mitelpunkt im sys_zug
@@ -66,7 +67,8 @@ class MachineObject:
         self.patchimageL = None  # Das Bild (Kontrastverbessert), wird erst später befüllt
         self.patchimageR = None  # Das Bild (Kontrastverbessert), wird erst später befüllt
         self.corners3d = np.zeros((5, 3))  # Vier Eckpunkte plus Mittelpunkt des Objekts als 3d Koord.
-        self._positions = Positions()  # Die gemessene Position im System Zug
+        self._positions = Positions()  # Die gültigen, gemessene Position im System Zug
+        self._rejectedPositions = Positions()  # Die UNgültigen, Positionen (bspw. repojektionsfehler zu gross)
         self._measuredposition3d_cam = None  # Die gemessene Position im System Kamera
 
         assert (len(filename) > 0) and (center3d.shape == (3,))
@@ -122,7 +124,7 @@ class MachineObject:
         return mac, cam
 
 
-    def addPosition(self, mac, cam, imgNames:list, sceneName, snapshots:list) -> Position:
+    def addPosition(self, mac, cam, imgNames:list, sceneName, snapshots:list, reproerr) -> Position:
         # Erstellt eine neue Positionsmessung, fügt sie zur Messliste hinzu
         # und gibt die Referenz der neuen Messung zurück
         assert len(cam) == 3 and len(mac) == 3
@@ -134,7 +136,10 @@ class MachineObject:
         p.sceneName = sceneName
         p.snapshotL = snapshots[0]
         p.snapshotR = snapshots[1]
-        self._positions.append(p)
+        if reproerr <= self.maxReproError:
+            self._positions.append(p)
+        else:
+            self._rejectedPositions.append(p)
         #print(f'added:  {p}')
         return p
 
@@ -230,7 +235,8 @@ class MachineObject:
 
     def __str__(self):
         return f'wtmObject <{self.name}>\nPatchfilenameL: {self.patchfilenameL}\nPatchfilenameR: ' \
-               f'{self.patchfilenameR}\npositions recorded: {len(self._positions)}'
+               f'{self.patchfilenameR}\nvalid position entries: {len(self._positions)}' \
+               f'\nrejected position entries: {len(self._rejectedPositions)}'
 
 
 

@@ -82,9 +82,9 @@ class Composition:
             for s in scenes:
                 try:
                     s.locate(oneObject, extend=extend, verbose=verbose)
-                    print(f'locate: successfully located {oneObject.name} in scene {s.name}')
+                    print(f'locate: successfully located <{oneObject.name}> in scene <{s.name}>')
                 except:
-                    print(f'locate: failed to locate {oneObject.name} in scene {s.name}')
+                    print(f'locate: failed to locate <{oneObject.name}> in scene <{s.name}>')
 
 
     def sceneinfo(self, n:int = None):

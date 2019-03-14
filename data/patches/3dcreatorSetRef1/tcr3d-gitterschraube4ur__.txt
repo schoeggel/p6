@@ -1,4 +1,4 @@
-name:  gitterschraube4-ur
+name:  gitterschraube4ur
 posx:  238
 posy:  -241
 posz:  7
