@@ -54,7 +54,8 @@ for o in allObjects:
     print(f'mean position: {o.avgPosMac}')
     print(f'rms error: {o.rmserror}')
     print(f'std dev per axis: {np.std(o._positionsAsNumpyArray()[0], 0)}')
-    o.showSnapshots()
+    o.showBadSnapshots()
+    o.showGoodSnapshots()
 
 
 

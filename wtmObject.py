@@ -16,7 +16,7 @@
 
 import numpy as np
 import cv2, math
-from wtmAux import clahe, imgMergerV, imgMergerH
+from wtmAux import clahe, imgMergerV, imgMergerH, putBetterText
 import wtmComposition
 from rigid_transform_3d import rmserror
 
@@ -30,6 +30,7 @@ class Position:
     sceneName = "unknownScene"
     snapshotL = None
     snapshotR = None      # ein schnappschuss aus der Detektion
+    reproError = -1
 
     def __str__(self):
         return f"Position in scene <{self.sceneName}>:\tcamera: {self.cam}\t\tmachine: {self.mac}\n"
@@ -136,6 +137,7 @@ class MachineObject:
         p.sceneName = sceneName
         p.snapshotL = snapshots[0]
         p.snapshotR = snapshots[1]
+        p.reproError = reproerr
         if reproerr <= self.maxReproError:
             self._positions.append(p)
         else:
@@ -219,14 +221,23 @@ class MachineObject:
         cv2.destroyWindow(wname)
 
 
-    def showSnapshots(self):
+    def showGoodSnapshots(self):
         if len(self._positions) == 0: return
-        snapshots = []
-        for e in self._positions:
-            snapshots.append(imgMergerH([e.snapshotL, e.snapshotR]))
+        self._showSnapshots(self._positions, "Good Positions")
 
+    def showBadSnapshots(self):
+        if len(self._rejectedPositions) == 0: return
+        self._showSnapshots(self._rejectedPositions, "Rejected Positions")
+
+
+    def _showSnapshots(self, positionlist, txt):
+        snapshots = []
+        for e in positionlist:
+            image = imgMergerH([e.snapshotL, e.snapshotR])
+            image = putBetterText(image, f'reproErr={e.reproError}', (5,30), cv2.FONT_HERSHEY_DUPLEX, 1, (255,255,255),1,1)
+            snapshots.append(image)
         bigpic = imgMergerV(snapshots)
-        wname = "snapshots"
+        wname = "snapshots - " + txt
         cv2.namedWindow(wname, cv2.WINDOW_NORMAL)
         cv2.imshow(wname, bigpic)
         cv2.waitKey(0)

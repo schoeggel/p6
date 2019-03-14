@@ -342,7 +342,7 @@ class Scene:
         # Liefert die gemessene Position zurück (2d,3d)
         # Speichert gemessene 3d pos in Instanz und zur Kontrolle auch die Rückprojektionskoordinaten (xy) pro Bildseite
 
-        self.tobj = tobj                # übernimm das Template Objekt von aussen
+        self.tobj: wtmObject.MachineObject = tobj  # übernimm das Template Objekt von aussen
 
         # Die Ecken müssen zuvor berechnet worden sein.
         assert (self.tobj.corners3d.sum != 0)
@@ -418,6 +418,14 @@ class Scene:
         c = self.context.calib
         self.reprojectedPosition2dL, _ = cv2.projectPoints(self.measuredposition3d_cam[:3].T, c.rl, c.tl, c.kl, c.drl)
         self.reprojectedPosition2dR, _ = cv2.projectPoints(self.measuredposition3d_cam[:3].T, c.rr, c.tr, c.kr, c.drr)
+
+        # Reprojektionsfehler berechnen für beide Seiten, höchsten Wert verwenden
+        reproErrorL = self.reprojectedPosition2dL - centerxyL
+        reproErrorR = self.reprojectedPosition2dR - centerxyR
+        reproErrorL = (reproErrorL**2).sum()**0.5
+        reproErrorR = (reproErrorR**2).sum()**0.5
+        reproError = max(reproErrorL, reproErrorR)
+
         self.reprojectedPosition2dL = tuple(self.reprojectedPosition2dL.flatten().astype(int))
         self.reprojectedPosition2dR = tuple(self.reprojectedPosition2dR.flatten().astype(int))
 
@@ -427,11 +435,9 @@ class Scene:
         pos.imgNames = [self.photoNameL, self.photoNameR]
         pos.sceneName = self.name
 
-        # TODO repro-Filter
-
         # Position und Snapshot speichern
         snapshots = [copy.copy(self.markedROIL), copy.copy(self.markedROIR)]
-        self.tobj.addPosition(pos.mac, pos.cam, pos.imgNames, pos.sceneName, snapshots)
+        self.tobj.addPosition(pos.mac, pos.cam, pos.imgNames, pos.sceneName, snapshots, reproError)
 
         if verbose: self.showAllSteps()
         return pos
