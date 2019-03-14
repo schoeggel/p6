@@ -93,6 +93,10 @@ class MachineObject:
     def positions(self):
         return self._positions.__str__()
 
+    @property
+    def rejectedPositions(self):
+        return self._rejectedPositions.__str__()
+
 
     @property
     def avgPosMac(self):
@@ -221,31 +225,34 @@ class MachineObject:
         cv2.destroyWindow(wname)
 
 
-    def showGoodSnapshots(self):
+    def showGoodSnapshots(self, save=False):
         if len(self._positions) == 0: return
-        self._showSnapshots(self._positions, "Good Positions")
+        self._showSnapshots(self._positions, "Good Positions", save=save)
 
-    def showBadSnapshots(self):
+    def showBadSnapshots(self, save=False):
         if len(self._rejectedPositions) == 0: return
-        self._showSnapshots(self._rejectedPositions, "Rejected Positions")
+        self._showSnapshots(self._rejectedPositions, "Rejected Positions", save=save)
 
-
-    def _showSnapshots(self, positionlist, txt):
+    def _showSnapshots(self, positionlist, txt, save=False):
         snapshots = []
         for e in positionlist:
             image = imgMergerH([e.snapshotL, e.snapshotR])
-            image = putBetterText(image, f'reproErr={e.reproError}', (5,30), cv2.FONT_HERSHEY_DUPLEX, 1, (255,255,255),1,1)
+            image = putBetterText(image, f'reproError={e.reproError}', (5,30), cv2.FONT_HERSHEY_DUPLEX, 1, (255,255,255),1,1)
             snapshots.append(image)
         bigpic = imgMergerV(snapshots)
         wname = "snapshots - " + txt
         cv2.namedWindow(wname, cv2.WINDOW_NORMAL)
         cv2.imshow(wname, bigpic)
+        if save:
+            cv2.imwrite(f'tmp/{self.name}-snapshot-{txt}.jpg', bigpic, [cv2.IMWRITE_JPEG_QUALITY, 50])
+
+
         cv2.waitKey(0)
         cv2.destroyWindow(wname)
 
 
     def __str__(self):
-        return f'wtmObject <{self.name}>\nPatchfilenameL: {self.patchfilenameL}\nPatchfilenameR: ' \
+        return f'{self.__class__.__name__ } <{self.name}>\nPatchfilenameL: {self.patchfilenameL}\nPatchfilenameR: ' \
                f'{self.patchfilenameR}\nvalid position entries: {len(self._positions)}' \
                f'\nrejected position entries: {len(self._rejectedPositions)}'
 

@@ -236,7 +236,7 @@ def sfm(img1, img2, img3, img4, calib, verbose=False):
         else:
             dropcounter += 1
 
-    print(f'sfm: dropped {dropcounter} not fully connected keypoint quadruples.')
+    print(f'sfm: dropped {dropcounter} incomplete keypoint quadruples.')
 
     # Triangulieren, Punkte in Form "2xN" : [[x1,x2, ...], [y1,y2, ...]]
     a =  np.float64(pt1).T

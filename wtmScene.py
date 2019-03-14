@@ -140,19 +140,24 @@ class Scene:
 
     #liefert die eckpunkte für den suchbereich.
     # im Format [oly, ury, olx, urx]
-    def getROIptsL(self, extend = 100):
+    def getROIptsL(self, extend = 1.25):
         return self.getROIsingleSide(self.corners2DimgL, extend)
 
-    def getROIptsR(self, extend = 100):
+    def getROIptsR(self, extend = 1.25):
         return self.getROIsingleSide(self.corners2DimgR, extend)
 
     @staticmethod
     def getROIsingleSide(corners, extend):
         # Liefert den Suchbereich einer Seite
+        # extend ist jetzt prozentual.
         minx, miny = corners.min(0)[0]  # liefert individuell, nicht paarweise
         maxx, maxy = corners.max(0)[0]
-        olx, oly = minx - extend, miny - extend
-        urx, ury = maxx + extend, maxy + extend
+        extendx = (maxx - minx) * extend
+        extendy = (maxy - miny) * extend
+        olx = minx - extendx
+        oly = miny - extendy
+        urx = maxx + extendx
+        ury = maxy + extendy
 
         # begrenzen, keine negativen
         olx, oly = max(olx, 0), max(oly, 0)
@@ -337,7 +342,7 @@ class Scene:
             self.activeROIR = self.ROIR
 
 
-    def locate(self, tobj, verbose=False, extend=100):
+    def locate(self, tobj, verbose=False, extend=1.25):
         # sucht das objekt im angegebenen Bild
         # Liefert die gemessene Position zurück (2d,3d)
         # Speichert gemessene 3d pos in Instanz und zur Kontrolle auch die Rückprojektionskoordinaten (xy) pro Bildseite

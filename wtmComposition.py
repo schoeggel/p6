@@ -65,7 +65,7 @@ class Composition:
             if newScene.rtstatus in [wtmEnum.rtref.BYOBJECT]:
                 self.sceneWithExaktRt = newScene
 
-    def locateObjects(self, oneOrMoreObjects, scenes =None, extend=100, verbose=False):
+    def locateObjects(self, oneOrMoreObjects, scenes =None, extend=1.25, verbose=False):
         """"Alle angegebenen Objekte auf allen angegbenen scenes messen
         :param oneOrMoreObjects: Ein einzelnes MachineObjekt oder eine Liste
         :param scenes: Optional eine einzelne Scene oder eine Liste. Ohne Angabe werden alle scenes verwendet"""
@@ -109,7 +109,7 @@ class Composition:
         sc: wtmScene.Scene = self.sceneWithExaktRt
         while not sc.isLast:
             if sc.next.rtstatus in [wtmEnum.rtref.NONE, wtmEnum.rtref.APPROX]:
-                print(f'\nsfm: calculate t between scenes {sc.name} and {sc.next.name}')
+                print(f'\nsfm: calculate t:  {sc.name} ------> {sc.next.name}')
                 _, dt = wtmSfm.sfm(sc.photoL,sc.photoR,sc.next.photoL,sc.next.photoR, self.calib, verbose= False)
                 sc.next.R_exact = sc.R_exact
                 sc.next.t_exact = sc.t_exact - dt
@@ -120,7 +120,7 @@ class Composition:
         sc: wtmScene.Scene = self.sceneWithExaktRt
         while not sc.isFirst:
             if sc.prev.rtstatus in [wtmEnum.rtref.NONE, wtmEnum.rtref.APPROX]:
-                print(f'\nsfm: calculate t between scenes {sc.name} and {sc.prev.name}')
+                print(f'\nsfm: calculate t:  {sc.name} ------> {sc.prev.name}')
                 _, dt = wtmSfm.sfm(sc.photoL, sc.photoR, sc.prev.photoL, sc.prev.photoR, self.calib, verbose=False)
                 sc.prev.R_exact = sc.R_exact
                 sc.prev.t_exact = sc.t_exact - dt

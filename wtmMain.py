@@ -21,9 +21,10 @@ allRefs, allObjects =  wtmFactory.createMachineObjects()
 ############################# COMPOSITION #######################################
 fn = [["SBB/8L.png", "SBB/8R.png"], ["SBB/9L.png", "SBB/9R.png"], ["SBB/10L.png", "SBB/10R.png"],
       ["SBB/11L.png", "SBB/11R.png"], ["SBB/12L.png", "SBB/12R.png"], ["SBB/13L.png", "SBB/13R.png"],
-      ["SBB/14L.png", "SBB/14R.png"], ["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"]]
-fn = [["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"]]
-fn = [["SBB/13L.png", "SBB/13R.png"],["SBB/14L.png", "SBB/14R.png"],["SBB/15L.png", "SBB/15R.png"]]
+      ["SBB/14L.png", "SBB/14R.png"], ["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"],
+      ["SBB/17L.png", "SBB/17R.png"],["SBB/18L.png", "SBB/18R.png"]]
+#fn = [["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"]]
+#fn = [["SBB/13L.png", "SBB/13R.png"],["SBB/14L.png", "SBB/14R.png"],["SBB/15L.png", "SBB/15R.png"]]
 #fn = [["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"],["SBB/17L.png", "SBB/17R.png"],["SBB/18L.png", "SBB/18R.png"]]
 
 cp = Composition(fn, allRefs)
@@ -50,11 +51,12 @@ for o in allObjects:
     o:MachineObject
     print("--------------------------------------------------------------------")
     print(o)
-    print(o.positions)
+    print(f'Good Positions:\n{o.positions}')
+    print(f'Rejected Positions:\n{o.rejectedPositions}')
     print(f'mean position: {o.avgPosMac}')
     print(f'rms error: {o.rmserror}')
     print(f'std dev per axis: {np.std(o._positionsAsNumpyArray()[0], 0)}')
-    o.showBadSnapshots()
+    o.showBadSnapshots(save=True)
     o.showGoodSnapshots()
 
 
