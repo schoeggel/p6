@@ -25,14 +25,16 @@ class Position:
     # Eine gemessene Position eines Objekts. Jeweils in beiden unterschiedliechen Bezugssystemen.
     # Die Bildernamen zeigen, in welchem Bildpaar die Messung erfolgte.
 
-    mac = np.zeros(3)
-    cam = np.zeros(3)
-    imgNames = ["",""]
-    sceneName = "unknownScene"
-    snapshotL = None
-    snapshotR = None      # ein schnappschuss aus der Detektion
-    reproError = -1
-    tmMode: wtmEnum.tm = 0
+    def __init__(self):
+        self.mac = np.zeros(3)
+        self.cam = np.zeros(3)
+        self.imgNames = ["",""]
+        self.sceneName = "unknownScene"
+        self.snapshotL = None
+        self.snapshotR = None      # ein schnappschuss aus der Detektion
+        self.reproError = -1
+        self.tmMode: wtmEnum.tm = 0
+        self.cannyPxPerK = -1
 
     def __str__(self):
         return f"Position in scene <{self.sceneName}>:\tcamera: {self.cam}\t\tmachine: {self.mac}\n"
@@ -46,8 +48,6 @@ class Positions(list):
             for e in self:
                 s += e.__str__()
         return s
-    # TODO: messwerte mitteln und gemittelte Koordinaten zurückgeben
-
 
 
 
@@ -131,26 +131,14 @@ class MachineObject:
         return mac, cam
 
 
-    def addPosition(self, mac, cam, imgNames:list, sceneName, tmmode, snapshots:list, reproerr) -> Position:
+    def addPosition(self, p:Position):
         # Erstellt eine neue Positionsmessung, fügt sie zur Messliste hinzu
-        # und gibt die Referenz der neuen Messung zurück
-        assert len(cam) == 3 and len(mac) == 3
-        assert len(imgNames) == 2 and len(imgNames[0]) > 0 and len(imgNames[1]) > 0
-        p = Position()
-        p.mac = mac
-        p.cam = cam
-        p.imgNames = imgNames
-        p.sceneName = sceneName
-        p.tmMode = tmmode
-        p.snapshotL = snapshots[0]
-        p.snapshotR = snapshots[1]
-        p.reproError = reproerr
-        if reproerr <= self.maxReproError:
+        assert len(p.cam) == 3 and len(p.mac) == 3
+        assert len(p.imgNames) == 2 and len(p.imgNames[0]) > 0 and len(p.imgNames[1]) > 0
+        if p.reproError <= self.maxReproError:
             self._positions.append(p)
         else:
             self._rejectedPositions.append(p)
-        #print(f'added:  {p}')
-        return p
 
     def loadpatch(self, filename):
         # muss .png sein !
@@ -228,31 +216,48 @@ class MachineObject:
         cv2.destroyWindow(wname)
 
 
-    def showGoodSnapshots(self, save=False):
+    def showGoodSnapshots(self):
         if len(self._positions) == 0: return
-        self._showSnapshots(self._positions, "Good Positions", save=save)
+        self._snapshots(self._positions, "Good", show=True, save=False)
 
-    def showBadSnapshots(self, save=False):
+    def showBadSnapshots(self):
         if len(self._rejectedPositions) == 0: return
-        self._showSnapshots(self._rejectedPositions, "Rejected Positions", save=save)
+        self._snapshots(self._rejectedPositions, "Bad", show=True, save=False)
 
-    def _showSnapshots(self, positionlist, txt, save=False):
+    def saveGoodSnapshots(self):
+        if len(self._positions) == 0: return
+        self._snapshots(self._positions, "Good", show=False, save=True)
+
+    def saveBadSnapshots(self):
+        if len(self._rejectedPositions) == 0: return
+        self._snapshots(self._rejectedPositions, "Bad", show=False, save=True)
+
+    def _snapshots(self, positionlist, txt, show=False, save=False):
         snapshots = []
+        tmm = 0
         for e in positionlist:
+            tmm = e.tmMode
             image = imgMergerH([e.snapshotL, e.snapshotR])
             image = putBetterText(image, f'reproError={e.reproError}', (5,30), cv2.FONT_HERSHEY_DUPLEX, 1, (255,255,255),1,1)
             image = putBetterText(image, f'tmMode={e.tmMode}', (5,60), cv2.FONT_HERSHEY_DUPLEX, 1, (255,255,255),1,1)
+            if tmm in [wtmEnum.tm.CANNYBLUR, wtmEnum.tm.NOISEBLUR, wtmEnum.tm.CANNYBLUR2]:
+                image = putBetterText(image, f'px per K={e.cannyPxPerK}', (5, 90), cv2.FONT_HERSHEY_DUPLEX, 1,
+                                      (255, 255, 255), 1, 1)
+
             snapshots.append(image)
+
         bigpic = imgMergerV(snapshots)
-        wname = "snapshots - " + txt
-        cv2.namedWindow(wname, cv2.WINDOW_NORMAL)
-        cv2.imshow(wname, bigpic)
+        if show:
+            wname = "snapshots - " + txt
+            cv2.namedWindow(wname, cv2.WINDOW_NORMAL)
+            cv2.imshow(wname, bigpic)
+            cv2.waitKey(0)
+            cv2.destroyWindow(wname)
         if save:
-            cv2.imwrite(f'tmp/{self.name}-snapshot-{txt}.jpg', bigpic, [cv2.IMWRITE_JPEG_QUALITY, 50])
+            print(f'snapshot export: {self.name} ...')
+            cv2.imwrite(f'tmp/snapshots-{self.name}-{txt}-{tmm}.jpg', bigpic, [cv2.IMWRITE_JPEG_QUALITY, 45])
 
 
-        cv2.waitKey(0)
-        cv2.destroyWindow(wname)
 
 
     def __str__(self):

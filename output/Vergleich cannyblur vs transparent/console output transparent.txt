@@ -1,0 +1,459 @@
+C:\gitstuff\p6\venv\Scripts\python.exe C:/gitstuff/p6/wtmMain.py
+Lade: data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite_L.png und data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite_R.png
+MachineObject <data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite_R.png
+valid position entries: 0
+rejected position entries: 0
+Lade: data/patches/3dcreatorSet1/tcr3d-federhalterungLinks_L.png und data/patches/3dcreatorSet1/tcr3d-federhalterungLinks_R.png
+Lade: data/patches/3dcreatorSet1/tcr3d-federHalterungRechts_L.png und data/patches/3dcreatorSet1/tcr3d-federHalterungRechts_R.png
+Lade: data/patches/3dcreatorSet1/tcr3ddeckelSeitlichLinks_L.png und data/patches/3dcreatorSet1/tcr3ddeckelSeitlichLinks_R.png
+Lade: data/patches/3dcreatorSet1/tcr3dscharnierLinkeSeite_L.png und data/patches/3dcreatorSet1/tcr3dscharnierLinkeSeite_R.png
+Lade: data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite_L.png und data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite_R.png
+Lade: data/patches/3dcreatorSet1/tcr3dschraubeKleinLinkeSeite_L.png und data/patches/3dcreatorSet1/tcr3dschraubeKleinLinkeSeite_R.png
+Lade: data/patches/3dcreatorSet1/tcr3dschraubeMiniLinkeSeite_L.png und data/patches/3dcreatorSet1/tcr3dschraubeMiniLinkeSeite_R.png
+Lade: data/patches/3dcreatorSet1/tcr3dtestDeckelTiefLinkeSeite_L.png und data/patches/3dcreatorSet1/tcr3dtestDeckelTiefLinkeSeite_R.png
+Lade: data/patches/3dcreatorSetRef1/tcr3d-gitterschraube1ol_L.png und data/patches/3dcreatorSetRef1/tcr3d-gitterschraube1ol_R.png
+Lade: data/patches/3dcreatorSetRef1/tcr3d-gitterschraube2or_L.png und data/patches/3dcreatorSetRef1/tcr3d-gitterschraube2or_R.png
+Lade: data/patches/3dcreatorSetRef1/tcr3d-gitterschraube3ul_L.png und data/patches/3dcreatorSetRef1/tcr3d-gitterschraube3ul_R.png
+Lade: data/patches/3dcreatorSetRef1/tcr3d-gitterschraube4ur_L.png und data/patches/3dcreatorSetRef1/tcr3d-gitterschraube4ur_R.png
+locate: successfully located <gitterschraube1ol> in scene <SBB/10L|SBB/10R>
+locate: successfully located <gitterschraube2or> in scene <SBB/10L|SBB/10R>
+locate: successfully located <gitterschraube3ul> in scene <SBB/10L|SBB/10R>
+locate: successfully located <gitterschraube4ur> in scene <SBB/10L|SBB/10R>
+locate: successfully located <gitterschraube1ol> in scene <SBB/11L|SBB/11R>
+locate: successfully located <gitterschraube2or> in scene <SBB/11L|SBB/11R>
+locate: successfully located <gitterschraube3ul> in scene <SBB/11L|SBB/11R>
+locate: successfully located <gitterschraube4ur> in scene <SBB/11L|SBB/11R>
+locate: successfully located <gitterschraube1ol> in scene <SBB/12L|SBB/12R>
+locate: successfully located <gitterschraube2or> in scene <SBB/12L|SBB/12R>
+locate: successfully located <gitterschraube3ul> in scene <SBB/12L|SBB/12R>
+locate: successfully located <gitterschraube4ur> in scene <SBB/12L|SBB/12R>
+locate: successfully located <gitterschraube1ol> in scene <SBB/13L|SBB/13R>
+locate: successfully located <gitterschraube2or> in scene <SBB/13L|SBB/13R>
+locate: successfully located <gitterschraube3ul> in scene <SBB/13L|SBB/13R>
+locate: successfully located <gitterschraube4ur> in scene <SBB/13L|SBB/13R>
+locate: successfully located <gitterschraube1ol> in scene <SBB/14L|SBB/14R>
+locate: successfully located <gitterschraube2or> in scene <SBB/14L|SBB/14R>
+locate: successfully located <gitterschraube3ul> in scene <SBB/14L|SBB/14R>
+locate: successfully located <gitterschraube4ur> in scene <SBB/14L|SBB/14R>
+locate: successfully located <gitterschraube1ol> in scene <SBB/15L|SBB/15R>
+locate: successfully located <gitterschraube2or> in scene <SBB/15L|SBB/15R>
+locate: successfully located <gitterschraube3ul> in scene <SBB/15L|SBB/15R>
+locate: successfully located <gitterschraube4ur> in scene <SBB/15L|SBB/15R>
+
+sfm: calculate t:  SBB/15L|SBB/15R ------> SBB/16L|SBB/16R
+sfm: detect and compute...
+sfm: bruteforce matcher...
+sfm: reproFilter before/after (maxDistance=4): 1686 / 228
+sfm: reproFilter before/after (maxDistance=4): 1560 / 254
+sfm: dropped 140 incomplete keypoint quadruples.
+
+sfm: calculate t:  SBB/16L|SBB/16R ------> SBB/17L|SBB/17R
+sfm: detect and compute...
+sfm: bruteforce matcher...
+sfm: reproFilter before/after (maxDistance=4): 1560 / 254
+sfm: reproFilter before/after (maxDistance=4): 1481 / 316
+sfm: dropped 172 incomplete keypoint quadruples.
+
+sfm: calculate t:  SBB/17L|SBB/17R ------> SBB/18L|SBB/18R
+sfm: detect and compute...
+sfm: bruteforce matcher...
+sfm: reproFilter before/after (maxDistance=4): 1481 / 316
+sfm: reproFilter before/after (maxDistance=4): 1413 / 294
+sfm: dropped 220 incomplete keypoint quadruples.
+
+sfm: calculate t:  SBB/10L|SBB/10R ------> SBB/9L|SBB/9R
+sfm: detect and compute...
+sfm: bruteforce matcher...
+sfm: reproFilter before/after (maxDistance=4): 1607 / 70
+sfm: reproFilter before/after (maxDistance=4): 1191 / 36
+sfm: dropped 55 incomplete keypoint quadruples.
+
+sfm: calculate t:  SBB/9L|SBB/9R ------> SBB/8L|SBB/8R
+sfm: detect and compute...
+sfm: bruteforce matcher...
+sfm: reproFilter before/after (maxDistance=4): 1191 / 36
+sfm: reproFilter before/after (maxDistance=4): 777 / 35
+sfm: dropped 19 incomplete keypoint quadruples.
+
+        
+    -------------------------------------------------------
+    |  CAMERA CALIBRATION                                 |
+    -------------------------------------------------------    
+        
+    files loaded: ['cfg/cameracalib.mat', 'cfg/F.mat']
+
+    F-Matrix: 
+[[ 4.43496286e-08 -1.31465304e-06 -2.44682031e-02]
+ [-1.71449408e-06  1.61291244e-07  1.49010866e-01]
+ [-2.74776385e-02 -1.42124573e-01  1.11889192e+02]]
+
+    Rotation | Translation Camera 1
+[[1. 0. 0. 0.]
+ [0. 1. 0. 0.]
+ [0. 0. 1. 0.]]
+
+    Rotation | Translation Camera 2
+[[ 8.35250951e-01 -3.54683377e-01  4.20185138e-01 -3.20319940e+03]
+ [ 3.59632815e-01  9.30426742e-01  7.05004676e-02 -5.83382503e+02]
+ [-4.15956833e-01  9.22267812e-02  9.04695603e-01  6.15949633e+02]]
+    
+    Intrinsic Matrix Camera 1
+[[2.20421168e+04 0.00000000e+00 1.98666895e+03]
+ [0.00000000e+00 2.20443322e+04 1.54111484e+03]
+ [0.00000000e+00 0.00000000e+00 1.00000000e+00]]
+        
+    Intrinsic Matrix Camera 2
+[[2.16316590e+04 0.00000000e+00 2.06904158e+03]
+ [0.00000000e+00 2.16432075e+04 1.61578134e+03]
+ [0.00000000e+00 0.00000000e+00 1.00000000e+00]]
+
+    Distortion Camera 1
+[  0.14352291 -14.64995398   0.           0.           0.        ]
+
+    Distortion Camera 2
+[ 0.15694181 -0.37368566  0.          0.          0.        ]
+        
+
+
+        composition contains 11 image pair(s) 
+        and 4 reference objects. 
+        active template matching mode (tmmode) is tm.TRANSPARENT
+        use .sceneinfo() for scene details.
+        
+Scene [0]:
+        name: SBB/8L|SBB/8R
+        Scene Image Filenames: SBB/8L.png, SBB/8R.png
+        Rt status: rtref.BYSFM
+        isFirst=True / isLast=False
+        
+Scene [1]:
+        name: SBB/9L|SBB/9R
+        Scene Image Filenames: SBB/9L.png, SBB/9R.png
+        Rt status: rtref.BYSFM
+        isFirst=False / isLast=False
+        
+Scene [2]:
+        name: SBB/10L|SBB/10R
+        Scene Image Filenames: SBB/10L.png, SBB/10R.png
+        Rt status: rtref.BYOBJECT
+        isFirst=False / isLast=False
+        
+Scene [3]:
+        name: SBB/11L|SBB/11R
+        Scene Image Filenames: SBB/11L.png, SBB/11R.png
+        Rt status: rtref.BYOBJECT
+        isFirst=False / isLast=False
+        
+Scene [4]:
+        name: SBB/12L|SBB/12R
+        Scene Image Filenames: SBB/12L.png, SBB/12R.png
+        Rt status: rtref.BYOBJECT
+        isFirst=False / isLast=False
+        
+Scene [5]:
+        name: SBB/13L|SBB/13R
+        Scene Image Filenames: SBB/13L.png, SBB/13R.png
+        Rt status: rtref.BYOBJECT
+        isFirst=False / isLast=False
+        
+Scene [6]:
+        name: SBB/14L|SBB/14R
+        Scene Image Filenames: SBB/14L.png, SBB/14R.png
+        Rt status: rtref.BYOBJECT
+        isFirst=False / isLast=False
+        
+Scene [7]:
+        name: SBB/15L|SBB/15R
+        Scene Image Filenames: SBB/15L.png, SBB/15R.png
+        Rt status: rtref.BYOBJECT
+        isFirst=False / isLast=False
+        
+Scene [8]:
+        name: SBB/16L|SBB/16R
+        Scene Image Filenames: SBB/16L.png, SBB/16R.png
+        Rt status: rtref.BYSFM
+        isFirst=False / isLast=False
+        
+Scene [9]:
+        name: SBB/17L|SBB/17R
+        Scene Image Filenames: SBB/17L.png, SBB/17R.png
+        Rt status: rtref.BYSFM
+        isFirst=False / isLast=False
+        
+Scene [10]:
+        name: SBB/18L|SBB/18R
+        Scene Image Filenames: SBB/18L.png, SBB/18R.png
+        Rt status: rtref.BYSFM
+        isFirst=False / isLast=True
+        
+locate: failed to locate <federhalterungLinks> in scene <SBB/8L|SBB/8R>
+locate: failed to locate <federhalterungLinks> in scene <SBB/9L|SBB/9R>
+locate: failed to locate <federhalterungLinks> in scene <SBB/10L|SBB/10R>
+locate: failed to locate <federhalterungLinks> in scene <SBB/11L|SBB/11R>
+locate: failed to locate <federhalterungLinks> in scene <SBB/12L|SBB/12R>
+locate: failed to locate <federhalterungLinks> in scene <SBB/13L|SBB/13R>
+locate: successfully located <federhalterungLinks> in scene <SBB/14L|SBB/14R>
+locate: successfully located <federhalterungLinks> in scene <SBB/15L|SBB/15R>
+locate: successfully located <federhalterungLinks> in scene <SBB/16L|SBB/16R>
+locate: successfully located <federhalterungLinks> in scene <SBB/17L|SBB/17R>
+locate: successfully located <federhalterungLinks> in scene <SBB/18L|SBB/18R>
+locate: failed to locate <federHalterungRechts> in scene <SBB/8L|SBB/8R>
+locate: failed to locate <federHalterungRechts> in scene <SBB/9L|SBB/9R>
+locate: failed to locate <federHalterungRechts> in scene <SBB/10L|SBB/10R>
+locate: failed to locate <federHalterungRechts> in scene <SBB/11L|SBB/11R>
+locate: failed to locate <federHalterungRechts> in scene <SBB/12L|SBB/12R>
+locate: failed to locate <federHalterungRechts> in scene <SBB/13L|SBB/13R>
+locate: successfully located <federHalterungRechts> in scene <SBB/14L|SBB/14R>
+locate: successfully located <federHalterungRechts> in scene <SBB/15L|SBB/15R>
+locate: successfully located <federHalterungRechts> in scene <SBB/16L|SBB/16R>
+locate: successfully located <federHalterungRechts> in scene <SBB/17L|SBB/17R>
+locate: successfully located <federHalterungRechts> in scene <SBB/18L|SBB/18R>
+locate: failed to locate <Deckel seitlich Links> in scene <SBB/8L|SBB/8R>
+locate: failed to locate <Deckel seitlich Links> in scene <SBB/9L|SBB/9R>
+locate: successfully located <Deckel seitlich Links> in scene <SBB/10L|SBB/10R>
+locate: successfully located <Deckel seitlich Links> in scene <SBB/11L|SBB/11R>
+locate: successfully located <Deckel seitlich Links> in scene <SBB/12L|SBB/12R>
+locate: successfully located <Deckel seitlich Links> in scene <SBB/13L|SBB/13R>
+locate: successfully located <Deckel seitlich Links> in scene <SBB/14L|SBB/14R>
+locate: successfully located <Deckel seitlich Links> in scene <SBB/15L|SBB/15R>
+locate: successfully located <Deckel seitlich Links> in scene <SBB/16L|SBB/16R>
+locate: successfully located <Deckel seitlich Links> in scene <SBB/17L|SBB/17R>
+locate: failed to locate <Deckel seitlich Links> in scene <SBB/18L|SBB/18R>
+locate: successfully located <Scharnier Links> in scene <SBB/8L|SBB/8R>
+locate: successfully located <Scharnier Links> in scene <SBB/9L|SBB/9R>
+locate: successfully located <Scharnier Links> in scene <SBB/10L|SBB/10R>
+locate: successfully located <Scharnier Links> in scene <SBB/11L|SBB/11R>
+locate: successfully located <Scharnier Links> in scene <SBB/12L|SBB/12R>
+locate: successfully located <Scharnier Links> in scene <SBB/13L|SBB/13R>
+locate: successfully located <Scharnier Links> in scene <SBB/14L|SBB/14R>
+locate: successfully located <Scharnier Links> in scene <SBB/15L|SBB/15R>
+locate: failed to locate <Scharnier Links> in scene <SBB/16L|SBB/16R>
+locate: failed to locate <Scharnier Links> in scene <SBB/17L|SBB/17R>
+locate: failed to locate <Scharnier Links> in scene <SBB/18L|SBB/18R>
+locate: successfully located <Schraube klein ganz> in scene <SBB/8L|SBB/8R>
+locate: successfully located <Schraube klein ganz> in scene <SBB/9L|SBB/9R>
+locate: successfully located <Schraube klein ganz> in scene <SBB/10L|SBB/10R>
+locate: successfully located <Schraube klein ganz> in scene <SBB/11L|SBB/11R>
+locate: successfully located <Schraube klein ganz> in scene <SBB/12L|SBB/12R>
+locate: successfully located <Schraube klein ganz> in scene <SBB/13L|SBB/13R>
+locate: successfully located <Schraube klein ganz> in scene <SBB/14L|SBB/14R>
+locate: successfully located <Schraube klein ganz> in scene <SBB/15L|SBB/15R>
+locate: successfully located <Schraube klein ganz> in scene <SBB/16L|SBB/16R>
+locate: failed to locate <Schraube klein ganz> in scene <SBB/17L|SBB/17R>
+locate: failed to locate <Schraube klein ganz> in scene <SBB/18L|SBB/18R>
+locate: successfully located <Schraube klein Links (oberkante)> in scene <SBB/8L|SBB/8R>
+locate: successfully located <Schraube klein Links (oberkante)> in scene <SBB/9L|SBB/9R>
+locate: successfully located <Schraube klein Links (oberkante)> in scene <SBB/10L|SBB/10R>
+locate: successfully located <Schraube klein Links (oberkante)> in scene <SBB/11L|SBB/11R>
+locate: successfully located <Schraube klein Links (oberkante)> in scene <SBB/12L|SBB/12R>
+locate: successfully located <Schraube klein Links (oberkante)> in scene <SBB/13L|SBB/13R>
+locate: successfully located <Schraube klein Links (oberkante)> in scene <SBB/14L|SBB/14R>
+locate: successfully located <Schraube klein Links (oberkante)> in scene <SBB/15L|SBB/15R>
+locate: successfully located <Schraube klein Links (oberkante)> in scene <SBB/16L|SBB/16R>
+locate: failed to locate <Schraube klein Links (oberkante)> in scene <SBB/17L|SBB/17R>
+locate: failed to locate <Schraube klein Links (oberkante)> in scene <SBB/18L|SBB/18R>
+locate: failed to locate <Schraube Mini Links> in scene <SBB/8L|SBB/8R>
+locate: successfully located <Schraube Mini Links> in scene <SBB/9L|SBB/9R>
+locate: successfully located <Schraube Mini Links> in scene <SBB/10L|SBB/10R>
+locate: successfully located <Schraube Mini Links> in scene <SBB/11L|SBB/11R>
+locate: successfully located <Schraube Mini Links> in scene <SBB/12L|SBB/12R>
+locate: successfully located <Schraube Mini Links> in scene <SBB/13L|SBB/13R>
+locate: successfully located <Schraube Mini Links> in scene <SBB/14L|SBB/14R>
+locate: failed to locate <Schraube Mini Links> in scene <SBB/15L|SBB/15R>
+locate: failed to locate <Schraube Mini Links> in scene <SBB/16L|SBB/16R>
+locate: failed to locate <Schraube Mini Links> in scene <SBB/17L|SBB/17R>
+locate: failed to locate <Schraube Mini Links> in scene <SBB/18L|SBB/18R>
+locate: failed to locate <Deckel tief> in scene <SBB/8L|SBB/8R>
+locate: failed to locate <Deckel tief> in scene <SBB/9L|SBB/9R>
+locate: failed to locate <Deckel tief> in scene <SBB/10L|SBB/10R>
+locate: successfully located <Deckel tief> in scene <SBB/11L|SBB/11R>
+locate: successfully located <Deckel tief> in scene <SBB/12L|SBB/12R>
+locate: successfully located <Deckel tief> in scene <SBB/13L|SBB/13R>
+locate: successfully located <Deckel tief> in scene <SBB/14L|SBB/14R>
+locate: successfully located <Deckel tief> in scene <SBB/15L|SBB/15R>
+locate: successfully located <Deckel tief> in scene <SBB/16L|SBB/16R>
+locate: successfully located <Deckel tief> in scene <SBB/17L|SBB/17R>
+locate: successfully located <Deckel tief> in scene <SBB/18L|SBB/18R>
+ok
+--------------------------------------------------------------------
+MachineObject <federhalterungLinks>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3d-federhalterungLinks_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3d-federhalterungLinks_R.png
+valid position entries: 4
+rejected position entries: 1
+Good Positions:
+Position in scene <SBB/15L|SBB/15R>:	camera: [-251.5811  393.2682 7241.169 ]		machine: [-441.0023 -910.2013  -95.3916]
+Position in scene <SBB/16L|SBB/16R>:	camera: [-316.1218  284.8862 7391.3849]		machine: [-441.0801 -910.5365  -95.7655]
+Position in scene <SBB/17L|SBB/17R>:	camera: [-380.6012  175.6954 7540.8037]		machine: [-441.1158 -910.9241  -95.1807]
+Position in scene <SBB/18L|SBB/18R>:	camera: [-445.071    67.0428 7690.6766]		machine: [-441.2867 -911.3798  -95.2017]
+
+Rejected Positions:
+Position in scene <SBB/14L|SBB/14R>:	camera: [ -56.169   409.6815 6828.658 ]		machine: [ -358.9521 -1100.6944   131.5924]
+
+mean position: [-441.12125586 -910.76042518  -95.38489085]
+rms error: 0.5090851869939115
+std dev per axis: [0.10398643 0.43967073 0.234615  ]
+snapshot export: federhalterungLinks ...
+snapshot export: federhalterungLinks ...
+--------------------------------------------------------------------
+MachineObject <federHalterungRechts>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3d-federHalterungRechts_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3d-federHalterungRechts_R.png
+valid position entries: 4
+rejected position entries: 1
+Good Positions:
+Position in scene <SBB/15L|SBB/15R>:	camera: [ 562.8459  185.5786 7459.1435]		machine: [ 427.1437 -894.1251  -93.5766]
+Position in scene <SBB/16L|SBB/16R>:	camera: [ 497.9654   76.7672 7610.6447]		machine: [ 427.1488 -893.1297  -94.3683]
+Position in scene <SBB/17L|SBB/17R>:	camera: [ 433.5704  -32.0263 7761.1687]		machine: [ 427.3658 -892.9246  -94.769 ]
+Position in scene <SBB/18L|SBB/18R>:	camera: [ 369.4364 -140.9376 7910.5463]		machine: [ 427.4527 -893.7231  -94.2989]
+
+Rejected Positions:
+Position in scene <SBB/14L|SBB/14R>:	camera: [ 600.0092  258.5933 7055.3399]		machine: [  348.9904 -1058.0934    89.3441]
+
+mean position: [ 427.27776748 -893.47564156  -94.25317237]
+rms error: 0.6554363962529637
+std dev per axis: [0.13503881 0.47600552 0.4298606 ]
+snapshot export: federHalterungRechts ...
+snapshot export: federHalterungRechts ...
+--------------------------------------------------------------------
+MachineObject <Deckel seitlich Links>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3ddeckelSeitlichLinks_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3ddeckelSeitlichLinks_R.png
+valid position entries: 7
+rejected position entries: 1
+Good Positions:
+Position in scene <SBB/11L|SBB/11R>:	camera: [-215.3209  341.4449 7139.2302]		machine: [-420.3567 -183.4214    2.1953]
+Position in scene <SBB/12L|SBB/12R>:	camera: [-279.9743  232.1609 7289.2388]		machine: [-420.4151 -183.7935    2.4369]
+Position in scene <SBB/13L|SBB/13R>:	camera: [-344.8673  123.1832 7440.4958]		machine: [-420.6264 -183.5487    2.1739]
+Position in scene <SBB/14L|SBB/14R>:	camera: [-408.9065   13.9955 7589.9516]		machine: [-420.556 -184.155    2.288]
+Position in scene <SBB/15L|SBB/15R>:	camera: [-473.9671  -94.937  7741.4859]		machine: [-420.875  -183.3646    1.6655]
+Position in scene <SBB/16L|SBB/16R>:	camera: [-538.6847 -203.601  7891.6649]		machine: [-421.0645 -183.5125    1.5458]
+Position in scene <SBB/17L|SBB/17R>:	camera: [-603.1566 -312.9978 8040.5289]		machine: [-421.1785 -184.2101    2.6286]
+
+Rejected Positions:
+Position in scene <SBB/10L|SBB/10R>:	camera: [-240.4575  452.5462 7147.2763]		machine: [-468.3261  -33.9391  -90.7395]
+
+mean position: [-420.72460223 -183.71511547    2.13340774]
+rms error: 0.569085192216463
+std dev per axis: [0.29603593 0.321304   0.3646703 ]
+snapshot export: Deckel seitlich Links ...
+snapshot export: Deckel seitlich Links ...
+--------------------------------------------------------------------
+MachineObject <Scharnier Links>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3dscharnierLinkeSeite_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3dscharnierLinkeSeite_R.png
+valid position entries: 6
+rejected position entries: 2
+Good Positions:
+Position in scene <SBB/8L|SBB/8R>:	camera: [ -82.6968  228.2749 7298.4228]		machine: [-233.706   550.7493  -11.1841]
+Position in scene <SBB/9L|SBB/9R>:	camera: [-147.2967  118.6856 7449.8127]		machine: [-233.7155  550.3848  -11.3145]
+Position in scene <SBB/10L|SBB/10R>:	camera: [-211.9374    8.9162 7600.0468]		machine: [-233.4933  550.109   -10.968 ]
+Position in scene <SBB/11L|SBB/11R>:	camera: [-276.6168 -100.2367 7750.7302]		machine: [-232.6901  549.6346  -11.3036]
+Position in scene <SBB/12L|SBB/12R>:	camera: [-341.1337 -209.0231 7901.0682]		machine: [-232.7861  549.2158  -12.1117]
+Position in scene <SBB/13L|SBB/13R>:	camera: [-405.6832 -317.8546 8050.7981]		machine: [-233.0235  548.092   -11.5766]
+
+Rejected Positions:
+Position in scene <SBB/14L|SBB/14R>:	camera: [-476.9244 -431.2859 8317.4612]		machine: [-210.1119  641.2946  -78.4482]
+Position in scene <SBB/15L|SBB/15R>:	camera: [-518.351  -471.8588 8270.5089]		machine: [-251.1149  444.9886  -14.4313]
+
+mean position: [-233.23575345  549.69758485  -11.40973658]
+rms error: 1.0336857943442797
+std dev per axis: [0.42081379 0.87193642 0.36214493]
+snapshot export: Scharnier Links ...
+snapshot export: Scharnier Links ...
+--------------------------------------------------------------------
+MachineObject <Schraube klein ganz>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite_R.png
+valid position entries: 8
+rejected position entries: 1
+Good Positions:
+Position in scene <SBB/9L|SBB/9R>:	camera: [ -84.4443  364.5998 7104.1822]		machine: [-311.7765  128.8348   -1.9993]
+Position in scene <SBB/10L|SBB/10R>:	camera: [-149.3767  254.7808 7255.1055]		machine: [-311.6568  129.2075   -2.0155]
+Position in scene <SBB/11L|SBB/11R>:	camera: [-214.2941  145.4039 7407.0842]		machine: [-311.2403  130.0226   -2.8394]
+Position in scene <SBB/12L|SBB/12R>:	camera: [-279.3088   36.004  7557.3881]		machine: [-311.5998  130.0747   -2.8516]
+Position in scene <SBB/13L|SBB/13R>:	camera: [-343.9849  -73.2912 7708.8757]		machine: [-311.4602  130.5957   -3.0077]
+Position in scene <SBB/14L|SBB/14R>:	camera: [-408.873  -182.5709 7859.7332]		machine: [-311.5227  131.2774   -3.5927]
+Position in scene <SBB/15L|SBB/15R>:	camera: [-473.3984 -291.6278 8009.639 ]		machine: [-311.7656  130.7497   -2.9228]
+Position in scene <SBB/16L|SBB/16R>:	camera: [-538.2267 -401.0514 8160.9659]		machine: [-311.6136  131.9374   -3.1233]
+
+Rejected Positions:
+Position in scene <SBB/8L|SBB/8R>:	camera: [ -69.2785  464.8085 7039.8811]		machine: [-335.8908  216.9683  -44.6572]
+
+mean position: [-311.57943012  130.33746969   -2.79405783]
+rms error: 1.0981773441916323
+std dev per axis: [0.16335627 0.9606562  0.50640682]
+snapshot export: Schraube klein ganz ...
+snapshot export: Schraube klein ganz ...
+--------------------------------------------------------------------
+MachineObject <Schraube klein Links (oberkante)>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3dschraubeKleinLinkeSeite_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3dschraubeKleinLinkeSeite_R.png
+valid position entries: 8
+rejected position entries: 1
+Good Positions:
+Position in scene <SBB/9L|SBB/9R>:	camera: [ -85.075   357.4471 7099.9137]		machine: [-311.7337  129.7771    6.3006]
+Position in scene <SBB/10L|SBB/10R>:	camera: [-150.3202  247.9392 7251.5596]		machine: [-311.8114  130.6293    5.615 ]
+Position in scene <SBB/11L|SBB/11R>:	camera: [-215.1661  138.6514 7402.7547]		machine: [-311.5451  130.7783    5.1879]
+Position in scene <SBB/12L|SBB/12R>:	camera: [-279.8447   29.4627 7553.2791]		machine: [-311.5858  130.7763    4.8598]
+Position in scene <SBB/13L|SBB/13R>:	camera: [-344.4923  -79.6822 7703.913 ]		machine: [-311.655   130.553     5.0972]
+Position in scene <SBB/14L|SBB/14R>:	camera: [-409.3215 -188.8481 7854.7319]		machine: [-311.7116  131.1267    4.4422]
+Position in scene <SBB/15L|SBB/15R>:	camera: [-473.8487 -297.8492 8005.5112]		machine: [-311.7605  131.2281    4.5417]
+Position in scene <SBB/16L|SBB/16R>:	camera: [-538.5616 -406.9932 8154.976 ]		machine: [-312.0067  130.8025    5.2345]
+
+Rejected Positions:
+Position in scene <SBB/8L|SBB/8R>:	camera: [ -40.0188  460.2989 6983.0689]		machine: [-320.5402  166.6202   -8.1397]
+
+mean position: [-311.72621964  130.70891795    5.15986462]
+rms error: 0.7081600757047697
+std dev per axis: [0.13460321 0.41246978 0.55967969]
+snapshot export: Schraube klein Links (oberkante) ...
+snapshot export: Schraube klein Links (oberkante) ...
+--------------------------------------------------------------------
+MachineObject <Schraube Mini Links>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3dschraubeMiniLinkeSeite_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3dschraubeMiniLinkeSeite_R.png
+valid position entries: 5
+rejected position entries: 1
+Good Positions:
+Position in scene <SBB/9L|SBB/9R>:	camera: [-399.2022  401.9391 7194.9629]		machine: [-596.3935  279.5583  -72.5925]
+Position in scene <SBB/10L|SBB/10R>:	camera: [-463.8412  292.3509 7344.9608]		machine: [-596.2667  279.0005  -72.2484]
+Position in scene <SBB/11L|SBB/11R>:	camera: [-528.7819  182.6385 7496.2698]		machine: [-595.6473  279.7991  -73.0014]
+Position in scene <SBB/12L|SBB/12R>:	camera: [-593.4631   73.3967 7646.5577]		machine: [-595.7382  279.5411  -73.3324]
+Position in scene <SBB/13L|SBB/13R>:	camera: [-658.1974  -35.7827 7797.1876]		machine: [-595.8785  279.382   -73.0383]
+
+Rejected Positions:
+Position in scene <SBB/14L|SBB/14R>:	camera: [-689.6297 -144.5377 7888.3765]		machine: [-578.4262  223.6243  -40.0049]
+
+mean position: [-595.98484735  279.45620624  -72.84259424]
+rms error: 0.5477424893452698
+std dev per axis: [0.29414021 0.2639605  0.37924692]
+snapshot export: Schraube Mini Links ...
+snapshot export: Schraube Mini Links ...
+--------------------------------------------------------------------
+MachineObject <Deckel tief>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3dtestDeckelTiefLinkeSeite_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3dtestDeckelTiefLinkeSeite_R.png
+valid position entries: 7
+rejected position entries: 1
+Good Positions:
+Position in scene <SBB/12L|SBB/12R>:	camera: [ -51.8533  383.3204 7244.409 ]		machine: [-250.0553 -376.8757 -100.4946]
+Position in scene <SBB/13L|SBB/13R>:	camera: [-116.2987  274.2287 7393.4518]		machine: [-250.3603 -378.4081  -99.3679]
+Position in scene <SBB/14L|SBB/14R>:	camera: [-180.9154  165.1281 7544.7822]		machine: [-250.4144 -377.6626 -100.0249]
+Position in scene <SBB/15L|SBB/15R>:	camera: [-245.5779   56.1487 7694.8179]		machine: [-250.6636 -378.0039  -99.8728]
+Position in scene <SBB/16L|SBB/16R>:	camera: [-310.1716  -52.6671 7845.4534]		machine: [-250.5929 -377.7596 -100.1512]
+Position in scene <SBB/17L|SBB/17R>:	camera: [-374.9091 -161.5352 7995.7971]		machine: [-250.7254 -377.5382 -100.3703]
+Position in scene <SBB/18L|SBB/18R>:	camera: [-439.6098 -270.6341 8146.0581]		machine: [-250.9205 -377.3734 -100.2597]
+
+Rejected Positions:
+Position in scene <SBB/11L|SBB/11R>:	camera: [  92.885   437.369  6923.9346]		machine: [-202.1346 -501.7099   42.3955]
+
+mean position: [-250.53320257 -377.66021421 -100.07734408]
+rms error: 0.6240977757460603
+std dev per axis: [0.26185678 0.44720686 0.34775722]
+snapshot export: Deckel tief ...
+snapshot export: Deckel tief ...
+
+Process finished with exit code 0

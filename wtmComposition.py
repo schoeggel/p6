@@ -7,20 +7,15 @@ import wtmSfm
 import copy
 
 class Composition:
-    _trainIsReversed = False             #TODO Der Zug könnte auch verkehrt herum einfahren?
     _scenes = []
-
     imagePairs = []                     # eine Liste mit Bildpaaren in der Form [[01L,01R], [02L, 02R] , ... ]
     calib = wtmCalib.CalibData()
     refObj = [None] * 4                 # Die Gitterschrauben Objekte werden separat geführt.
-    tmmode = wtmEnum.tm.CANNYBLUR       # Standard TM Mode
 
-    PRE_TM_K_SIZE = 5
-    PRE_TM_PX_PER_K = 15  # warpedTemplate hat Abmessung 50x50 px --> K = (5,5)
+    tmmode = wtmEnum.tm.CANNYBLUR       # Standard TM Mode
+    PRE_TM_PX_PER_K = 32  # PX_PER_K = 15 ---> warpedTemplate hat Abmessung 50x50 px --> K = (5,5)
     SCOREFILTER_K_SIZE = 5  # Kernelgrösse für die Glättung des TM Resultats (Score)
     PIXEL_PER_CLAHE_BLOCK = 50  # Anzahl Blocks ist abhängig von der Bildgrösse
-
-
 
     def __init__(self, imagePairs:list, refObj:list, tmmode:wtmEnum.tm = None):
         """Lädt die Bildpaare und Referenzobjekte.
@@ -33,7 +28,7 @@ class Composition:
         # todo: prüfen der Liste, ob die Bilder existieren etc..
         self.sceneWithExaktRt = None            # Eine Scene, bei der die Transformatione zwischen cam und mac bekannt ist.
         if tmmode is not None:
-            self._tmmode = tmmode
+            self.tmmode = tmmode
         self.imagePairs = imagePairs
         self.refObj = refObj
         self.createScenes()
@@ -93,7 +88,6 @@ class Composition:
             n = range(len(self._scenes))
         else:
             n = [n]
-
         for i in n:
             print(f'Scene [{i}]:')
             try:
@@ -102,13 +96,14 @@ class Composition:
             except (TypeError, IndexError):
                 print(f'Scene not found.')
 
+
     def sfmScenes(self):
-        """findet die scene, bei der die Zug Referenz nicht mehr über das Gitter gesetzt werden konnte
-            und setzt die Referenz anhand der smf mit dem bildpaar mit der letzten gültigen referenz."""
+        """findet die scene, bei welcher der Zug Koordinatenursprung nicht mehr über das Gitter gesetzt werden konnte
+            und setzt den Koordinatenursprung anhand smf. (verschiebung gegenüber letztem bekannten Koordinatenursprung."""
         # einmal vorwärts:
         sc: wtmScene.Scene = self.sceneWithExaktRt
         while not sc.isLast:
-            if sc.next.rtstatus in [wtmEnum.rtref.NONE, wtmEnum.rtref.APPROX]:
+            if sc.next.rtstatus in [wtmEnum.rtref.NONE, wtmEnum.rtref.APPROX]: # Hat die nächste scene einen Koordinatenursprung?
                 print(f'\nsfm: calculate t:  {sc.name} ------> {sc.next.name}')
                 _, dt = wtmSfm.sfm(sc.photoL,sc.photoR,sc.next.photoL,sc.next.photoR, self.calib, verbose= False)
                 sc.next.R_exact = sc.R_exact
@@ -119,7 +114,7 @@ class Composition:
         # einmal rückwärts
         sc: wtmScene.Scene = self.sceneWithExaktRt
         while not sc.isFirst:
-            if sc.prev.rtstatus in [wtmEnum.rtref.NONE, wtmEnum.rtref.APPROX]:
+            if sc.prev.rtstatus in [wtmEnum.rtref.NONE, wtmEnum.rtref.APPROX]: # Hat die nächste scene einen Koordinatenursprung?
                 print(f'\nsfm: calculate t:  {sc.name} ------> {sc.prev.name}')
                 _, dt = wtmSfm.sfm(sc.photoL, sc.photoR, sc.prev.photoL, sc.prev.photoR, self.calib, verbose=False)
                 sc.prev.R_exact = sc.R_exact

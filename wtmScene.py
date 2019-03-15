@@ -440,16 +440,18 @@ class Scene:
         self.reprojectedPosition2dL = tuple(self.reprojectedPosition2dL.flatten().astype(int))
         self.reprojectedPosition2dR = tuple(self.reprojectedPosition2dR.flatten().astype(int))
 
+        # Position erstellen und dem Machineobjekt zum speichern übergeben.
         pos = wtmObject.Position()
         pos.mac = self.measuredposition3d_mac[0]
         pos.cam = self.measuredposition3d_cam[:3,0]
         pos.imgNames = [self.photoNameL, self.photoNameR]
         pos.sceneName = self.name
         pos.tmMode = self.context.tmmode
-
-        # Position und Snapshot speichern
-        snapshots = [copy.copy(self.markedROIL), copy.copy(self.markedROIR)]
-        self.tobj.addPosition(pos.mac, pos.cam, pos.imgNames, pos.sceneName, pos.tmMode, snapshots, reproError)
+        pos.cannyPxPerK = self.context.PRE_TM_PX_PER_K
+        pos.snapshotL = copy.copy(self.markedROIL)
+        pos.snapshotR = copy.copy(self.markedROIR)
+        pos.reproError = reproError
+        self.tobj.addPosition(pos)
 
         if verbose: self.showAllSteps()
         return pos
