@@ -27,6 +27,8 @@ fn = [["SBB/8L.png", "SBB/8R.png"], ["SBB/9L.png", "SBB/9R.png"], ["SBB/10L.png"
 #fn = [["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"]]
 #fn = [["SBB/13L.png", "SBB/13R.png"],["SBB/14L.png", "SBB/14R.png"],["SBB/15L.png", "SBB/15R.png"]]
 #fn = [["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"],["SBB/17L.png", "SBB/17R.png"],["SBB/18L.png", "SBB/18R.png"]]
+fn = [["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"],["SBB/17L.png", "SBB/17R.png"],
+      ["SBB/18L.png", "SBB/18R.png"],["SBB/19L.png", "SBB/19R.png"],["SBB/20L.png", "SBB/20R.png"]]
 
 cp = Composition(fn, allRefs, tmmode=tm.CANNYBLUR)
 print(cp)
@@ -39,13 +41,15 @@ cp.sceneinfo()
 #exit(0)
 
     # vieles messen
-if 1==0:
+verbose = False
+if 1==1:
     idx = int(input(f'welches Objekt vermessen? -1 für alle: '))
     if idx > -1:
         allObjects = [allObjects[idx]]
+        verbose = True
 
-cp.locateObjects(allObjects, verbose=False)
-print("ok")
+
+cp.locateObjects(allObjects, verbose=verbose)
 
 for o in allObjects:
 

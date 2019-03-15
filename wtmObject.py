@@ -57,7 +57,7 @@ class MachineObject:
          Von einem Objekt bestehen zwei Patches, von jeder Kamera eine
          Aufnahme, verzerrt in eine flache Draufsicht."""
 
-    maxReproError = 5
+    maxReproError = 4
 
     def __init__(self, filename, center3d, realsize, rotation3d=None, name=None):
         self._patchCenter3d = center3d.astype(float)  # Vektor 3d zum Patch Mitelpunkt im sys_zug
@@ -98,7 +98,6 @@ class MachineObject:
     @property
     def rejectedPositions(self):
         return self._rejectedPositions.__str__()
-
 
     @property
     def avgPosMac(self):
