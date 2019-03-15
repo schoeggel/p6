@@ -18,6 +18,7 @@ import numpy as np
 import cv2, math
 from wtmAux import clahe, imgMergerV, imgMergerH, putBetterText
 import wtmComposition
+import wtmEnum
 from rigid_transform_3d import rmserror
 
 class Position:
@@ -31,6 +32,7 @@ class Position:
     snapshotL = None
     snapshotR = None      # ein schnappschuss aus der Detektion
     reproError = -1
+    tmMode: wtmEnum.tm = 0
 
     def __str__(self):
         return f"Position in scene <{self.sceneName}>:\tcamera: {self.cam}\t\tmachine: {self.mac}\n"
@@ -129,7 +131,7 @@ class MachineObject:
         return mac, cam
 
 
-    def addPosition(self, mac, cam, imgNames:list, sceneName, snapshots:list, reproerr) -> Position:
+    def addPosition(self, mac, cam, imgNames:list, sceneName, tmmode, snapshots:list, reproerr) -> Position:
         # Erstellt eine neue Positionsmessung, fügt sie zur Messliste hinzu
         # und gibt die Referenz der neuen Messung zurück
         assert len(cam) == 3 and len(mac) == 3
@@ -139,6 +141,7 @@ class MachineObject:
         p.cam = cam
         p.imgNames = imgNames
         p.sceneName = sceneName
+        p.tmMode = tmmode
         p.snapshotL = snapshots[0]
         p.snapshotR = snapshots[1]
         p.reproError = reproerr
@@ -238,6 +241,7 @@ class MachineObject:
         for e in positionlist:
             image = imgMergerH([e.snapshotL, e.snapshotR])
             image = putBetterText(image, f'reproError={e.reproError}', (5,30), cv2.FONT_HERSHEY_DUPLEX, 1, (255,255,255),1,1)
+            image = putBetterText(image, f'tmMode={e.tmMode}', (5,60), cv2.FONT_HERSHEY_DUPLEX, 1, (255,255,255),1,1)
             snapshots.append(image)
         bigpic = imgMergerV(snapshots)
         wname = "snapshots - " + txt
@@ -281,11 +285,11 @@ if __name__ == '__main__':
     print(s2)
     print(s2.positions)
 
-    s2.addPosition([1,2,3],[4,5,6],["LinkesBild","RechtesBild"])
+    s2.addPosition([1,2,3],[4,5,6],["LinkesBild","RechtesBild"],"testScene", [[],[]],3 )
     print(s2.positions)
 
-    s2.addPosition([11,12,13],[14,15,16],["13-L.png","13-R.png"])
-    s2.addPosition([51,52,53],[54,55,56],["14-L.png","14-R.png"])
-    s2.addPosition([81,82,83],[84,85,86],["15-L.png","15-R.png"])
+    s2.addPosition([11,12,13],[14,15,16],["13-L.png","13-R.png"],"testScene", [[],[]],3 )
+    s2.addPosition([51,52,53],[54,55,56],["14-L.png","14-R.png"],"testScene", [[],[]],3 )
+    s2.addPosition([81,82,83],[84,85,86],["15-L.png","15-R.png"],"testScene", [[],[]],3 )
     print(s2.positions)
     s2.show()

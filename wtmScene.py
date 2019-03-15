@@ -140,20 +140,20 @@ class Scene:
 
     #liefert die eckpunkte für den suchbereich.
     # im Format [oly, ury, olx, urx]
-    def getROIptsL(self, extend = 1.25):
-        return self.getROIsingleSide(self.corners2DimgL, extend)
+    def getROIptsL(self, roiScale = 1.25):
+        return self.getROIsingleSide(self.corners2DimgL, roiScale)
 
-    def getROIptsR(self, extend = 1.25):
-        return self.getROIsingleSide(self.corners2DimgR, extend)
+    def getROIptsR(self, roiScale = 1.25):
+        return self.getROIsingleSide(self.corners2DimgR, roiScale)
 
     @staticmethod
-    def getROIsingleSide(corners, extend):
+    def getROIsingleSide(corners, roiScale):
         # Liefert den Suchbereich einer Seite
-        # extend ist jetzt prozentual.
+        # roiScale ist jetzt prozentual. zuvor 'extend' als pixelwert
         minx, miny = corners.min(0)[0]  # liefert individuell, nicht paarweise
         maxx, maxy = corners.max(0)[0]
-        extendx = (maxx - minx) * extend
-        extendy = (maxy - miny) * extend
+        extendx = (maxx - minx) * roiScale
+        extendy = (maxy - miny) * roiScale
         olx = minx - extendx
         oly = miny - extendy
         urx = maxx + extendx
@@ -250,13 +250,13 @@ class Scene:
         return img
 
 
-    def storeROIs(self, img_in_L, img_in_R, extend):
+    def storeROIs(self, img_in_L, img_in_R, roiScale):
         # Nur Regions of interest ausschneiden, Kontrast optimieren.
-        ROIL = self.getROIptsL(extend)
+        ROIL = self.getROIptsL(roiScale)
         img = img_in_L[ROIL[0]:ROIL[1], ROIL[2]:ROIL[3], 0]
         self.ROIL = clahe(img, self.context.PIXEL_PER_CLAHE_BLOCK)
 
-        ROIR = self.getROIptsR(extend)
+        ROIR = self.getROIptsR(roiScale)
         img = img_in_R[ROIR[0]:ROIR[1], ROIR[2]:ROIR[3], 0]
         self.ROIR = clahe(img, self.context.PIXEL_PER_CLAHE_BLOCK)
 
@@ -342,7 +342,7 @@ class Scene:
             self.activeROIR = self.ROIR
 
 
-    def locate(self, tobj, verbose=False, extend=1.25):
+    def locate(self, tobj, verbose=False, roiScale=1.25):
         # sucht das objekt im angegebenen Bild
         # Liefert die gemessene Position zurück (2d,3d)
         # Speichert gemessene 3d pos in Instanz und zur Kontrolle auch die Rückprojektionskoordinaten (xy) pro Bildseite
@@ -356,7 +356,7 @@ class Scene:
         self.warp()
 
         # ROIS als kontrastoptimierte Graustufe speichern in self.ROIR und self.ROIR
-        self.storeROIs(self.photoL, self.photoR, extend)
+        self.storeROIs(self.photoL, self.photoR, roiScale)
 
         # Die effektiven Bilder und Templates erstellen
         self.prepareActiveImages()
@@ -384,11 +384,10 @@ class Scene:
         pt -= offset
         self.markedROIL = cv2.polylines(self.markedROIL, pt, True, (0, 255, 255), 2 )
 
-
         # centerL ist Messpunkt relativ zur linken oberen Ecke der ROI
         # Umrechnen: centerL = (y,x), ROI : [oly, ury, olx, urx]
-        ROIL = self.getROIptsL(extend)
-        ROIR = self.getROIptsR(extend)
+        ROIL = self.getROIptsL(roiScale)
+        ROIR = self.getROIptsR(roiScale)
         centerxyL = (centerx + ROIL[2], centery + ROIL[0])
 
         # Match R
@@ -401,6 +400,13 @@ class Scene:
         self.markedROIR = cv2.cvtColor(self.ROIR, cv2.COLOR_GRAY2RGB)
         self.markedROIR = cv2.drawMarker(self.markedROIR, (centerx, centery), (0, 0, 255), cv2.MARKER_CROSS, msize, mthickness)
         centerxyR = (centerx + ROIR[2], centery + ROIR[0])
+
+        # Rechte Seite: Erwartete Patchposition einzeichnen
+        pt = self.polygonpoints(self.corners2DimgR)              # Erwartete Eckpunkte für den Template Warp Vorgang.
+        ofsx, ofsy = self.getROIptsR()[2], self.getROIptsR()[0]  # im Format [oly, ury, olx, urx]
+        offset = np.tile([ofsx, ofsy], (1,4,1))
+        pt -= offset
+        self.markedROIR = cv2.polylines(self.markedROIR, pt, True, (0, 255, 255), 2 )
 
         # Triangulieren
         # Bild pixel koordinaten der Objekt Zentren
@@ -439,10 +445,11 @@ class Scene:
         pos.cam = self.measuredposition3d_cam[:3,0]
         pos.imgNames = [self.photoNameL, self.photoNameR]
         pos.sceneName = self.name
+        pos.tmMode = self.context.tmmode
 
         # Position und Snapshot speichern
         snapshots = [copy.copy(self.markedROIL), copy.copy(self.markedROIR)]
-        self.tobj.addPosition(pos.mac, pos.cam, pos.imgNames, pos.sceneName, snapshots, reproError)
+        self.tobj.addPosition(pos.mac, pos.cam, pos.imgNames, pos.sceneName, pos.tmMode, snapshots, reproError)
 
         if verbose: self.showAllSteps()
         return pos
