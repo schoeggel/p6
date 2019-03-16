@@ -11,9 +11,10 @@ class Composition:
     imagePairs = []                     # eine Liste mit Bildpaaren in der Form [[01L,01R], [02L, 02R] , ... ]
     calib = wtmCalib.CalibData()
     refObj = [None] * 4                 # Die Gitterschrauben Objekte werden separat geführt.
+    #reversedDirection = False           # TODO Zug fährt rückwärts: basis setzen mit y=-y. Problem Ist damit nich nicht erledigt.
 
     tmmode = wtmEnum.tm.CANNYBLUR       # Standard TM Mode
-    PRE_TM_PX_PER_K = 32  # PX_PER_K = 15 ---> warpedTemplate hat Abmessung 50x50 px --> K = (5,5)
+    PRE_TM_PX_PER_K = 25  # PX_PER_K = 15 ---> warpedTemplate hat Abmessung 50x50 px --> K = (5,5)
     SCOREFILTER_K_SIZE = 5  # Kernelgrösse für die Glättung des TM Resultats (Score)
     PIXEL_PER_CLAHE_BLOCK = 50  # Anzahl Blocks ist abhängig von der Bildgrösse
 
@@ -25,7 +26,6 @@ class Composition:
             Oben links, oben rechts, unten rechts, unten links.
             """
         assert imagePairs is not None and refObj is not None
-        # todo: prüfen der Liste, ob die Bilder existieren etc..
         self.sceneWithExaktRt = None            # Eine Scene, bei der die Transformatione zwischen cam und mac bekannt ist.
         if tmmode is not None:
             self.tmmode = tmmode
@@ -53,14 +53,16 @@ class Composition:
             self._scenes.append(newScene)
 
             if len(self.refObj) == 4 and newScene.rtstatus == wtmEnum.rtref.APPROX:
-                singleUseRefObjects = copy.deepcopy(self.refObj)    # auf diesen Objekten nur einmal messen
-                self.locateObjects(singleUseRefObjects, newScene, verbose= False)
+                # Die Refernzobjekte werden benötigt, um den Koordinatenursprung setzen zu können.
+                # beim Messen werden die Positionen ans Objekt angefügt, was in diesem Fall nicht erwünscht ist,
+                singleUseRefObjects = copy.deepcopy(self.refObj)
+                self.locateObjects(singleUseRefObjects, newScene, roiScale=2, verbose= True)
                 newScene.referenceViaObjects(singleUseRefObjects)   # exakte Transformation Rt finden
 
             if newScene.rtstatus in [wtmEnum.rtref.BYOBJECT]:
                 self.sceneWithExaktRt = newScene
 
-    def locateObjects(self, oneOrMoreObjects, scenes =None, roiScale=1.25, verbose=False):
+    def locateObjects(self, oneOrMoreObjects, scenes =None, roiScale=2.5, verbose=False):
         """"Alle angegebenen Objekte auf allen angegbenen scenes messen
         :param oneOrMoreObjects: Ein einzelnes MachineObjekt oder eine Liste
         :param scenes: Optional eine einzelne Scene oder eine Liste. Ohne Angabe werden alle scenes verwendet"""
@@ -125,7 +127,6 @@ class Composition:
 
     def __str__(self):
         return f"""
-        {self.calib}\n
         composition contains {len(self.imagePairs)} image pair(s) 
         and {len(self.refObj)} reference objects. 
         active template matching mode (tmmode) is {self.tmmode}

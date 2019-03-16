@@ -28,8 +28,8 @@ warpdim = 300
 exportDone = False
 warpexpL = np.zeros((warpdim, warpdim))
 warpexpR = np.zeros((warpdim, warpdim))
-BASENAME = "SBB/20"
 BASENAME = "data/PatchVorbereitung/Linie20"
+BASENAME = "SBB/18"
 
 
 

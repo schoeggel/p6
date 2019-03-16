@@ -93,11 +93,17 @@ class MachineObject:
 
     @property
     def positions(self):
-        return self._positions.__str__()
+        if len(self._positions):
+            return self._positions.__str__()
+        else:
+            return "empty list"
 
     @property
     def rejectedPositions(self):
-        return self._rejectedPositions.__str__()
+        if len(self._positions):
+            return self._rejectedPositions.__str__()
+        else:
+            return "empty list"
 
     @property
     def avgPosMac(self):

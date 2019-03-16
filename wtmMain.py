@@ -5,6 +5,7 @@ from wtmComposition import Composition
 from wtmObject import MachineObject
 import wtmFactory
 from wtmEnum import tm
+import wtmScene
 
 ############################# OBJEKTE #######################################
 patchName = "data/patches/3dcreatorSet1/"
@@ -17,7 +18,7 @@ print(s1)
 
 ####################### NEU DIE OBJEKTE PER FACTORY HOLEN #####################
 allRefs, allObjects =  wtmFactory.createMachineObjects()
-
+3
 
 ############################# COMPOSITION #######################################
 fn = [["SBB/8L.png", "SBB/8R.png"], ["SBB/9L.png", "SBB/9R.png"], ["SBB/10L.png", "SBB/10R.png"],
@@ -27,10 +28,22 @@ fn = [["SBB/8L.png", "SBB/8R.png"], ["SBB/9L.png", "SBB/9R.png"], ["SBB/10L.png"
 #fn = [["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"]]
 #fn = [["SBB/13L.png", "SBB/13R.png"],["SBB/14L.png", "SBB/14R.png"],["SBB/15L.png", "SBB/15R.png"]]
 #fn = [["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"],["SBB/17L.png", "SBB/17R.png"],["SBB/18L.png", "SBB/18R.png"]]
+
+# einsetzen von "fremden" Bilder in eine Serie: sfm funktioniert nicht.
+fn = [["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"],["SBB/17L.png", "SBB/17R.png"],
+      ["SBB/18L.png", "SBB/18R.png"],["SBB/19L.png", "SBB/19R.png"],["SBB/20L.png", "SBB/20R.png"], ["SBB/45-OK1L.png", "SBB/45-OK1R.png"]]
+
+fn = [["SBB/115-OK1L.png", "SBB/115-OK1R.png"]]
+fn = [["SBB/123-OK1L.png", "SBB/123-OK1R.png"]]
+
 fn = [["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"],["SBB/17L.png", "SBB/17R.png"],
       ["SBB/18L.png", "SBB/18R.png"],["SBB/19L.png", "SBB/19R.png"],["SBB/20L.png", "SBB/20R.png"]]
 
-cp = Composition(fn, allRefs, tmmode=tm.CANNYBLUR)
+cp = Composition(fn, allRefs, tmmode=tm.CANNYBLUR2)
+s: wtmScene.Scene = cp._scenes[0]
+s.drawOrigin(show=True)
+
+
 print(cp)
 cp.sceneinfo()
 

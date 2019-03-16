@@ -42,6 +42,8 @@ class Scene:
         self.name = f'{photoNameL[:-4]}|{photoNameR[:-4]}'
         self.photoL = cv2.imread(photoNameL)        # Das von der Kamera gemachte Originalbild
         self.photoR = cv2.imread(photoNameR)        # Das von der Kamera gemachte Originalbild
+        if self.photoR is None: raise FileNotFoundError(f'image {photoNameL} is empty.')
+        if self.photoL is None: raise FileNotFoundError(f'image {photoNameR} is empty.')
         self.measuredposition3d_cam = None
         self.measuredposition3d_mac = None
         self.corners2DimgL = np.zeros((1, 5, 2))    # Eckpunkte auf dem Bild. (plus Mitte)
@@ -69,6 +71,7 @@ class Scene:
         self.reprojectedPosition2dR = np.zeros(1)   # Die gemessene 3d Position projeziert ins 2d Bild
         self.scoreL = None                          # Die ScoreMap aus dem Matching Vorgang
         self.scoreR = None                          # Die ScoreMap aus dem Matching Vorgang
+        self.usedKsize = -1
 
         if prevScene is not None:
             self.prev = prevScene                   # link zur letzten Scene
@@ -76,6 +79,7 @@ class Scene:
             self.prev.isLast = False
             self.isFirst = False
 
+        print("scene: locate grid...")
         self.gitterPosL, self.gitterPosR, self.gitterPosValid = wtmFindGrid.findGrid(self.photoL, self.photoR, verbose=False)
         if self.gitterPosValid:
             self.approxreference()
@@ -118,7 +122,7 @@ class Scene:
         imgL = putBetterText(imgL, "L", (10, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 255, 255), 1, 2)
         imgR = putBetterText(imgR, "R", (10, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 255, 255), 1, 2)
         bigpic = imgMergerV([imgL, imgR])
-        txt = f'res, score, actROI, actT, (cvMeth:{self.activeMethod})'
+        txt = f'res, score, actROI, actT, (cvMeth:{self.activeMethod}), k={self.usedKsize}'
         bigpic = putBetterText(bigpic, txt, (10, 30), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 255, 255), 1, 2)
         aspect = bigpic.shape[0] / bigpic.shape[1]
         wname = f'All steps (TODO: NAME?)'
@@ -152,8 +156,8 @@ class Scene:
         # roiScale ist jetzt prozentual. zuvor 'extend' als pixelwert
         minx, miny = corners.min(0)[0]  # liefert individuell, nicht paarweise
         maxx, maxy = corners.max(0)[0]
-        extendx = (maxx - minx) * roiScale
-        extendy = (maxy - miny) * roiScale
+        extendx = (maxx - minx) * (roiScale - 1) / 2  # soviele pixel pro Seite erweitern (l und r)
+        extendy = (maxy - miny) * (roiScale - 1) / 2  # soviele pixel pro Seite erweitern (o und u)
         olx = minx - extendx
         oly = miny - extendy
         urx = maxx + extendx
@@ -276,7 +280,7 @@ class Scene:
         self.activeROIR = cv2.blur(self.activeROIR, (k, k))
         self.activeTemplateL = cv2.blur(self.activeTemplateL, (k, k))
         self.activeTemplateR = cv2.blur(self.activeTemplateR, (k, k))
-
+        self.usedKsize = k
 
     def prepareActiveImages(self):
         # bereitet das Bild und das Template für den eigentlichen template Matching Vorgang vor,
@@ -295,15 +299,15 @@ class Scene:
 
         elif self.context.tmmode == tm.CANNYBLUR2:
             # Kanten finden und template Hintergrund auf 0 setzen, inkl dem Rand zum Template (daher MaskEXT statt NORM)
-            self.activeTemplateL = cv2.Canny(self.warpedpatchL, 80, 240)
-            self.activeTemplateR = cv2.Canny(self.warpedpatchR, 80, 240)
+            self.activeTemplateL = cv2.Canny(self.warpedpatchL, 120, 240)
+            self.activeTemplateR = cv2.Canny(self.warpedpatchR, 120, 240)
             self.activeROIL = cv2.Canny(self.ROIL, 80, 240)
             self.activeROIR = cv2.Canny(self.ROIR, 80, 240)
             #invertieren:
-            self.activeTemplateL[self.activeTemplateL==0] = 32
-            self.activeTemplateR[self.activeTemplateR==0] = 32
-            self.activeROIL     [self.activeROIL     ==0] = 32
-            self.activeROIR     [self.activeROIR     ==0] = 32
+            self.activeTemplateL[self.activeTemplateL==0] = 0 # 30
+            self.activeTemplateR[self.activeTemplateR==0] = 0 # 30
+            self.activeROIL     [self.activeROIL     ==0] = 0 # 30
+            self.activeROIR     [self.activeROIR     ==0] = 0 # 30
             #Maske anwenden:
             self.activeTemplateL[self.wpMaskExtL == False] = 0
             self.activeTemplateR[self.wpMaskExtR == False] = 0
@@ -696,9 +700,9 @@ class Scene:
 
         # die Kanonischen Einheitsvektoren des sys_zug, aber mit dem Ursprung noch bei [0,0,0] von sys_cam
         systemzug = np.array([[0, 0, 0],
-                              [0.94423342, -0.2282705, 0.23731],
-                              [-0.32667794, -0.5590511, 0.76207],
-                              [-0.0412888, -0.7970912, -0.60245]])
+                              [ 0.94423342,  -0.2282705,  0.23731],
+                              [-0.32667794,  -0.5590511,  0.76207],
+                              [-0.0412888,   -0.7970912, -0.60245]])
 
         # Raumpunkt Gitter triangulieren
         # Bildkoordinaten  Gitter
@@ -800,11 +804,6 @@ class Scene:
         systemzug = np.stack((m, ex,ey,ez))                         # Usprung und kanonische Einheitsvektoren
         self.R_exact, self.t_exact = rigid_transform_3D(systemcam, systemzug)
         self.rtstatus = rtref.BYOBJECT
-
-        # print("sysCam\n", systemcam)
-        # print("sysTrain\n", systemzug)
-        # print("R\n", self.R_exact)
-        # print("t\n", self.t_exact)
 
     def __str__(self):
         return f"""        name: {self.name}
