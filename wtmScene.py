@@ -22,21 +22,24 @@ class Scene:
         über alle Bildpaare (Szenen) hinweg gleichbleibende Daten sind in der
         Klasse 'Composition' definiert."""
 
+    scenecounter:int = 0
 
 
 
     def __init__(self, context, photoNameL, photoNameR, prevScene = None):
-        self.R_exact = np.diag([0, 0, 0])         # Init Wert
-        self.t_exact = np.zeros(3)                # Init Wert
-        self.R_approx = np.diag([0, 0, 0])        # Init Wert
-        self.t_approx = np.zeros(3)               # Init Wert
+        self.id = self.scenecounter
+        self.__class__.scenecounter += 1            # nicht self.scenecounter benutzen zum schreiben!
+        self.R_exact = np.diag([0, 0, 0])           # Init Wert
+        self.t_exact = np.zeros(3)                  # Init Wert
+        self.R_approx = np.diag([0, 0, 0])          # Init Wert
+        self.t_approx = np.zeros(3)                 # Init Wert
         self.rtstatus = rtref.NONE
         self.isFirst = True
         self.isLast = True
         self.next:Scene = self                      # Link zur nächsten scene
         self.prev:Scene = self                      # Link zur vorangegangenen scene
         self.context:wtmComposition.Composition = context # Die gleichbleibenden Daten
-        self.tobj:wtmObject.MachineObject           # das aktuelle Template Objekt
+        self.mo:wtmObject.MachineObject             # das aktuelle MachineObject
         self.photoNameL = photoNameL
         self.photoNameR = photoNameR
         self.name = f'{photoNameL[:-4]}|{photoNameR[:-4]}'
@@ -113,10 +116,16 @@ class Scene:
 
 
     def showAllSteps(self):
+        self._allSteps(show=True)
+
+    def exportAllSteps(self):
+        self._allSteps(save=True)
+
+    def _allSteps(self, show=False, save=False):
         templatesL = imgMergerV(
-            [cv2.resize(self.tobj.patchimageOriginalL, (100, 100)), self.warpedpatchL, self.activeTemplateL])
+            [cv2.resize(self.mo.patchimageOriginalL, (100, 100)), self.warpedpatchL, self.activeTemplateL])
         templatesR = imgMergerV(
-            [cv2.resize(self.tobj.patchimageOriginalR, (100, 100)), self.warpedpatchR, self.activeTemplateR])
+            [cv2.resize(self.mo.patchimageOriginalR, (100, 100)), self.warpedpatchR, self.activeTemplateR])
         imgL = imgMergerH([self.markedROIL, self.scoreL, self.activeROIL, templatesL])
         imgR = imgMergerH([self.markedROIR, self.scoreR, self.activeROIR, templatesR])
         imgL = putBetterText(imgL, "L", (10, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 255, 255), 1, 2)
@@ -124,14 +133,19 @@ class Scene:
         bigpic = imgMergerV([imgL, imgR])
         txt = f'res, score, actROI, actT, (cvMeth:{self.activeMethod}), k={self.usedKsize}'
         bigpic = putBetterText(bigpic, txt, (10, 30), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 255, 255), 1, 2)
-        aspect = bigpic.shape[0] / bigpic.shape[1]
-        wname = f'All steps (TODO: NAME?)'
-        cv2.namedWindow(wname, cv2.WINDOW_NORMAL)
-        cv2.imshow(wname, bigpic)
-        cv2.resizeWindow(wname, 1800, int(1800*aspect))
-        cv2.waitKey(0)
-        cv2.destroyWindow(wname)
 
+        if show:
+            aspect = bigpic.shape[0] / bigpic.shape[1]
+            wname = f'All steps (TODO: NAME?)'
+            cv2.namedWindow(wname, cv2.WINDOW_NORMAL)
+            cv2.imshow(wname, bigpic)
+            cv2.resizeWindow(wname, 1800, int(1800*aspect))
+            cv2.waitKey(0)
+            cv2.destroyWindow(wname)
+
+        if save:
+            print(f'export all steps: <{self.mo.name}> in scene {self.id} ...')
+            cv2.imwrite(f'tmp/allSteps-{self.mo.name}-scene{str(self.id).zfill(2)}.jpg', bigpic, [cv2.IMWRITE_JPEG_QUALITY, 45])
 
 
     def showMarkedROIs(self):
@@ -346,15 +360,15 @@ class Scene:
             self.activeROIR = self.ROIR
 
 
-    def locate(self, tobj, verbose=False, roiScale=1.25):
+    def locate(self, mo, verbose=False, roiScale=1.25, export=False):
         # sucht das objekt im angegebenen Bild
         # Liefert die gemessene Position zurück (2d,3d)
         # Speichert gemessene 3d pos in Instanz und zur Kontrolle auch die Rückprojektionskoordinaten (xy) pro Bildseite
 
-        self.tobj: wtmObject.MachineObject = tobj  # übernimm das Template Objekt von aussen
+        self.mo: wtmObject.MachineObject = mo  # übernimm das Machine Objekt von aussen
 
         # Die Ecken müssen zuvor berechnet worden sein.
-        assert (self.tobj.corners3d.sum != 0)
+        assert (self.mo.corners3d.sum != 0)
 
         # Verzerrung
         self.warp()
@@ -455,9 +469,11 @@ class Scene:
         pos.snapshotL = copy.copy(self.markedROIL)
         pos.snapshotR = copy.copy(self.markedROIR)
         pos.reproError = reproError
-        self.tobj.addPosition(pos)
+        self.mo.addPosition(pos)
 
         if verbose: self.showAllSteps()
+        if export: self.exportAllSteps()
+
         return pos
 
 
@@ -558,7 +574,7 @@ class Scene:
     def warp(self):
         # der Patch wird perspektivisch verzerrt, damit er so aussieht wie auf dem Bild erwartet
         # Eckpunkte des quadratischen Patchs (wie gespeichert, Vogelperspektive, quadratisch)
-        d = self.tobj.patchimageOriginalL.shape[0]
+        d = self.mo.patchimageOriginalL.shape[0]
         quadrat = np.float32([[0, 0], [d, 0], [0, d], [d, d]])
 
         # Eckpunkte Pixelkoordinaten (x,y) für beide Bilder L,R berechnen
@@ -587,8 +603,8 @@ class Scene:
         # für die Ermittlung von M nur die 4 Ecken ohne Zentrum verwenden
         ML = cv2.getPerspectiveTransform(quadrat, self.corners2DtemplateL[:4])
         MR = cv2.getPerspectiveTransform(quadrat, self.corners2DtemplateR[:4])
-        imgL = cv2.warpPerspective(self.tobj.patchimageL, ML, (self.wpShapeL[1], self.wpShapeL[0]))   # dSize ist (x,y)
-        imgR = cv2.warpPerspective(self.tobj.patchimageR, MR, (self.wpShapeR[1], self.wpShapeR[0]))   # dSize ist (x,y)
+        imgL = cv2.warpPerspective(self.mo.patchimageL, ML, (self.wpShapeL[1], self.wpShapeL[0]))   # dSize ist (x,y)
+        imgR = cv2.warpPerspective(self.mo.patchimageR, MR, (self.wpShapeR[1], self.wpShapeR[0]))   # dSize ist (x,y)
 
         self.warpedpatchL = imgL
         self.warpedpatchR = imgR
@@ -597,9 +613,9 @@ class Scene:
 
     def showpatch(self):
         # zeigt den geladenen und fall vorhanden die gewarpten patches an
-        wname = f'patch L as loaded ({self.tobj.patchfilenameL}'
+        wname = f'patch L as loaded ({self.mo.patchfilenameL}'
         cv2.namedWindow(wname, cv2.WINDOW_NORMAL)
-        cv2.imshow(wname, self.tobj.patchimageOriginalL)
+        cv2.imshow(wname, self.mo.patchimageOriginalL)
         if self.warpedpatchL is not None:
             cv2.namedWindow('patch warp L', cv2.WINDOW_NORMAL)
             cv2.imshow("patch warp L", self.warpedpatchL)
@@ -637,10 +653,10 @@ class Scene:
         """rechnet die Patch Ecken in x,y Pixelkoordinaten um"""
 
         # Koordinaten der Patch Ecken rechnen (sys_zug)
-        self.tobj.calculatePatchCorners3d()
+        self.mo.calculatePatchCorners3d()
 
         # ecken umrechnen sys_zug --> sys_cam (direction = 0)
-        edges3d_cam = self.transformsys(self.tobj.corners3d, 0)
+        edges3d_cam = self.transformsys(self.mo.corners3d, 0)
 
         # reprojection der Punkte in Bildpixelkoordinaten
         c = self.context.calib
@@ -806,7 +822,7 @@ class Scene:
         self.rtstatus = rtref.BYOBJECT
 
     def __str__(self):
-        return f"""        name: {self.name}
+        return f"""        ID = {self.id}, name: {self.name}
         Scene Image Filenames: {self.photoNameL}, {self.photoNameR}
         Rt status: {self.rtstatus}
         isFirst={self.isFirst} / isLast={self.isLast}

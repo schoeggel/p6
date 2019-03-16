@@ -13,8 +13,80 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="543fc68e-51ac-46c2-a3d3-d45e8a552486" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/archive/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patchCreator3d.py" beforeDir="false" afterPath="$PROJECT_DIR$/patchCreator3d.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/archive/18-elsd-1.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/18-elsd-1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/05Gitter - Kopie.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/05Gitter - Kopie.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/05Gitter.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/05Gitter.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/05GitterBinary05.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/05GitterBinary05.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/05GitterLCanny1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/05GitterLCanny1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/05templateSmall1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/05templateSmall1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/06template1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/06template1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/10L-schraube.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/10L-schraube.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/14Lcanny1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/14Lcanny1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/16L-schraube.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/16L-schraube.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/17-testCLAHE.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/17-testCLAHE.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/NurGitterL.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/NurGitterL.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/NurGitterLs.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/NurGitterLs.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/NurGitterLs2.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/NurGitterLs2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/canny1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/canny1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/canny2.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/canny2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/canny3.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/canny3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/contourTest/c (1).png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/contourTest/c (1).png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/contourTest/c (2).png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/contourTest/c (2).png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/contourTest/c (3).png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/contourTest/c (3).png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/contourTest/c (4).png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/contourTest/c (4).png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/contourTest/c (5).png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/contourTest/c (5).png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/pattern-g1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/pattern-g1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sk14L1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/sk14L1.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sk14L2.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/sk14L2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sk14L3.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/sk14L3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sktemplate2.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/sktemplate2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sktemplate2mask.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/sktemplate2mask.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/template3.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/template3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/template3mask.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/template3mask.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/templateskel1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/templateskel1.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/test-contrast-LC-canny.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/test-contrast-LC-canny.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/test-contrast1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/test-contrast1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/test3a.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/test3a.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/test3b.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/test3b.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/testCANNY-1d5-1-2.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/testCANNY-1d5-1-2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/testCANNY-2-1-2.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/testCANNY-2-1-2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/testCANNY-3-1-2.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/testCANNY-3-1-2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/testDoG1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/testDoG1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/01.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/02.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/02.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/03.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/03.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/04.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/04.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/11.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/11.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/12.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/12.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/13.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/13.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/14.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/14.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/15.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/15.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/21.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/21.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/22.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/22.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/23.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/23.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/24.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/24.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/25.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/25.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/26.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/26.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/27.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/27.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/31.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/31.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/32.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/32.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/41.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/41.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/42.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/42.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/43.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/43.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/44.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/44.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/45.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/45.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/46.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/46.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/47.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/47.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/tmtest/pfeilVorlage1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/pfeilVorlage1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pylsd/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/pylsd/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pylsd/bindings/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/pylsd/bindings/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pylsd/bindings/lsd_ctypes.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/pylsd/bindings/lsd_ctypes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pylsd/lsd.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/pylsd/lsd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sample/HappyFish.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/archive/sample/HappyFish.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sample/HappyFish2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/archive/sample/HappyFish2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sample/rubberwhale1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/sample/rubberwhale1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wtmComposition.py" beforeDir="false" afterPath="$PROJECT_DIR$/wtmComposition.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wtmMain.py" beforeDir="false" afterPath="$PROJECT_DIR$/wtmMain.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wtmObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/wtmObject.py" afterDir="false" />
@@ -30,12 +102,12 @@
     <window id="1">
       <content type="file-editors">
         <state>
-          <leaf>
+          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
             <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/wtmMain.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="544">
-                    <caret line="66" column="20" selection-start-line="66" selection-start-column="20" selection-end-line="66" selection-end-column="20" />
+                  <state relative-caret-position="632">
+                    <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
                     <folding>
                       <element signature="e#34#52#0" expanded="true" />
                     </folding>
@@ -46,8 +118,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/wtmComposition.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="523">
-                    <caret line="76" selection-start-line="76" selection-end-line="76" />
+                  <state relative-caret-position="269">
+                    <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
                     <folding>
                       <element signature="e#33#48#0" expanded="true" />
                     </folding>
@@ -58,8 +130,8 @@
             <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/wtmScene.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="721">
-                    <caret line="83" column="31" selection-start-line="83" selection-start-column="31" selection-end-line="83" selection-end-column="31" />
+                  <state relative-caret-position="929">
+                    <caret line="86" selection-start-line="86" selection-end-line="86" />
                     <folding>
                       <element signature="e#33#51#0" expanded="true" />
                     </folding>
@@ -68,13 +140,31 @@
               </entry>
             </file>
             <file pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/wtmAux.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="783">
+                    <caret line="96" selection-start-line="96" selection-end-line="96" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/wtmObject.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="290">
-                    <caret line="99" selection-start-line="99" selection-end-line="99" />
+                  <state relative-caret-position="742">
+                    <caret line="229" column="41" selection-start-line="229" selection-start-column="41" selection-end-line="229" selection-end-column="41" />
                     <folding>
                       <element signature="e#694#712#0" expanded="true" />
                     </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/wtmFactory.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="378">
+                    <caret line="19" column="65" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="65" />
                   </state>
                 </provider>
               </entry>
@@ -89,23 +179,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/patchCreator3d.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="31" column="18" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
+            <state relative-caret-position="113">
+              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
               <folding>
                 <element signature="e#580#590#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/rigid_transform_3d.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="117">
-              <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
             </state>
           </provider>
         </entry>
@@ -122,8 +203,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>masks</find>
-      <find>corners2DimgR</find>
       <find>NAME</find>
       <find>projection LEFT</find>
       <find>projection RIGHT</find>
@@ -152,6 +231,8 @@
       <find>blur</find>
       <find>canny</find>
       <find>avg</find>
+      <find>lade</find>
+      <find>lade:</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -210,10 +291,10 @@
         <option value="$PROJECT_DIR$/wtmSfm.py" />
         <option value="$PROJECT_DIR$/wtmEnum.py" />
         <option value="$PROJECT_DIR$/patchCreator3d.py" />
-        <option value="$PROJECT_DIR$/wtmMain.py" />
-        <option value="$PROJECT_DIR$/wtmScene.py" />
         <option value="$PROJECT_DIR$/wtmObject.py" />
         <option value="$PROJECT_DIR$/wtmComposition.py" />
+        <option value="$PROJECT_DIR$/wtmMain.py" />
+        <option value="$PROJECT_DIR$/wtmScene.py" />
       </list>
     </option>
   </component>
@@ -230,6 +311,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -237,11 +319,15 @@
               <item name="p6" type="b2602c69:ProjectViewProjectNode" />
               <item name="p6" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="p6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="p6" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -259,14 +345,15 @@
     </option>
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\gitstuff\p6" />
-      <recent name="C:\gitstuff\bt19" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\gitstuff\p6\archive\data_old" />
       <recent name="C:\gitstuff\p6\archive" />
       <recent name="C:\gitstuff\p6" />
       <recent name="C:\gitstuff\p6\sample" />
+      <recent name="C:\gitstuff\bt19" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\gitstuff\p6" />
       <recent name="C:\gitstuff\bt19" />
     </key>
   </component>
@@ -456,14 +543,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="835" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" x="1117" y="110" width="344" height="697" id="Project" order="0" sideWeight="0.49774775" visible="true" weight="0.17713153" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.22849463" />
       <window_info id="Favorites" order="2" sideWeight="0.5022523" side_tool="true" weight="0.1391129" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49932885" weight="0.95732576" />
-      <window_info anchor="bottom" x="80" y="242" width="1352" height="537" id="Run" maximized="true" order="2" sideWeight="0.63053536" weight="0.56187767" />
-      <window_info anchor="bottom" x="63" y="43" width="989" height="689" id="Debug" maximized="true" order="3" sideWeight="0.49966952" weight="0.5945946" />
+      <window_info anchor="bottom" x="80" y="242" width="1352" height="537" id="Run" maximized="true" order="2" sideWeight="0.63053536" weight="0.8278805" />
+      <window_info active="true" anchor="bottom" x="63" y="43" width="989" height="689" id="Debug" maximized="true" order="3" sideWeight="0.49966952" visible="true" weight="0.3655761" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49837133" weight="0.6998578" />
@@ -498,128 +586,19 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/archive/02templateSkeleton.py</url>
-          <line>15</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/archive/03templateMask.py</url>
-          <line>28</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/archive/06LocalizeByFeaturesB.py</url>
-          <line>68</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/archive/10triangulation1.py</url>
-          <line>61</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/archive/10triangulation1.py</url>
-          <line>84</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/archive/13-Check3dQuadrat1.py</url>
-          <line>270</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/archive/14-triangulationFehlersuche5.py</url>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/archive/11Exaktgitter1.py</url>
-          <line>155</line>
-          <option name="timeStamp" value="63" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/archive/17-templatematchChannelTest.py</url>
-          <line>23</line>
-          <option name="timeStamp" value="102" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/pylsd/lsd.py</url>
-          <line>11</line>
-          <option name="timeStamp" value="114" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/archive/patchCreator.py</url>
-          <line>176</line>
-          <option name="timeStamp" value="182" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/archive/trainfeature.py</url>
-          <line>848</line>
-          <option name="timeStamp" value="185" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/archive/trainfeature.py</url>
-          <line>455</line>
-          <option name="timeStamp" value="202" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/patchCreator3d.py</url>
-          <line>509</line>
-          <option name="timeStamp" value="230" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/archive/trainfeature.py</url>
-          <line>304</line>
-          <option name="timeStamp" value="233" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/archive/trainfeature.py</url>
-          <line>323</line>
-          <option name="timeStamp" value="234" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/archive/24-testSepClassRef.py</url>
-          <line>56</line>
-          <option name="timeStamp" value="241" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/archive/24-testSepClassRef.py</url>
-          <line>77</line>
-          <option name="timeStamp" value="242" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/archive/wtmSfmTest1.py</url>
-          <line>155</line>
-          <option name="timeStamp" value="285" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/patchCreator3d.py</url>
-          <line>340</line>
-          <option name="timeStamp" value="301" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/wtmObject.py</url>
-          <line>247</line>
-          <option name="timeStamp" value="306" />
+          <url>file://$PROJECT_DIR$/wtmMain.py</url>
+          <line>67</line>
+          <option name="timeStamp" value="319" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/wtmScene.py</url>
-          <line>804</line>
-          <option name="timeStamp" value="311" />
+          <line>29</line>
+          <option name="timeStamp" value="323" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/wtmScene.py</url>
-          <line>741</line>
-          <option name="timeStamp" value="312" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/wtmComposition.py</url>
-          <line>58</line>
-          <option name="timeStamp" value="313" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/wtmScene.py</url>
-          <line>258</line>
-          <option name="timeStamp" value="315" />
+          <line>24</line>
+          <option name="timeStamp" value="324" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -630,31 +609,14 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/core/shape_base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="294" column="45" selection-start-line="294" selection-start-column="45" selection-end-line="294" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/archive/18-CLAHE-test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="18" column="51" lean-forward="true" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/21-TestTextDisplacement.py">
+    <entry file="file://$PROJECT_DIR$/archive/21-TestTextDisplacement.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
           <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/22-testMinMax.py">
+    <entry file="file://$PROJECT_DIR$/archive/22-testMinMax.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
           <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
@@ -688,9 +650,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/archive/11Exaktgitter1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="131">
@@ -708,14 +667,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/19-contourTest.py">
+    <entry file="file://$PROJECT_DIR$/archive/19-contourTest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="524">
           <caret line="46" column="3" selection-start-line="46" selection-start-column="3" selection-end-line="46" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/20-lamdaMax.py">
+    <entry file="file://$PROJECT_DIR$/archive/20-lamdaMax.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="217">
           <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
@@ -864,9 +823,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1210">
           <caret line="55" selection-start-line="55" selection-end-line="55" />
-          <folding>
-            <element signature="e#30#40#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -894,7 +850,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/25-testBetterText1.py">
+    <entry file="file://$PROJECT_DIR$/archive/25-testBetterText1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
           <caret line="5" selection-start-line="5" selection-end-line="7" selection-end-column="120" />
@@ -911,7 +867,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/26-testFor.py">
+    <entry file="file://$PROJECT_DIR$/archive/26-testFor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
@@ -928,41 +884,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="1740" selection-start-line="1740" selection-end-line="1740" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wtmFactory.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
-          <caret line="24" column="36" lean-forward="true" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wtmAux.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="142" column="23" selection-start-line="142" selection-start-column="23" selection-end-line="142" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wtmEnum.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
           <caret line="21" column="41" lean-forward="true" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/patchCreator3d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="31" column="18" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
-          <folding>
-            <element signature="e#580#590#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -993,50 +918,94 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wtmScene.py">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="721">
-          <caret line="83" column="31" selection-start-line="83" selection-start-column="31" selection-end-line="83" selection-end-column="31" />
-          <folding>
-            <element signature="e#33#51#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="154">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LICENSE">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rigid_transform_3d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wtmFactory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="19" column="65" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="65" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wtmObject.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="99" selection-start-line="99" selection-end-line="99" />
+        <state relative-caret-position="742">
+          <caret line="229" column="41" selection-start-line="229" selection-start-column="41" selection-end-line="229" selection-end-column="41" />
           <folding>
             <element signature="e#694#712#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/wtmAux.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="783">
+          <caret line="96" selection-start-line="96" selection-end-line="96" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="589">
+          <caret line="1724" column="12" lean-forward="true" selection-start-line="1724" selection-start-column="12" selection-end-line="1724" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/wtmMain.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="66" column="20" selection-start-line="66" selection-start-column="20" selection-end-line="66" selection-end-column="20" />
+        <state relative-caret-position="632">
+          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
           <folding>
             <element signature="e#34#52#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/wtmScene.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="929">
+          <caret line="86" selection-start-line="86" selection-end-line="86" />
+          <folding>
+            <element signature="e#33#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/wtmComposition.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="76" selection-start-line="76" selection-end-line="76" />
+        <state relative-caret-position="269">
+          <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
           <folding>
             <element signature="e#33#48#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rigid_transform_3d.py">
+    <entry file="file://$PROJECT_DIR$/patchCreator3d.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+        <state relative-caret-position="113">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="e#580#590#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

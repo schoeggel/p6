@@ -1,0 +1,789 @@
+C:\gitstuff\p6\venv\Scripts\python.exe C:/gitstuff/p6/wtmMain.py
+read: data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite_L.png und data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite_R.png
+MachineObject <data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite_R.png
+valid position entries: 0 | rejected position entries: 0
+Good Positions:
+empty list
+Rejected Positions:
+empty list
+mean position: nan
+rms error: nan
+read: data/patches/3dcreatorSet1/tcr3d-FederhalterLinksV2_L.png und data/patches/3dcreatorSet1/tcr3d-FederhalterLinksV2_R.png
+read: data/patches/3dcreatorSet1/tcr3d-federhalterungLinks_L.png und data/patches/3dcreatorSet1/tcr3d-federhalterungLinks_R.png
+read: data/patches/3dcreatorSet1/tcr3d-federHalterungRechts_L.png und data/patches/3dcreatorSet1/tcr3d-federHalterungRechts_R.png
+read: data/patches/3dcreatorSet1/tcr3d-Federkasten1Links_L.png und data/patches/3dcreatorSet1/tcr3d-Federkasten1Links_R.png
+read: data/patches/3dcreatorSet1/tcr3d-Federkasten1Rechts_L.png und data/patches/3dcreatorSet1/tcr3d-Federkasten1Rechts_R.png
+read: data/patches/3dcreatorSet1/tcr3d-HornAnsatz1Links_L.png und data/patches/3dcreatorSet1/tcr3d-HornAnsatz1Links_R.png
+read: data/patches/3dcreatorSet1/tcr3d-HornAnsatz1Rechts_L.png und data/patches/3dcreatorSet1/tcr3d-HornAnsatz1Rechts_R.png
+read: data/patches/3dcreatorSet1/tcr3d-HornEndeLinks1_L.png und data/patches/3dcreatorSet1/tcr3d-HornEndeLinks1_R.png
+read: data/patches/3dcreatorSet1/tcr3d-HornEndeLinks2_L.png und data/patches/3dcreatorSet1/tcr3d-HornEndeLinks2_R.png
+read: data/patches/3dcreatorSet1/tcr3d-LineTest1Links_L.png und data/patches/3dcreatorSet1/tcr3d-LineTest1Links_R.png
+read: data/patches/3dcreatorSet1/tcr3ddeckelSeitlichLinks_L.png und data/patches/3dcreatorSet1/tcr3ddeckelSeitlichLinks_R.png
+read: data/patches/3dcreatorSet1/tcr3dscharnierLinkeSeite_L.png und data/patches/3dcreatorSet1/tcr3dscharnierLinkeSeite_R.png
+read: data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite_L.png und data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite_R.png
+read: data/patches/3dcreatorSet1/tcr3dschraubeKleinLinkeSeite_L.png und data/patches/3dcreatorSet1/tcr3dschraubeKleinLinkeSeite_R.png
+read: data/patches/3dcreatorSet1/tcr3dschraubeMiniLinkeSeite_L.png und data/patches/3dcreatorSet1/tcr3dschraubeMiniLinkeSeite_R.png
+read: data/patches/3dcreatorSet1/tcr3dtestDeckelTiefLinkeSeite_L.png und data/patches/3dcreatorSet1/tcr3dtestDeckelTiefLinkeSeite_R.png
+read: data/patches/3dcreatorSetRef1/tcr3d-gitterschraube1ol_L.png und data/patches/3dcreatorSetRef1/tcr3d-gitterschraube1ol_R.png
+read: data/patches/3dcreatorSetRef1/tcr3d-gitterschraube2or_L.png und data/patches/3dcreatorSetRef1/tcr3d-gitterschraube2or_R.png
+read: data/patches/3dcreatorSetRef1/tcr3d-gitterschraube3ul_L.png und data/patches/3dcreatorSetRef1/tcr3d-gitterschraube3ul_R.png
+read: data/patches/3dcreatorSetRef1/tcr3d-gitterschraube4ur_L.png und data/patches/3dcreatorSetRef1/tcr3d-gitterschraube4ur_R.png
+scene: locate grid...
+scene: locate grid...
+scene: locate grid...
+locate: successfully located <gitterschraube1ol> in scene <SBB/10L|SBB/10R>
+locate: successfully located <gitterschraube2or> in scene <SBB/10L|SBB/10R>
+locate: successfully located <gitterschraube3ul> in scene <SBB/10L|SBB/10R>
+locate: successfully located <gitterschraube4ur> in scene <SBB/10L|SBB/10R>
+scene: locate grid...
+locate: successfully located <gitterschraube1ol> in scene <SBB/11L|SBB/11R>
+locate: successfully located <gitterschraube2or> in scene <SBB/11L|SBB/11R>
+locate: successfully located <gitterschraube3ul> in scene <SBB/11L|SBB/11R>
+locate: successfully located <gitterschraube4ur> in scene <SBB/11L|SBB/11R>
+scene: locate grid...
+locate: successfully located <gitterschraube1ol> in scene <SBB/12L|SBB/12R>
+locate: successfully located <gitterschraube2or> in scene <SBB/12L|SBB/12R>
+locate: successfully located <gitterschraube3ul> in scene <SBB/12L|SBB/12R>
+locate: successfully located <gitterschraube4ur> in scene <SBB/12L|SBB/12R>
+scene: locate grid...
+locate: successfully located <gitterschraube1ol> in scene <SBB/13L|SBB/13R>
+locate: successfully located <gitterschraube2or> in scene <SBB/13L|SBB/13R>
+locate: successfully located <gitterschraube3ul> in scene <SBB/13L|SBB/13R>
+locate: successfully located <gitterschraube4ur> in scene <SBB/13L|SBB/13R>
+scene: locate grid...
+locate: successfully located <gitterschraube1ol> in scene <SBB/14L|SBB/14R>
+locate: successfully located <gitterschraube2or> in scene <SBB/14L|SBB/14R>
+locate: successfully located <gitterschraube3ul> in scene <SBB/14L|SBB/14R>
+locate: successfully located <gitterschraube4ur> in scene <SBB/14L|SBB/14R>
+scene: locate grid...
+locate: successfully located <gitterschraube1ol> in scene <SBB/15L|SBB/15R>
+locate: successfully located <gitterschraube2or> in scene <SBB/15L|SBB/15R>
+locate: successfully located <gitterschraube3ul> in scene <SBB/15L|SBB/15R>
+locate: successfully located <gitterschraube4ur> in scene <SBB/15L|SBB/15R>
+scene: locate grid...
+scene: locate grid...
+scene: locate grid...
+scene: locate grid...
+scene: locate grid...
+
+sfm: calculate t:  SBB/15L|SBB/15R ------> SBB/16L|SBB/16R
+sfm: detect and compute...
+sfm: bruteforce matcher...
+sfm: reproFilter before/after (maxDistance=4): 1686 / 228
+sfm: reproFilter before/after (maxDistance=4): 1560 / 254
+sfm: dropped 140 incomplete keypoint quadruples.
+
+sfm: calculate t:  SBB/16L|SBB/16R ------> SBB/17L|SBB/17R
+sfm: detect and compute...
+sfm: bruteforce matcher...
+sfm: reproFilter before/after (maxDistance=4): 1560 / 254
+sfm: reproFilter before/after (maxDistance=4): 1481 / 316
+sfm: dropped 172 incomplete keypoint quadruples.
+
+sfm: calculate t:  SBB/17L|SBB/17R ------> SBB/18L|SBB/18R
+sfm: detect and compute...
+sfm: bruteforce matcher...
+sfm: reproFilter before/after (maxDistance=4): 1481 / 316
+sfm: reproFilter before/after (maxDistance=4): 1413 / 294
+sfm: dropped 220 incomplete keypoint quadruples.
+
+sfm: calculate t:  SBB/18L|SBB/18R ------> SBB/19L|SBB/19R
+sfm: detect and compute...
+sfm: bruteforce matcher...
+sfm: reproFilter before/after (maxDistance=4): 1413 / 294
+sfm: reproFilter before/after (maxDistance=4): 1284 / 242
+sfm: dropped 164 incomplete keypoint quadruples.
+
+sfm: calculate t:  SBB/19L|SBB/19R ------> SBB/20L|SBB/20R
+sfm: detect and compute...
+sfm: bruteforce matcher...
+sfm: reproFilter before/after (maxDistance=4): 1284 / 242
+sfm: reproFilter before/after (maxDistance=4): 1755 / 329
+sfm: dropped 113 incomplete keypoint quadruples.
+
+sfm: calculate t:  SBB/10L|SBB/10R ------> SBB/9L|SBB/9R
+sfm: detect and compute...
+sfm: bruteforce matcher...
+sfm: reproFilter before/after (maxDistance=4): 1607 / 70
+sfm: reproFilter before/after (maxDistance=4): 1191 / 36
+sfm: dropped 55 incomplete keypoint quadruples.
+
+sfm: calculate t:  SBB/9L|SBB/9R ------> SBB/8L|SBB/8R
+sfm: detect and compute...
+sfm: bruteforce matcher...
+sfm: reproFilter before/after (maxDistance=4): 1191 / 36
+sfm: reproFilter before/after (maxDistance=4): 777 / 35
+sfm: dropped 19 incomplete keypoint quadruples.
+
+        composition contains 13 image pair(s) 
+        and 4 reference objects. 
+        active template matching mode (tmmode) is tm.CANNYBLUR2
+        use .sceneinfo() for scene details.
+        
+Scene [0]:
+        ID = 0, name: SBB/8L|SBB/8R
+        Scene Image Filenames: SBB/8L.png, SBB/8R.png
+        Rt status: rtref.BYSFM
+        isFirst=True / isLast=False
+        
+Scene [1]:
+        ID = 1, name: SBB/9L|SBB/9R
+        Scene Image Filenames: SBB/9L.png, SBB/9R.png
+        Rt status: rtref.BYSFM
+        isFirst=False / isLast=False
+        
+Scene [2]:
+        ID = 2, name: SBB/10L|SBB/10R
+        Scene Image Filenames: SBB/10L.png, SBB/10R.png
+        Rt status: rtref.BYOBJECT
+        isFirst=False / isLast=False
+        
+Scene [3]:
+        ID = 3, name: SBB/11L|SBB/11R
+        Scene Image Filenames: SBB/11L.png, SBB/11R.png
+        Rt status: rtref.BYOBJECT
+        isFirst=False / isLast=False
+        
+Scene [4]:
+        ID = 4, name: SBB/12L|SBB/12R
+        Scene Image Filenames: SBB/12L.png, SBB/12R.png
+        Rt status: rtref.BYOBJECT
+        isFirst=False / isLast=False
+        
+Scene [5]:
+        ID = 5, name: SBB/13L|SBB/13R
+        Scene Image Filenames: SBB/13L.png, SBB/13R.png
+        Rt status: rtref.BYOBJECT
+        isFirst=False / isLast=False
+        
+Scene [6]:
+        ID = 6, name: SBB/14L|SBB/14R
+        Scene Image Filenames: SBB/14L.png, SBB/14R.png
+        Rt status: rtref.BYOBJECT
+        isFirst=False / isLast=False
+        
+Scene [7]:
+        ID = 7, name: SBB/15L|SBB/15R
+        Scene Image Filenames: SBB/15L.png, SBB/15R.png
+        Rt status: rtref.BYOBJECT
+        isFirst=False / isLast=False
+        
+Scene [8]:
+        ID = 8, name: SBB/16L|SBB/16R
+        Scene Image Filenames: SBB/16L.png, SBB/16R.png
+        Rt status: rtref.BYSFM
+        isFirst=False / isLast=False
+        
+Scene [9]:
+        ID = 9, name: SBB/17L|SBB/17R
+        Scene Image Filenames: SBB/17L.png, SBB/17R.png
+        Rt status: rtref.BYSFM
+        isFirst=False / isLast=False
+        
+Scene [10]:
+        ID = 10, name: SBB/18L|SBB/18R
+        Scene Image Filenames: SBB/18L.png, SBB/18R.png
+        Rt status: rtref.BYSFM
+        isFirst=False / isLast=False
+        
+Scene [11]:
+        ID = 11, name: SBB/19L|SBB/19R
+        Scene Image Filenames: SBB/19L.png, SBB/19R.png
+        Rt status: rtref.BYSFM
+        isFirst=False / isLast=False
+        
+Scene [12]:
+        ID = 12, name: SBB/20L|SBB/20R
+        Scene Image Filenames: SBB/20L.png, SBB/20R.png
+        Rt status: rtref.BYSFM
+        isFirst=False / isLast=True
+        
+locate: failed to locate <FederhalterLinksV2> in scene <SBB/8L|SBB/8R>
+locate: failed to locate <FederhalterLinksV2> in scene <SBB/9L|SBB/9R>
+locate: failed to locate <FederhalterLinksV2> in scene <SBB/10L|SBB/10R>
+locate: failed to locate <FederhalterLinksV2> in scene <SBB/11L|SBB/11R>
+locate: failed to locate <FederhalterLinksV2> in scene <SBB/12L|SBB/12R>
+locate: failed to locate <FederhalterLinksV2> in scene <SBB/13L|SBB/13R>
+export all steps: <FederhalterLinksV2> in scene 6 ...
+locate: successfully located <FederhalterLinksV2> in scene <SBB/14L|SBB/14R>
+export all steps: <FederhalterLinksV2> in scene 7 ...
+locate: successfully located <FederhalterLinksV2> in scene <SBB/15L|SBB/15R>
+export all steps: <FederhalterLinksV2> in scene 8 ...
+locate: successfully located <FederhalterLinksV2> in scene <SBB/16L|SBB/16R>
+export all steps: <FederhalterLinksV2> in scene 9 ...
+locate: successfully located <FederhalterLinksV2> in scene <SBB/17L|SBB/17R>
+export all steps: <FederhalterLinksV2> in scene 10 ...
+locate: successfully located <FederhalterLinksV2> in scene <SBB/18L|SBB/18R>
+export all steps: <FederhalterLinksV2> in scene 11 ...
+locate: successfully located <FederhalterLinksV2> in scene <SBB/19L|SBB/19R>
+export all steps: <FederhalterLinksV2> in scene 12 ...
+locate: successfully located <FederhalterLinksV2> in scene <SBB/20L|SBB/20R>
+locate: failed to locate <federhalterungLinks> in scene <SBB/8L|SBB/8R>
+locate: failed to locate <federhalterungLinks> in scene <SBB/9L|SBB/9R>
+locate: failed to locate <federhalterungLinks> in scene <SBB/10L|SBB/10R>
+locate: failed to locate <federhalterungLinks> in scene <SBB/11L|SBB/11R>
+locate: failed to locate <federhalterungLinks> in scene <SBB/12L|SBB/12R>
+locate: failed to locate <federhalterungLinks> in scene <SBB/13L|SBB/13R>
+export all steps: <federhalterungLinks> in scene 6 ...
+locate: successfully located <federhalterungLinks> in scene <SBB/14L|SBB/14R>
+export all steps: <federhalterungLinks> in scene 7 ...
+locate: successfully located <federhalterungLinks> in scene <SBB/15L|SBB/15R>
+export all steps: <federhalterungLinks> in scene 8 ...
+locate: successfully located <federhalterungLinks> in scene <SBB/16L|SBB/16R>
+export all steps: <federhalterungLinks> in scene 9 ...
+locate: successfully located <federhalterungLinks> in scene <SBB/17L|SBB/17R>
+export all steps: <federhalterungLinks> in scene 10 ...
+locate: successfully located <federhalterungLinks> in scene <SBB/18L|SBB/18R>
+export all steps: <federhalterungLinks> in scene 11 ...
+locate: successfully located <federhalterungLinks> in scene <SBB/19L|SBB/19R>
+export all steps: <federhalterungLinks> in scene 12 ...
+locate: successfully located <federhalterungLinks> in scene <SBB/20L|SBB/20R>
+locate: failed to locate <federHalterungRechts> in scene <SBB/8L|SBB/8R>
+locate: failed to locate <federHalterungRechts> in scene <SBB/9L|SBB/9R>
+locate: failed to locate <federHalterungRechts> in scene <SBB/10L|SBB/10R>
+locate: failed to locate <federHalterungRechts> in scene <SBB/11L|SBB/11R>
+locate: failed to locate <federHalterungRechts> in scene <SBB/12L|SBB/12R>
+locate: failed to locate <federHalterungRechts> in scene <SBB/13L|SBB/13R>
+export all steps: <federHalterungRechts> in scene 6 ...
+locate: successfully located <federHalterungRechts> in scene <SBB/14L|SBB/14R>
+export all steps: <federHalterungRechts> in scene 7 ...
+locate: successfully located <federHalterungRechts> in scene <SBB/15L|SBB/15R>
+export all steps: <federHalterungRechts> in scene 8 ...
+locate: successfully located <federHalterungRechts> in scene <SBB/16L|SBB/16R>
+export all steps: <federHalterungRechts> in scene 9 ...
+locate: successfully located <federHalterungRechts> in scene <SBB/17L|SBB/17R>
+export all steps: <federHalterungRechts> in scene 10 ...
+locate: successfully located <federHalterungRechts> in scene <SBB/18L|SBB/18R>
+export all steps: <federHalterungRechts> in scene 11 ...
+locate: successfully located <federHalterungRechts> in scene <SBB/19L|SBB/19R>
+export all steps: <federHalterungRechts> in scene 12 ...
+locate: successfully located <federHalterungRechts> in scene <SBB/20L|SBB/20R>
+locate: failed to locate <Federkasten1Links> in scene <SBB/8L|SBB/8R>
+locate: failed to locate <Federkasten1Links> in scene <SBB/9L|SBB/9R>
+locate: failed to locate <Federkasten1Links> in scene <SBB/10L|SBB/10R>
+locate: failed to locate <Federkasten1Links> in scene <SBB/11L|SBB/11R>
+locate: failed to locate <Federkasten1Links> in scene <SBB/12L|SBB/12R>
+locate: failed to locate <Federkasten1Links> in scene <SBB/13L|SBB/13R>
+locate: failed to locate <Federkasten1Links> in scene <SBB/14L|SBB/14R>
+locate: failed to locate <Federkasten1Links> in scene <SBB/15L|SBB/15R>
+export all steps: <Federkasten1Links> in scene 8 ...
+locate: successfully located <Federkasten1Links> in scene <SBB/16L|SBB/16R>
+export all steps: <Federkasten1Links> in scene 9 ...
+locate: successfully located <Federkasten1Links> in scene <SBB/17L|SBB/17R>
+export all steps: <Federkasten1Links> in scene 10 ...
+locate: successfully located <Federkasten1Links> in scene <SBB/18L|SBB/18R>
+export all steps: <Federkasten1Links> in scene 11 ...
+locate: successfully located <Federkasten1Links> in scene <SBB/19L|SBB/19R>
+export all steps: <Federkasten1Links> in scene 12 ...
+locate: successfully located <Federkasten1Links> in scene <SBB/20L|SBB/20R>
+locate: failed to locate <Federkasten1Rechts> in scene <SBB/8L|SBB/8R>
+locate: failed to locate <Federkasten1Rechts> in scene <SBB/9L|SBB/9R>
+locate: failed to locate <Federkasten1Rechts> in scene <SBB/10L|SBB/10R>
+locate: failed to locate <Federkasten1Rechts> in scene <SBB/11L|SBB/11R>
+locate: failed to locate <Federkasten1Rechts> in scene <SBB/12L|SBB/12R>
+locate: failed to locate <Federkasten1Rechts> in scene <SBB/13L|SBB/13R>
+locate: failed to locate <Federkasten1Rechts> in scene <SBB/14L|SBB/14R>
+locate: failed to locate <Federkasten1Rechts> in scene <SBB/15L|SBB/15R>
+export all steps: <Federkasten1Rechts> in scene 8 ...
+locate: successfully located <Federkasten1Rechts> in scene <SBB/16L|SBB/16R>
+export all steps: <Federkasten1Rechts> in scene 9 ...
+locate: successfully located <Federkasten1Rechts> in scene <SBB/17L|SBB/17R>
+export all steps: <Federkasten1Rechts> in scene 10 ...
+locate: successfully located <Federkasten1Rechts> in scene <SBB/18L|SBB/18R>
+export all steps: <Federkasten1Rechts> in scene 11 ...
+locate: successfully located <Federkasten1Rechts> in scene <SBB/19L|SBB/19R>
+export all steps: <Federkasten1Rechts> in scene 12 ...
+locate: successfully located <Federkasten1Rechts> in scene <SBB/20L|SBB/20R>
+locate: failed to locate <HornAnsatz1Links> in scene <SBB/8L|SBB/8R>
+locate: failed to locate <HornAnsatz1Links> in scene <SBB/9L|SBB/9R>
+locate: failed to locate <HornAnsatz1Links> in scene <SBB/10L|SBB/10R>
+locate: failed to locate <HornAnsatz1Links> in scene <SBB/11L|SBB/11R>
+locate: failed to locate <HornAnsatz1Links> in scene <SBB/12L|SBB/12R>
+locate: failed to locate <HornAnsatz1Links> in scene <SBB/13L|SBB/13R>
+locate: failed to locate <HornAnsatz1Links> in scene <SBB/14L|SBB/14R>
+export all steps: <HornAnsatz1Links> in scene 7 ...
+locate: successfully located <HornAnsatz1Links> in scene <SBB/15L|SBB/15R>
+export all steps: <HornAnsatz1Links> in scene 8 ...
+locate: successfully located <HornAnsatz1Links> in scene <SBB/16L|SBB/16R>
+export all steps: <HornAnsatz1Links> in scene 9 ...
+locate: successfully located <HornAnsatz1Links> in scene <SBB/17L|SBB/17R>
+export all steps: <HornAnsatz1Links> in scene 10 ...
+locate: successfully located <HornAnsatz1Links> in scene <SBB/18L|SBB/18R>
+export all steps: <HornAnsatz1Links> in scene 11 ...
+locate: successfully located <HornAnsatz1Links> in scene <SBB/19L|SBB/19R>
+export all steps: <HornAnsatz1Links> in scene 12 ...
+locate: successfully located <HornAnsatz1Links> in scene <SBB/20L|SBB/20R>
+locate: failed to locate <HornAnsatz1Rechts> in scene <SBB/8L|SBB/8R>
+locate: failed to locate <HornAnsatz1Rechts> in scene <SBB/9L|SBB/9R>
+locate: failed to locate <HornAnsatz1Rechts> in scene <SBB/10L|SBB/10R>
+locate: failed to locate <HornAnsatz1Rechts> in scene <SBB/11L|SBB/11R>
+locate: failed to locate <HornAnsatz1Rechts> in scene <SBB/12L|SBB/12R>
+locate: failed to locate <HornAnsatz1Rechts> in scene <SBB/13L|SBB/13R>
+export all steps: <HornAnsatz1Rechts> in scene 6 ...
+locate: successfully located <HornAnsatz1Rechts> in scene <SBB/14L|SBB/14R>
+export all steps: <HornAnsatz1Rechts> in scene 7 ...
+locate: successfully located <HornAnsatz1Rechts> in scene <SBB/15L|SBB/15R>
+export all steps: <HornAnsatz1Rechts> in scene 8 ...
+locate: successfully located <HornAnsatz1Rechts> in scene <SBB/16L|SBB/16R>
+export all steps: <HornAnsatz1Rechts> in scene 9 ...
+locate: successfully located <HornAnsatz1Rechts> in scene <SBB/17L|SBB/17R>
+export all steps: <HornAnsatz1Rechts> in scene 10 ...
+locate: successfully located <HornAnsatz1Rechts> in scene <SBB/18L|SBB/18R>
+export all steps: <HornAnsatz1Rechts> in scene 11 ...
+locate: successfully located <HornAnsatz1Rechts> in scene <SBB/19L|SBB/19R>
+export all steps: <HornAnsatz1Rechts> in scene 12 ...
+locate: successfully located <HornAnsatz1Rechts> in scene <SBB/20L|SBB/20R>
+locate: failed to locate <HornEndeLinks1> in scene <SBB/8L|SBB/8R>
+locate: failed to locate <HornEndeLinks1> in scene <SBB/9L|SBB/9R>
+locate: failed to locate <HornEndeLinks1> in scene <SBB/10L|SBB/10R>
+locate: failed to locate <HornEndeLinks1> in scene <SBB/11L|SBB/11R>
+locate: failed to locate <HornEndeLinks1> in scene <SBB/12L|SBB/12R>
+locate: failed to locate <HornEndeLinks1> in scene <SBB/13L|SBB/13R>
+locate: failed to locate <HornEndeLinks1> in scene <SBB/14L|SBB/14R>
+locate: failed to locate <HornEndeLinks1> in scene <SBB/15L|SBB/15R>
+locate: failed to locate <HornEndeLinks1> in scene <SBB/16L|SBB/16R>
+export all steps: <HornEndeLinks1> in scene 9 ...
+locate: successfully located <HornEndeLinks1> in scene <SBB/17L|SBB/17R>
+export all steps: <HornEndeLinks1> in scene 10 ...
+locate: successfully located <HornEndeLinks1> in scene <SBB/18L|SBB/18R>
+export all steps: <HornEndeLinks1> in scene 11 ...
+locate: successfully located <HornEndeLinks1> in scene <SBB/19L|SBB/19R>
+export all steps: <HornEndeLinks1> in scene 12 ...
+locate: successfully located <HornEndeLinks1> in scene <SBB/20L|SBB/20R>
+locate: failed to locate <HornEndeLinks2> in scene <SBB/8L|SBB/8R>
+locate: failed to locate <HornEndeLinks2> in scene <SBB/9L|SBB/9R>
+locate: failed to locate <HornEndeLinks2> in scene <SBB/10L|SBB/10R>
+locate: failed to locate <HornEndeLinks2> in scene <SBB/11L|SBB/11R>
+locate: failed to locate <HornEndeLinks2> in scene <SBB/12L|SBB/12R>
+locate: failed to locate <HornEndeLinks2> in scene <SBB/13L|SBB/13R>
+locate: failed to locate <HornEndeLinks2> in scene <SBB/14L|SBB/14R>
+locate: failed to locate <HornEndeLinks2> in scene <SBB/15L|SBB/15R>
+locate: failed to locate <HornEndeLinks2> in scene <SBB/16L|SBB/16R>
+export all steps: <HornEndeLinks2> in scene 9 ...
+locate: successfully located <HornEndeLinks2> in scene <SBB/17L|SBB/17R>
+export all steps: <HornEndeLinks2> in scene 10 ...
+locate: successfully located <HornEndeLinks2> in scene <SBB/18L|SBB/18R>
+export all steps: <HornEndeLinks2> in scene 11 ...
+locate: successfully located <HornEndeLinks2> in scene <SBB/19L|SBB/19R>
+export all steps: <HornEndeLinks2> in scene 12 ...
+locate: successfully located <HornEndeLinks2> in scene <SBB/20L|SBB/20R>
+locate: failed to locate <LineTest1Links> in scene <SBB/8L|SBB/8R>
+locate: failed to locate <LineTest1Links> in scene <SBB/9L|SBB/9R>
+locate: failed to locate <LineTest1Links> in scene <SBB/10L|SBB/10R>
+locate: failed to locate <LineTest1Links> in scene <SBB/11L|SBB/11R>
+locate: failed to locate <LineTest1Links> in scene <SBB/12L|SBB/12R>
+locate: failed to locate <LineTest1Links> in scene <SBB/13L|SBB/13R>
+locate: failed to locate <LineTest1Links> in scene <SBB/14L|SBB/14R>
+locate: failed to locate <LineTest1Links> in scene <SBB/15L|SBB/15R>
+export all steps: <LineTest1Links> in scene 8 ...
+locate: successfully located <LineTest1Links> in scene <SBB/16L|SBB/16R>
+export all steps: <LineTest1Links> in scene 9 ...
+locate: successfully located <LineTest1Links> in scene <SBB/17L|SBB/17R>
+export all steps: <LineTest1Links> in scene 10 ...
+locate: successfully located <LineTest1Links> in scene <SBB/18L|SBB/18R>
+export all steps: <LineTest1Links> in scene 11 ...
+locate: successfully located <LineTest1Links> in scene <SBB/19L|SBB/19R>
+export all steps: <LineTest1Links> in scene 12 ...
+locate: successfully located <LineTest1Links> in scene <SBB/20L|SBB/20R>
+locate: failed to locate <Deckel seitlich Links> in scene <SBB/8L|SBB/8R>
+locate: failed to locate <Deckel seitlich Links> in scene <SBB/9L|SBB/9R>
+export all steps: <Deckel seitlich Links> in scene 2 ...
+locate: successfully located <Deckel seitlich Links> in scene <SBB/10L|SBB/10R>
+export all steps: <Deckel seitlich Links> in scene 3 ...
+locate: successfully located <Deckel seitlich Links> in scene <SBB/11L|SBB/11R>
+export all steps: <Deckel seitlich Links> in scene 4 ...
+locate: successfully located <Deckel seitlich Links> in scene <SBB/12L|SBB/12R>
+export all steps: <Deckel seitlich Links> in scene 5 ...
+locate: successfully located <Deckel seitlich Links> in scene <SBB/13L|SBB/13R>
+export all steps: <Deckel seitlich Links> in scene 6 ...
+locate: successfully located <Deckel seitlich Links> in scene <SBB/14L|SBB/14R>
+export all steps: <Deckel seitlich Links> in scene 7 ...
+locate: successfully located <Deckel seitlich Links> in scene <SBB/15L|SBB/15R>
+export all steps: <Deckel seitlich Links> in scene 8 ...
+locate: successfully located <Deckel seitlich Links> in scene <SBB/16L|SBB/16R>
+export all steps: <Deckel seitlich Links> in scene 9 ...
+locate: successfully located <Deckel seitlich Links> in scene <SBB/17L|SBB/17R>
+locate: failed to locate <Deckel seitlich Links> in scene <SBB/18L|SBB/18R>
+locate: failed to locate <Deckel seitlich Links> in scene <SBB/19L|SBB/19R>
+locate: failed to locate <Deckel seitlich Links> in scene <SBB/20L|SBB/20R>
+export all steps: <Scharnier Links> in scene 0 ...
+locate: successfully located <Scharnier Links> in scene <SBB/8L|SBB/8R>
+export all steps: <Scharnier Links> in scene 1 ...
+locate: successfully located <Scharnier Links> in scene <SBB/9L|SBB/9R>
+export all steps: <Scharnier Links> in scene 2 ...
+locate: successfully located <Scharnier Links> in scene <SBB/10L|SBB/10R>
+export all steps: <Scharnier Links> in scene 3 ...
+locate: successfully located <Scharnier Links> in scene <SBB/11L|SBB/11R>
+export all steps: <Scharnier Links> in scene 4 ...
+locate: successfully located <Scharnier Links> in scene <SBB/12L|SBB/12R>
+export all steps: <Scharnier Links> in scene 5 ...
+locate: successfully located <Scharnier Links> in scene <SBB/13L|SBB/13R>
+export all steps: <Scharnier Links> in scene 6 ...
+locate: successfully located <Scharnier Links> in scene <SBB/14L|SBB/14R>
+locate: failed to locate <Scharnier Links> in scene <SBB/15L|SBB/15R>
+locate: failed to locate <Scharnier Links> in scene <SBB/16L|SBB/16R>
+locate: failed to locate <Scharnier Links> in scene <SBB/17L|SBB/17R>
+locate: failed to locate <Scharnier Links> in scene <SBB/18L|SBB/18R>
+locate: failed to locate <Scharnier Links> in scene <SBB/19L|SBB/19R>
+locate: failed to locate <Scharnier Links> in scene <SBB/20L|SBB/20R>
+locate: failed to locate <Schraube klein ganz> in scene <SBB/8L|SBB/8R>
+export all steps: <Schraube klein ganz> in scene 1 ...
+locate: successfully located <Schraube klein ganz> in scene <SBB/9L|SBB/9R>
+export all steps: <Schraube klein ganz> in scene 2 ...
+locate: successfully located <Schraube klein ganz> in scene <SBB/10L|SBB/10R>
+export all steps: <Schraube klein ganz> in scene 3 ...
+locate: successfully located <Schraube klein ganz> in scene <SBB/11L|SBB/11R>
+export all steps: <Schraube klein ganz> in scene 4 ...
+locate: successfully located <Schraube klein ganz> in scene <SBB/12L|SBB/12R>
+export all steps: <Schraube klein ganz> in scene 5 ...
+locate: successfully located <Schraube klein ganz> in scene <SBB/13L|SBB/13R>
+export all steps: <Schraube klein ganz> in scene 6 ...
+locate: successfully located <Schraube klein ganz> in scene <SBB/14L|SBB/14R>
+export all steps: <Schraube klein ganz> in scene 7 ...
+locate: successfully located <Schraube klein ganz> in scene <SBB/15L|SBB/15R>
+export all steps: <Schraube klein ganz> in scene 8 ...
+locate: successfully located <Schraube klein ganz> in scene <SBB/16L|SBB/16R>
+locate: failed to locate <Schraube klein ganz> in scene <SBB/17L|SBB/17R>
+locate: failed to locate <Schraube klein ganz> in scene <SBB/18L|SBB/18R>
+locate: failed to locate <Schraube klein ganz> in scene <SBB/19L|SBB/19R>
+locate: failed to locate <Schraube klein ganz> in scene <SBB/20L|SBB/20R>
+locate: failed to locate <Schraube klein Links (oberkante)> in scene <SBB/8L|SBB/8R>
+locate: failed to locate <Schraube klein Links (oberkante)> in scene <SBB/9L|SBB/9R>
+locate: failed to locate <Schraube klein Links (oberkante)> in scene <SBB/10L|SBB/10R>
+locate: failed to locate <Schraube klein Links (oberkante)> in scene <SBB/11L|SBB/11R>
+locate: failed to locate <Schraube klein Links (oberkante)> in scene <SBB/12L|SBB/12R>
+locate: failed to locate <Schraube klein Links (oberkante)> in scene <SBB/13L|SBB/13R>
+locate: failed to locate <Schraube klein Links (oberkante)> in scene <SBB/14L|SBB/14R>
+locate: failed to locate <Schraube klein Links (oberkante)> in scene <SBB/15L|SBB/15R>
+locate: failed to locate <Schraube klein Links (oberkante)> in scene <SBB/16L|SBB/16R>
+locate: failed to locate <Schraube klein Links (oberkante)> in scene <SBB/17L|SBB/17R>
+locate: failed to locate <Schraube klein Links (oberkante)> in scene <SBB/18L|SBB/18R>
+locate: failed to locate <Schraube klein Links (oberkante)> in scene <SBB/19L|SBB/19R>
+locate: failed to locate <Schraube klein Links (oberkante)> in scene <SBB/20L|SBB/20R>
+locate: failed to locate <Schraube Mini Links> in scene <SBB/8L|SBB/8R>
+export all steps: <Schraube Mini Links> in scene 1 ...
+locate: successfully located <Schraube Mini Links> in scene <SBB/9L|SBB/9R>
+export all steps: <Schraube Mini Links> in scene 2 ...
+locate: successfully located <Schraube Mini Links> in scene <SBB/10L|SBB/10R>
+export all steps: <Schraube Mini Links> in scene 3 ...
+locate: successfully located <Schraube Mini Links> in scene <SBB/11L|SBB/11R>
+export all steps: <Schraube Mini Links> in scene 4 ...
+locate: successfully located <Schraube Mini Links> in scene <SBB/12L|SBB/12R>
+export all steps: <Schraube Mini Links> in scene 5 ...
+locate: successfully located <Schraube Mini Links> in scene <SBB/13L|SBB/13R>
+locate: failed to locate <Schraube Mini Links> in scene <SBB/14L|SBB/14R>
+locate: failed to locate <Schraube Mini Links> in scene <SBB/15L|SBB/15R>
+locate: failed to locate <Schraube Mini Links> in scene <SBB/16L|SBB/16R>
+locate: failed to locate <Schraube Mini Links> in scene <SBB/17L|SBB/17R>
+locate: failed to locate <Schraube Mini Links> in scene <SBB/18L|SBB/18R>
+locate: failed to locate <Schraube Mini Links> in scene <SBB/19L|SBB/19R>
+locate: failed to locate <Schraube Mini Links> in scene <SBB/20L|SBB/20R>
+locate: failed to locate <Deckel tief> in scene <SBB/8L|SBB/8R>
+locate: failed to locate <Deckel tief> in scene <SBB/9L|SBB/9R>
+locate: failed to locate <Deckel tief> in scene <SBB/10L|SBB/10R>
+locate: failed to locate <Deckel tief> in scene <SBB/11L|SBB/11R>
+export all steps: <Deckel tief> in scene 4 ...
+locate: successfully located <Deckel tief> in scene <SBB/12L|SBB/12R>
+export all steps: <Deckel tief> in scene 5 ...
+locate: successfully located <Deckel tief> in scene <SBB/13L|SBB/13R>
+export all steps: <Deckel tief> in scene 6 ...
+locate: successfully located <Deckel tief> in scene <SBB/14L|SBB/14R>
+export all steps: <Deckel tief> in scene 7 ...
+locate: successfully located <Deckel tief> in scene <SBB/15L|SBB/15R>
+export all steps: <Deckel tief> in scene 8 ...
+locate: successfully located <Deckel tief> in scene <SBB/16L|SBB/16R>
+export all steps: <Deckel tief> in scene 9 ...
+locate: successfully located <Deckel tief> in scene <SBB/17L|SBB/17R>
+export all steps: <Deckel tief> in scene 10 ...
+locate: successfully located <Deckel tief> in scene <SBB/18L|SBB/18R>
+export all steps: <Deckel tief> in scene 11 ...
+locate: successfully located <Deckel tief> in scene <SBB/19L|SBB/19R>
+locate: failed to locate <Deckel tief> in scene <SBB/20L|SBB/20R>
+--------------------------------------------------------------------
+MachineObject <FederhalterLinksV2>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3d-FederhalterLinksV2_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3d-FederhalterLinksV2_R.png
+valid position entries: 6 | rejected position entries: 1
+Good Positions:
+Position in scene <SBB/15L|SBB/15R>:	camera: [-251.1892  392.4934 7239.2524]		machine: [-440.8129 -911.734   -93.3469]
+Position in scene <SBB/16L|SBB/16R>:	camera: [-316.0209  284.0008 7389.913 ]		machine: [-441.0343 -911.5736  -93.8888]
+Position in scene <SBB/17L|SBB/17R>:	camera: [-380.5404  175.3529 7539.7041]		machine: [-441.1426 -911.9677  -93.9594]
+Position in scene <SBB/18L|SBB/18R>:	camera: [-444.9996   66.7092 7689.5335]		machine: [-441.3159 -912.4651  -93.9616]
+Position in scene <SBB/19L|SBB/19R>:	camera: [-509.5361  -42.0567 7840.3499]		machine: [-441.5269 -912.0546  -94.3245]
+Position in scene <SBB/20L|SBB/20R>:	camera: [-573.3691 -150.9775 7991.0905]		machine: [-441.3184 -911.9273  -94.5168]
+
+Rejected Positions:
+Position in scene <SBB/14L|SBB/14R>:	camera: [-108.1171  427.5736 6925.4406]		machine: [ -388.8841 -1020.0839    61.0686]
+
+mean position: [-441.19183754 -911.95371597  -93.99965343]
+rms error: 0.5154626484894412
+snapshot export: FederhalterLinksV2 ...
+snapshot export: FederhalterLinksV2 ...
+--------------------------------------------------------------------
+MachineObject <federhalterungLinks>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3d-federhalterungLinks_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3d-federhalterungLinks_R.png
+valid position entries: 6 | rejected position entries: 1
+Good Positions:
+Position in scene <SBB/15L|SBB/15R>:	camera: [-251.5509  393.4346 7241.3038]		machine: [-440.8792 -910.5789  -95.3182]
+Position in scene <SBB/16L|SBB/16R>:	camera: [-316.1111  284.5349 7391.1071]		machine: [-440.9561 -910.9328  -95.0301]
+Position in scene <SBB/17L|SBB/17R>:	camera: [-380.6288  175.5259 7540.6573]		machine: [-441.0381 -911.3092  -94.6678]
+Position in scene <SBB/18L|SBB/18R>:	camera: [-445.0547   66.6859 7690.3756]		machine: [-441.1619 -911.7924  -94.4479]
+Position in scene <SBB/19L|SBB/19R>:	camera: [-509.1329  -42.1367 7840.4793]		machine: [-441.0972 -912.043   -94.3546]
+Position in scene <SBB/20L|SBB/20R>:	camera: [-573.4636 -151.1993 7991.8339]		machine: [-441.1801 -911.2059  -94.7838]
+
+Rejected Positions:
+Position in scene <SBB/14L|SBB/14R>:	camera: [-235.9894  468.7396 7166.4938]		machine: [-461.5527 -817.7146 -111.9013]
+
+mean position: [-441.05208828 -911.31038901  -94.76706515]
+rms error: 0.6031166598275735
+snapshot export: federhalterungLinks ...
+snapshot export: federhalterungLinks ...
+--------------------------------------------------------------------
+MachineObject <federHalterungRechts>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3d-federHalterungRechts_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3d-federHalterungRechts_R.png
+valid position entries: 6 | rejected position entries: 1
+Good Positions:
+Position in scene <SBB/15L|SBB/15R>:	camera: [ 562.8459  185.5786 7459.1435]		machine: [ 427.2434 -894.4963  -93.0741]
+Position in scene <SBB/16L|SBB/16R>:	camera: [ 497.9901   76.5825 7610.494 ]		machine: [ 427.278  -893.5208  -93.6289]
+Position in scene <SBB/17L|SBB/17R>:	camera: [ 433.8731  -32.0578 7760.413 ]		machine: [ 427.5785 -893.9532  -93.7986]
+Position in scene <SBB/18L|SBB/18R>:	camera: [ 369.3953 -141.1012 7910.3956]		machine: [ 427.515  -894.1043  -93.5736]
+Position in scene <SBB/19L|SBB/19R>:	camera: [ 305.1601 -249.7482 8061.6374]		machine: [ 427.6628 -893.5346  -94.2994]
+Position in scene <SBB/20L|SBB/20R>:	camera: [ 241.1997 -358.8076 8212.9349]		machine: [ 427.9152 -892.8638  -94.7114]
+
+Rejected Positions:
+Position in scene <SBB/14L|SBB/14R>:	camera: [ 625.7136  275.7522 7340.392 ]		machine: [ 437.3923 -858.9069  -97.1441]
+
+mean position: [ 427.53215083 -893.74550038  -93.84764902]
+rms error: 0.7741600111693395
+snapshot export: federHalterungRechts ...
+snapshot export: federHalterungRechts ...
+--------------------------------------------------------------------
+MachineObject <Federkasten1Links>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3d-Federkasten1Links_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3d-Federkasten1Links_R.png
+valid position entries: 5 | rejected position entries: 0
+Good Positions:
+Position in scene <SBB/16L|SBB/16R>:	camera: [-225.5572  418.1464 7219.248 ]		machine: [ -426.7468 -1146.1803  -101.689 ]
+Position in scene <SBB/17L|SBB/17R>:	camera: [-290.4996  309.1142 7370.6203]		machine: [ -426.7901 -1145.0165  -102.3884]
+Position in scene <SBB/18L|SBB/18R>:	camera: [-354.7339  200.2855 7520.9901]		machine: [ -426.5803 -1145.0721  -102.5775]
+Position in scene <SBB/19L|SBB/19R>:	camera: [-419.2277   91.2696 7671.2251]		machine: [ -426.8328 -1144.9788  -102.3925]
+Position in scene <SBB/20L|SBB/20R>:	camera: [-483.0944  -17.813  7821.185 ]		machine: [ -426.8055 -1145.345   -101.9844]
+
+Rejected Positions:
+
+mean position: [ -426.75110345 -1145.31852771  -102.20637542]
+rms error: 0.5609735047560894
+snapshot export: Federkasten1Links ...
+--------------------------------------------------------------------
+MachineObject <Federkasten1Rechts>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3d-Federkasten1Rechts_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3d-Federkasten1Rechts_R.png
+valid position entries: 2 | rejected position entries: 3
+Good Positions:
+Position in scene <SBB/19L|SBB/19R>:	camera: [ 382.3575 -112.8696 7873.988 ]		machine: [  424.7544 -1138.2762   -93.5254]
+Position in scene <SBB/20L|SBB/20R>:	camera: [ 317.3518 -221.7283 8027.6305]		machine: [  424.5333 -1135.5891   -95.468 ]
+
+Rejected Positions:
+Position in scene <SBB/16L|SBB/16R>:	camera: [ 581.3674  221.7884 7425.6083]		machine: [  428.9735 -1142.8316  -101.4047]
+Position in scene <SBB/17L|SBB/17R>:	camera: [ 515.3963  112.8546 7573.3133]		machine: [  427.0621 -1144.1811   -99.9337]
+Position in scene <SBB/18L|SBB/18R>:	camera: [ 450.3186   55.2261 7745.0927]		machine: [  419.956  -1156.2735  -153.8082]
+
+mean position: [  424.64385529 -1136.93266798   -94.49669184]
+rms error: 1.661547042308859
+snapshot export: Federkasten1Rechts ...
+snapshot export: Federkasten1Rechts ...
+--------------------------------------------------------------------
+MachineObject <HornAnsatz1Links>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3d-HornAnsatz1Links_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3d-HornAnsatz1Links_R.png
+valid position entries: 5 | rejected position entries: 1
+Good Positions:
+Position in scene <SBB/15L|SBB/15R>:	camera: [-342.2262  425.6535 7241.4587]		machine: [-533.7782 -898.8445 -117.503 ]
+Position in scene <SBB/16L|SBB/16R>:	camera: [-406.9726  316.941  7391.6913]		machine: [-533.9712 -898.9151 -117.6152]
+Position in scene <SBB/17L|SBB/17R>:	camera: [-471.7844  207.7758 7542.1865]		machine: [-534.0702 -898.388  -117.6856]
+Position in scene <SBB/18L|SBB/18R>:	camera: [-535.8546   98.694  7691.3346]		machine: [-533.939  -899.2867 -116.9437]
+Position in scene <SBB/19L|SBB/19R>:	camera: [-600.0471  -10.4707 7841.3715]		machine: [-533.9205 -899.3596 -116.5328]
+
+Rejected Positions:
+Position in scene <SBB/20L|SBB/20R>:	camera: [-650.5857 -123.9676 7965.6304]		machine: [-526.4322 -921.1968  -97.6587]
+
+mean position: [-533.93582804 -898.95876437 -117.25606656]
+rms error: 0.5741926157848599
+snapshot export: HornAnsatz1Links ...
+snapshot export: HornAnsatz1Links ...
+--------------------------------------------------------------------
+MachineObject <HornAnsatz1Rechts>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3d-HornAnsatz1Rechts_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3d-HornAnsatz1Rechts_R.png
+valid position entries: 6 | rejected position entries: 1
+Good Positions:
+Position in scene <SBB/15L|SBB/15R>:	camera: [ 647.7019  174.2715 7505.7609]		machine: [ 521.0494 -880.3811 -115.4964]
+Position in scene <SBB/16L|SBB/16R>:	camera: [ 582.6162   65.5871 7656.3099]		machine: [ 520.6051 -880.1154 -115.808 ]
+Position in scene <SBB/17L|SBB/17R>:	camera: [ 517.6375  -43.5325 7807.6045]		machine: [ 520.5288 -878.9501 -116.3895]
+Position in scene <SBB/18L|SBB/18R>:	camera: [ 453.2699 -152.5083 7958.0272]		machine: [ 520.6587 -878.8396 -116.4879]
+Position in scene <SBB/19L|SBB/19R>:	camera: [ 389.0463 -261.931  8108.8217]		machine: [ 520.887  -878.1809 -116.3262]
+Position in scene <SBB/20L|SBB/20R>:	camera: [ 325.0413 -370.6552 8260.5587]		machine: [ 521.126  -877.3481 -117.2684]
+
+Rejected Positions:
+Position in scene <SBB/14L|SBB/14R>:	camera: [ 605.8925  245.7885 7346.0509]		machine: [ 426.8332 -831.3548  -75.8812]
+
+mean position: [ 520.80915812 -878.96919465 -116.2960699 ]
+rms error: 1.2076446412843789
+snapshot export: HornAnsatz1Rechts ...
+snapshot export: HornAnsatz1Rechts ...
+--------------------------------------------------------------------
+MachineObject <HornEndeLinks1>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3d-HornEndeLinks1_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3d-HornEndeLinks1_R.png
+valid position entries: 0 | rejected position entries: 4
+Good Positions:
+empty list
+Rejected Positions:
+empty list
+mean position: nan
+rms error: nan
+snapshot export: HornEndeLinks1 ...
+--------------------------------------------------------------------
+MachineObject <HornEndeLinks2>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3d-HornEndeLinks2_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3d-HornEndeLinks2_R.png
+valid position entries: 1 | rejected position entries: 3
+Good Positions:
+Position in scene <SBB/17L|SBB/17R>:	camera: [-411.666   312.6012 7361.5246]		machine: [ -544.1636 -1114.3032   -94.8812]
+
+Rejected Positions:
+Position in scene <SBB/18L|SBB/18R>:	camera: [-492.1094  221.3178 7353.0482]		machine: [ -601.107  -1239.9107   -12.7724]
+Position in scene <SBB/19L|SBB/19R>:	camera: [-600.3977  145.0955 7584.6722]		machine: [ -630.757  -1181.8242   -86.005 ]
+Position in scene <SBB/20L|SBB/20R>:	camera: [-620.0069    3.108  7835.3389]		machine: [ -557.4632 -1101.5178  -121.7532]
+
+mean position: [ -544.16364917 -1114.30321037   -94.8812329 ]
+rms error: 0.0
+snapshot export: HornEndeLinks2 ...
+snapshot export: HornEndeLinks2 ...
+--------------------------------------------------------------------
+MachineObject <LineTest1Links>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3d-LineTest1Links_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3d-LineTest1Links_R.png
+valid position entries: 0 | rejected position entries: 5
+Good Positions:
+empty list
+Rejected Positions:
+empty list
+mean position: nan
+rms error: nan
+snapshot export: LineTest1Links ...
+--------------------------------------------------------------------
+MachineObject <Deckel seitlich Links>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3ddeckelSeitlichLinks_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3ddeckelSeitlichLinks_R.png
+valid position entries: 7 | rejected position entries: 1
+Good Positions:
+Position in scene <SBB/11L|SBB/11R>:	camera: [-215.4163  341.4653 7139.9541]		machine: [-420.3566 -182.889     1.6123]
+Position in scene <SBB/12L|SBB/12R>:	camera: [-280.0479  232.335  7290.1294]		machine: [-420.518  -182.941     1.3039]
+Position in scene <SBB/13L|SBB/13R>:	camera: [-344.8673  123.1832 7440.4958]		machine: [-420.5856 -183.913     2.4107]
+Position in scene <SBB/14L|SBB/14R>:	camera: [-408.9978   14.1494 7590.916 ]		machine: [-420.5026 -183.5613    1.6007]
+Position in scene <SBB/15L|SBB/15R>:	camera: [-473.9089  -94.8964 7740.634 ]		machine: [-420.9613 -184.4083    2.2545]
+Position in scene <SBB/16L|SBB/16R>:	camera: [-539.0441 -203.7721 7892.2682]		machine: [-421.1502 -183.1927    1.4439]
+Position in scene <SBB/17L|SBB/17R>:	camera: [-603.5742 -312.9953 8041.3186]		machine: [-421.3145 -183.826     2.2785]
+
+Rejected Positions:
+Position in scene <SBB/10L|SBB/10R>:	camera: [-191.5771  444.3736 7058.7284]		machine: [-441.0557 -113.1333  -32.7911]
+
+mean position: [-420.76983021 -183.533039      1.84348678]
+rms error: 0.750132737397461
+snapshot export: Deckel seitlich Links ...
+snapshot export: Deckel seitlich Links ...
+--------------------------------------------------------------------
+MachineObject <Scharnier Links>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3dscharnierLinkeSeite_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3dscharnierLinkeSeite_R.png
+valid position entries: 6 | rejected position entries: 1
+Good Positions:
+Position in scene <SBB/8L|SBB/8R>:	camera: [ -82.9537  227.2832 7298.2647]		machine: [-233.7618  550.9979  -10.9235]
+Position in scene <SBB/9L|SBB/9R>:	camera: [-147.6001  118.2027 7450.0702]		machine: [-233.8344  550.6804  -11.7073]
+Position in scene <SBB/10L|SBB/10R>:	camera: [-211.6098    8.7161 7599.193 ]		machine: [-233.3417  549.1945  -10.9429]
+Position in scene <SBB/11L|SBB/11R>:	camera: [-276.552  -100.0286 7750.0415]		machine: [-232.9473  548.952   -10.5369]
+Position in scene <SBB/12L|SBB/12R>:	camera: [-341.161  -209.1918 7900.9097]		machine: [-232.5489  549.3373  -11.7095]
+Position in scene <SBB/13L|SBB/13R>:	camera: [-405.7347 -317.9207 8051.7051]		machine: [-233.1409  548.5647  -11.5599]
+
+Rejected Positions:
+Position in scene <SBB/14L|SBB/14R>:	camera: [-468.7206 -420.9903 8193.788 ]		machine: [-234.3883  538.6109  -12.4331]
+
+mean position: [-233.2625035   549.62114445  -11.22998715]
+rms error: 1.1009982731775565
+snapshot export: Scharnier Links ...
+snapshot export: Scharnier Links ...
+--------------------------------------------------------------------
+MachineObject <Schraube klein ganz>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3dschraubeKleinGanzLinkeSeite_R.png
+valid position entries: 8 | rejected position entries: 0
+Good Positions:
+Position in scene <SBB/9L|SBB/9R>:	camera: [ -84.7645  364.3251 7104.5402]		machine: [-311.9404  129.1098   -2.0479]
+Position in scene <SBB/10L|SBB/10R>:	camera: [-149.7072  254.494  7255.4797]		machine: [-311.824   129.5051   -2.0642]
+Position in scene <SBB/11L|SBB/11R>:	camera: [-214.3242  145.2392 7406.9444]		machine: [-311.3538  129.987    -2.4786]
+Position in scene <SBB/12L|SBB/12R>:	camera: [-279.6994   35.8744 7557.9399]		machine: [-311.8137  130.8776   -3.2352]
+Position in scene <SBB/13L|SBB/13R>:	camera: [-343.9688  -73.4209 7707.8866]		machine: [-311.753   129.5964   -1.9702]
+Position in scene <SBB/14L|SBB/14R>:	camera: [-408.8218 -182.5205 7858.8631]		machine: [-311.8102  130.5067   -3.0922]
+Position in scene <SBB/15L|SBB/15R>:	camera: [-473.8018 -291.623  8010.4254]		machine: [-311.8901  131.1247   -3.3249]
+Position in scene <SBB/16L|SBB/16R>:	camera: [-538.1591 -400.975  8160.0288]		machine: [-311.7205  130.8051   -2.5637]
+
+Rejected Positions:
+
+mean position: [-311.76321645  130.18904085   -2.59711354]
+rms error: 0.8842886481299806
+snapshot export: Schraube klein ganz ...
+--------------------------------------------------------------------
+MachineObject <Schraube klein Links (oberkante)>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3dschraubeKleinLinkeSeite_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3dschraubeKleinLinkeSeite_R.png
+valid position entries: 0 | rejected position entries: 0
+Good Positions:
+empty list
+Rejected Positions:
+empty list
+mean position: nan
+rms error: nan
+--------------------------------------------------------------------
+MachineObject <Schraube Mini Links>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3dschraubeMiniLinkeSeite_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3dschraubeMiniLinkeSeite_R.png
+valid position entries: 5 | rejected position entries: 0
+Good Positions:
+Position in scene <SBB/9L|SBB/9R>:	camera: [-399.1748  402.1061 7195.0978]		machine: [-596.3829  279.2115  -73.0682]
+Position in scene <SBB/10L|SBB/10R>:	camera: [-463.7992  292.1687 7344.8261]		machine: [-596.2255  278.6393  -72.2832]
+Position in scene <SBB/11L|SBB/11R>:	camera: [-528.7819  182.6385 7496.2698]		machine: [-595.7467  279.8201  -72.7079]
+Position in scene <SBB/12L|SBB/12R>:	camera: [-593.4631   73.3967 7646.5577]		machine: [-595.6021  279.949   -73.5957]
+Position in scene <SBB/13L|SBB/13R>:	camera: [-658.6066  -35.7525 7797.9245]		machine: [-596.3045  279.6539  -72.9341]
+
+Rejected Positions:
+
+mean position: [-596.05233445  279.4547672   -72.9178217 ]
+rms error: 0.7169081166809675
+snapshot export: Schraube Mini Links ...
+--------------------------------------------------------------------
+MachineObject <Deckel tief>
+PatchfilenameL: data/patches/3dcreatorSet1/tcr3dtestDeckelTiefLinkeSeite_L.png
+PatchfilenameR: data/patches/3dcreatorSet1/tcr3dtestDeckelTiefLinkeSeite_R.png
+valid position entries: 8 | rejected position entries: 0
+Good Positions:
+Position in scene <SBB/12L|SBB/12R>:	camera: [ -51.8414  383.3115 7243.672 ]		machine: [-250.472  -377.2255 -100.521 ]
+Position in scene <SBB/13L|SBB/13R>:	camera: [-116.2987  274.2287 7393.4518]		machine: [-250.2818 -378.6445  -99.313 ]
+Position in scene <SBB/14L|SBB/14R>:	camera: [-180.9154  165.1281 7544.7822]		machine: [-250.4344 -377.711  -100.0219]
+Position in scene <SBB/15L|SBB/15R>:	camera: [-245.5779   56.1487 7694.8179]		machine: [-250.5658 -378.3813  -99.6703]
+Position in scene <SBB/16L|SBB/16R>:	camera: [-310.5388  -52.7722 7845.1893]		machine: [-250.8809 -378.1595  -99.6915]
+Position in scene <SBB/17L|SBB/17R>:	camera: [-374.5019 -161.9133 7994.6878]		machine: [-250.4216 -378.6826  -99.2147]
+Position in scene <SBB/18L|SBB/18R>:	camera: [-439.5924 -270.9962 8145.7213]		machine: [-250.8042 -377.8107  -99.5665]
+Position in scene <SBB/19L|SBB/19R>:	camera: [-504.2159 -379.9773 8296.6784]		machine: [-251.0151 -377.1442  -99.8391]
+
+Rejected Positions:
+
+mean position: [-250.60948719 -377.96990075  -99.72975108]
+rms error: 0.7211778292300267
+snapshot export: Deckel tief ...
+
+Process finished with exit code 0

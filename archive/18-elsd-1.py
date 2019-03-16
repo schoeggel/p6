@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import os
-from pylsd.lsd import lsd
+from archive.pylsd import lsd
 
 fullName = 'test2png.png'
 folder, imgName = os.path.split(fullName)

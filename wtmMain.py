@@ -21,10 +21,6 @@ allRefs, allObjects =  wtmFactory.createMachineObjects()
 3
 
 ############################# COMPOSITION #######################################
-fn = [["SBB/8L.png", "SBB/8R.png"], ["SBB/9L.png", "SBB/9R.png"], ["SBB/10L.png", "SBB/10R.png"],
-      ["SBB/11L.png", "SBB/11R.png"], ["SBB/12L.png", "SBB/12R.png"], ["SBB/13L.png", "SBB/13R.png"],
-      ["SBB/14L.png", "SBB/14R.png"], ["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"],
-      ["SBB/17L.png", "SBB/17R.png"],["SBB/18L.png", "SBB/18R.png"]]
 #fn = [["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"]]
 #fn = [["SBB/13L.png", "SBB/13R.png"],["SBB/14L.png", "SBB/14R.png"],["SBB/15L.png", "SBB/15R.png"]]
 #fn = [["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"],["SBB/17L.png", "SBB/17R.png"],["SBB/18L.png", "SBB/18R.png"]]
@@ -38,6 +34,11 @@ fn = [["SBB/123-OK1L.png", "SBB/123-OK1R.png"]]
 
 fn = [["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"],["SBB/17L.png", "SBB/17R.png"],
       ["SBB/18L.png", "SBB/18R.png"],["SBB/19L.png", "SBB/19R.png"],["SBB/20L.png", "SBB/20R.png"]]
+
+fn = [["SBB/8L.png", "SBB/8R.png"], ["SBB/9L.png", "SBB/9R.png"], ["SBB/10L.png", "SBB/10R.png"],
+      ["SBB/11L.png", "SBB/11R.png"], ["SBB/12L.png", "SBB/12R.png"], ["SBB/13L.png", "SBB/13R.png"],
+      ["SBB/14L.png", "SBB/14R.png"], ["SBB/15L.png", "SBB/15R.png"],["SBB/16L.png", "SBB/16R.png"],
+      ["SBB/17L.png", "SBB/17R.png"],["SBB/18L.png", "SBB/18R.png"],["SBB/19L.png", "SBB/19R.png"],["SBB/20L.png", "SBB/20R.png"]]
 
 cp = Composition(fn, allRefs, tmmode=tm.CANNYBLUR2)
 s: wtmScene.Scene = cp._scenes[0]
@@ -55,29 +56,24 @@ cp.sceneinfo()
 
     # vieles messen
 verbose = False
-if 1==1:
+if 1==0:
     idx = int(input(f'welches Objekt vermessen? -1 für alle: '))
     if idx > -1:
         allObjects = [allObjects[idx]]
         verbose = True
 
 
-cp.locateObjects(allObjects, verbose=verbose)
+cp.locateObjects(allObjects, verbose=verbose, export=True)
 
 for o in allObjects:
 
     o:MachineObject
     print("--------------------------------------------------------------------")
     print(o)
-    print(f'Good Positions:\n{o.positions}')
-    print(f'Rejected Positions:\n{o.rejectedPositions}')
-    print(f'mean position: {o.avgPosMac}')
-    print(f'rms error: {o.rmserror}')
-    print(f'std dev per axis: {np.std(o._positionsAsNumpyArray()[0], 0)}')
     #o.showBadSnapshots()
     #o.showGoodSnapshots()
-    o.saveBadSnapshots()
-    o.saveGoodSnapshots()
+    o.exportBadSnapshots()
+    o.exportGoodSnapshots()
 
 
 

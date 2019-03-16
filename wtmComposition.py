@@ -56,13 +56,13 @@ class Composition:
                 # Die Refernzobjekte werden benötigt, um den Koordinatenursprung setzen zu können.
                 # beim Messen werden die Positionen ans Objekt angefügt, was in diesem Fall nicht erwünscht ist,
                 singleUseRefObjects = copy.deepcopy(self.refObj)
-                self.locateObjects(singleUseRefObjects, newScene, roiScale=2, verbose= True)
+                self.locateObjects(singleUseRefObjects, newScene, roiScale=2, verbose= False)
                 newScene.referenceViaObjects(singleUseRefObjects)   # exakte Transformation Rt finden
 
             if newScene.rtstatus in [wtmEnum.rtref.BYOBJECT]:
                 self.sceneWithExaktRt = newScene
 
-    def locateObjects(self, oneOrMoreObjects, scenes =None, roiScale=2.5, verbose=False):
+    def locateObjects(self, oneOrMoreObjects, scenes =None, roiScale=2.5, verbose=False, export=False):
         """"Alle angegebenen Objekte auf allen angegbenen scenes messen
         :param oneOrMoreObjects: Ein einzelnes MachineObjekt oder eine Liste
         :param scenes: Optional eine einzelne Scene oder eine Liste. Ohne Angabe werden alle scenes verwendet"""
@@ -78,7 +78,7 @@ class Composition:
         for oneObject in oneOrMoreObjects:
             for s in scenes:
                 try:
-                    s.locate(oneObject, roiScale=roiScale, verbose=verbose)
+                    s.locate(oneObject, roiScale=roiScale, verbose=verbose, export=export)
                     print(f'locate: successfully located <{oneObject.name}> in scene <{s.name}>')
                 except:
                     print(f'locate: failed to locate <{oneObject.name}> in scene <{s.name}>')

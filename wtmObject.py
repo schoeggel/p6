@@ -150,7 +150,7 @@ class MachineObject:
         self.patchfilenameL = filename + "_L.png"
         self.patchfilenameR = filename + "_R.png"
 
-        print(f'Lade: {self.patchfilenameL} und {self.patchfilenameR}')
+        print(f'read: {self.patchfilenameL} und {self.patchfilenameR}')
         self.patchimageOriginalL = cv2.imread(self.patchfilenameL, cv2.IMREAD_GRAYSCALE)
         self.patchimageOriginalR = cv2.imread(self.patchfilenameR, cv2.IMREAD_GRAYSCALE)
 
@@ -213,7 +213,7 @@ class MachineObject:
         upper = imgMergerH([self.patchimageOriginalL, self.patchimageOriginalR])
         lower = imgMergerH([self.patchimageL, self.patchimageR])
         quadro = imgMergerV([upper, lower])
-        wname = f'Patch object: original + CLAHE'
+        wname = f'Machine object: original + CLAHE'
         cv2.namedWindow(wname, cv2.WINDOW_NORMAL)
         cv2.imshow(wname, quadro)
         cv2.resizeWindow(wname, quadro.shape[0], quadro.shape[1])
@@ -229,11 +229,11 @@ class MachineObject:
         if len(self._rejectedPositions) == 0: return
         self._snapshots(self._rejectedPositions, "Bad", show=True, save=False)
 
-    def saveGoodSnapshots(self):
+    def exportGoodSnapshots(self):
         if len(self._positions) == 0: return
         self._snapshots(self._positions, "Good", show=False, save=True)
 
-    def saveBadSnapshots(self):
+    def exportBadSnapshots(self):
         if len(self._rejectedPositions) == 0: return
         self._snapshots(self._rejectedPositions, "Bad", show=False, save=True)
 
@@ -268,8 +268,11 @@ class MachineObject:
     def __str__(self):
         return f'{self.__class__.__name__ } <{self.name}>\nPatchfilenameL: {self.patchfilenameL}\nPatchfilenameR: ' \
                f'{self.patchfilenameR}\nvalid position entries: {len(self._positions)}' \
-               f'\nrejected position entries: {len(self._rejectedPositions)}'
-
+               f' | rejected position entries: {len(self._rejectedPositions)}' \
+               f'\nGood Positions:\n{self.positions}' \
+               f'\nRejected Positions:\n{self.rejectedPositions}' \
+               f'\nmean position: {self.avgPosMac}' \
+               f'\nrms error: {self.rmserror}'
 
 
 
