@@ -64,16 +64,18 @@ if 1==0:
 
 
 cp.locateObjects(allObjects, verbose=verbose, export=True)
+cp.locateObjects(allRefs, verbose=verbose, export=True)
 
-for o in allObjects:
+combi = allObjects + allRefs
+for o in combi:
 
     o:MachineObject
     print("--------------------------------------------------------------------")
     print(o)
     #o.showBadSnapshots()
     #o.showGoodSnapshots()
-    o.exportBadSnapshots()
-    o.exportGoodSnapshots()
+    #o.exportBadSnapshots()
+    #o.exportGoodSnapshots()
 
 
 

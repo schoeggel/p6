@@ -13,83 +13,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="543fc68e-51ac-46c2-a3d3-d45e8a552486" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/archive/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/archive/18-elsd-1.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/18-elsd-1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/05Gitter - Kopie.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/05Gitter - Kopie.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/05Gitter.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/05Gitter.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/05GitterBinary05.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/05GitterBinary05.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/05GitterLCanny1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/05GitterLCanny1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/05templateSmall1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/05templateSmall1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/06template1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/06template1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/10L-schraube.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/10L-schraube.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/14Lcanny1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/14Lcanny1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/16L-schraube.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/16L-schraube.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/17-testCLAHE.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/17-testCLAHE.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/NurGitterL.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/NurGitterL.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/NurGitterLs.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/NurGitterLs.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/NurGitterLs2.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/NurGitterLs2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/canny1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/canny1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/canny2.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/canny2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/canny3.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/canny3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/contourTest/c (1).png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/contourTest/c (1).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/contourTest/c (2).png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/contourTest/c (2).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/contourTest/c (3).png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/contourTest/c (3).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/contourTest/c (4).png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/contourTest/c (4).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/contourTest/c (5).png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/contourTest/c (5).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/pattern-g1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/pattern-g1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/sk14L1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/sk14L1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/sk14L2.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/sk14L2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/sk14L3.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/sk14L3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/sktemplate2.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/sktemplate2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/sktemplate2mask.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/sktemplate2mask.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/template3.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/template3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/template3mask.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/template3mask.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/templateskel1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/templateskel1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test-contrast-LC-canny.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/test-contrast-LC-canny.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test-contrast1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/test-contrast1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test3a.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/test3a.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test3b.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/test3b.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/testCANNY-1d5-1-2.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/testCANNY-1d5-1-2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/testCANNY-2-1-2.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/testCANNY-2-1-2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/testCANNY-3-1-2.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/testCANNY-3-1-2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/testDoG1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/testDoG1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/01.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/01.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/02.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/02.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/03.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/03.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/04.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/04.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/11.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/11.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/12.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/12.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/13.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/13.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/14.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/14.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/15.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/15.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/21.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/21.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/22.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/22.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/23.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/23.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/24.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/24.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/25.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/25.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/26.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/26.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/27.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/27.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/31.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/31.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/32.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/32.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/41.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/41.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/42.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/42.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/43.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/43.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/44.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/44.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/45.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/45.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/46.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/46.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/47.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/47.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tmtest/pfeilVorlage1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/data_old/tmtest/pfeilVorlage1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pylsd/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/pylsd/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pylsd/bindings/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/pylsd/bindings/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pylsd/bindings/lsd_ctypes.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/pylsd/bindings/lsd_ctypes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pylsd/lsd.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/pylsd/lsd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample/HappyFish.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/archive/sample/HappyFish.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample/HappyFish2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/archive/sample/HappyFish2.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample/rubberwhale1.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/sample/rubberwhale1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wtmComposition.py" beforeDir="false" afterPath="$PROJECT_DIR$/wtmComposition.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/allsteps-Schraube Mini Links-scene00.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/allsteps-Schraube Mini Links-scene00.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/allsteps-Schraube klein ganz-scene00.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/allsteps-Schraube klein ganz-scene00.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wtmMain.py" beforeDir="false" afterPath="$PROJECT_DIR$/wtmMain.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wtmObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/wtmObject.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wtmScene.py" beforeDir="false" afterPath="$PROJECT_DIR$/wtmScene.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -98,94 +25,51 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/wtmMain.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="632">
-                    <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
-                    <folding>
-                      <element signature="e#34#52#0" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/wtmComposition.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="269">
-                    <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
-                    <folding>
-                      <element signature="e#33#48#0" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/wtmScene.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="929">
-                    <caret line="86" selection-start-line="86" selection-end-line="86" />
-                    <folding>
-                      <element signature="e#33#51#0" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/wtmAux.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="783">
-                    <caret line="96" selection-start-line="96" selection-end-line="96" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/wtmObject.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="742">
-                    <caret line="229" column="41" selection-start-line="229" selection-start-column="41" selection-end-line="229" selection-end-column="41" />
-                    <folding>
-                      <element signature="e#694#712#0" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/wtmFactory.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="378">
-                    <caret line="19" column="65" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="65" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="FavoritesManager">
     <favorites_list name="p6" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/patchCreator3d.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wtmScene.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
-              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+            <state relative-caret-position="206">
+              <caret line="361" selection-start-line="361" selection-end-line="361" />
               <folding>
-                <element signature="e#580#590#0" expanded="true" />
+                <element signature="e#33#51#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/wtmMain.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="47" column="9" lean-forward="true" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
+              <folding>
+                <element signature="e#34#52#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wtmAux.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="83">
+              <caret line="141" column="9" lean-forward="true" selection-start-line="141" selection-start-column="9" selection-end-line="141" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wtmComposition.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1276">
+              <caret line="63" selection-start-line="63" selection-end-line="63" />
+              <folding>
+                <element signature="e#33#48#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -203,8 +87,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>NAME</find>
-      <find>projection LEFT</find>
       <find>projection RIGHT</find>
       <find>exit</find>
       <find>triangul</find>
@@ -233,6 +115,8 @@
       <find>avg</find>
       <find>lade</find>
       <find>lade:</find>
+      <find>contex</find>
+      <find>roiscale</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -293,12 +177,12 @@
         <option value="$PROJECT_DIR$/patchCreator3d.py" />
         <option value="$PROJECT_DIR$/wtmObject.py" />
         <option value="$PROJECT_DIR$/wtmComposition.py" />
-        <option value="$PROJECT_DIR$/wtmMain.py" />
         <option value="$PROJECT_DIR$/wtmScene.py" />
+        <option value="$PROJECT_DIR$/wtmMain.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="115" />
     <option name="y" value="85" />
     <option name="width" value="1610" />
@@ -323,6 +207,17 @@
               <item name="p6" type="b2602c69:ProjectViewProjectNode" />
               <item name="p6" type="462c0819:PsiDirectoryNode" />
               <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="p6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="p6" type="462c0819:PsiDirectoryNode" />
+              <item name="wtmScene.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="p6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="p6" type="462c0819:PsiDirectoryNode" />
+              <item name="wtmScene.py" type="8704e2dd:PyFileNode" />
+              <item name="Scene" type="dd8bbb05:PyElementNode" />
             </path>
           </expand>
           <select />
@@ -370,27 +265,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.wtmMain">
-    <configuration name="25-testBetterText1" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="bt19" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\gitstuff\p6\archive\25-testBetterText1.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="26-testFor" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bt19" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -425,6 +299,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/patchCreator3d.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="wtmFindGrid" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="bt19" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/wtmFindGrid.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -500,17 +395,17 @@
       <item itemvalue="Python.wtmSfm" />
       <item itemvalue="Python.wtmMain" />
       <item itemvalue="Python.patchCreator3d" />
-      <item itemvalue="Python.25-testBetterText1" />
       <item itemvalue="Python.26-testFor" />
       <item itemvalue="Python.wtmObject" />
+      <item itemvalue="Python.wtmFindGrid" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.wtmMain" />
+        <item itemvalue="Python.wtmFindGrid" />
         <item itemvalue="Python.patchCreator3d" />
         <item itemvalue="Python.wtmObject" />
         <item itemvalue="Python.26-testFor" />
-        <item itemvalue="Python.25-testBetterText1" />
       </list>
     </recent_temporary>
   </component>
@@ -545,18 +440,18 @@
     <frame x="-7" y="-7" width="1550" height="835" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" x="1117" y="110" width="344" height="697" id="Project" order="0" sideWeight="0.49774775" visible="true" weight="0.17713153" />
+      <window_info active="true" content_ui="combo" x="1117" y="110" width="344" height="697" id="Project" order="0" sideWeight="0.49774775" visible="true" weight="0.14606741" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.22849463" />
       <window_info id="Favorites" order="2" sideWeight="0.5022523" side_tool="true" weight="0.1391129" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49932885" weight="0.95732576" />
-      <window_info anchor="bottom" x="80" y="242" width="1352" height="537" id="Run" maximized="true" order="2" sideWeight="0.63053536" weight="0.8278805" />
-      <window_info active="true" anchor="bottom" x="63" y="43" width="989" height="689" id="Debug" maximized="true" order="3" sideWeight="0.49966952" visible="true" weight="0.3655761" />
+      <window_info anchor="bottom" x="80" y="242" width="1352" height="537" id="Run" maximized="true" order="2" sideWeight="0.63053536" weight="0.27596018" />
+      <window_info anchor="bottom" x="63" y="43" width="989" height="689" id="Debug" maximized="true" order="3" sideWeight="0.49966952" weight="0.3655761" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49837133" weight="0.6998578" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.56899005" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49932885" weight="0.34566146" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49932885" visible="true" weight="0.314367" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50067115" side_tool="true" weight="0.9530583" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49932885" weight="0.6273115" />
       <window_info anchor="bottom" id="Messages" order="11" />
@@ -585,11 +480,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/wtmMain.py</url>
-          <line>67</line>
-          <option name="timeStamp" value="319" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/wtmScene.py</url>
           <line>29</line>
@@ -770,16 +660,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wtmFindGrid.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="138" column="55" lean-forward="true" selection-start-line="138" selection-start-column="55" selection-end-line="138" selection-end-column="55" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/archive/15-trainfeaturetests-B.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
@@ -938,30 +818,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wtmFactory.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="19" column="65" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wtmObject.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="742">
-          <caret line="229" column="41" selection-start-line="229" selection-start-column="41" selection-end-line="229" selection-end-column="41" />
-          <folding>
-            <element signature="e#694#712#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wtmAux.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="783">
-          <caret line="96" selection-start-line="96" selection-end-line="96" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="589">
@@ -969,20 +825,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wtmMain.py">
+    <entry file="file://$PROJECT_DIR$/wtmObject.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="632">
-          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+        <state relative-caret-position="4928">
+          <caret line="229" column="41" selection-start-line="229" selection-start-column="41" selection-end-line="229" selection-end-column="41" />
           <folding>
-            <element signature="e#34#52#0" expanded="true" />
+            <element signature="e#694#712#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wtmFactory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="19" column="65" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wtmFindGrid.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/patchCreator3d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+          <folding>
+            <element signature="e#580#590#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wtmScene.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="929">
-          <caret line="86" selection-start-line="86" selection-end-line="86" />
+        <state relative-caret-position="206">
+          <caret line="361" selection-start-line="361" selection-end-line="361" />
           <folding>
             <element signature="e#33#51#0" expanded="true" />
           </folding>
@@ -991,20 +874,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/wtmComposition.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
+        <state relative-caret-position="1276">
+          <caret line="63" selection-start-line="63" selection-end-line="63" />
           <folding>
             <element signature="e#33#48#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/patchCreator3d.py">
+    <entry file="file://$PROJECT_DIR$/wtmAux.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        <state relative-caret-position="83">
+          <caret line="141" column="9" lean-forward="true" selection-start-line="141" selection-start-column="9" selection-end-line="141" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wtmMain.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="47" column="9" lean-forward="true" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
           <folding>
-            <element signature="e#580#590#0" expanded="true" />
+            <element signature="e#34#52#0" expanded="true" />
           </folding>
         </state>
       </provider>

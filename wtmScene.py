@@ -557,7 +557,8 @@ class Scene:
         # LINKE SEITE
         pt = self.polygonpoints(self.corners2DtemplateL)
         mask = (np.zeros(self.wpShapeL)).astype(np.uint8)                      # weil gilt : y, x = a.shape
-        mask = cv2.fillConvexPoly(mask, pt, 255)
+        mask = cv2\
+            .fillConvexPoly(mask, pt, 255)
         self.wpMaskNormL = mask == 255
         mask = cv2.polylines(mask, pt, isClosed=True, color=0, thickness=3)       # Maske leicht überlappend machen
         self.wpMaskExtL = mask == 255
